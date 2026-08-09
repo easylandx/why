@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLandX — El Negocio Que Necesita Una Web™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#FF4E33;
+    --cobalt:#1B2FE0;
+    --yellow:#FFDD00;
+    --pink:#FF3EA5;
+    --cream:#FFF6E9;
+    --ink:#151204;
+    --paper:#FFFDF6;
+    --green:#00C853;
+    --line: rgba(21,18,4,0.16);
+    --shadow-hard: 6px 6px 0 var(--ink);
+    --shadow-hard-lg: 10px 10px 0 var(--ink);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:900;
+    text-transform:uppercase;
+    line-height:0.92;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'Space Mono', monospace;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  section{position:relative; padding:96px 0;}
+  .border-b{border-bottom:4px solid var(--ink);}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:4px solid var(--ink);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .logo{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:900; font-size:26px; text-transform:uppercase;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{
+    width:14px; height:14px; background:var(--coral); border-radius:50%;
+    border:2px solid var(--ink);
+  }
+  .nav-cta{
+    font-family:'Space Mono', monospace; font-weight:700; font-size:13px;
+    background:var(--yellow); color:var(--ink);
+    padding:10px 18px; border:2.5px solid var(--ink); border-radius:4px;
+    box-shadow:3px 3px 0 var(--ink);
+    text-decoration:none; white-space:nowrap;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .nav-cta:hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--coral);
+    color:var(--paper);
+    padding:64px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--ink); color:var(--yellow);
+    display:inline-block; padding:6px 12px; border-radius:3px;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(42px, 8vw, 92px);
+    color:var(--paper);
+    margin-bottom:20px;
+  }
+  .hero h1 .accent{ color:var(--yellow); }
+  .checklist{
+    list-style:none; margin:30px 0 34px;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr));
+    gap:10px 20px;
+    max-width:720px;
+  }
+  .checklist li{
+    font-family:'Space Mono', monospace; font-size:14.5px;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .checklist li::before{ content:"✓"; color:var(--yellow); font-weight:700; flex-shrink:0;}
+  .no-website-line{
+    font-size:clamp(30px,5.4vw,54px);
+    color:var(--paper);
+    margin:18px 0 30px;
+  }
+  .no-website-line .strike{ position:relative; }
+  .cta-row{ display:flex; flex-wrap:wrap; gap:16px; margin-top:8px;}
+  .btn{
+    font-family:'Space Mono', monospace; font-weight:700; font-size:15px;
+    padding:16px 26px; border:3px solid var(--ink); border-radius:6px;
+    display:inline-block; text-decoration:none; cursor:pointer;
+    box-shadow:var(--shadow-hard);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink); }
+  .btn:active{ transform:translate(0,0); box-shadow:2px 2px 0 var(--ink); }
+  .btn-primary{ background:var(--yellow); color:var(--ink); }
+  .btn-ghost{ background:transparent; color:var(--paper); border-color:var(--paper); box-shadow:6px 6px 0 rgba(0,0,0,0.35);}
+  .btn-ghost:hover{ box-shadow:9px 9px 0 rgba(0,0,0,0.35); }
+
+  /* ---------- DIAGNOSIS BAND ---------- */
+  .band{
+    background:var(--ink); color:var(--cream);
+    padding:26px 0; overflow:hidden; white-space:nowrap;
+    border-bottom:4px solid var(--ink);
+  }
+  .marquee{ display:inline-flex; gap:40px; animation:scroll 24s linear infinite; }
+  .marquee span{
+    font-family:'Space Mono', monospace; font-weight:700; font-size:15px;
+    text-transform:uppercase; letter-spacing:.08em;
+  }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- SYMPTOMS ---------- */
+  .symptoms{ background:var(--cream); }
+  .section-head{ max-width:640px; margin-bottom:48px; }
+  .section-tag{
+    font-family:'Space Mono', monospace; font-size:13px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.1em; color:var(--coral);
+    display:flex; align-items:center; gap:8px; margin-bottom:14px;
+  }
+  .section-tag::before{ content:"+"; font-size:20px; }
+  .section-head h2{ font-size:clamp(30px,5vw,50px); }
+  .symptom-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:16px;
+  }
+  .symptom-card{
+    background:var(--paper); border:2.5px solid var(--ink); border-radius:8px;
+    padding:20px 22px; box-shadow:5px 5px 0 var(--ink);
+    font-family:'Space Mono', monospace; font-size:14.5px;
+    position:relative;
+  }
+  .symptom-card::before{
+    content:"“"; font-family:'Big Shoulders Display'; font-size:40px;
+    color:var(--pink); display:block; line-height:0.6; margin-bottom:8px;
+  }
+
+  /* ---------- PRESCRIPTION QUIZ (SIGNATURE) ---------- */
+  .rx{
+    background:var(--yellow);
+    padding:100px 0 110px;
+    position:relative;
+  }
+  .rx-pad{
+    background:var(--paper);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    box-shadow:var(--shadow-hard-lg);
+    padding:40px 40px 34px;
+    max-width:680px;
+    margin:0 auto;
+    position:relative;
+    transform:rotate(-0.6deg);
+  }
+  .rx-pad::before{
+    content:"";
+    position:absolute; top:0; left:28px; right:28px; bottom:0;
+    background-image:repeating-linear-gradient(var(--paper) 0 41px, var(--line) 41px 43px);
+    z-index:0; margin-top:150px; border-radius:0 0 8px 8px;
+    pointer-events:none;
+  }
+  .rx-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    border-bottom:2.5px dashed var(--ink); padding-bottom:16px; margin-bottom:20px;
+    position:relative; z-index:1;
+  }
+  .rx-head .brand{ font-family:'Big Shoulders Display'; font-weight:900; font-size:22px; }
+  .rx-head .rx-symbol{ font-family:'Big Shoulders Display'; font-size:40px; color:var(--coral); font-weight:900; }
+  .rx-meta{ font-family:'Space Mono', monospace; font-size:12px; color:#555; margin-top:4px;}
+  .rx-title{ font-size:clamp(24px,3.6vw,32px); margin-bottom:18px; position:relative; z-index:1;}
+  .rx-q{
+    position:relative; z-index:1;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:13px 0; font-family:'Space Mono', monospace; font-size:14.5px;
+    gap:12px;
+  }
+  .rx-q span{ flex:1; }
+  .rx-toggle{ display:flex; gap:8px; }
+  .rx-toggle button{
+    font-family:'Space Mono', monospace; font-weight:700; font-size:12.5px;
+    border:2px solid var(--ink); background:var(--paper); color:var(--ink);
+    border-radius:4px; padding:6px 12px; cursor:pointer;
+    transition:all .12s ease;
+  }
+  .rx-toggle button.active-yes{ background:var(--green); color:var(--ink); }
+  .rx-toggle button.active-no{ background:var(--pink); color:var(--paper); }
+  .rx-footer{
+    position:relative; z-index:1; margin-top:26px; padding-top:18px;
+    border-top:2.5px dashed var(--ink);
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .diagnose-btn{
+    font-family:'Space Mono', monospace; font-weight:700; font-size:14px;
+    background:var(--ink); color:var(--yellow);
+    border:none; border-radius:5px; padding:14px 22px; cursor:pointer;
+    box-shadow:4px 4px 0 var(--coral);
+    transition:transform .15s ease;
+  }
+  .diagnose-btn:hover{ transform:translate(-2px,-2px); }
+  .stamp{
+    font-family:'Big Shoulders Display'; font-weight:900; font-size:15px;
+    color:var(--coral); border:3px solid var(--coral); border-radius:6px;
+    padding:9px 14px; text-transform:uppercase; letter-spacing:.04em;
+    transform:rotate(-8deg) scale(0);
+    opacity:0;
+    transition:transform .35s cubic-bezier(.2,1.4,.4,1), opacity .2s ease;
+    white-space:nowrap;
+  }
+  .stamp.show{ transform:rotate(-8deg) scale(1); opacity:1; }
+
+  /* ---------- NEED / DONT NEED ---------- */
+  .two-col{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:3px solid var(--ink); border-radius:10px; overflow:hidden;
+    box-shadow:var(--shadow-hard-lg);
+  }
+  .col-block{ padding:34px 30px; }
+  .col-block.no{ background:var(--cobalt); color:var(--paper); }
+  .col-block.yes{ background:var(--pink); color:var(--paper); }
+  .col-block h3{ font-size:24px; margin-bottom:18px; }
+  .col-block ul{ list-style:none; }
+  .col-block li{
+    font-family:'Space Mono', monospace; font-size:14px; padding:8px 0;
+    display:flex; gap:10px; border-top:1px solid rgba(255,255,255,0.2);
+  }
+  .col-block li:first-child{ border-top:none; }
+  .big-need{
+    text-align:center; margin-top:38px;
+  }
+  .big-need .display{ font-size:clamp(30px,6vw,58px); color:var(--coral); }
+
+  /* ---------- BEFORE / AFTER ---------- */
+  .chat-section{ background:var(--cobalt); color:var(--paper); }
+  .chat-section .section-tag{ color:var(--yellow); }
+  .chats{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .chat-card{
+    background:rgba(255,255,255,0.06); border:2px solid rgba(255,255,255,0.3);
+    border-radius:10px; padding:26px;
+  }
+  .chat-card h4{ font-family:'Space Mono', monospace; font-size:13px; letter-spacing:.1em; margin-bottom:16px; opacity:.8;}
+  .bubble{
+    max-width:85%; padding:10px 15px; border-radius:14px; margin-bottom:10px;
+    font-size:14.5px; font-family:'Inter';
+  }
+  .bubble.them{ background:rgba(255,255,255,0.15); border-bottom-left-radius:2px;}
+  .bubble.me{ background:var(--yellow); color:var(--ink); margin-left:auto; border-bottom-right-radius:2px; font-weight:600;}
+  .bubble.me.win{ background:var(--green); }
+  .emoji-end{ font-size:26px; text-align:right; margin-top:6px;}
+
+  /* ---------- EFFECT EQUATION ---------- */
+  .equation{ background:var(--cream); }
+  .eq-row{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:14px; margin:44px 0; text-align:center;
+  }
+  .eq-item{
+    background:var(--paper); border:2.5px solid var(--ink); border-radius:8px;
+    padding:18px 24px; font-family:'Space Mono', monospace; font-weight:700; font-size:14px;
+    box-shadow:4px 4px 0 var(--ink); min-width:150px;
+  }
+  .eq-sym{ font-family:'Big Shoulders Display'; font-size:30px; color:var(--coral); }
+  .eq-result{
+    background:var(--yellow); border:3px solid var(--ink);
+    padding:22px 30px; font-family:'Big Shoulders Display'; font-size:clamp(20px,3vw,28px);
+    box-shadow:var(--shadow-hard);
+  }
+
+  /* ---------- PROFILES ---------- */
+  .profiles{ background:var(--ink); color:var(--cream); }
+  .profiles .section-tag{ color:var(--pink); }
+  .profile-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px;
+  }
+  .profile-card{
+    border:2px solid rgba(255,246,233,0.25); border-radius:8px; padding:20px;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .profile-card:hover{ border-color:var(--yellow); background:rgba(255,221,0,0.06); }
+  .profile-card .role{ font-family:'Space Mono', monospace; font-size:12px; color:var(--yellow); letter-spacing:.08em; margin-bottom:8px;}
+  .profile-card .quote{ font-size:15px; line-height:1.4;}
+
+  /* ---------- PRICING ---------- */
+  .pricing{ background:var(--pink); color:var(--paper); }
+  .pricing .section-tag{ color:var(--yellow); }
+  .price-card{
+    background:var(--paper); color:var(--ink);
+    border:3px solid var(--ink); border-radius:12px;
+    max-width:460px; margin:0 auto; padding:38px 36px;
+    box-shadow:var(--shadow-hard-lg);
+    position:relative;
+  }
+  .price-tag-badge{
+    position:absolute; top:-18px; right:26px;
+    background:var(--coral); color:var(--paper);
+    font-family:'Space Mono', monospace; font-weight:700; font-size:12px;
+    padding:6px 12px; border-radius:20px; border:2px solid var(--ink);
+    transform:rotate(4deg);
+  }
+  .price-amount{ font-size:76px; color:var(--coral); margin:6px 0 2px; }
+  .price-amount sup{ font-size:28px; top:-24px; }
+  .price-note{ font-family:'Space Mono', monospace; font-size:13px; color:#555; margin-bottom:24px;}
+  .price-list{ list-style:none; margin-bottom:16px;}
+  .price-list li{ display:flex; gap:10px; padding:7px 0; font-size:14.5px; align-items:flex-start;}
+  .price-list li.no{ opacity:.55; text-decoration:line-through;}
+  .price-list li::before{ content:"✓"; color:var(--green); font-weight:800; flex-shrink:0;}
+  .price-list li.no::before{ content:"✕"; color:var(--coral); }
+  .price-cta{ width:100%; text-align:center; margin-top:10px; }
+
+  /* ---------- PROCESS ---------- */
+  .process{ background:var(--cream); }
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .step{
+    background:var(--paper); border:2.5px solid var(--ink); border-radius:10px;
+    padding:26px 22px; box-shadow:5px 5px 0 var(--ink);
+  }
+  .step .num{ font-family:'Big Shoulders Display'; font-size:44px; color:var(--cobalt); }
+  .step h4{ font-size:19px; margin:8px 0 8px; text-transform:none; font-family:'Inter'; font-weight:800;}
+  .step p{ font-family:'Space Mono', monospace; font-size:13px; color:#555; }
+
+  /* ---------- GOOGLE MOMENT ---------- */
+  .google{ background:var(--cobalt); color:var(--paper); text-align:center; }
+  .google .section-head{ margin:0 auto 30px; text-align:center;}
+  .search-box{
+    max-width:520px; margin:0 auto 28px; background:var(--paper); color:var(--ink);
+    border-radius:30px; padding:16px 24px; font-family:'Inter'; font-size:16px;
+    border:2px solid var(--ink); text-align:left; display:flex; align-items:center; gap:10px;
+  }
+  .search-box::before{ content:"🔍"; }
+  .options-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:26px;}
+  .opt-chip{
+    font-family:'Space Mono', monospace; font-size:13px; padding:9px 16px;
+    border-radius:20px; border:2px solid rgba(255,255,255,0.35);
+  }
+  .opt-chip.win{ background:var(--yellow); color:var(--ink); border-color:var(--ink); font-weight:700;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{ background:var(--yellow); }
+  .test-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;}
+  .test-card{
+    background:var(--paper); border:2.5px solid var(--ink); border-radius:8px;
+    padding:24px; box-shadow:5px 5px 0 var(--ink); position:relative;
+  }
+  .stars{ color:var(--coral); font-size:16px; margin-bottom:10px; letter-spacing:2px;}
+  .test-card p.line{ font-family:'Space Mono', monospace; font-size:14px; margin-bottom:6px;}
+  .test-card .who{ font-weight:800; margin-top:10px; font-size:14px;}
+  .test-stamp{
+    position:absolute; bottom:14px; right:16px; font-family:'Big Shoulders Display';
+    font-weight:900; font-size:11px; color:var(--green); border:2px solid var(--green);
+    padding:3px 8px; border-radius:4px; transform:rotate(-6deg); letter-spacing:.05em;
+  }
+
+  /* ---------- WARNING ---------- */
+  .warning{ background:var(--ink); color:var(--yellow); }
+  .warn-list{ display:flex; flex-direction:column; gap:0; max-width:640px; margin:0 auto;}
+  .warn-item{
+    border-top:2px dashed rgba(255,221,0,0.3);
+    padding:20px 0; font-family:'Space Mono', monospace; font-size:16px;
+    display:flex; gap:14px; align-items:baseline;
+  }
+  .warn-item:last-child{ border-bottom:2px dashed rgba(255,221,0,0.3); }
+  .warn-item .flag{ color:var(--coral); font-size:20px; flex-shrink:0;}
+
+  /* ---------- EMERGENCY BUTTON ---------- */
+  .emergency{ background:var(--coral); color:var(--paper); text-align:center; }
+  .siren{
+    width:90px; height:90px; margin:0 auto 26px; border-radius:50%;
+    background:var(--yellow); border:4px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-size:38px;
+    animation:pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+  .big-btn{
+    font-family:'Big Shoulders Display'; font-weight:900; font-size:clamp(24px,4vw,34px);
+    background:var(--yellow); color:var(--ink); border:3px solid var(--ink); border-radius:10px;
+    padding:22px 40px; display:inline-block; text-decoration:none; margin-top:10px;
+    box-shadow:var(--shadow-hard-lg); cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .big-btn:hover{ transform:translate(-4px,-4px); box-shadow:14px 14px 0 var(--ink); }
+
+  /* ---------- FAQ ---------- */
+  .faq{ background:var(--cream); }
+  .faq-item{
+    border-bottom:2.5px solid var(--ink); padding:20px 0; cursor:pointer;
+  }
+  .faq-item:first-child{ border-top:2.5px solid var(--ink); }
+  .faq-q{ display:flex; justify-content:space-between; align-items:center; font-weight:800; font-size:17px;}
+  .faq-q .plus{ font-family:'Big Shoulders Display'; font-size:26px; color:var(--coral); transition:transform .25s ease;}
+  .faq-item.open .plus{ transform:rotate(45deg); }
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .3s ease, padding-top .3s ease;
+    font-family:'Space Mono', monospace; font-size:14px; color:#444;
+  }
+  .faq-item.open .faq-a{ max-height:120px; padding-top:12px; }
+
+  /* ---------- FINAL CTA ---------- */
+  .final{
+    background:var(--pink); color:var(--paper); text-align:center; padding:110px 0 90px;
+    position:relative; overflow:hidden;
+  }
+  .final h2{ font-size:clamp(36px,7vw,74px); margin-bottom:10px;}
+  .final .price-line{ font-family:'Space Mono', monospace; font-size:15px; margin:18px 0 30px;}
+
+  footer{
+    background:var(--ink); color:rgba(255,246,233,0.6);
+    padding:34px 0; text-align:center; font-family:'Space Mono', monospace; font-size:12.5px;
+  }
+  footer a{ color:var(--yellow); text-decoration:none; }
+
+  @media (max-width:760px){
+    .two-col{ grid-template-columns:1fr; }
+    .chats{ grid-template-columns:1fr; }
+    .steps{ grid-template-columns:1fr; }
+    section{ padding:64px 0; }
+    .rx-pad{ padding:26px 22px 24px; }
+    .rx-q{ flex-direction:row; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>EasyLandX</div>
+    <a href="#precio" class="nav-cta">QUIERO MI WEB →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero border-b">
+  <div class="wrap">
+    <span class="eyebrow reveal in">El negocio que necesita una web™</span>
+    <h1 class="reveal in">TIENES UN <span class="accent">NEGOCIO.</span></h1>
+    <ul class="checklist reveal in">
+      <li>Un servicio</li>
+      <li>Clientes</li>
+      <li>Un número de WhatsApp</li>
+      <li>Una cuenta de Instagram</li>
+      <li>Un logo que hiciste hace tres años</li>
+      <li>47 fotos en el móvil</li>
+      <li>Un amigo que "conoce a alguien que hace webs"</li>
+    </ul>
+    <p class="no-website-line reveal in">Pero no tienes <span class="strike">web.</span></p>
+    <div class="cta-row reveal in">
+      <a href="#test" class="btn btn-primary">SÍ, ESE SOY YO →</a>
+      <a href="#precio" class="btn btn-ghost">NO, SOY PERFECTO →</a>
+    </div>
+  </div>
+</header>
+
+<div class="band">
+  <div class="marquee mono">
+    <span>DÉFICIT DE PÁGINA WEB™ &nbsp;•&nbsp; DIAGNÓSTICO GRATUITO &nbsp;•&nbsp; CURA DESDE 39€ &nbsp;•&nbsp;</span>
+    <span>DÉFICIT DE PÁGINA WEB™ &nbsp;•&nbsp; DIAGNÓSTICO GRATUITO &nbsp;•&nbsp; CURA DESDE 39€ &nbsp;•&nbsp;</span>
+  </div>
+</div>
+
+<!-- SYMPTOMS -->
+<section class="symptoms border-b">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Diagnóstico</div>
+      <h2>Podrías estar sufriendo de<br>DÉFICIT DE PÁGINA WEB™</h2>
+    </div>
+    <div class="symptom-grid">
+      <div class="symptom-card reveal">Ya la haré cuando tenga tiempo.</div>
+      <div class="symptom-card reveal">Con Instagram me llega.</div>
+      <div class="symptom-card reveal">Aquí todo el mundo me conoce.</div>
+      <div class="symptom-card reveal">Ya compré el dominio.</div>
+      <div class="symptom-card reveal">Mi primo me la iba a hacer.</div>
+      <div class="symptom-card reveal">Está al caer.</div>
+      <div class="symptom-card reveal">Necesito pensar bien qué poner.</div>
+      <div class="symptom-card reveal">La verdad, no la necesito.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESCRIPTION QUIZ -->
+<section class="rx border-b" id="test">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center; margin:0 auto 44px;">
+      <div class="section-tag" style="justify-content:center; color:var(--cobalt);">Autotest</div>
+      <h2>Responde con sinceridad</h2>
+    </div>
+    <div class="rx-pad reveal">
+      <div class="rx-head">
+        <div>
+          <div class="brand">EasyLandX</div>
+          <div class="rx-meta">Consulta de diagnóstico digital</div>
+        </div>
+        <div class="rx-symbol">℞</div>
+      </div>
+      <div class="rx-title">Test rápido</div>
+
+      <div class="rx-q">
+        <span>¿Tienes un negocio?</span>
+        <div class="rx-toggle" data-q="1">
+          <button data-val="si">SÍ</button>
+          <button data-val="no">NO</button>
+        </div>
+      </div>
+      <div class="rx-q">
+        <span>¿Los clientes te buscan online?</span>
+        <div class="rx-toggle" data-q="2">
+          <button data-val="si">SÍ</button>
+          <button data-val="no">NO</button>
+        </div>
+      </div>
+      <div class="rx-q">
+        <span>¿Tienes algo profesional donde enviarlos?</span>
+        <div class="rx-toggle" data-q="3">
+          <button data-val="si">SÍ</button>
+          <button data-val="no">NO</button>
+        </div>
+      </div>
+      <div class="rx-q">
+        <span>Cuando preguntan "¿cuál es tu web?" ¿respondes "sobre todo estamos en Instagram"?</span>
+        <div class="rx-toggle" data-q="4">
+          <button data-val="si">SÍ</button>
+          <button data-val="no">NO</button>
+        </div>
+      </div>
+
+      <div class="rx-footer">
+        <button class="diagnose-btn" id="diagnoseBtn">EMITIR DIAGNÓSTICO →</button>
+        <div class="stamp" id="stamp">DIAGNOSTICADO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEED / DONT -->
+<section class="border-b" style="background:var(--cream);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Lo que de verdad hace falta</div>
+      <h2>No necesitas una web de 47 páginas</h2>
+    </div>
+    <div class="two-col reveal">
+      <div class="col-block no">
+        <h3>Probablemente NO necesitas</h3>
+        <ul>
+          <li>✕ Una web corporativa de 47 páginas</li>
+          <li>✕ Un proyecto de desarrollo de 6 meses</li>
+          <li>✕ Una agencia de 10.000€</li>
+          <li>✕ Tres talleres de estrategia</li>
+          <li>✕ Un consultor de marca</li>
+          <li>✕ Una hoja de ruta de transformación digital</li>
+          <li>✕ Un metaverso con IA y blockchain</li>
+        </ul>
+      </div>
+      <div class="col-block yes">
+        <h3>Probablemente SÍ necesitas</h3>
+        <ul>
+          <li>✓ Quién eres</li>
+          <li>✓ A qué te dedicas</li>
+          <li>✓ Qué ofreces</li>
+          <li>✓ Por qué confiar en ti</li>
+          <li>✓ Cómo eres (fotos)</li>
+          <li>✓ Dónde estás</li>
+          <li>✓ Cómo contactarte</li>
+        </ul>
+      </div>
+    </div>
+    <div class="big-need reveal">
+      <p class="display">UNA PÁGINA. MUY BIEN HECHA.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="chat-section border-b">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">El antes y el después</div>
+      <h2>Misma pregunta, otra respuesta</h2>
+    </div>
+    <div class="chats">
+      <div class="chat-card reveal">
+        <h4>ANTES</h4>
+        <div class="bubble them">¿Tienes página web?</div>
+        <div class="bubble me">La verdad es que no mucho...</div>
+        <div class="bubble them">Ah.</div>
+        <div class="emoji-end">😬</div>
+      </div>
+      <div class="chat-card reveal">
+        <h4>DESPUÉS</h4>
+        <div class="bubble them">¿Tienes página web?</div>
+        <div class="bubble me win">Sí.</div>
+        <div class="bubble them">Qué bien, mándamela.</div>
+        <div class="emoji-end">😎</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUATION -->
+<section class="equation border-b">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin:0 auto 10px; text-align:center;">
+      <div class="section-tag" style="justify-content:center;">El efecto EasyLandX</div>
+      <h2>La fórmula</h2>
+    </div>
+    <div class="eq-row reveal">
+      <div class="eq-item">Tu negocio</div>
+      <div class="eq-sym">+</div>
+      <div class="eq-item">Tu info</div>
+      <div class="eq-sym">+</div>
+      <div class="eq-item">Tus fotos</div>
+      <div class="eq-sym">+</div>
+      <div class="eq-item">Tu oferta</div>
+      <div class="eq-sym">=</div>
+      <div class="eq-result">UNA PRESENCIA WEB DE VERDAD</div>
+    </div>
+    <p class="reveal mono" style="text-align:center; color:#555; font-size:14px;">Sin convertir tu vida en un proyecto de desarrollo web.</p>
+  </div>
+</section>
+
+<!-- PROFILES -->
+<section class="profiles border-b">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Perfecto para</div>
+      <h2>Gente que hace las cosas, no folletos</h2>
+    </div>
+    <div class="profile-grid">
+      <div class="profile-card reveal"><div class="role">Freelance</div><div class="quote">"Necesito un sitio donde mandar a los clientes."</div></div>
+      <div class="profile-card reveal"><div class="role">Consultoría</div><div class="quote">"Necesito explicar a qué me dedico exactamente."</div></div>
+      <div class="profile-card reveal"><div class="role">Coaching</div><div class="quote">"Necesito un sitio para vender mis sesiones."</div></div>
+      <div class="profile-card reveal"><div class="role">Fotografía</div><div class="quote">"Necesito algo mejor que Instagram."</div></div>
+      <div class="profile-card reveal"><div class="role">Entrenador personal</div><div class="quote">"Necesito que puedan reservarme online."</div></div>
+      <div class="profile-card reveal"><div class="role">Oficios</div><div class="quote">"Necesito que los clientes confíen."</div></div>
+      <div class="profile-card reveal"><div class="role">Negocio local</div><div class="quote">"Necesito verme profesional."</div></div>
+      <div class="profile-card reveal"><div class="role">Autónomos</div><div class="quote">"Lo hago todo yo."</div></div>
+      <div class="profile-card reveal"><div class="role">Proyecto paralelo</div><div class="quote">"Quiero que parezca un negocio de verdad."</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing border-b" id="precio">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center; margin:0 auto 40px;">
+      <div class="section-tag" style="justify-content:center;">¿Cuánto cuesta una web?</div>
+      <h2>Una agencia dice: "agendemos una llamada exploratoria"</h2>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-tag-badge">SIN LETRA PEQUEÑA</div>
+      <div class="mono" style="font-size:13px; color:#777;">EL PACK "NECESITO UNA WEB"</div>
+      <div class="price-amount">39<sup>€</sup></div>
+      <div class="price-note">Una página. Profesional. Útil.</div>
+      <ul class="price-list">
+        <li>Página de aterrizaje profesional</li>
+        <li>Tu información de negocio</li>
+        <li>Servicios / productos</li>
+        <li>Datos de contacto</li>
+        <li>Llamada a la acción</li>
+        <li>Diseño adaptado a móvil</li>
+        <li>Tu identidad de marca</li>
+        <li>URL fácil de compartir</li>
+        <li class="no">Reuniones</li>
+        <li class="no">Contratos complicados</li>
+        <li class="no">Jerga técnica</li>
+        <li class="no">Proceso de seis semanas</li>
+      </ul>
+      <a href="#" class="btn btn-primary price-cta">QUIERO MI WEB →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process border-b">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">El proceso</div>
+      <h2>Tres preguntas y empezamos</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">1</div><h4>¿Qué vendes?</h4><p>Cuéntanoslo, sin rodeos.</p></div>
+      <div class="step reveal"><div class="num">2</div><h4>¿Para quién es?</h4><p>Cuéntanoslo, sin rodeos.</p></div>
+      <div class="step reveal"><div class="num">3</div><h4>¿Cómo te contactan?</h4><p>Cuéntanoslo, sin rodeos.</p></div>
+    </div>
+    <p class="reveal mono" style="margin-top:26px; color:#555; font-size:14px; text-align:center;">Con eso ya podemos empezar.</p>
+  </div>
+</section>
+
+<!-- GOOGLE MOMENT -->
+<section class="google border-b">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag" style="color:var(--yellow); justify-content:center;">El momento Google</div>
+      <h2>"Entrenador personal Madrid"</h2>
+    </div>
+    <div class="search-box reveal">entrenador personal Madrid</div>
+    <p class="reveal mono" style="font-size:14px; margin-bottom:8px;">Encuentran tu negocio. Hacen clic. ¿Qué ven?</p>
+    <div class="options-row reveal">
+      <div class="opt-chip">Instagram</div>
+      <div class="opt-chip">Facebook</div>
+      <div class="opt-chip">Google Maps</div>
+      <div class="opt-chip">Un número de WhatsApp</div>
+      <div class="opt-chip win">Una página web profesional</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials border-b">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-tag">Casos clínicos</div>
+      <h2>Pacientes recuperados</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="line">"Llevaba dos años diciendo que necesitaba una web."</p>
+        <p class="line" style="color:#777;">— ¿Y qué estabas esperando?</p>
+        <p class="line">— Al parecer, 39€.</p>
+        <div class="who">Ana, fotógrafa</div>
+        <div class="test-stamp">CURADA</div>
+      </div>
+      <div class="test-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="line">"Antes mandaba mi Instagram."</p>
+        <p class="line">Ahora: "aquí tienes mi web."</p>
+        <p class="line" style="color:#777;">Mucho mejor.</p>
+        <div class="who">Carlos, entrenador personal</div>
+        <div class="test-stamp">CURADO</div>
+      </div>
+      <div class="test-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="line">"Mi web era básicamente un PDF."</p>
+        <p class="line" style="color:#777;">Ya no.</p>
+        <div class="who">Laura, consultora</div>
+        <div class="test-stamp">CURADA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WARNING SIGNS -->
+<section class="warning border-b">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center; margin:0 auto 30px;">
+      <div class="section-tag" style="justify-content:center; color:var(--coral);">Señales de alarma</div>
+      <h2>Necesitas una web seguro si...</h2>
+    </div>
+    <div class="warn-list">
+      <div class="warn-item reveal"><span class="flag">▲</span> Alguien te ha preguntado "¿tienes web?" y respondiste "todavía no".</div>
+      <div class="warn-item reveal"><span class="flag">▲</span> Has dicho "te mando el Instagram".</div>
+      <div class="warn-item reveal"><span class="flag">▲</span> Llevas meses diciendo "la estoy montando".</div>
+      <div class="warn-item reveal"><span class="flag">▲</span> Has pensado "la verdad, no la necesito".</div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section class="emergency border-b">
+  <div class="wrap">
+    <div class="siren reveal">🚨</div>
+    <h2 class="reveal" style="font-size:clamp(28px,5vw,44px); color:var(--paper); margin-bottom:8px;">BOTÓN DE EMERGENCIA WEB</h2>
+    <p class="reveal mono" style="margin-bottom:6px;">Si algo de esto te suena...</p>
+    <a href="#precio" class="big-btn reveal">NECESITO UNA WEB</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq border-b">
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head reveal">
+      <div class="section-tag">Preguntas frecuentes</div>
+      <h2>Antes de que preguntes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Necesito saber algo de webs?<span class="plus">+</span></div>
+        <div class="faq-a">No.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Necesito hosting?<span class="plus">+</span></div>
+        <div class="faq-a">Te acompañamos en eso.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Necesito un dominio?<span class="plus">+</span></div>
+        <div class="faq-a">También te ayudamos con eso.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Necesito fotos profesionales?<span class="plus">+</span></div>
+        <div class="faq-a">No.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Necesito un logo?<span class="plus">+</span></div>
+        <div class="faq-a">No.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Necesito tenerlo todo pensado?<span class="plus">+</span></div>
+        <div class="faq-a">Para nada.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">¿Podéis dejar de recordarme lo de la web?<span class="plus">+</span></div>
+        <div class="faq-a">Esperamos que sí.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final border-b">
+  <div class="wrap">
+    <div class="section-tag reveal" style="justify-content:center; color:var(--yellow);">El negocio que necesita una web™</div>
+    <h2 class="reveal">YA HICISTE<br>LO DIFÍCIL.</h2>
+    <p class="reveal mono" style="font-size:16px; margin-top:14px;">Construiste el negocio. Ahora dale un sitio donde vivir.</p>
+    <div class="cta-row reveal" style="justify-content:center; margin-top:26px;">
+      <a href="#" class="btn btn-primary">SÍ. QUIERO MI WEB →</a>
+    </div>
+    <p class="final price-line reveal">Desde 48€</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Si ya tienes una web estupenda, enhorabuena, puedes cerrar esta página.<br>
+    Si llevas tres años diciendo que la vas a hacer... sabíamos que acabarías aquí.<br>
+    <br>
+    <a href="https://easylandx.github.io" target="_blank">EasyLandX</a> © 2026
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Prescription quiz toggles
+  const answers = {1:null,2:null,3:null,4:null};
+  document.querySelectorAll('.rx-toggle').forEach(group=>{
+    const q = group.dataset.q;
+    group.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        group.querySelectorAll('button').forEach(b=>b.classList.remove('active-yes','active-no'));
+        btn.classList.add(btn.dataset.val === 'si' ? 'active-yes' : 'active-no');
+        answers[q] = btn.dataset.val;
+      });
+    });
+  });
+
+  // Stamp thud sound (tiny synth, no external assets)
+  function playThud(){
+    try{
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const bufferSize = ctx.sampleRate * 0.12;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for(let i=0;i<bufferSize;i++){
+        data[i] = (Math.random()*2-1) * Math.pow(1 - i/bufferSize, 3);
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 500;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.5, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+      noise.connect(filter).connect(gain).connect(ctx.destination);
+      noise.start();
+      noise.stop(ctx.currentTime + 0.15);
+    }catch(e){ /* audio not available, silently skip */ }
+  }
+
+  document.getElementById('diagnoseBtn').addEventListener('click', ()=>{
+    const stamp = document.getElementById('stamp');
+    const answered = Object.values(answers).filter(Boolean).length;
+    stamp.textContent = answered === 0 ? 'RESPONDE PRIMERO' : 'DIAGNOSTICADO ✓';
+    stamp.classList.remove('show');
+    void stamp.offsetWidth; // restart animation
+    stamp.classList.add('show');
+    if(answered > 0) playThud();
+  });
+</script>
+
+</body>
+</html>
