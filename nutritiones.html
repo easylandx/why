@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easylandx — Páginas de aterrizaje para Nutricionistas y Dietistas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --lime: #C6F24A;
+    --lime-soft: #DFFB7A;
+    --ink: #1C2B0D;
+    --ink-soft: #3B4A26;
+    --berry: #FF2E92;
+    --tangerine: #FF8A1E;
+    --gold: #FFD400;
+    --plum: #6C4AB6;
+    --forest: #2F8F3B;
+    --cream: #FFFDF3;
+    --cream-2: #FFF6DA;
+    --line: rgba(28,43,13,0.14);
+    --radius: 26px;
+    --maxw: 1180px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+
+  html{
+    scroll-behavior:smooth;
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  body{
+    margin:0;
+    background: var(--lime);
+    color: var(--ink);
+    font-family:'Inter', system-ui, sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x:hidden;
+  }
+
+  img,svg{ max-width:100%; }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  a{ color:inherit; }
+
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ---------- Header ---------- */
+
+  header{
+    padding: 28px 0 12px;
+  }
+  header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.35rem;
+  }
+  .wordmark span{ color:var(--berry); }
+  nav{
+    display:flex;
+    gap:28px;
+    font-size:0.95rem;
+  }
+  nav a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding-bottom:3px;
+    border-bottom:2px solid transparent;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  nav a:hover, nav a:focus-visible{
+    color:var(--ink);
+    border-color:var(--berry);
+  }
+  .nav-cta{
+    display:none;
+  }
+  @media(min-width:720px){
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      background:var(--ink);
+      color:var(--cream);
+      padding:9px 18px;
+      border-radius:999px;
+      text-decoration:none;
+      font-size:0.9rem;
+      font-weight:600;
+    }
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding: 40px 0 70px;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:48px;
+    align-items:center;
+  }
+  @media(max-width:880px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; }
+  }
+  .eyebrow-emoji{
+    font-size:1.9rem;
+    display:block;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4.4vw, 3.4rem);
+    line-height:1.06;
+  }
+  .hero p.lead{
+    max-width:46ch;
+    font-size:1.12rem;
+    color:var(--ink-soft);
+    margin-top:20px;
+  }
+  .hero-ctas{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:32px;
+  }
+  .btn{
+    border:none;
+    border-radius:999px;
+    padding:14px 26px;
+    font-size:0.98rem;
+    font-weight:600;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--cream);
+    box-shadow:0 10px 30px -12px rgba(28,43,13,0.55);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--ink);
+  }
+
+  .hero-art{
+    display:flex;
+    justify-content:center;
+  }
+  .hero-art svg{
+    width:100%;
+    max-width:340px;
+    animation: floaty 6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-art svg{ animation:none; }
+  }
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-14px); }
+  }
+
+  /* ---------- Sections generic ---------- */
+
+  section{
+    padding: 64px 0;
+  }
+  .section-head{
+    max-width:640px;
+    margin-bottom:44px;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem, 3vw, 2.3rem);
+  }
+  .section-head p{
+    color:var(--ink-soft);
+    margin-top:14px;
+    font-size:1.05rem;
+  }
+
+  /* ---------- Why grid ---------- */
+
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  @media(max-width:880px){
+    .why-grid{ grid-template-columns:1fr; }
+  }
+  .why-card{
+    background:var(--cream);
+    padding:30px 26px;
+    border:1px solid var(--line);
+  }
+  .why-card:nth-child(1){ border-radius: 30px 30px 30px 8px; }
+  .why-card:nth-child(2){ border-radius: 8px 30px 30px 30px; background:var(--cream-2); }
+  .why-card:nth-child(3){ border-radius: 30px 8px 30px 30px; }
+  .why-card .icon{
+    font-size:1.7rem;
+    display:block;
+    margin-bottom:16px;
+  }
+  .why-card h3{
+    font-size:1.18rem;
+    margin-bottom:10px;
+  }
+  .why-card p{
+    color:var(--ink-soft);
+    font-size:0.98rem;
+    margin:0;
+  }
+
+  /* ---------- Plate builder ---------- */
+
+  .plate-section{
+    background:var(--cream);
+    border-radius: 40px;
+  }
+  .plate-wrap{
+    display:grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap:50px;
+    align-items:center;
+  }
+  @media(max-width:880px){
+    .plate-wrap{ grid-template-columns:1fr; }
+  }
+
+  .plate-visual{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:22px;
+  }
+  .plate{
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background: repeating-conic-gradient(var(--cream-2) 0deg 360deg);
+    border: 10px solid var(--cream);
+    outline:2px dashed var(--line);
+    outline-offset:-14px;
+    position:relative;
+    transition: background 0.5s ease;
+    box-shadow: 0 18px 40px -18px rgba(28,43,13,0.3);
+  }
+  .plate-caption{
+    max-width:320px;
+    text-align:center;
+    font-size:0.98rem;
+    color:var(--ink-soft);
+    min-height:44px;
+  }
+  .plate-caption strong{ color:var(--ink); }
+
+  .chip-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:11px 18px;
+    border-radius:999px;
+    border:1.5px solid var(--line);
+    background:var(--cream-2);
+    font-weight:600;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    transition: all .18s ease;
+  }
+  .chip .dot{
+    width:10px; height:10px;
+    border-radius:50%;
+    background: var(--chip-color, var(--ink));
+    display:inline-block;
+  }
+  .chip[aria-pressed="true"]{
+    background:var(--chip-color, var(--ink));
+    color:var(--cream);
+    border-color:transparent;
+  }
+  .chip[aria-pressed="true"] .dot{
+    background:var(--cream);
+  }
+  .chip:focus-visible{
+    outline:2px solid var(--ink);
+    outline-offset:2px;
+  }
+
+  .plate-copy p{
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  /* ---------- Practice toggle ---------- */
+
+  .toggle-row{
+    display:inline-flex;
+    background:var(--cream);
+    border-radius:999px;
+    padding:5px;
+    margin-bottom:36px;
+    border:1px solid var(--line);
+  }
+  .toggle-btn{
+    border:none;
+    background:transparent;
+    padding:11px 22px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+  .toggle-btn[aria-pressed="true"]{
+    background:var(--ink);
+    color:var(--cream);
+  }
+
+  .practice-panel{
+    display:grid;
+    grid-template-columns:0.8fr 1.2fr;
+    gap:40px;
+    align-items:start;
+  }
+  @media(max-width:880px){
+    .practice-panel{ grid-template-columns:1fr; }
+  }
+  .practice-tag{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    background:var(--gold);
+    color:var(--ink);
+    padding:5px 12px;
+    border-radius:8px;
+    margin-bottom:14px;
+  }
+  .practice-headline{
+    font-size:1.5rem;
+    max-width:20ch;
+  }
+  .feature-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    gap:16px;
+  }
+  .feature-list li{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px 22px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .feature-list .mark{
+    flex:none;
+    width:30px; height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--lime-soft);
+    font-size:0.95rem;
+  }
+  .feature-list p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:0.97rem;
+  }
+  .feature-list strong{
+    color:var(--ink);
+    display:block;
+    margin-bottom:3px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+  }
+
+  /* ---------- Closing CTA ---------- */
+
+  .closing{
+    background:var(--ink);
+    color:var(--cream);
+    border-radius:40px;
+    text-align:center;
+    padding:70px 32px;
+  }
+  .closing h2{
+    color:var(--cream);
+    font-size:clamp(1.7rem,3.4vw,2.5rem);
+    max-width:20ch;
+    margin:0 auto;
+  }
+  .closing p{
+    color:rgba(255,253,243,0.75);
+    max-width:48ch;
+    margin:18px auto 30px;
+  }
+  .closing .btn-primary{
+    background:var(--berry);
+    color:var(--cream);
+  }
+  .closing .btn-ghost{
+    border-color: rgba(255,253,243,0.5);
+    color:var(--cream);
+  }
+  .closing-ctas{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  footer{
+    padding:40px 0 60px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:0.9rem;
+  }
+  footer .wordmark{ font-size:1.05rem; margin-bottom:6px; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="wordmark">easyland<span>x</span></div>
+    <nav>
+      <a href="#why">Por qué easylandx</a>
+      <a href="#balance">El equilibrio</a>
+      <a href="#practice">Para tu consulta</a>
+    </nav>
+    <a class="nav-cta" href="#start">Crea tu página</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow-emoji">🧬</span>
+      <h1>Los pacientes investigan a su nutricionista antes de reservar una cita.</h1>
+      <p class="lead">Una página diseñada a la medida de tu consulta transforma ese momento de búsqueda silenciosa en una consulta reservada: con tu método, tu propia voz y un siguiente paso claro. Sin plantillas. Una página creada para ti, desde cero, en 2026.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#start">Crea tu página</a>
+        <a class="btn btn-ghost" href="#balance">Descubre el equilibrio</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- helix strands -->
+        <path d="M60,10 C160,60 20,120 120,170 C220,220 80,280 180,330 C230,355 245,375 250,405"
+              fill="none" stroke="#FF2E92" stroke-width="6" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+        <path d="M240,10 C140,60 280,120 180,170 C80,220 220,280 120,330 C70,355 55,375 50,405"
+              fill="none" stroke="#FF8A1E" stroke-width="6" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+
+        <!-- rungs -->
+        <line x1="95" y1="45" x2="205" y2="45" stroke="#1C2B0D" stroke-width="3" opacity="0.35"/>
+        <line x1="70" y1="120" x2="230" y2="120" stroke="#1C2B0D" stroke-width="3" opacity="0.35"/>
+        <line x1="90" y1="195" x2="210" y2="195" stroke="#1C2B0D" stroke-width="3" opacity="0.35"/>
+        <line x1="75" y1="270" x2="225" y2="270" stroke="#1C2B0D" stroke-width="3" opacity="0.35"/>
+        <line x1="100" y1="345" x2="200" y2="345" stroke="#1C2B0D" stroke-width="3" opacity="0.35"/>
+
+        <!-- leaves at intersections -->
+        <g filter="url(#glow)">
+          <ellipse cx="150" cy="45" rx="16" ry="9" fill="#FFD400" transform="rotate(20 150 45)"/>
+          <ellipse cx="150" cy="120" rx="18" ry="10" fill="#6C4AB6" transform="rotate(-15 150 120)"/>
+          <ellipse cx="150" cy="195" rx="16" ry="9" fill="#FFD400" transform="rotate(25 150 195)"/>
+          <ellipse cx="150" cy="270" rx="18" ry="10" fill="#6C4AB6" transform="rotate(-20 150 270)"/>
+          <ellipse cx="150" cy="345" rx="16" ry="9" fill="#FFD400" transform="rotate(15 150 345)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>La nutrición es algo personal. Tu página también debería serlo.</h2>
+      <p>Sea cual sea tu enfoque (nutrición clínica, alimentación intuitiva, rendimiento deportivo o recomposición corporal), tu página nace de tu propio método, no de una plantilla genérica que cualquiera podría usar.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="icon">🥗</span>
+        <h3>Diseñada en torno a tu método</h3>
+        <p>Tu página se redacta y diseña según la forma en que trabajas con tus pacientes: el lenguaje, el tono y tu especialidad, para que entiendan tu propuesta en los primeros diez segundos.</p>
+      </div>
+      <div class="why-card">
+        <span class="icon">💬</span>
+        <h3>Un solo paso claro</h3>
+        <p>Cada sección dirige hacia una acción concreta: un mensaje por WhatsApp, un mensaje privado en Instagram o un enlace de reserva. Sin laberintos de menús entre el interés y la reserva.</p>
+      </div>
+      <div class="why-card">
+        <span class="icon">📱</span>
+        <h3>Carga rápida desde el móvil</h3>
+        <p>La mayoría de tus pacientes te encontrarán entre consulta y consulta, desde su teléfono. Una sola página ligera que carga al instante y se lee con total claridad en cualquier pantalla.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="balance">
+  <div class="wrap plate-section">
+    <div class="wrap plate-wrap" style="padding:56px 8px;">
+      <div class="plate-copy">
+        <span class="practice-tag mono">interactivo</span>
+        <h2 style="font-size:1.9rem; margin-bottom:14px;">Un plato equilibrado. Una página equilibrada.</h2>
+        <p>Un plato requiere las proporciones adecuadas para nutrir. Una página de aterrizaje necesita exactamente lo mismo: confianza, claridad y una acción clara, todo en perfecto equilibrio. Añade elementos a continuación y observa cómo se integran el plato y la página.</p>
+        <div class="chip-grid" id="chipGrid" role="group" aria-label="Elementos del plato"></div>
+      </div>
+      <div class="plate-visual">
+        <div class="plate" id="plate" role="img" aria-label="Representación visual del equilibrio del plato"></div>
+        <p class="plate-caption" id="plateCaption">Haz clic en un elemento para comenzar a armar tu plato.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Diseñada para tu forma de trabajar</h2>
+      <p>Un nutricionista independiente y un centro multidisciplinar necesitan cosas distintas en su página. La tuya se construye pensando exactamente en el modelo de consulta que gestionas.</p>
+    </div>
+
+    <div class="toggle-row" role="group" aria-label="Tipo de consulta">
+      <button class="toggle-btn" id="btnSolo" aria-pressed="true">Consulta independiente</button>
+      <button class="toggle-btn" id="btnClinic" aria-pressed="false">Clínica o equipo</button>
+    </div>
+
+    <div class="practice-panel">
+      <div>
+        <span class="practice-tag mono" id="panelTag">pagina.individual</span>
+        <h3 class="practice-headline" id="panelHeadline">Una página. Una voz. Un camino claro para reservar.</h3>
+      </div>
+      <ul class="feature-list" id="featureList"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <div class="closing">
+      <h2>Dale a tu consulta una página que trabaje por ti mientras atiendes a un paciente.</h2>
+      <p>Cuéntanos sobre tu práctica, tus pacientes y tu metodología de trabajo: nosotros diseñamos el resto, hecho a tu medida y listo para publicar en 2026.</p>
+      <div class="closing-ctas">
+        <a class="btn btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Crea tu página</a>
+        <a class="btn btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Ver más páginas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wordmark">easyland<span style="color:var(--berry)">x</span></div>
+    <p>Páginas de aterrizaje a medida para consultas de nutrición y dietética. Sin plantillas: una página creada para ti. © 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Plate builder ----------
+  var categories = [
+    { id:'protein', label:'Proteínas',            color:'#FF2E92' },
+    { id:'veg',     label:'Verduras y hortalizas',color:'#2F8F3B' },
+    { id:'grains',  label:'Cereales integrales',  color:'#FF8A1E' },
+    { id:'fruit',   label:'Frutas',               color:'#FFD400' },
+    { id:'fats',    label:'Grasas saludables',    color:'#6C4AB6' }
+  ];
+  var active = new Set();
+
+  var chipGrid = document.getElementById('chipGrid');
+  categories.forEach(function(cat){
+    var chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.type = 'button';
+    chip.setAttribute('aria-pressed', 'false');
+    chip.style.setProperty('--chip-color', cat.color);
+    chip.innerHTML = '<span class="dot"></span>' + cat.label;
+    chip.addEventListener('click', function(){
+      if(active.has(cat.id)){
+        active.delete(cat.id);
+        chip.setAttribute('aria-pressed','false');
+      } else {
+        active.add(cat.id);
+        chip.setAttribute('aria-pressed','true');
+      }
+      renderPlate();
+    });
+    chipGrid.appendChild(chip);
+  });
+
+  var plate = document.getElementById('plate');
+  var caption = document.getElementById('plateCaption');
+
+  var captions = [
+    "Haz clic en un elemento para comenzar a armar tu plato.",
+    "Un buen comienzo: añade un par de elementos más y la imagen cobrará forma.",
+    "Un buen comienzo: añade un par de elementos más y la imagen cobrará forma.",
+    "Un equilibrio estupendo. Un visitante sabría de inmediato de qué trata esta página.",
+    "Un equilibrio estupendo. Un visitante sabría de inmediato de qué trata esta página.",
+    "Completo: proteínas, verduras, cereales, frutas y grasas saludables. Cada parte suma, tal como debe ser una página web."
+  ];
+
+  function renderPlate(){
+    var list = categories.filter(function(c){ return active.has(c.id); });
+    if(list.length === 0){
+      plate.style.background = 'repeating-conic-gradient(var(--cream-2) 0deg 360deg)';
+    } else {
+      var slice = 360 / list.length;
+      var stops = [];
+      list.forEach(function(c, i){
+        var start = (i * slice).toFixed(1);
+        var end = ((i+1) * slice).toFixed(1);
+        stops.push(c.color + ' ' + start + 'deg ' + end + 'deg');
+      });
+      plate.style.background = 'conic-gradient(' + stops.join(', ') + ')';
+    }
+    caption.innerHTML = '<strong>' + list.length + '/5 — </strong>' + captions[list.length];
+  }
+  renderPlate();
+
+  // ---------- Practice toggle ----------
+  var soloFeatures = [
+    { mark:'👤', title:'Tu historia en el centro', body:'Una presentación cercana redactada a partir de cómo explicas tu propio enfoque a los pacientes.' },
+    { mark:'💬', title:'Un único camino de reserva', body:'Cada visitante es guiado hacia una sola acción: escribirte por WhatsApp o Instagram, sin pasos innecesarios.' },
+    { mark:'🌱', title:'Espacio para crecer', body:'Añade servicios, testimonios o nuevas ofertas tú mismo a medida que tu consulta evolucione; la página crece contigo.' }
+  ];
+  var clinicFeatures = [
+    { mark:'👥', title:'Un perfil para cada profesional', body:'Cada nutricionista o dietista de tu equipo cuenta con su propia presentación, especialidad y disponibilidad.' },
+    { mark:'🗂️', title:'Servicios organizados por especialidad', body:'Nutrición clínica, deportiva, infantil... los pacientes encuentran el servicio adecuado sin confusiones.' },
+    { mark:'📍', title:'Múltiples opciones de reserva', body:'Los pacientes pueden reservar por especialista, servicio o ubicación, adaptándose al funcionamiento de tu centro.' }
+  ];
+
+  var btnSolo = document.getElementById('btnSolo');
+  var btnClinic = document.getElementById('btnClinic');
+  var featureList = document.getElementById('featureList');
+  var panelTag = document.getElementById('panelTag');
+  var panelHeadline = document.getElementById('panelHeadline');
+
+  function renderFeatures(list, tag, headline, soloOn){
+    featureList.innerHTML = '';
+    list.forEach(function(f){
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="mark">' + f.mark + '</span><div><strong>' + f.title + '</strong><p>' + f.body + '</p></div>';
+      featureList.appendChild(li);
+    });
+    panelTag.textContent = tag;
+    panelHeadline.textContent = headline;
+    btnSolo.setAttribute('aria-pressed', soloOn ? 'true' : 'false');
+    btnClinic.setAttribute('aria-pressed', soloOn ? 'false' : 'true');
+  }
+
+  btnSolo.addEventListener('click', function(){
+    renderFeatures(soloFeatures, 'pagina.individual', 'Una página. Una voz. Un camino claro para reservar.', true);
+  });
+  btnClinic.addEventListener('click', function(){
+    renderFeatures(clinicFeatures, 'pagina.clinica', 'Una sola página para cada profesional y especialidad.', false);
+  });
+
+  renderFeatures(soloFeatures, 'pagina.individual', 'Una página. Una voz. Un camino claro para reservar.', true);
+})();
+</script>
+
+</body>
+</html>
