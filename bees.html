@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX for Beekeeping Courses & Mentors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --hive-black:#141009;
+    --hive-black-2:#1d1608;
+    --honey:#ffc738;
+    --honey-deep:#ffab0d;
+    --glow-lime:#d6ff3d;
+    --cream:#fff6df;
+    --ink:#1c1608;
+    --ink-soft:#4a3c1f;
+    --line: rgba(255,199,56,0.25);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top: env(safe-area-inset-top, 0px);}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    margin:0;
+    line-height:1.05;
+  }
+  p{line-height:1.6; margin:0;}
+  a{color:inherit;}
+  img,svg{max-width:100%;display:block;}
+
+  .wrap{
+    width:100%;
+    max-width:1120px;
+    margin:0 auto;
+    padding-left:clamp(20px,5vw,64px);
+    padding-right:clamp(20px,5vw,64px);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,16,9,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,199,56,0.18);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo-mark{width:30px;height:30px;flex:none;}
+  .logo span{font-family:'Fredoka',sans-serif; font-weight:600; font-size:1.15rem; color:var(--cream);}
+  .nav-links{display:flex; gap:28px; font-size:0.92rem; color:var(--cream); opacity:0.85;}
+  .nav-links a{text-decoration:none;}
+  .nav-links a:hover{opacity:1; color:var(--honey);}
+  .nav-cta{
+    background:var(--glow-lime); color:var(--ink);
+    padding:9px 18px; border-radius:999px; font-weight:600; font-size:0.88rem;
+    text-decoration:none; white-space:nowrap;
+    box-shadow:0 0 0 rgba(214,255,61,0.6);
+    transition:box-shadow .25s ease, transform .25s ease;
+  }
+  .nav-cta:hover{ box-shadow:0 0 26px rgba(214,255,61,0.55); transform:translateY(-1px); }
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:radial-gradient(circle at 78% 18%, #2a1f0a 0%, var(--hive-black) 55%);
+    color:var(--cream);
+    padding-top:88px; padding-bottom:96px;
+    overflow:hidden;
+  }
+  .comb-field{
+    position:absolute; inset:0; opacity:0.5; pointer-events:none;
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:center;
+  }
+  @media (max-width:880px){ .hero-inner{grid-template-columns:1fr;} }
+  .eyebrow-bee{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--honey); font-weight:600; font-size:0.95rem; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem, 4.6vw, 3.4rem);
+    max-width:15ch;
+  }
+  .hero h1 em{ font-style:normal; color:var(--honey); }
+  .hero p.lede{
+    margin-top:22px; max-width:46ch; font-size:1.08rem; color:rgba(255,246,223,0.82);
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--honey); color:var(--ink); font-weight:600;
+    padding:14px 26px; border-radius:12px; text-decoration:none; font-size:0.98rem;
+    box-shadow:0 0 34px rgba(255,199,56,0.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 46px rgba(255,199,56,0.55); }
+  .btn-ghost{
+    border:1px solid rgba(255,246,223,0.35); color:var(--cream);
+    padding:14px 24px; border-radius:12px; text-decoration:none; font-size:0.98rem; font-weight:500;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{ border-color:var(--honey); background:rgba(255,199,56,0.08); }
+
+  .hive-art{ position:relative; }
+  .float-bee{
+    position:absolute; width:46px; animation:drift 6s ease-in-out infinite;
+    filter:drop-shadow(0 0 10px rgba(255,199,56,0.6));
+  }
+  @keyframes drift{
+    0%,100%{ transform:translate(0,0) rotate(-4deg); }
+    50%{ transform:translate(6px,-14px) rotate(4deg); }
+  }
+
+  /* ---------- intro strip ---------- */
+  .intro{
+    padding-top:64px; padding-bottom:56px;
+    display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:start;
+  }
+  @media (max-width:820px){ .intro{grid-template-columns:1fr;} }
+  .intro h2{ font-size:clamp(1.6rem,2.6vw,2.1rem); max-width:18ch; color:var(--ink); }
+  .intro p{ margin-top:18px; color:var(--ink-soft); font-size:1.02rem; max-width:52ch; }
+  .stat-card{
+    background:var(--hive-black); color:var(--cream);
+    border-radius:18px; padding:26px 28px;
+    box-shadow:0 0 0 rgba(0,0,0,0);
+  }
+  .stat-card .big{ font-family:'Fredoka',sans-serif; font-size:2.6rem; color:var(--honey); }
+  .stat-card .label{ margin-top:6px; font-size:0.95rem; color:rgba(255,246,223,0.78); }
+
+  /* ---------- interactive honeycomb ---------- */
+  .comb-section{
+    background:linear-gradient(180deg,#fff2c8 0%, var(--honey) 100%);
+    padding-top:76px; padding-bottom:86px;
+    position:relative;
+  }
+  .comb-heading{ max-width:38ch; }
+  .comb-heading h2{ font-size:clamp(1.7rem,2.8vw,2.3rem); color:var(--ink); }
+  .comb-heading p{ margin-top:14px; color:var(--ink-soft); font-size:1.02rem; max-width:50ch; }
+
+  .comb-app{
+    margin-top:44px;
+    display:grid; grid-template-columns:auto 1fr; gap:52px; align-items:center;
+  }
+  @media (max-width:900px){ .comb-app{grid-template-columns:1fr;} }
+
+  .hive-grid{ position:relative; width:min(360px,80vw); margin:0 auto; }
+  .comb-row{ display:flex; justify-content:center; gap:10px; }
+  .comb-row.offset{ margin-top:-20px; }
+  .hex{
+    width:104px; height:120px;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--hive-black);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:10px;
+    cursor:pointer; border:none;
+    color:var(--cream); font-family:'Fredoka',sans-serif; font-weight:500; font-size:0.78rem;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .hex:hover{ transform:translateY(-4px); }
+  .hex.active{
+    background:var(--glow-lime); color:var(--ink);
+    box-shadow:0 0 40px rgba(214,255,61,0.85);
+    transform:translateY(-6px) scale(1.04);
+  }
+  #hive-bee{
+    position:absolute; width:32px; z-index:5;
+    transition:top .5s cubic-bezier(.4,0,.2,1), left .5s cubic-bezier(.4,0,.2,1), transform .5s ease;
+    filter:drop-shadow(0 0 8px rgba(20,16,9,0.5));
+  }
+
+  .comb-panel{
+    background:var(--hive-black); color:var(--cream);
+    border-radius:20px; padding:34px; min-height:220px;
+    display:flex; flex-direction:column; justify-content:center;
+    box-shadow:0 0 46px rgba(20,16,9,0.25);
+  }
+  .comb-panel .tag{ color:var(--glow-lime); font-weight:600; font-size:0.85rem; }
+  .comb-panel h3{ margin-top:10px; font-size:1.4rem; color:var(--honey); }
+  .comb-panel p{ margin-top:12px; color:rgba(255,246,223,0.85); font-size:1rem; }
+  .comb-hint{ margin-top:14px; font-size:0.85rem; color:rgba(255,246,223,0.5); }
+
+  /* ---------- mockup preview ---------- */
+  .preview-section{ padding-top:88px; padding-bottom:88px; }
+  .preview-heading{ max-width:40ch; margin-bottom:36px; }
+  .preview-heading h2{ font-size:clamp(1.7rem,2.8vw,2.3rem); color:var(--ink); }
+  .preview-heading p{ margin-top:14px; color:var(--ink-soft); font-size:1.02rem; max-width:52ch; }
+
+  .browser-frame{
+    background:#fff; border-radius:18px; overflow:hidden;
+    box-shadow:0 24px 60px rgba(28,22,8,0.18);
+    border:1px solid rgba(28,22,8,0.08);
+  }
+  .browser-bar{
+    background:#f2ead2; padding:12px 16px; display:flex; gap:8px; align-items:center;
+  }
+  .browser-bar span{ width:10px; height:10px; border-radius:50%; background:#e3d3a2; display:block; }
+  .mock-hero{
+    background:linear-gradient(120deg, var(--hive-black) 0%, #2c2109 100%);
+    color:var(--cream); padding:42px 36px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center;
+  }
+  @media (max-width:640px){ .mock-hero{grid-template-columns:1fr;} }
+  .mock-hero h3{ font-size:1.6rem; color:var(--honey); max-width:16ch; }
+  .mock-hero p{ margin-top:10px; color:rgba(255,246,223,0.8); font-size:0.92rem; }
+  .mock-btn{
+    display:inline-block; margin-top:18px; background:var(--glow-lime); color:var(--ink);
+    padding:10px 20px; border-radius:10px; font-weight:600; font-size:0.85rem;
+  }
+  .mock-hive{
+    aspect-ratio:1/1; border-radius:16px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,199,56,0.5), transparent 60%),
+      linear-gradient(160deg,#ffab0d,#ffe08a);
+    position:relative;
+  }
+  .mock-body{ padding:32px 36px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:640px){ .mock-body{grid-template-columns:1fr;} }
+  .mock-card{
+    background:#fdf6e3; border-radius:12px; padding:16px;
+    border:1px solid rgba(28,22,8,0.08);
+  }
+  .mock-card .dot{ width:26px; height:26px; border-radius:50%; background:var(--honey); margin-bottom:10px; }
+  .mock-card h4{ font-family:'Fredoka',sans-serif; font-size:0.95rem; color:var(--ink); }
+  .mock-card p{ margin-top:6px; font-size:0.82rem; color:var(--ink-soft); }
+
+  /* ---------- testimonial ---------- */
+  .testimonial{
+    background:var(--hive-black); color:var(--cream);
+    padding-top:80px; padding-bottom:80px;
+  }
+  .testi-inner{ max-width:64ch; margin:0 auto; text-align:center; }
+  .testi-inner .quote-mark{ font-size:3rem; color:var(--honey); font-family:'Fredoka',sans-serif; }
+  .testi-inner p.quote{
+    font-size:clamp(1.15rem,2vw,1.5rem); font-family:'Fredoka',sans-serif; font-weight:500;
+    line-height:1.4; color:var(--cream);
+  }
+  .testi-who{ margin-top:22px; color:var(--honey); font-weight:600; font-size:0.95rem; }
+  .testi-who span{ display:block; color:rgba(255,246,223,0.6); font-weight:400; font-size:0.85rem; margin-top:2px; }
+
+  /* ---------- pricing / cta ---------- */
+  .cta-section{
+    background:radial-gradient(circle at 20% 20%, #fff2c8, var(--honey) 70%);
+    padding-top:84px; padding-bottom:96px; text-align:center;
+  }
+  .cta-section h2{ font-size:clamp(1.8rem,3.2vw,2.6rem); color:var(--ink); max-width:20ch; margin:0 auto; }
+  .cta-section p{ margin-top:16px; max-width:50ch; margin-left:auto; margin-right:auto; color:var(--ink-soft); font-size:1.03rem; }
+  .cta-row{ margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn-dark{
+    background:var(--hive-black); color:var(--cream); font-weight:600;
+    padding:15px 28px; border-radius:12px; text-decoration:none; font-size:1rem;
+    box-shadow:0 0 0 rgba(0,0,0,0);
+    transition:box-shadow .25s ease, transform .2s ease;
+  }
+  .btn-dark:hover{ box-shadow:0 0 30px rgba(20,16,9,0.35); transform:translateY(-2px); }
+  .btn-outline-dark{
+    border:1.5px solid var(--ink); color:var(--ink); padding:15px 26px; border-radius:12px;
+    text-decoration:none; font-weight:600; font-size:1rem;
+  }
+
+  footer{
+    background:var(--hive-black-2); color:rgba(255,246,223,0.6);
+    padding-top:34px; padding-bottom:34px; font-size:0.85rem;
+  }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .foot-row a{ color:var(--honey); text-decoration:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .float-bee{ animation:none; }
+    #hive-bee{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="#FFC738"/>
+        <circle cx="20" cy="20" r="8" fill="#141009"/>
+      </svg>
+      <span>EasyLandX</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#why">Why it works</a>
+      <a href="#preview">Preview</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a class="nav-cta" href="https://easylandx.github.io" target="_blank" rel="noopener">Get my site</a>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="comb-field" width="100%" height="100%" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="honeycomb" width="70" height="60.6" patternUnits="userSpaceOnUse">
+        <polygon points="35,0 70,17.5 70,43 35,60.6 0,43 0,17.5" fill="none" stroke="#ffc738" stroke-opacity="0.16" stroke-width="1.4"/>
+      </pattern>
+    </defs>
+    <rect width="800" height="500" fill="url(#honeycomb)"/>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow-bee">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="14" rx="6" ry="7" fill="#FFC738"/><path d="M6 12h12M6 16h12" stroke="#141009" stroke-width="1.6"/><circle cx="12" cy="6" r="3" fill="#141009"/></svg>
+        Built for beekeeping courses & mentors
+      </div>
+      <h1>A landing page with as much <em>pull</em> as your first honey harvest</h1>
+      <p class="lede">EasyLandX builds affordable, conversion-focused websites for small businesses — and beekeeping mentors are some of our favorite hives to work with. One page, built to turn curious visitors into enrolled students.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#why">See why it fits</a>
+        <a class="btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit easylandx.github.io</a>
+      </div>
+    </div>
+
+    <div class="hive-art">
+      <svg viewBox="0 0 360 360" width="100%">
+        <defs>
+          <radialGradient id="glow1" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#ffc738" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ffc738" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="180" cy="180" r="170" fill="url(#glow1)"/>
+        <polygon points="180,60 260,105 260,195 180,240 100,195 100,105" fill="#1d1608" stroke="#ffc738" stroke-width="2"/>
+        <polygon points="180,90 235,120 235,180 180,210 125,180 125,120" fill="#ffab0d"/>
+        <polygon points="180,120 210,137 210,163 180,180 150,163 150,137" fill="#141009"/>
+      </svg>
+      <svg class="float-bee" style="top:6%; left:8%;" viewBox="0 0 40 30"><ellipse cx="20" cy="16" rx="12" ry="9" fill="#FFC738"/><path d="M10 13h20M10 19h20" stroke="#141009" stroke-width="2.2"/><circle cx="20" cy="6" r="5" fill="#141009"/><path d="M6 10 L-2 4 M34 10 L42 4" stroke="#fff6df" stroke-width="2" opacity="0.7"/></svg>
+      <svg class="float-bee" style="bottom:10%; right:6%; width:34px; animation-delay:1.2s;" viewBox="0 0 40 30"><ellipse cx="20" cy="16" rx="12" ry="9" fill="#FFC738"/><path d="M10 13h20M10 19h20" stroke="#141009" stroke-width="2.2"/><circle cx="20" cy="6" r="5" fill="#141009"/></svg>
+    </div>
+  </div>
+</section>
+
+<section class="intro" id="why">
+  <div class="wrap" style="display:grid; grid-template-columns:1.1fr 1fr; gap:48px;">
+    <div>
+      <h2>Most course pages explain beekeeping. Yours needs to sell a spot in it.</h2>
+      <p>Beekeeping mentors already have the hard part covered — real expertise, real hives, real results. What's usually missing is a page that turns that trust into a booked seat. That's the one thing EasyLandX is built to do, at a price that makes sense for a small apiary business, not a corporate brand.</p>
+    </div>
+    <div class="stat-card">
+      <div class="big">1 page</div>
+      <div class="label">is all it takes to go from "I teach beekeeping" to a full workshop roster — no plugins, no builder, no monthly bloat.</div>
+    </div>
+  </div>
+</section>
+
+<section class="comb-section" id="honeycomb">
+  <div class="wrap">
+    <div class="comb-heading">
+      <h2>Every cell of your page, doing its job</h2>
+      <p>Tap a cell of the hive to see what it does for a beekeeping course page.</p>
+    </div>
+
+    <div class="comb-app">
+      <div class="hive-grid">
+        <div id="hive-bee" style="top:0; left:50%;">
+          <svg viewBox="0 0 40 30"><ellipse cx="20" cy="16" rx="12" ry="9" fill="#141009"/><path d="M10 13h20M10 19h20" stroke="#d6ff3d" stroke-width="2.2"/><circle cx="20" cy="6" r="5" fill="#141009"/></svg>
+        </div>
+        <div class="comb-row">
+          <button class="hex" data-i="0">Hero that hooks</button>
+          <button class="hex" data-i="1">Booking built in</button>
+        </div>
+        <div class="comb-row offset">
+          <button class="hex" data-i="2">Mentor credibility</button>
+          <button class="hex" data-i="3">Buzzing reviews</button>
+        </div>
+        <div class="comb-row">
+          <button class="hex" data-i="4">Clear pricing</button>
+          <button class="hex" data-i="5">Fast to launch</button>
+        </div>
+      </div>
+
+      <div class="comb-panel" id="comb-panel">
+        <span class="tag">Tap a cell</span>
+        <h3>Six cells, one hive</h3>
+        <p>Each part of the page has a single job — pulling a visitor a little closer to booking your next course. Tap through to see what each one covers.</p>
+        <span class="comb-hint">Try "Hero that hooks" first.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="preview-section" id="preview">
+  <div class="wrap">
+    <div class="preview-heading">
+      <h2>What it could look like for your course</h2>
+      <p>A rough sketch of the kind of page EasyLandX builds — swap in your own hives, students, and workshop dates.</p>
+    </div>
+
+    <div class="browser-frame">
+      <div class="browser-bar"><span></span><span></span><span></span></div>
+      <div class="mock-hero">
+        <div>
+          <h3>Golden Hive Beekeeping School</h3>
+          <p>Hands-on beekeeping courses for beginners, from hive setup to your first harvest. Small groups, real apiaries, next intake spring.</p>
+          <span class="mock-btn">Reserve your spot</span>
+        </div>
+        <div class="mock-hive"></div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-card"><div class="dot"></div><h4>Beginner workshop</h4><p>One Saturday, everything you need to start a first hive.</p></div>
+        <div class="mock-card"><div class="dot"></div><h4>Season-long mentorship</h4><p>Monthly hive visits and a direct line to your mentor.</p></div>
+        <div class="mock-card"><div class="dot"></div><h4>Meet your mentor</h4><p>15 years keeping bees, certified, still stung occasionally.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="wrap testi-inner">
+    <div class="quote-mark">“</div>
+    <p class="quote">Enrollment doubled once people could actually see the hives and book a spot without emailing me back and forth for a week.</p>
+    <div class="testi-who">Dana Hart<span>Beekeeping Mentor, Willow Creek Apiary</span></div>
+  </div>
+</section>
+
+<section class="cta-section" id="pricing">
+  <div class="wrap">
+    <h2>Let's build the page your course deserves</h2>
+    <p>Affordable, done-for-you, and made to convert — so your next workshop fills up before the bees even wake up for spring.</p>
+    <div class="cta-row">
+      <a class="btn-dark" href="https://easylandx.github.io" target="_blank" rel="noopener">Start with EasyLandX</a>
+      <a class="btn-outline-dark" href="#honeycomb">Explore the features</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>EasyLandX — affordable, conversion-focused websites for small businesses.</span>
+    <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a>
+  </div>
+</footer>
+
+<script>
+  const features = [
+    {
+      tag: "Hero",
+      title: "Hero that hooks",
+      body: "The first screen shows exactly what a visitor gets — your teaching style, your hives, and the next course date — before they scroll past."
+    },
+    {
+      tag: "Scheduling",
+      title: "Booking built in",
+      body: "A clear way to see open dates and reserve a spot, so you stop trading emails just to confirm a Saturday workshop."
+    },
+    {
+      tag: "Trust",
+      title: "Mentor credibility",
+      body: "Your experience, certifications, and the apiary itself get a proper introduction — the part that turns 'maybe' into 'yes'."
+    },
+    {
+      tag: "Social proof",
+      title: "Buzzing reviews",
+      body: "Past students' words sit exactly where a visitor is deciding whether to commit, not buried at the bottom of the page."
+    },
+    {
+      tag: "Pricing",
+      title: "Clear pricing",
+      body: "Beginner workshop, full apprenticeship, private lessons — laid out so people know what they're signing up for and for how much."
+    },
+    {
+      tag: "Speed",
+      title: "Fast to launch",
+      body: "Your page goes live in days, not months — in time to catch sign-ups before swarm season, not after it."
+    }
+  ];
+
+  const hexes = document.querySelectorAll('.hex');
+  const panel = document.getElementById('comb-panel');
+  const bee = document.getElementById('hive-bee');
+  const grid = document.querySelector('.hive-grid');
+
+  function activate(hex){
+    hexes.forEach(h => h.classList.remove('active'));
+    hex.classList.add('active');
+
+    const f = features[Number(hex.dataset.i)];
+    panel.innerHTML = `
+      <span class="tag">${f.tag}</span>
+      <h3>${f.title}</h3>
+      <p>${f.body}</p>
+    `;
+
+    const gridRect = grid.getBoundingClientRect();
+    const hexRect = hex.getBoundingClientRect();
+    const top = hexRect.top - gridRect.top + hexRect.height/2 - 16;
+    const left = hexRect.left - gridRect.left + hexRect.width/2 - 16;
+    bee.style.top = top + 'px';
+    bee.style.left = left + 'px';
+  }
+
+  hexes.forEach(hex => hex.addEventListener('click', () => activate(hex)));
+
+  window.addEventListener('load', () => {
+    activate(hexes[0]);
+  });
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.hex.active');
+    if(active) activate(active);
+  });
+</script>
+
+</body>
+</html>
