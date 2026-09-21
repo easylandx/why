@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx para Aventuras y Experiencias al Aire Libre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#FF5A1F;
+    --orange-deep:#D9430A;
+    --lime:#C6FF3D;
+    --cyan:#00E5FF;
+    --ink:#1A0F00;
+    --cream:#FFF3DD;
+    --forest:#123524;
+    --forest-light:#1B4B37;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  :root:not([data-theme="light"]){ }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --orange:#FF5A1F; --orange-deep:#D9430A; --lime:#C6FF3D; --cyan:#00E5FF; --ink:#1A0F00; --cream:#FFF3DD; --forest:#123524; --forest-light:#1B4B37;
+    }
+  }
+  :root[data-theme="dark"]{
+    --orange:#FF5A1F; --orange-deep:#D9430A; --lime:#C6FF3D; --cyan:#00E5FF; --ink:#1A0F00; --cream:#FFF3DD; --forest:#123524; --forest-light:#1B4B37;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--orange);
+    color:var(--ink);
+    font-family:"Space Grotesk", "Segoe UI", Arial, sans-serif;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .scrollx{overflow-x:auto;}
+
+  h1,h2,.display{
+    font-family:"Bebas Neue","Space Grotesk",sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.92;
+    margin:0;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:var(--orange);
+    border-bottom:3px solid var(--ink);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:"Bebas Neue",sans-serif; font-size:26px; color:var(--ink);
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--lime); box-shadow:0 0 10px 3px var(--lime);}
+  .nav a.cta-small{
+    background:var(--forest); color:var(--cream); text-decoration:none;
+    padding:9px 18px; border-radius:999px; font-size:14px; font-weight:600;
+    border:2px solid var(--ink);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ position:relative; padding:64px 0 8px; }
+  .hero .wrap{ display:grid; gap:28px; }
+  .kicker{
+    font-size:15px; font-weight:700; color:var(--forest);
+    background:var(--lime); display:inline-block; padding:5px 14px;
+    border-radius:999px; margin-bottom:18px; border:2px solid var(--ink);
+  }
+  .hero h1{ font-size:clamp(48px,10vw,104px); color:var(--ink); }
+  .hero h1 .glow{
+    color:var(--cream);
+    text-shadow: 0 0 6px var(--cyan), 0 0 22px var(--cyan), 0 0 46px rgba(0,229,255,.6);
+  }
+  .hero p.lede{
+    font-size:clamp(17px,2.4vw,21px); max-width:52ch; margin-top:18px; color:var(--ink); font-weight:500;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
+  .btn-primary{
+    background:var(--forest); color:var(--cream); border:2px solid var(--ink);
+    padding:15px 26px; border-radius:999px; font-weight:700; font-size:16px;
+    text-decoration:none; display:inline-block;
+    box-shadow:0 0 0 0 rgba(198,255,61,0);
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .btn-primary:hover{ box-shadow:0 0 18px 4px var(--lime); transform:translateY(-2px); }
+  .btn-ghost{
+    background:transparent; color:var(--ink); border:2px solid var(--ink);
+    padding:15px 26px; border-radius:999px; font-weight:700; font-size:16px;
+    text-decoration:none; display:inline-block;
+  }
+
+  /* hero illustration */
+  .scene{ position:relative; width:100%; }
+  .scene svg{ display:block; width:100%; height:auto; }
+
+  /* ---------- INTRO ---------- */
+  .intro{ padding:64px 0 8px; }
+  .intro .wrap{ max-width:760px; }
+  .intro h2{ font-size:clamp(32px,5vw,46px); color:var(--forest); margin-bottom:18px; }
+  .intro p{ font-size:18px; line-height:1.6; max-width:62ch; }
+  .intro p + p{ margin-top:14px; }
+
+  /* ---------- TRAIL SECTION ---------- */
+  .trail-section{ padding:78px 0 40px; }
+  .trail-section .head{ max-width:640px; margin-bottom:44px; }
+  .trail-section h2{ font-size:clamp(32px,5vw,46px); color:var(--forest); }
+  .trail-section .head p{ font-size:17px; margin-top:12px; max-width:56ch; }
+
+  .trailmap{ position:relative; }
+  .trail-svg-wrap{ position:relative; }
+  #trailPath{
+    fill:none; stroke:var(--forest); stroke-width:6; stroke-linecap:round;
+  }
+  #trailPathGlow{
+    fill:none; stroke:var(--lime); stroke-width:10; stroke-linecap:round;
+    stroke-dasharray: 2000; stroke-dashoffset: 2000;
+    filter:drop-shadow(0 0 8px var(--lime));
+    transition: stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1);
+  }
+  .checkpoint{ cursor:pointer; }
+  .checkpoint circle.ring{
+    fill:var(--cream); stroke:var(--ink); stroke-width:3;
+    transition: fill .25s ease, stroke .25s ease, r .25s ease;
+  }
+  .checkpoint.active circle.ring{
+    fill:var(--cyan); stroke:var(--ink);
+    filter:drop-shadow(0 0 10px var(--cyan));
+  }
+  .checkpoint text.cp-label{
+    font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:13px; fill:var(--ink);
+  }
+
+  .trail-cards{
+    margin-top:8px;
+    display:grid; gap:16px;
+  }
+  .trail-card{
+    display:none;
+    background:var(--cream); border:3px solid var(--ink); border-radius:18px;
+    padding:22px 24px;
+  }
+  .trail-card.show{ display:block; }
+  .trail-card .tag{
+    display:inline-block; font-size:13px; font-weight:700; color:var(--forest);
+    background:var(--lime); padding:3px 10px; border-radius:999px; margin-bottom:10px;
+    border:2px solid var(--ink);
+  }
+  .trail-card h3{ margin:0 0 8px; font-family:"Bebas Neue",sans-serif; font-size:28px; color:var(--ink); letter-spacing:0.01em;}
+  .trail-card p{ margin:0; font-size:16px; line-height:1.55; color:var(--ink); }
+
+  .trail-progress-label{
+    font-size:14px; font-weight:600; margin-top:18px; color:var(--forest);
+  }
+
+  /* ---------- TOGGLE / COMPARISON ---------- */
+  .fit-section{
+    background:var(--forest); color:var(--cream); padding:78px 0;
+    margin-top:20px;
+  }
+  .fit-section h2{ font-size:clamp(32px,5vw,46px); color:var(--cream); }
+  .fit-section .head p{ color:var(--cream); opacity:.9; margin-top:12px; max-width:56ch; font-size:17px;}
+
+  .switch-row{
+    display:flex; align-items:center; gap:16px; margin:34px 0 30px;
+    flex-wrap:wrap;
+  }
+  .switch-label{ font-weight:700; font-size:16px; }
+  .switch-label.active{ color:var(--lime); }
+  .switch{
+    position:relative; width:64px; height:34px; border-radius:999px;
+    background:var(--forest-light); border:2px solid var(--cream);
+    cursor:pointer; flex:none;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px; width:26px; height:26px; border-radius:50%;
+    background:var(--lime); box-shadow:0 0 10px 2px var(--lime);
+    transition:left .25s ease;
+  }
+  .switch.on .knob{ left:34px; }
+
+  .fit-panel{
+    background:var(--forest-light); border:2px solid var(--cream); border-radius:18px;
+    padding:30px 28px; display:grid; gap:18px; grid-template-columns:1fr 1fr;
+  }
+  .fit-panel .col{ display:none; }
+  .fit-panel .col.show{ display:block; }
+  .fit-panel h3{ font-family:"Bebas Neue",sans-serif; font-size:26px; color:var(--lime); margin:0 0 12px; letter-spacing:.01em;}
+  .fit-panel ul{ margin:0; padding-left:18px; line-height:1.7; font-size:15.5px; }
+  .fit-panel li{ margin-bottom:6px; }
+
+  /* ---------- GEAR STRIP ---------- */
+  .gear-section{ padding:78px 0; }
+  .gear-section h2{ font-size:clamp(32px,5vw,46px); color:var(--forest); margin-bottom:40px; }
+  .gear-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:20px;
+  }
+  .gear-card{
+    background:var(--cream); border:3px solid var(--ink); border-radius:20px;
+    padding:22px 18px; text-align:left;
+  }
+  .gear-card svg{ width:52px; height:52px; margin-bottom:14px; }
+  .gear-card h4{ font-family:"Bebas Neue",sans-serif; font-size:22px; margin:0 0 6px; color:var(--ink); letter-spacing:.01em;}
+  .gear-card p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
+
+  /* ---------- FOOTER CTA ---------- */
+  .footer-cta{
+    background:var(--ink); color:var(--cream); padding:80px 0 50px; margin-top:20px;
+    position:relative;
+  }
+  .footer-cta h2{
+    font-size:clamp(36px,7vw,64px); color:var(--cream); max-width:14ch;
+  }
+  .footer-cta h2 .glow{
+    color:var(--lime); text-shadow:0 0 10px var(--lime), 0 0 30px rgba(198,255,61,.55);
+  }
+  .footer-cta p{ font-size:17px; max-width:52ch; margin-top:16px; opacity:.85; }
+  .footer-cta .hero-ctas{ margin-top:30px; }
+  .footer-cta .btn-primary{ background:var(--lime); color:var(--ink); }
+  .footer-cta .btn-primary:hover{ box-shadow:0 0 18px 4px var(--cyan); }
+  .footer-cta .btn-ghost{ border-color:var(--cream); color:var(--cream); }
+  .footer-bottom{
+    margin-top:60px; padding-top:22px; border-top:1px solid rgba(255,243,221,.25);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size:13px; opacity:.7;
+  }
+
+  @media (max-width:760px){
+    .fit-panel{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span>easylandx</div>
+    <a class="cta-small" href="#start-trail">Míralo en acción</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Diseñado para marcas de aventura y naturaleza</span>
+      <h1>Tu ruta merece una página que <span class="glow">brille</span> tanto como las vistas</h1>
+      <p class="lede">easylandx crea páginas de aterrizaje únicas para guías, empresas de aventura y experiencias al aire libre: rápidas de cargar en el inicio del sendero, fáciles de reservar desde el móvil y diseñadas para transmitir la emoción de salir a explorar.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#start-trail">Recorre el sendero</a>
+        <a class="btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Ver el portafolio</a>
+      </div>
+    </div>
+    <div class="scene">
+      <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de montañas, un sendero, una tienda de campaña y un sol naciente">
+        <defs>
+          <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFF3DD" stop-opacity="0.95"/>
+            <stop offset="55%" stop-color="#C6FF3D" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#C6FF3D" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="500" cy="150" r="150" fill="url(#sunGlow)"/>
+        <circle cx="500" cy="150" r="58" fill="#FFF3DD"/>
+        <!-- back mountains -->
+        <polygon points="0,380 140,190 260,300 380,150 520,320 640,200 760,340 900,210 1000,300 1000,380" fill="#D9430A"/>
+        <!-- front mountains -->
+        <polygon points="0,380 90,260 220,380" fill="#123524"/>
+        <polygon points="180,380 340,180 520,380" fill="#123524"/>
+        <polygon points="470,380 620,230 760,380" fill="#1B4B37"/>
+        <polygon points="700,380 860,200 1000,340 1000,380" fill="#1B4B37"/>
+        <!-- snow caps -->
+        <polygon points="330,205 340,180 350,205 340,215" fill="#FFF3DD"/>
+        <polygon points="600,255 620,230 640,255 620,265" fill="#FFF3DD"/>
+        <!-- trail -->
+        <path d="M60,380 C160,340 150,300 230,280 C320,258 300,320 400,330 C520,342 520,300 600,290 C700,278 720,330 820,340 C880,347 900,360 940,380" fill="none" stroke="#FFF3DD" stroke-width="10" stroke-dasharray="2 22" stroke-linecap="round"/>
+        <!-- tent -->
+        <g transform="translate(120,320)">
+          <polygon points="0,60 34,0 68,60" fill="#00E5FF"/>
+          <polygon points="24,60 34,26 44,60" fill="#123524"/>
+          <line x1="34" y1="0" x2="34" y2="60" stroke="#123524" stroke-width="3"/>
+        </g>
+        <!-- pine trees -->
+        <g fill="#123524">
+          <polygon points="820,330 806,362 834,362"/>
+          <polygon points="820,318 802,352 838,352"/>
+          <polygon points="850,340 838,364 862,364"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <h2>La gente no reserva un servicio. Reserva una sensación.</h2>
+    <p>Una experiencia en la naturaleza se vende por su atmósfera antes que por su itinerario: la luz en la cumbre, el sonido del río, el olor de la fogata. Una plantilla genérica puede mostrar tus precios, pero no puede transportar a nadie al sendero.</p>
+    <p>Cada página de easylandx se diseña desde cero alrededor de un negocio, un paisaje y una historia únicos; del mismo modo que planificarías una ruta según el terreno que tienes delante, y no con un mapa genérico que sirve para cualquier sitio.</p>
+  </div>
+</section>
+
+<section class="trail-section" id="start-trail">
+  <div class="wrap">
+    <div class="head">
+      <h2>Recorre el sendero. Cada parada es una razón para elegirnos.</h2>
+      <p>Toca un punto de control para ver qué aporta esa sección de la página a tu negocio.</p>
+    </div>
+
+    <div class="trailmap">
+      <div class="trail-svg-wrap">
+        <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" id="trailSvg" role="img" aria-label="Mapa interactivo del sendero con cinco puntos de control">
+          <path id="trailPath" d="M40,170 C140,90 180,190 280,150 C380,110 420,190 500,140 C580,90 620,170 700,130 C760,102 800,150 860,60"/>
+          <path id="trailPathGlow" d="M40,170 C140,90 180,190 280,150 C380,110 420,190 500,140 C580,90 620,170 700,130 C760,102 800,150 860,60"/>
+
+          <g class="checkpoint active" data-cp="0" transform="translate(40,170)">
+            <circle class="ring" r="16"/>
+            <text class="cp-label" y="-24" text-anchor="middle">Inicio del sendero</text>
+          </g>
+          <g class="checkpoint" data-cp="1" transform="translate(280,150)">
+            <circle class="ring" r="16"/>
+            <text class="cp-label" y="-24" text-anchor="middle">Cruce del río</text>
+          </g>
+          <g class="checkpoint" data-cp="2" transform="translate(500,140)">
+            <circle class="ring" r="16"/>
+            <text class="cp-label" y="-24" text-anchor="middle">Campamento base</text>
+          </g>
+          <g class="checkpoint" data-cp="3" transform="translate(700,130)">
+            <circle class="ring" r="16"/>
+            <text class="cp-label" y="-24" text-anchor="middle">Cumbre</text>
+          </g>
+          <g class="checkpoint" data-cp="4" transform="translate(860,60)">
+            <circle class="ring" r="16"/>
+            <text class="cp-label" y="-24" text-anchor="middle">Fogata</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="trail-progress-label" id="progressLabel">Punto de control 1 de 5 — Inicio del sendero</div>
+
+      <div class="trail-cards">
+        <div class="trail-card show" data-card="0">
+          <span class="tag">Inicio del sendero</span>
+          <h3>Primera impresión, primera reserva</h3>
+          <p>La sección principal está diseñada en torno a tu entorno y oferta reales: la ruta auténtica, la escalada real, el equipo verdadero. Así, en cuanto alguien llega a la página, sabe en tres segundos si esta aventura es para él.</p>
+        </div>
+        <div class="trail-card" data-card="1">
+          <span class="tag">Cruce del río</span>
+          <h3>Pensada para zonas con poca cobertura</h3>
+          <p>Un único archivo independiente, sin editores pesados ni docenas de scripts. Carga al instante en el móvil desde el inicio de una ruta, un campamento o la puerta de embarque de un aeropuerto, donde una página lenta pierde la reserva antes de mostrarse.</p>
+        </div>
+        <div class="trail-card" data-card="2">
+          <span class="tag">Campamento base</span>
+          <h3>Reservas directas por tu canal habitual</h3>
+          <p>La mayoría de las reservas de aventura se cierran por WhatsApp, mensajes directos de Instagram o una llamada rápida, no en un carrito de compras. Los botones de llamada a la acción de tu página dirigen directamente al canal que ya utilizas.</p>
+        </div>
+        <div class="trail-card" data-card="3">
+          <span class="tag">Cumbre</span>
+          <h3>Espacio para lo que realmente te diferencia</h3>
+          <p>Niveles de dificultad, tamaño de los grupos, rutas de temporada, equipo incluido o no... Un diseño personalizado presenta tu estructura real en lugar de encajarla a la fuerza en un formulario genérico.</p>
+        </div>
+        <div class="trail-card" data-card="4">
+          <span class="tag">Fogata</span>
+          <h3>Una página con la identidad de tu marca</h3>
+          <p>Las ilustraciones, el color y el tono se eligen específicamente para tu experiencia, con el mismo cuidado que pondrías en organizar la propia excursión. Tu página reflejará quién eres, en lugar de parecer una plantilla prefabricada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fit-section">
+  <div class="wrap">
+    <div class="head">
+      <h2>Desde guías independientes hasta empresas de expedición: la página se adapta a ti</h2>
+      <p>Mueve el interruptor para ver cómo este enfoque se adapta a dos tipos de negocios al aire libre totalmente diferentes.</p>
+    </div>
+
+    <div class="switch-row">
+      <span class="switch-label active" id="labelLeft">Guía de Excursiones de un Día</span>
+      <div class="switch" id="fitSwitch" role="switch" aria-checked="false" tabindex="0">
+        <div class="knob"></div>
+      </div>
+      <span class="switch-label" id="labelRight">Empresa de Expediciones</span>
+    </div>
+
+    <div class="fit-panel">
+      <div class="col show" data-panel="0">
+        <h3>Guía de Excursiones de un Día</h3>
+        <ul>
+          <li>Una ruta clara, un precio claro y un botón destacado de "reserva hoy"</li>
+          <li>Información del tiempo y la temporada visible de un vistazo, para adaptarse a cambios rápidos de planes</li>
+          <li>Tu historia en breve: en los guías independientes, tú eres la experiencia, así que la página destaca tu rostro y tu itinerario</li>
+          <li>Instagram y WhatsApp en primer plano, justo donde ya recibes tus reservas</li>
+        </ul>
+      </div>
+      <div class="col" data-panel="1">
+        <h3>Empresa de Expediciones</h3>
+        <ul>
+          <li>Múltiples rutas y niveles de dificultad presentados lado a lado, sin ocultarse en menús desplegables</li>
+          <li>Detalles sobre el equipo, el historial de seguridad y el equipo técnico para generar la confianza necesaria en viajes de varios días</li>
+          <li>Flujo de consulta estructurado para fechas y tamaño del grupo en lugar de un formulario de contacto básico</li>
+          <li>Espacio para mostrar tu alcance —campamentos base, rutas, temporadas— sin perder el enfoque principal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gear-section">
+  <div class="wrap">
+    <h2>Lo que incluirá tu página</h2>
+    <div class="gear-grid">
+      <div class="gear-card">
+        <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="26" stroke="#123524" stroke-width="4"/><path d="M32 14 L38 32 L32 50 L26 32 Z" fill="#00E5FF" stroke="#123524" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="#123524"/></svg>
+        <h4>Una brújula, no un menú</h4>
+        <p>Navegación centrada en las decisiones reales del visitante: qué ruta elegir, en qué fecha y para qué grupo.</p>
+      </div>
+      <div class="gear-card">
+        <svg viewBox="0 0 64 64" fill="none"><path d="M10 50 L22 20 L42 20 L54 50 Z" fill="#C6FF3D" stroke="#123524" stroke-width="3"/><rect x="26" y="10" width="12" height="14" rx="2" fill="#123524"/></svg>
+        <h4>Fotografía real de tus viajes</h4>
+        <p>Tus propias fotos y rutas colocadas estratégicamente, en lugar de imágenes de stock de montañas de otros.</p>
+      </div>
+      <div class="gear-card">
+        <svg viewBox="0 0 64 64" fill="none"><rect x="14" y="26" width="36" height="24" rx="4" fill="#FF5A1F" stroke="#123524" stroke-width="3"/><rect x="22" y="18" width="20" height="10" rx="3" fill="#123524"/></svg>
+        <h4>Reserva en un solo toque</h4>
+        <p>Botones que abren WhatsApp, Instagram o una llamada con un mensaje predefinido sobre la ruta consultada.</p>
+      </div>
+      <div class="gear-card">
+        <svg viewBox="0 0 64 64" fill="none"><path d="M8 46 C16 30 24 30 32 46 C40 30 48 30 56 46" stroke="#123524" stroke-width="4" fill="none"/><circle cx="32" cy="18" r="8" fill="#00E5FF" stroke="#123524" stroke-width="3"/></svg>
+        <h4>Rápida con poca señal</h4>
+        <p>Un archivo ligero sin editores pesados de fondo: abre velozmente incluso con un par de rayas de cobertura.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta">
+  <div class="wrap">
+    <h2>¿Listo para darle a tu temporada <span class="glow">2026</span> una página a la altura de las vistas?</h2>
+    <p>Envíanos tus rutas, tus fotos y tu canal de reservas habitual; easylandx se encarga de construir todo lo demás a su alrededor.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Crea tu página</a>
+      <a class="btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Explorar más ejemplos</a>
+    </div>
+    <div class="footer-bottom">
+      <span>easylandx — páginas personalizadas para pequeños negocios</span>
+      <span>© 2026 easylandx</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var checkpoints = Array.prototype.slice.call(document.querySelectorAll('.checkpoint'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.trail-card'));
+  var glowPath = document.getElementById('trailPathGlow');
+  var progressLabel = document.getElementById('progressLabel');
+  var names = ['Inicio del sendero','Cruce del río','Campamento base','Cumbre','Fogata'];
+  var totalLen = 0;
+  try { totalLen = glowPath.getTotalLength(); } catch(e){ totalLen = 1200; }
+  glowPath.style.strokeDasharray = totalLen;
+  glowPath.style.strokeDashoffset = totalLen;
+
+  function setActive(idx){
+    checkpoints.forEach(function(cp){
+      cp.classList.toggle('active', cp.getAttribute('data-cp') == idx);
+    });
+    cards.forEach(function(card){
+      card.classList.toggle('show', card.getAttribute('data-card') == idx);
+    });
+    var frac = idx / (checkpoints.length - 1);
+    var offset = totalLen * (1 - frac);
+    glowPath.style.strokeDashoffset = offset;
+    progressLabel.textContent = 'Punto de control ' + (parseInt(idx,10)+1) + ' de ' + checkpoints.length + ' — ' + names[idx];
+  }
+
+  checkpoints.forEach(function(cp){
+    cp.addEventListener('click', function(){
+      setActive(this.getAttribute('data-cp'));
+    });
+  });
+
+  setActive(0);
+
+  var sw = document.getElementById('fitSwitch');
+  var labelLeft = document.getElementById('labelLeft');
+  var labelRight = document.getElementById('labelRight');
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.fit-panel .col'));
+  var on = false;
+
+  function applySwitch(){
+    sw.classList.toggle('on', on);
+    sw.setAttribute('aria-checked', on ? 'true' : 'false');
+    labelLeft.classList.toggle('active', !on);
+    labelRight.classList.toggle('active', on);
+    panels.forEach(function(p){
+      p.classList.toggle('show', p.getAttribute('data-panel') == (on ? '1' : '0'));
+    });
+  }
+
+  sw.addEventListener('click', function(){ on = !on; applySwitch(); });
+  sw.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); on = !on; applySwitch(); }
+  });
+})();
+</script>
+
+</body>
+</html>
