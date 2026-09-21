@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX para Esteticistas — Landing Pages Que Generan Reservas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-peach:#FFF1E2;
+    --bg-pink:#FFE1F0;
+    --bg-violet:#ECE3FF;
+    --ink:#26123A;
+    --ink-soft:#5B4770;
+    --pink:#FF3E9D;
+    --pink-2:#FF74BE;
+    --violet:#7B2FE0;
+    --violet-2:#9B6BFF;
+    --orange:#FF7A2F;
+    --orange-2:#FFA25C;
+    --yellow:#FFCE3E;
+    --cyan:#1FE6C9;
+    --white:#FFFFFF;
+    --shadow-glow: 0 18px 45px -18px rgba(123,47,224,.45);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg-peach:#FFF1E2; --bg-pink:#FFE1F0; --bg-violet:#ECE3FF; --ink:#26123A; --ink-soft:#5B4770;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg-peach:#FFF1E2; --bg-pink:#FFE1F0; --bg-violet:#ECE3FF; --ink:#26123A; --ink-soft:#5B4770;
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior:smooth; }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg-peach);
+    color:var(--ink);
+    font-family:'Sora', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{ max-width:100%; display:block; }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 clamp(20px, 6vw, 64px);
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    line-height:1.08;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{ margin:0; }
+  a{ color:inherit; }
+  :focus-visible{
+    outline: 3px solid var(--violet);
+    outline-offset: 3px;
+    border-radius:6px;
+  }
+  .btn{
+    font-family:'Sora', sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    border:none;
+    cursor:pointer;
+    padding:15px 30px;
+    border-radius:100px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(120deg, var(--pink), var(--orange));
+    color:var(--white);
+    box-shadow: 0 16px 34px -12px rgba(255,62,157,.55);
+  }
+  .btn-primary:hover{ box-shadow: 0 20px 40px -10px rgba(255,62,157,.65); }
+  .btn-ghost{
+    background:var(--white);
+    color:var(--ink);
+    border:2px solid var(--ink);
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,241,226,.86);
+    backdrop-filter: blur(10px);
+    border-bottom:2px solid var(--ink);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-space-between;
+    padding:16px clamp(20px,6vw,64px);
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.3rem;
+  }
+  .logo-mark{ width:34px; height:34px; }
+  .nav-links{ display:flex; align-items:center; gap:28px; font-weight:600; font-size:.95rem; }
+  .nav-links a{ text-decoration:none; }
+  .nav-links a:hover{ color:var(--violet); }
+  .nav .btn{ padding:11px 22px; font-size:.9rem; }
+  @media (max-width:720px){ .nav-links a.hide-mobile{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px);
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap:clamp(24px,5vw,60px);
+    align-items:center;
+  }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+  .eyebrow-emoji{ font-size:2.2rem; margin-bottom:14px; }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 4rem);
+    max-width:14ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--pink);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+    line-height:1.6;
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  .hero-note{ margin-top:18px; font-size:.9rem; color:var(--ink-soft); }
+
+  .hero-art{ position:relative; }
+  .hero-art svg{ width:100%; height:auto; }
+
+  /* ---------- LOGO STRIP ---------- */
+  .strip{
+    border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+    background:var(--bg-pink);
+    padding:22px 0;
+  }
+  .strip .wrap{
+    display:flex; gap:34px; flex-wrap:wrap; justify-content:space-between;
+    font-family:'Fraunces', serif; font-size:1.05rem; opacity:.85;
+  }
+
+  /* ---------- PICKER (interactive) ---------- */
+  .picker{ padding:clamp(64px,9vw,110px) 0; }
+  .section-head{ max-width:60ch; margin-bottom:38px; }
+  .section-head h2{ font-size:clamp(1.9rem,3.4vw,2.7rem); }
+  .section-head p{ margin-top:14px; color:var(--ink-soft); font-size:1.08rem; line-height:1.6; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:36px; }
+  .chip{
+    font-family:'Sora'; font-weight:600; font-size:.95rem;
+    padding:12px 20px; border-radius:100px;
+    border:2px solid var(--ink);
+    background:var(--white);
+    cursor:pointer;
+    display:flex; align-items:center; gap:8px;
+    transition: background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .chip:hover{ transform:translateY(-2px); }
+  .chip[aria-pressed="true"]{
+    background:var(--ink); color:var(--bg-peach); border-color:var(--ink);
+  }
+
+  .preview-shell{
+    display:grid; grid-template-columns: .9fr 1.1fr;
+    gap:clamp(20px,4vw,50px);
+    align-items:start;
+  }
+  @media (max-width:860px){ .preview-shell{ grid-template-columns:1fr; } }
+
+  .preview-copy h3{ font-size:1.6rem; margin-bottom:10px; }
+  .preview-copy p{ color:var(--ink-soft); line-height:1.6; margin-bottom:18px; }
+  .preview-tags{ display:flex; gap:10px; flex-wrap:wrap; }
+  .tag{
+    font-size:.82rem; font-weight:600; padding:6px 13px; border-radius:100px;
+    background:var(--bg-violet); border:1.5px solid var(--ink);
+  }
+
+  .phone{
+    background:var(--white);
+    border:2.5px solid var(--ink);
+    border-radius:26px;
+    padding:14px;
+    box-shadow: var(--shadow-glow);
+    max-width:380px;
+    margin:0 auto;
+  }
+  .phone-bar{ display:flex; gap:6px; padding:0 4px 10px; }
+  .phone-bar span{ width:9px; height:9px; border-radius:50%; background:var(--ink); opacity:.25; }
+  .phone-screen{
+    border-radius:16px;
+    padding:22px 18px 20px;
+    min-height:420px;
+    transition: background .45s ease;
+    display:flex; flex-direction:column;
+  }
+  .phone-hero-icon{ width:56px; height:56px; margin-bottom:14px; transition:transform .4s ease; }
+  .phone-screen h4{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.3rem; color:var(--white);
+    margin:0 0 6px; transition:opacity .3s ease;
+  }
+  .phone-screen .ps-sub{ color:rgba(255,255,255,.92); font-size:.88rem; line-height:1.5; margin-bottom:18px; }
+  .phone-services{ background:rgba(255,255,255,.92); border-radius:14px; padding:14px 16px; margin-bottom:16px; }
+  .ps-row{ display:flex; justify-content:space-between; font-size:.86rem; padding:7px 0; border-bottom:1px solid rgba(38,18,58,.1); }
+  .ps-row:last-child{ border-bottom:none; }
+  .ps-row b{ font-weight:700; }
+  .phone-cta{
+    margin-top:auto;
+    background:var(--ink); color:var(--white);
+    text-align:center; padding:12px; border-radius:100px;
+    font-weight:700; font-size:.9rem;
+  }
+  .phone-screen.accent-pink{ background:linear-gradient(160deg, var(--pink), var(--violet)); }
+  .phone-screen.accent-violet{ background:linear-gradient(160deg, var(--violet), #4B1FA8); }
+  .phone-screen.accent-orange{ background:linear-gradient(160deg, var(--orange), var(--pink)); }
+  .phone-screen.accent-cyan{ background:linear-gradient(160deg, var(--cyan), var(--violet-2)); }
+
+  @media (prefers-reduced-motion: reduce){
+    .phone-hero-icon, .phone-screen, .btn, .chip{ transition:none !important; }
+  }
+
+  /* ---------- ROUTINE (sequence) ---------- */
+  .routine{ padding:clamp(64px,9vw,110px) 0; background:var(--bg-violet); border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); }
+  .routine-list{ display:flex; flex-direction:column; gap:0; margin-top:20px; }
+  .routine-step{
+    display:grid; grid-template-columns: 90px 1fr auto;
+    gap:26px; align-items:center;
+    padding:30px 0;
+    border-top:1.5px solid rgba(38,18,58,.18);
+  }
+  .routine-step:last-child{ border-bottom:1.5px solid rgba(38,18,58,.18); }
+  .step-num{
+    font-family:'Fraunces', serif; font-size:2.6rem; color:var(--violet);
+    line-height:1;
+  }
+  .step-body h3{ font-size:1.35rem; margin-bottom:6px; }
+  .step-body p{ color:var(--ink-soft); max-width:56ch; line-height:1.6; }
+  .step-icon{ width:64px; height:64px; }
+  @media (max-width:720px){
+    .routine-step{ grid-template-columns: 56px 1fr; }
+    .step-icon{ display:none; }
+    .step-num{ font-size:1.8rem; }
+  }
+
+  /* ---------- TESTIMONIAL ---------- */
+  .testimonial{ padding:clamp(70px,10vw,120px) 0; }
+  .quote-card{
+    background:var(--bg-pink);
+    border:2.5px solid var(--ink);
+    border-radius:28px;
+    padding:clamp(30px,5vw,56px);
+    display:grid; grid-template-columns: auto 1fr; gap:clamp(20px,4vw,40px);
+    align-items:center;
+  }
+  @media (max-width:760px){ .quote-card{ grid-template-columns:1fr; } }
+  .quote-mark{ width:76px; height:76px; flex-shrink:0; }
+  .quote-card p.quote-text{
+    font-family:'Fraunces', serif; font-weight:500; font-style:italic;
+    font-size:clamp(1.25rem,2.3vw,1.7rem); line-height:1.42; color:var(--ink);
+  }
+  .quote-attr{ margin-top:18px; font-family:'Sora'; font-weight:700; font-size:.95rem; font-style:normal; color:var(--violet); }
+  .quote-attr span{ display:block; font-weight:500; color:var(--ink-soft); font-size:.86rem; margin-top:2px; }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    padding:clamp(70px,10vw,120px) 0;
+    background: radial-gradient(120% 160% at 20% 0%, #FF6FBE 0%, var(--violet) 55%, #4B1FA8 100%);
+    border-top:2px solid var(--ink);
+    color:var(--white);
+    text-align:center;
+  }
+  .cta h2{ font-size:clamp(2.1rem,4.4vw,3.4rem); color:var(--white); max-width:18ch; margin:0 auto; }
+  .cta p{ color:rgba(255,255,255,.92); max-width:48ch; margin:18px auto 34px; font-size:1.08rem; line-height:1.6; }
+  .cta .btn-primary{ background:var(--white); color:var(--ink); box-shadow:0 18px 38px -12px rgba(0,0,0,.35); }
+  .cta .btn-primary:hover{ box-shadow:0 22px 42px -10px rgba(0,0,0,.4); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:34px 0 44px; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:.88rem; color:var(--ink-soft); }
+  .foot-row a{ text-decoration:none; font-weight:600; color:var(--ink); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-row">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="#FF3E9D"/>
+        <path d="M20 8c4 5 8 8 8 13a8 8 0 1 1-16 0c0-5 4-8 8-13Z" fill="#FFCE3E"/>
+      </svg>
+      EasyLandX  
+    </div>
+    <div class="nav-links">
+      <a href="#picker" class="hide-mobile"></a>
+      <a href="#routine" class="hide-mobile">Cómo funciona</a>
+      <a href="#testimonial" class="hide-mobile">Resultados</a>
+      <a href="#cta" class="btn btn-primary">Crear mi página</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow-emoji">🧴✨</div>
+      <h1>Tu piel brilla.<br>Tus <em>reservas</em> también deberían.</h1>
+      <p class="lede">EasyLandX crea páginas de aterrizaje rápidas y deslumbrantes para esteticistas y especialistas en la piel, diseñadas para convertir a tus seguidores de Instagram y búsquedas de Google en citas confirmadas, no solo en visitas.</p>
+      <div class="hero-ctas">
+        <a href="#picker" class="btn btn-primary">Ver diseño para tu servicio</a>
+        <a href="#cta" class="btn btn-ghost">Obtener mi página radiante</a>
+      </div>
+      <p class="hero-note">Sin creadores complicados de arrastrar y soltar. Sin plantillas genéricas. Una página hecha para tus tratamientos.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glowA" cx="50%" cy="45%" r="55%">
+            <stop offset="0%" stop-color="#FFE07A"/>
+            <stop offset="45%" stop-color="#FF3E9D"/>
+            <stop offset="100%" stop-color="#7B2FE0" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="dropGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FF9AD1"/>
+            <stop offset="100%" stop-color="#7B2FE0"/>
+          </linearGradient>
+          <filter id="soften" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="10"/>
+          </filter>
+        </defs>
+        <circle cx="240" cy="230" r="190" fill="url(#glowA)" filter="url(#soften)" opacity="0.85"/>
+        <circle cx="240" cy="230" r="150" fill="none" stroke="#FFCE3E" stroke-width="2" opacity="0.55"/>
+        <circle cx="240" cy="230" r="118" fill="none" stroke="#1FE6C9" stroke-width="2" opacity="0.5"/>
+        <path d="M240 120c40 55 78 92 78 138a78 78 0 1 1-156 0c0-46 38-83 78-138Z" fill="url(#dropGrad)"/>
+        <ellipse cx="212" cy="230" rx="16" ry="24" fill="#ffffff" opacity="0.5"/>
+        <g opacity="0.9">
+          <path d="M110 90l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" fill="#FFCE3E"/>
+          <path d="M380 320l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#1FE6C9"/>
+          <path d="M370 100l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FF7A2F"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="strip" aria-hidden="true">
+  <div class="wrap">
+    <span>Faciales</span><span>Pestañas y Cejas</span><span>Depilación</span><span>Peelings Químicos</span><span>Microneedling</span><span>Masajes</span>
+  </div>
+</div>
+
+<section class="picker" id="picker">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Elige tu especialidad. Mira cómo resplandece tu página.</h2>
+      <p>Cada tratamiento se vende de forma diferente. Prueba las especialidades a continuación y observa cómo EasyLandX adapta el título, los colores y el menú de servicios a lo que realmente ofreces.</p>
+    </div>
+
+    <div class="chips" role="group" aria-label="Elige una especialidad">
+      <button class="chip" data-key="facials" aria-pressed="true">🌿 Faciales</button>
+      <button class="chip" data-key="lash" aria-pressed="false">👁️ Pestañas y Cejas</button>
+      <button class="chip" data-key="waxing" aria-pressed="false">🕊️ Depilación</button>
+      <button class="chip" data-key="peels" aria-pressed="false">✨ Peelings y Micro</button>
+    </div>
+
+    <div class="preview-shell">
+      <div class="preview-copy">
+        <h3 id="pv-title">Tratamientos faciales que hablan por sí solos</h3>
+        <p id="pv-desc">Las clientas que reservan un facial quieren sentir tranquilidad incluso antes de entrar. Tu página comienza con tu mejor resultado y un botón de reserva para el mismo día.</p>
+        <div class="preview-tags" id="pv-tags">
+          <span class="tag">Galería de antes y después</span>
+          <span class="tag">Cuestionario de tipo de piel</span>
+          <span class="tag">Reserva en un toque</span>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="phone-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="phone-screen accent-pink" id="pv-screen">
+          <svg class="phone-hero-icon" id="pv-icon" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,.22)"/>
+            <path d="M32 16c9 12 17 19 17 28a17 17 0 1 1-34 0c0-9 8-16 17-28Z" fill="#fff"/>
+          </svg>
+          <h4 id="pv-headline">Estudio de Faciales Glow</h4>
+          <p class="ps-sub" id="pv-sub">Faciales personalizados adaptados a tu piel, en un ambiente privado y relajante.</p>
+          <div class="phone-services" id="pv-services">
+            <div class="ps-row"><span>Facial Glow Firma</span><b>$95</b></div>
+            <div class="ps-row"><span>Hydrafacial</span><b>$140</b></div>
+            <div class="ps-row"><span>Renovación Express (30 min)</span><b>$55</b></div>
+          </div>
+          <div class="phone-cta" id="pv-cta">Reservar mi facial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="routine" id="routine">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Diseñada como una buena rutina de cuidado de la piel — en orden, con un propósito.</h2>
+      <p>Cada paso de tu página cumple una función específica, tal como sucede en cada etapa de un facial.</p>
+    </div>
+    <div class="routine-list">
+      <div class="routine-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Limpia las dudas</h3>
+          <p>Una página, una promesa clara. Quienes te visitan ven tu mejor trabajo en segundos y entienden exactamente lo que ofreces — sin menús confusos de cuarenta servicios que esconden lo que buscan.</p>
+        </div>
+        <svg class="step-icon" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" fill="#FF3E9D" opacity=".15"/>
+          <circle cx="32" cy="32" r="14" fill="none" stroke="#FF3E9D" stroke-width="3"/>
+          <path d="M42 42l10 10" stroke="#FF3E9D" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="routine-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Tonifica la confianza</h3>
+          <p>Fotos reales de antes y después, certificaciones y reseñas ubicadas justo donde una nueva clienta decide si reservar o no. Sin fotos de archivo de rostros ajenos.</p>
+        </div>
+        <svg class="step-icon" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" fill="#7B2FE0" opacity=".15"/>
+          <path d="M20 34l8 8 16-18" stroke="#7B2FE0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="routine-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Trata la fricción</h3>
+          <p>Reservar, enviar un mensaje de texto o escribir por DM está a solo un toque desde cualquier lugar de la página — no escondido tras varios menús en una plantilla convencional.</p>
+        </div>
+        <svg class="step-icon" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" fill="#FF7A2F" opacity=".15"/>
+          <rect x="19" y="16" width="26" height="32" rx="4" fill="none" stroke="#FF7A2F" stroke-width="3"/>
+          <line x1="24" y1="24" x2="40" y2="24" stroke="#FF7A2F" stroke-width="3" stroke-linecap="round"/>
+          <line x1="24" y1="32" x2="34" y2="32" stroke="#FF7A2F" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="routine-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Sella el resplandor</h3>
+          <p>Los recordatorios de nueva cita y solicitudes de opinión se envían automáticamente tras cada visita, para que tu agenda se llene entre citas en lugar de quitarte tiempo durante ellas.</p>
+        </div>
+        <svg class="step-icon" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" fill="#1FE6C9" opacity=".15"/>
+          <path d="M20 32a12 12 0 0 1 21-8m3 8a12 12 0 0 1-21 8" stroke="#1FBFA6" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M41 20l3 4-4 1" stroke="#1FBFA6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M23 44l-3-4 4-1" stroke="#1FBFA6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial" id="testimonial">
+  <div class="wrap">
+    <div class="quote-card">
+      <svg class="quote-mark" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+        <circle cx="40" cy="40" r="38" fill="#FFCE3E"/>
+        <path d="M26 34c0-7 5-12 12-13v6c-4 1-6 4-6 7h6v14H26V34zm22 0c0-7 5-12 12-13v6c-4 1-6 4-6 7h6v14H48V34z" fill="#26123A"/>
+      </svg>
+      <div>
+        <p class="quote-text">Desde que lancé mi página con EasyLandX, mis mensajes directos se convirtieron en citas reales confirmadas. Las clientas ven mis resultados antes de escribirme.</p>
+        <p class="quote-attr">Marisol Reyes<span>Esteticista Licenciada, Golden Hour Skin Studio</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="wrap">
+    <h2>¿Lista para una página que genera reservas por sí sola?</h2>
+    <p>Cuéntanos tu especialidad, tus servicios y tus mejores resultados. EasyLandX se encarga del diseño, la redacción y el flujo de reservas — en línea en días, no meses.</p>
+    <a href="#" class="btn btn-primary">Crear mi página radiante</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>EasyLandX — páginas de aterrizaje para pequeños negocios</span>
+    <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var data = {
+    facials: {
+      title: "Tratamientos faciales que hablan por sí solos",
+      desc: "Las clientas que reservan un facial quieren sentir tranquilidad incluso antes de entrar. Tu página comienza con tu mejor resultado y un botón de reserva para el mismo día.",
+      tags: ["Galería de antes y después","Cuestionario de tipo de piel","Reserva en un toque"],
+      accent: "accent-pink",
+      headline: "Estudio de Faciales Glow",
+      sub: "Faciales personalizados adaptados a tu piel, en un ambiente privado y relajante.",
+      services: [["Facial Glow Firma","$95"],["Hydrafacial","$140"],["Renovación Express (30 min)","$55"]],
+      cta: "Reservar mi facial",
+      icon: '<circle cx="32" cy="32" r="30" fill="rgba(255,255,255,.22)"/><path d="M32 16c9 12 17 19 17 28a17 17 0 1 1-34 0c0-9 8-16 17-28Z" fill="#fff"/>'
+    },
+    lash: {
+      title: "Páginas de pestañas y cejas que destacan cada detalle",
+      desc: "Este es un servicio muy visual y detallado. La página destaca una galería de imágenes y permite a las clientas elegir su estilo exacto antes de reservar.",
+      tags: ["Catálogo de estilos","Recordatorios de retoque","Feed de Instagram"],
+      accent: "accent-violet",
+      headline: "Bare Beauty Lash Bar",
+      sub: "Extensiones de pestañas y laminado de cejas adaptados a la forma de tus ojos.",
+      services: [["Set Completo Clásico","$85"],["Retoque Híbrido (2 sem)","$45"],["Laminado de Cejas","$60"]],
+      cta: "Reservar mi cita de pestañas",
+      icon: '<circle cx="32" cy="32" r="30" fill="rgba(255,255,255,.22)"/><path d="M14 34c6-10 12-14 18-14s12 4 18 14c-6 8-12 12-18 12s-12-4-18-12z" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="34" r="5" fill="#fff"/>'
+    },
+    waxing: {
+      title: "Páginas de depilación basadas en confianza y rapidez",
+      desc: "La discreción y la higiene son lo más importante. La página transmite tranquilidad primero y luego ofrece una reserva rápida y sin presiones.",
+      tags: ["Menú con precios claros","Preguntas para primerizos","Reserva por SMS"],
+      accent: "accent-orange",
+      headline: "Smooth Studio Depilación",
+      sub: "Especialistas en cera elástica. Higiénico, rápido y libre de prejuicios.",
+      services: [["Depilación Brasileña","$65"],["Pierna Completa","$70"],["Diseño de Cejas","$20"]],
+      cta: "Enviar SMS para reservar",
+      icon: '<circle cx="32" cy="32" r="30" fill="rgba(255,255,255,.22)"/><path d="M20 44c4-14 8-22 12-22s8 8 12 22" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="32" cy="18" r="4" fill="#fff"/>'
+    },
+    peels: {
+      title: "Páginas de peeling y microneedling que transmiten seguridad",
+      desc: "Mayor compromiso implica más dudas. La página explica los tiempos de recuperación y los resultados para que reserven bien informadas y sin temores.",
+      tags: ["Tiempo de recuperación","Fotos de resultados reales","Reserva de valoración"],
+      accent: "accent-cyan",
+      headline: "Clínica Dermatológica Renew",
+      sub: "Peelings médicos y microneedling con una especialista certificada.",
+      services: [["Peeling VI","$175"],["Microneedling","$225"],["Valoración Gratuita","$0"]],
+      cta: "Reservar mi valoración",
+      icon: '<circle cx="32" cy="32" r="30" fill="rgba(255,255,255,.22)"/><path d="M22 22l20 20M42 22 22 42" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="16" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>'
+    }
+  };
+
+  var chips = document.querySelectorAll('.chip');
+  var screen = document.getElementById('pv-screen');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function render(key){
+    var d = data[key];
+    if(!d) return;
+    chips.forEach(function(c){ c.setAttribute('aria-pressed', c.dataset.key === key ? 'true':'false'); });
+
+    document.getElementById('pv-title').textContent = d.title;
+    document.getElementById('pv-desc').textContent = d.desc;
+    document.getElementById('pv-tags').innerHTML = d.tags.map(function(t){ return '<span class="tag">'+t+'</span>'; }).join('');
+
+    screen.className = 'phone-screen ' + d.accent;
+    document.getElementById('pv-icon').innerHTML = d.icon;
+    document.getElementById('pv-headline').textContent = d.headline;
+    document.getElementById('pv-sub').textContent = d.sub;
+    document.getElementById('pv-services').innerHTML = d.services.map(function(row){
+      return '<div class="ps-row"><span>'+row[0]+'</span><b>'+row[1]+'</b></div>';
+    }).join('');
+    document.getElementById('pv-cta').textContent = d.cta;
+
+    if(!reduceMotion){
+      var icon = document.getElementById('pv-icon');
+      icon.style.transform = 'scale(0.85)';
+      requestAnimationFrame(function(){ icon.style.transform = 'scale(1)'; });
+    }
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){ render(chip.dataset.key); });
+  });
+})();
+</script>
+
+</body>
+</html>
