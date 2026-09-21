@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easylandx para Profesores y Academias de Danza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet: #7C2CE0;
+    --violet-deep: #5B14B0;
+    --violet-glow: #A855F7;
+    --pink: #FF3EA5;
+    --gold: #FFCF3C;
+    --cyan: #00E6D6;
+    --paper: #FFF6FB;
+    --paper-warm: #FFF0DA;
+    --ink: #200A38;
+    --ink-soft: #4A3468;
+    --white: #FFFFFF;
+    --radius: 26px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family:'Manrope', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    overflow-x: hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Unbounded', sans-serif;
+    line-height: 1.08;
+    margin: 0;
+  }
+  a{ color: inherit; }
+  img, svg{ max-width: 100%; display:block; }
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  section{ position: relative; }
+
+  /* ---------- glow helpers ---------- */
+  .glow-text{
+    text-shadow: 0 0 18px rgba(255,255,255,.55), 0 0 46px rgba(255,207,60,.35);
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.35);
+    color: var(--white);
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: .01em;
+  }
+  .dot{
+    width:9px; height:9px; border-radius:50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(120% 90% at 18% -10%, rgba(255,62,165,.55), transparent 55%),
+      radial-gradient(90% 70% at 100% 0%, rgba(0,230,214,.35), transparent 60%),
+      linear-gradient(160deg, var(--violet-deep), var(--violet) 55%, #9B3FE8 100%);
+    padding: 76px 0 60px;
+    color: var(--white);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 4.6vw, 3.7rem);
+    font-weight: 800;
+    margin: 22px 0 20px;
+  }
+  .hero h1 span{
+    color: var(--gold);
+  }
+  .hero p.lede{
+    font-size: 1.14rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,.92);
+    max-width: 46ch;
+    margin-bottom: 30px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 15px 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-family:'Manrope', sans-serif;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    text-decoration:none;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: var(--gold);
+    color: #33210A;
+    box-shadow: 0 8px 26px rgba(255,207,60,.45);
+  }
+  .btn-primary:hover{ box-shadow: 0 12px 32px rgba(255,207,60,.6); }
+  .btn-ghost{
+    background: rgba(255,255,255,.1);
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,.55);
+  }
+  .btn-ghost:hover{ background: rgba(255,255,255,.2); }
+
+  .hero-art{ position:relative; }
+  .disco-wrap{
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .disco-rays{
+    position:absolute;
+    inset: -10%;
+    animation: spin 26s linear infinite;
+  }
+  .disco-ball{ animation: bob 3.6s ease-in-out infinite; filter: drop-shadow(0 18px 30px rgba(0,0,0,.28)); }
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+  @keyframes bob{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background: var(--ink);
+    color: var(--white);
+    overflow:hidden;
+    white-space: nowrap;
+    padding: 14px 0;
+  }
+  .marquee-track{
+    display:inline-block;
+    animation: scroll-left 24s linear infinite;
+    font-family:'Unbounded', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    letter-spacing: .02em;
+  }
+  .marquee-track span{ margin: 0 26px; color: var(--gold); }
+  .marquee-track span:nth-child(3n){ color: var(--cyan); }
+  .marquee-track span:nth-child(3n+1){ color: var(--pink); }
+  @keyframes scroll-left{ from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-head{
+    max-width: 640px;
+    margin: 0 auto 46px;
+    text-align:center;
+  }
+  .section-head h2{
+    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-top: 14px;
+  }
+
+  /* ---------- WHY GRID ---------- */
+  .why{ padding: 96px 0 84px; background: var(--paper); }
+  .why-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .why-card{
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: 0 10px 28px rgba(123,20,220,.08);
+    border: 1px solid rgba(123,20,220,.08);
+  }
+  .why-card .icon{ margin-bottom: 18px; }
+  .why-card h3{
+    font-size: 1.18rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--violet-deep);
+  }
+  .why-card p{ color: var(--ink-soft); line-height:1.6; font-size: .98rem; }
+
+  /* ---------- INTERACTIVE FLOOR ---------- */
+  .floor-section{
+    background: linear-gradient(155deg, var(--violet-deep), var(--violet) 60%, #8A2FE0);
+    padding: 90px 0 96px;
+    color: var(--white);
+  }
+  .floor-section .section-head h2{ color: var(--white); }
+  .floor-section .section-head p{ color: rgba(255,255,255,.85); }
+
+  .floor-panel{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 42px;
+    align-items:center;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 32px;
+    padding: 38px;
+    backdrop-filter: blur(6px);
+  }
+  .tile-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .tile{
+    aspect-ratio: 1;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255,255,255,.12);
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.25);
+    transition: transform .12s ease, box-shadow .18s ease, background .18s ease;
+    position: relative;
+  }
+  .tile:hover{ transform: translateY(-3px); }
+  .tile.lit{
+    background: var(--tile-color, var(--gold));
+    box-shadow: 0 0 22px var(--tile-color, var(--gold)), 0 0 44px var(--tile-color, var(--gold));
+  }
+  .floor-copy h3{ font-size: 1.5rem; font-weight: 800; margin-bottom: 14px; }
+  .floor-copy p{ color: rgba(255,255,255,.88); line-height: 1.65; margin-bottom: 22px; }
+  .floor-controls{ display:flex; gap: 12px; flex-wrap: wrap; align-items:center; }
+  .seq-readout{
+    font-family:'Unbounded', sans-serif;
+    font-size: .85rem;
+    color: rgba(255,255,255,.7);
+    margin-top: 16px;
+    min-height: 20px;
+    letter-spacing: .04em;
+  }
+
+  /* ---------- TOGGLE ---------- */
+  .fit-section{ padding: 96px 0; background: var(--paper-warm); }
+  .toggle-shell{
+    display:flex;
+    justify-content:center;
+    margin-bottom: 44px;
+  }
+  .toggle{
+    display:inline-flex;
+    background: var(--white);
+    border-radius: 999px;
+    padding: 6px;
+    box-shadow: 0 8px 22px rgba(123,20,220,.1);
+    gap: 4px;
+  }
+  .toggle button{
+    border:none;
+    background: transparent;
+    padding: 13px 26px;
+    border-radius: 999px;
+    font-family:'Unbounded', sans-serif;
+    font-weight: 600;
+    font-size: .92rem;
+    cursor:pointer;
+    color: var(--ink-soft);
+    transition: all .22s ease;
+  }
+  .toggle button.active{
+    background: linear-gradient(120deg, var(--pink), var(--violet));
+    color: var(--white);
+    box-shadow: 0 6px 18px rgba(255,62,165,.35);
+  }
+  .fit-panels{ position:relative; min-height: 300px; }
+  .fit-panel{
+    display:none;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items:center;
+  }
+  .fit-panel.active{ display:grid; }
+  .fit-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: 16px; }
+  .fit-list li{
+    display:flex; gap: 14px; align-items:flex-start;
+    background: var(--white);
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 6px 18px rgba(123,20,220,.07);
+  }
+  .fit-list li .tick{
+    flex:none;
+    width: 26px; height:26px;
+    border-radius:50%;
+    background: linear-gradient(135deg, var(--cyan), var(--violet-glow));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .fit-list li p{ margin:0; color: var(--ink); font-size: .97rem; line-height:1.5; }
+  .fit-list li strong{ color: var(--violet-deep); }
+
+  /* ---------- SOCIAL PROOF STRIP ---------- */
+  .proof{
+    padding: 70px 0;
+    background: var(--paper);
+    text-align:center;
+  }
+  .proof blockquote{
+    font-family:'Unbounded', sans-serif;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    font-weight: 600;
+    color: var(--violet-deep);
+    max-width: 760px;
+    margin: 0 auto 18px;
+    line-height: 1.5;
+  }
+  .proof cite{ font-style:normal; color: var(--ink-soft); font-size: .95rem; }
+
+  /* ---------- FOOTER CTA ---------- */
+  .final-cta{
+    background: linear-gradient(150deg, #8A2FE0, var(--violet-deep) 65%, #4A0F92);
+    padding: 90px 0 60px;
+    color: var(--white);
+    text-align:center;
+  }
+  .final-cta h2{
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+  .final-cta p{
+    color: rgba(255,255,255,.88);
+    max-width: 50ch;
+    margin: 0 auto 34px;
+    line-height:1.6;
+    font-size: 1.05rem;
+  }
+  .final-cta .cta-row{ justify-content:center; }
+  footer{
+    text-align:center;
+    padding: 26px 0 34px;
+    font-size: .85rem;
+    color: rgba(255,255,255,.55);
+  }
+  footer a{ color: var(--gold); text-decoration:none; font-weight:700; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 880px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-art{ order: -1; max-width: 320px; margin: 0 auto; }
+    .why-grid{ grid-template-columns: 1fr; }
+    .floor-panel{ grid-template-columns: 1fr; }
+    .fit-panel{ grid-template-columns: 1fr; }
+    .fit-panel .fit-art{ order: -1; max-width: 260px; margin: 0 auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  }
+
+  :focus-visible{
+    outline: 3px solid var(--cyan);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge"><span class="dot"></span> easylandx · diseñado para el movimiento</span>
+      <h1 class="glow-text">Una página web que baila tan bien como <span>tú.</span></h1>
+      <p class="lede">Sitios web a medida y optimizados para móviles, para profesores y academias de danza — diseñados para llenar tus clases, no solo para estar ahí. Sin plantillas ni maquetadores genéricos: una sola página, hecha para tu estilo, tus horarios y tus alumnos.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#floor">Prueba la pista interactiva ↓</a>
+        <a class="btn btn-ghost" href="#fit">Descubre qué incluye</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="disco-wrap">
+        <svg class="disco-rays" viewBox="0 0 400 400" width="380" height="380" aria-hidden="true">
+          <g opacity="0.55">
+            <line x1="200" y1="200" x2="200" y2="10" stroke="#FFCF3C" stroke-width="3"/>
+            <line x1="200" y1="200" x2="200" y2="390" stroke="#FF3EA5" stroke-width="3"/>
+            <line x1="200" y1="200" x2="10" y2="200" stroke="#00E6D6" stroke-width="3"/>
+            <line x1="200" y1="200" x2="390" y2="200" stroke="#FFCF3C" stroke-width="3"/>
+            <line x1="200" y1="200" x2="60" y2="60" stroke="#FF3EA5" stroke-width="3"/>
+            <line x1="200" y1="200" x2="340" y2="340" stroke="#00E6D6" stroke-width="3"/>
+            <line x1="200" y1="200" x2="340" y2="60" stroke="#FFCF3C" stroke-width="3"/>
+            <line x1="200" y1="200" x2="60" y2="340" stroke="#FF3EA5" stroke-width="3"/>
+          </g>
+        </svg>
+        <svg class="disco-ball" viewBox="0 0 220 220" width="230" height="230" aria-hidden="true">
+          <defs>
+            <radialGradient id="ballShade" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="45%" stop-color="#E7DCFF"/>
+              <stop offset="100%" stop-color="#9B6BE0"/>
+            </radialGradient>
+          </defs>
+          <line x1="110" y1="0" x2="110" y2="34" stroke="#3A2160" stroke-width="4"/>
+          <circle cx="110" cy="110" r="76" fill="url(#ballShade)"/>
+          <g stroke="#5E2FA8" stroke-width="1.4" opacity="0.55">
+            <path d="M34 110 H186"/><path d="M34 88 H186"/><path d="M34 132 H186"/>
+            <path d="M42 68 H178"/><path d="M42 152 H178"/>
+            <path d="M110 34 V186"/><path d="M88 36 V184"/><path d="M132 36 V184"/>
+            <path d="M68 42 V178"/><path d="M152 42 V178"/>
+          </g>
+          <circle cx="86" cy="80" r="7" fill="#FFFFFF" opacity=".85"/>
+          <circle cx="130" cy="70" r="4" fill="#FFCF3C" opacity=".9"/>
+          <circle cx="150" cy="120" r="5" fill="#00E6D6" opacity=".9"/>
+          <circle cx="90" cy="140" r="4" fill="#FF3EA5" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>★ RESERVAS DE CLASES DE PRUEBA</span><span>★ LISTO PARA WHATSAPP E INSTAGRAM</span><span>★ DISEÑO MOBILE-FIRST</span>
+    <span>★ HORARIOS QUE SE ACTUALIZAN SOLOS</span><span>★ PARA ACADEMIAS Y PROFESORES INDEPENDIENTES</span><span>★ LISTO EN DÍAS, NO MESES</span>
+    <span>★ RESERVAS DE CLASES DE PRUEBA</span><span>★ LISTO PARA WHATSAPP E INSTAGRAM</span><span>★ DISEÑO MOBILE-FIRST</span>
+    <span>★ HORARIOS QUE SE ACTUALIZAN SOLOS</span><span>★ PARA ACADEMIAS Y PROFESORES INDEPENDIENTES</span><span>★ LISTO EN DÍAS, NO MESES</span>
+  </div>
+</div>
+
+<!-- ================= WHY ================= -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Por qué los profesores de danza eligen easylandx</h2>
+      <p>El baile es visual, social y se reserva desde el móvil entre clase y clase. Tu página web debe moverse al mismo ritmo que tus alumnos.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="icon">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+            <circle cx="23" cy="23" r="21" stroke="#FF3EA5" stroke-width="2.5"/>
+            <path d="M15 24l6 6 11-13" stroke="#7C2CE0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Pensada para llenar clases de prueba</h3>
+        <p>Cada sección lleva a alguna parte — un mensaje de WhatsApp, un mensaje directo en Instagram o un enlace de reserva para su primera clase gratuita o con descuento. Sin caminos sin salida.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+            <rect x="6" y="6" width="34" height="34" rx="10" stroke="#00C7B8" stroke-width="2.5"/>
+            <path d="M14 30V18M23 30V14M32 30V22" stroke="#FFCF3C" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Tus horarios reales, siempre a la vista</h3>
+        <p>Martes de salsa, ballet para principiantes, intensivos de fin de semana — tu horario se presenta con claridad para que nadie tenga que escribir solo para preguntar "¿cuándo empezáis?".</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+            <path d="M23 5v10M13 10l6 8M33 10l-6 8" stroke="#7C2CE0" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="9" y="20" width="28" height="18" rx="9" stroke="#FF3EA5" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <h3>Diseñada para navegar con una sola mano</h3>
+        <p>La mayoría de los alumnos buscan clases desde el móvil. Tu página es rápida, fácil de usar con el pulgar y nunca obliga a nadie a hacer zoom para leer.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+            <circle cx="23" cy="16" r="8" stroke="#FFCF3C" stroke-width="2.5"/>
+            <path d="M8 40c1-9 8-14 15-14s14 5 15 14" stroke="#00C7B8" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Tu propio estilo, no una plantilla</h3>
+        <p>Ya sea una academia contemporánea o un grupo de reggaetón, tu página se diseña en base a tus fotos, tus colores y tu energía — nunca con una plantilla genérica donde solo cambian el logo.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+            <path d="M23 6l4.5 9.2 10.1 1.5-7.3 7.1 1.7 10.1L23 29l-9 4.9 1.7-10.1-7.3-7.1 10.1-1.5z" stroke="#FF3EA5" stroke-width="2.3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Opiniones y resultados, en primer plano</h3>
+        <p>Los testimonios de tus alumnos, vídeos de actuaciones y progresos se ubican justo donde los nuevos visitantes miran, no enterrados tras desplazarse hacia abajo.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+            <path d="M8 23a15 15 0 0130 0" stroke="#00C7B8" stroke-width="2.5"/>
+            <path d="M8 23v9M38 23v9" stroke="#7C2CE0" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M8 32h6v6H8zM32 32h6v6h-6z" stroke="#7C2CE0" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <h3>Tú nos mandas el contenido. Nosotros hacemos el resto.</h3>
+        <p>Envíanos tus fotos e información por chat — nosotros construimos, ajustamos y publicamos la página. Actualizar la fecha de un taller más adelante solo requiere un mensaje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERACTIVE FLOOR ================= -->
+<section class="floor-section" id="floor">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Crea una secuencia en la pista de baile</h2>
+      <p>Cuatro tiempos, tu elección de color y sonido — de la misma manera que coreografiamos cada sección de tu página para que tus alumnos sigan el ritmo.</p>
+    </div>
+    <div class="floor-panel">
+      <div>
+        <div class="tile-grid" id="tileGrid" role="group" aria-label="Pista de baile interactiva, toca las casillas para crear una rutina"></div>
+        <div class="seq-readout" id="seqReadout">Toca una casilla para comenzar tu rutina.</div>
+      </div>
+      <div class="floor-copy">
+        <h3>Así se siente el diseño enfocado a la conversión</h3>
+        <p>Cada casilla que tocas es una decisión pensada — al igual que cada sección de tu página web. El color, el orden y el ritmo se enfocan en una sola cosa: que el visitante toque en "reservar mi clase".</p>
+        <div class="floor-controls">
+          <button class="btn btn-primary" id="playBtn">▶ Reproducir mi rutina</button>
+          <button class="btn btn-ghost" id="clearBtn">Limpiar pista</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIT TOGGLE ================= -->
+<section class="fit-section" id="fit">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Tanto si enseñas de forma independiente como si diriges una academia</h2>
+      <p>easylandx adapta la estructura a tu forma real de trabajar — no al revés.</p>
+    </div>
+    <div class="toggle-shell">
+      <div class="toggle" role="tablist" aria-label="Elige tu opción">
+        <button class="active" id="btnTeacher" role="tab" aria-selected="true">Profesor de Danza</button>
+        <button id="btnStudio" role="tab" aria-selected="false">Academia de Danza</button>
+      </div>
+    </div>
+    <div class="fit-panels">
+      <div class="fit-panel active" id="panelTeacher">
+        <ul class="fit-list">
+          <li><span class="tick">✓</span><p><strong>Una página, un objetivo:</strong> tu biografía, tu estilo y una vía clara para reservar una clase o una lección privada.</p></li>
+          <li><span class="tick">✓</span><p><strong>Proceso de reserva personal:</strong> un enlace directo a tu WhatsApp o Instagram, configurado exactamente como ya atiendes a tus alumnos.</p></li>
+          <li><span class="tick">✓</span><p><strong>Ubicaciones flexibles:</strong> salas alquiladas, clases particulares o sesiones al aire libre — tu página muestra dónde enseñas actualmente.</p></li>
+          <li><span class="tick">✓</span><p><strong>Crece contigo:</strong> añade talleres, vídeos de coreografías o un enlace a tu tienda en el momento en que estés listo, sin rehacer la web.</p></li>
+        </ul>
+        <svg class="fit-art" viewBox="0 0 260 260" aria-hidden="true">
+          <circle cx="130" cy="130" r="120" fill="#F3E8FF"/>
+          <path d="M130 60c-10 0-18 8-18 18s8 18 18 18 18-8 18-18-8-18-18-18z" fill="#7C2CE0"/>
+          <path d="M130 100c-14 0-24 10-26 24l-8 40 16 4 8-34 6 6-4 60h16l4-46 4 46h16l-4-60 6-6 8 34 16-4-8-40c-2-14-12-24-26-24z" fill="#FF3EA5"/>
+          <path d="M96 128l-30-14M164 128l30-14" stroke="#FFCF3C" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="fit-panel" id="panelStudio">
+        <ul class="fit-list">
+          <li><span class="tick">✓</span><p><strong>Cuadrante completo de clases:</strong> cada estilo, nivel y profesor organizado por días, para que familias y principiantes se informen solos.</p></li>
+          <li><span class="tick">✓</span><p><strong>Múltiples llamadas a la acción:</strong> clase de prueba, planes de suscripción y eventos, cada uno con un paso siguiente bien definido.</p></li>
+          <li><span class="tick">✓</span><p><strong>Presentación de profesores:</strong> breves biografías y fotos de cada profesor para generar confianza antes de que visiten la academia.</p></li>
+          <li><span class="tick">✓</span><p><strong>Diseñada para crecer:</strong> nuevas ubicaciones, festivales de fin de curso o expansión de la academia — la estructura se adapta a tu negocio.</p></li>
+        </ul>
+        <svg class="fit-art" viewBox="0 0 260 260" aria-hidden="true">
+          <circle cx="130" cy="130" r="120" fill="#FFE9C7"/>
+          <g fill="#7C2CE0">
+            <circle cx="95" cy="86" r="12"/>
+            <circle cx="130" cy="80" r="12"/>
+            <circle cx="165" cy="86" r="12"/>
+          </g>
+          <path d="M95 104c-10 0-18 8-19 18l-6 30 12 3 6-24v50h14v-50l4 50h14l-6-56z" fill="#FF3EA5"/>
+          <path d="M130 98c-10 0-18 8-19 18l-6 32 12 3 6-26v56h14v-56l4 56h14l-6-62z" fill="#00C7B8"/>
+          <path d="M165 104c-10 0-18 8-19 18l-6 30 12 3 6-24v50h14v-50l4 50h14l-6-56z" fill="#FF3EA5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOCIAL PROOF ================= -->
+<section class="proof">
+  <div class="wrap">
+    <blockquote>"Las reservas para nuestra clase de prueba se duplicaron la semana que publicamos la nueva página. La gente por fin ha dejado de preguntar a qué hora empieza la clase."</blockquote>
+    <cite>— testimonio de ejemplo para ilustración, listo para ser reemplazado por uno real</cite>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2 class="glow-text">Tus alumnos ya se están moviendo.<br>Hagamos que tu página web también se mueva.</h2>
+    <p>Envíanos tus fotos, tu horario y unas palabras sobre tu estilo. Te entregaremos una página web optimizada para llenar tu pista de baile — lista para la temporada 2026.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/000000000" target="_blank" rel="noopener">Empezar por WhatsApp</a>
+      <a class="btn btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Ver el portafolio de easylandx</a>
+    </div>
+  </div>
+  <footer>
+    easylandx · páginas de aterrizaje a medida para pequeños negocios · <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a> · 2026
+  </footer>
+</section>
+
+<script>
+(function(){
+  const colors = ['#FF3EA5', '#FFCF3C', '#00E6D6', '#B47CFF'];
+  const notes = [329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 493.88, 415.30]; // E4 G4 A4 C5 D5 E5 B4 Ab4
+  const grid = document.getElementById('tileGrid');
+  const readout = document.getElementById('seqReadout');
+  let sequence = [];
+  let audioCtx = null;
+
+  function getCtx(){
+    if(!audioCtx){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+
+  function playTone(freq){
+    try{
+      const ctx = getCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.22, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.32);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.34);
+    }catch(e){ /* audio no disponible, ignorar en silencio */ }
+  }
+
+  for(let i=0;i<8;i++){
+    const tile = document.createElement('button');
+    tile.className = 'tile';
+    tile.type = 'button';
+    tile.style.setProperty('--tile-color', colors[i % colors.length]);
+    tile.setAttribute('aria-label', 'Casilla de baile ' + (i+1));
+    tile.addEventListener('click', () => {
+      tile.classList.add('lit');
+      playTone(notes[i]);
+      sequence.push(i);
+      updateReadout();
+      setTimeout(() => tile.classList.remove('lit'), 260);
+    });
+    grid.appendChild(tile);
+  }
+
+  function updateReadout(){
+    if(sequence.length === 0){
+      readout.textContent = 'Toca una casilla para comenzar tu rutina.';
+    } else {
+      readout.textContent = sequence.length + ' paso' + (sequence.length===1?'':'s') + ' coreografiado' + (sequence.length===1?'':'s') + ' — toca "Reproducir" para verla de nuevo.';
+    }
+  }
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    sequence = [];
+    updateReadout();
+  });
+
+  document.getElementById('playBtn').addEventListener('click', () => {
+    if(sequence.length === 0){
+      readout.textContent = 'Toca algunas casillas primero y luego pulsa reproducir.';
+      return;
+    }
+    const tiles = grid.querySelectorAll('.tile');
+    sequence.forEach((idx, step) => {
+      setTimeout(() => {
+        tiles[idx].classList.add('lit');
+        playTone(notes[idx]);
+        setTimeout(() => tiles[idx].classList.remove('lit'), 260);
+      }, step * 340);
+    });
+  });
+
+  // ---- Conmutador Profesor / Academia ----
+  const btnTeacher = document.getElementById('btnTeacher');
+  const btnStudio = document.getElementById('btnStudio');
+  const panelTeacher = document.getElementById('panelTeacher');
+  const panelStudio = document.getElementById('panelStudio');
+
+  function showTeacher(){
+    btnTeacher.classList.add('active'); btnStudio.classList.remove('active');
+    btnTeacher.setAttribute('aria-selected','true'); btnStudio.setAttribute('aria-selected','false');
+    panelTeacher.classList.add('active'); panelStudio.classList.remove('active');
+  }
+  function showStudio(){
+    btnStudio.classList.add('active'); btnTeacher.classList.remove('active');
+    btnStudio.setAttribute('aria-selected','true'); btnTeacher.setAttribute('aria-selected','false');
+    panelStudio.classList.add('active'); panelTeacher.classList.remove('active');
+  }
+  btnTeacher.addEventListener('click', showTeacher);
+  btnStudio.addEventListener('click', showStudio);
+})();
+</script>
+
+</body>
+</html>
