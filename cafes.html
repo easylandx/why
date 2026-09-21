@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLandX for Cafés — Landing Pages That Brew Customers</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --electric-pink:#ff2fb0;
+    --electric-orange:#ff7a1a;
+    --electric-yellow:#ffe400;
+    --electric-cyan:#00f0ff;
+    --electric-purple:#8b2fff;
+    --ink:#1a0b2e;
+    --cream:#fff7e6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk', sans-serif;
+    background: radial-gradient(circle at 20% 10%, #3a0ca3 0%, #1a0b2e 45%, #0d0518 100%);
+    color: var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.logo{ font-family:'Baloo 2', sans-serif; }
+
+  /* glow utility */
+  .glow-text{ text-shadow: 0 0 8px currentColor, 0 0 22px currentColor; }
+  .glow-box{ box-shadow: 0 0 25px rgba(255,47,176,.5), 0 0 55px rgba(0,240,255,.25); }
+
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw; position:sticky; top:0; z-index:50;
+    background: rgba(13,5,24,.6); backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .logo{ font-size:1.5rem; font-weight:800; color:var(--electric-yellow); }
+  .logo span{ color:var(--electric-cyan); }
+  nav a.cta{
+    background: linear-gradient(90deg, var(--electric-pink), var(--electric-orange));
+    padding:10px 22px; border-radius:999px; color:var(--ink); font-weight:700;
+    text-decoration:none; box-shadow:0 0 18px rgba(255,122,26,.6);
+    transition: transform .2s;
+  }
+  nav a.cta:hover{ transform: scale(1.07); }
+
+  /* HERO */
+  .hero{
+    min-height:88vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; padding:6vw; position:relative;
+  }
+  .badge{
+    display:inline-block; padding:8px 18px; border-radius:999px; font-size:.85rem;
+    font-weight:700; letter-spacing:.5px; color:var(--ink);
+    background: var(--electric-yellow); box-shadow:0 0 20px rgba(255,228,0,.7);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.6rem); line-height:1.05; max-width:15ch;
+    color:#fff;
+  }
+  .hero h1 .accent1{ color: var(--electric-cyan); }
+  .hero h1 .accent2{ color: var(--electric-pink); }
+  .hero p{
+    max-width:52ch; margin:26px auto 34px; font-size:1.15rem; color:#e9dcff;
+  }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .btn-primary{
+    background: linear-gradient(90deg, var(--electric-pink), var(--electric-purple));
+    color:#fff; padding:16px 34px; border-radius:999px; font-weight:700; font-size:1.05rem;
+    text-decoration:none; border:none; cursor:pointer; animation: pulseGlow 2.2s infinite ease-in-out;
+  }
+  .btn-secondary{
+    background:transparent; border:2px solid var(--electric-cyan); color:var(--electric-cyan);
+    padding:14px 30px; border-radius:999px; font-weight:700; text-decoration:none;
+  }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 18px rgba(255,47,176,.7), 0 0 40px rgba(139,47,255,.4);}
+    50%{ box-shadow:0 0 32px rgba(255,47,176,1), 0 0 70px rgba(139,47,255,.7);}
+  }
+
+  /* Floating coffee illustration */
+  .cup-wrap{ position:relative; width:220px; height:220px; margin:10px auto 0; }
+  svg.steamcup{ width:100%; height:100%; overflow:visible; }
+  .steam{ animation: rise 3.5s infinite ease-in-out; transform-origin:center bottom; }
+  .steam.s2{ animation-delay:.6s; }
+  .steam.s3{ animation-delay:1.2s; }
+  @keyframes rise{
+    0%{ transform: translateY(0) scaleX(1); opacity:.9;}
+    50%{ transform: translateY(-18px) scaleX(1.3); opacity:.4;}
+    100%{ transform: translateY(-36px) scaleX(1); opacity:0;}
+  }
+
+  section{ padding: 8vw 6vw; max-width:1200px; margin:0 auto; }
+  .section-title{ text-align:center; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:14px; color:#fff; }
+  .section-sub{ text-align:center; color:#d8c6ff; max-width:60ch; margin:0 auto 50px; }
+
+  /* WHY GRID */
+  .why-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:26px; }
+  .why-card{
+    background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    border-radius:22px; padding:28px; text-align:left; transition: transform .25s, box-shadow .25s;
+  }
+  .why-card:hover{ transform: translateY(-8px); box-shadow:0 0 30px rgba(0,240,255,.35); border-color:var(--electric-cyan); }
+  .why-card .icon{ font-size:2.2rem; margin-bottom:14px; display:block; }
+  .why-card h3{ color:var(--electric-yellow); margin-bottom:10px; font-size:1.2rem; }
+  .why-card p{ color:#e6d9ff; font-size:.95rem; line-height:1.5; }
+
+  /* INTERACTIVE DEMO */
+  .demo{
+    background: linear-gradient(160deg, rgba(139,47,255,.25), rgba(255,47,176,.15));
+    border-radius:28px; border:1px solid rgba(255,255,255,.15); padding:5vw;
+  }
+  .demo-inner{ display:grid; grid-template-columns:1fr 1.2fr; gap:40px; align-items:center; }
+  @media (max-width:820px){ .demo-inner{ grid-template-columns:1fr; } }
+
+  .demo-controls label{ display:block; font-size:.85rem; color:var(--electric-cyan); margin:16px 0 6px; font-weight:700; }
+  .demo-controls input[type=text]{
+    width:100%; padding:12px 14px; border-radius:12px; border:2px solid rgba(255,255,255,.2);
+    background: rgba(0,0,0,.3); color:#fff; font-family:inherit; font-size:1rem;
+  }
+  .demo-controls input[type=text]:focus{ outline:none; border-color:var(--electric-pink); }
+  .swatches{ display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; }
+  .swatch{
+    width:34px; height:34px; border-radius:50%; cursor:pointer; border:3px solid transparent;
+    transition: transform .15s;
+  }
+  .swatch:hover{ transform: scale(1.15); }
+  .swatch.active{ border-color:#fff; }
+
+  /* MOCK PREVIEW (the fake café landing page) */
+  .mock{
+    border-radius:20px; overflow:hidden; box-shadow:0 0 40px rgba(0,0,0,.5);
+    border: 4px solid rgba(255,255,255,.15); background:#12061f;
+    transition: background .4s ease;
+  }
+  .mock-hero{
+    padding:34px 26px; text-align:center; transition: background .4s ease;
+    background: linear-gradient(135deg, var(--electric-pink), var(--electric-purple));
+  }
+  .mock-hero h4{ font-size:1.6rem; color:#fff; transition:color .3s; }
+  .mock-hero p{ color:rgba(255,255,255,.9); margin-top:8px; font-size:.9rem; }
+  .mock-hero button{
+    margin-top:18px; padding:10px 24px; border-radius:999px; border:none; font-weight:700;
+    cursor:pointer; background:#fff; color:var(--ink);
+  }
+  .mock-body{ padding:20px 26px 26px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mock-chip{
+    background:rgba(255,255,255,.08); padding:8px 14px; border-radius:999px; font-size:.8rem; color:#e6d9ff;
+  }
+
+  /* FEATURES STRIP */
+  .strip{ display:flex; flex-wrap:wrap; gap:22px; justify-content:center; margin-top:50px; }
+  .pill{
+    padding:14px 22px; border-radius:16px; background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12); font-size:.95rem; color:#fff; display:flex; align-items:center; gap:10px;
+  }
+
+  /* PRICING */
+  .pricing{
+    text-align:center; background: radial-gradient(circle at 50% 0%, rgba(255,228,0,.15), transparent 60%);
+    border-radius:28px; padding:6vw; border:1px solid rgba(255,255,255,.1);
+  }
+  .price-tag{
+    font-size:clamp(3rem,8vw,4.5rem); font-weight:800; color:var(--electric-yellow);
+  }
+  .price-tag span{ font-size:1.3rem; color:#e6d9ff; font-weight:500; }
+
+  footer{
+    text-align:center; padding:50px 6vw; color:#b8a6d9; font-size:.85rem;
+  }
+  footer a{ color:var(--electric-cyan); }
+
+  ::selection{ background: var(--electric-pink); color:#fff; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Easy<span>Land</span>X</div>
+  <a class="cta" href="https://easylandx.github.io" target="_blank" rel="noopener">Get Your Café Page →</a>
+</nav>
+
+<section class="hero">
+  <div class="badge">☕ Built for Independent Cafés &amp; Coffee Shops</div>
+  <h1>Your <span class="accent1">Instagram</span> gets the likes.<br>Your <span class="accent2">landing page</span> gets the orders.</h1>
+  <p>EasyLandX turns your café's vibe into a single glowing page that gets people through the door — table bookings, takeaway orders, and loyal regulars, all from one link in your bio.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Brew My Landing Page</a>
+    <a class="btn-secondary" href="#demo">Try the Live Demo ↓</a>
+  </div>
+
+  <div class="cup-wrap">
+    <svg class="steamcup" viewBox="0 0 200 200">
+      <g class="steam s1" fill="none" stroke="#00f0ff" stroke-width="5" stroke-linecap="round">
+        <path d="M70 90 Q65 70 75 55 Q85 40 78 25"/>
+      </g>
+      <g class="steam s2" fill="none" stroke="#ff2fb0" stroke-width="5" stroke-linecap="round">
+        <path d="M100 90 Q95 68 105 52 Q115 36 108 20"/>
+      </g>
+      <g class="steam s3" fill="none" stroke="#ffe400" stroke-width="5" stroke-linecap="round">
+        <path d="M130 90 Q125 70 135 55 Q145 40 138 25"/>
+      </g>
+      <ellipse cx="100" cy="175" rx="60" ry="8" fill="#8b2fff" opacity="0.3"/>
+      <path d="M40 95 h120 l-10 55 a15 15 0 0 1 -15 13 h-70 a15 15 0 0 1 -15 -13 Z" fill="#ff7a1a"/>
+      <path d="M40 95 h120 l-3 18 h-114 Z" fill="#ffe400"/>
+      <path d="M160 105 q28 0 28 25 q0 25 -28 25 v-14 q12 0 12 -11 q0 -11 -12 -11 Z" fill="#00f0ff"/>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Why cafés light up with EasyLandX</h2>
+  <p class="section-sub">Independent coffee shops run on atmosphere, aroma, and word of mouth — your page should feel exactly the same way.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="icon">⚡</span>
+      <h3>Live in 48 hours</h3>
+      <p>No agency timelines. Send us your menu, photos, and vibe — your page is glowing online within two days.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">📸</span>
+      <h3>Instagram → Table</h3>
+      <p>Turn profile-visitors into real customers with one tap: directions, table reservations, and your daily specials front and center.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🥐</span>
+      <h3>Menu that pops</h3>
+      <p>Your pastries and specialty brews displayed with mouth-watering visuals — not a flat PDF menu nobody opens.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">💬</span>
+      <h3>One-tap WhatsApp orders</h3>
+      <p>Skip the third-party apps and their cut of your margin. Orders land straight in your WhatsApp.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🎨</span>
+      <h3>Your colors, your neon</h3>
+      <p>Whether you're cozy pastel or bold neon-sign energy, the palette is tuned to match your shop's real personality.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">📱</span>
+      <h3>Looks perfect on phones</h3>
+      <p>Most café discovery happens on a phone between two subway stops — so that's exactly where we optimize first.</p>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2 class="section-title">Try it: build your café's page live</h2>
+  <p class="section-sub">Type your café's name, pick a glow, and watch the preview light up in real time.</p>
+  <div class="demo">
+    <div class="demo-inner">
+      <div class="demo-controls">
+        <label for="cafeName">Café name</label>
+        <input type="text" id="cafeName" placeholder="e.g. Neon Bean Coffee" maxlength="28">
+
+        <label for="cafeSlogan">Your slogan</label>
+        <input type="text" id="cafeSlogan" placeholder="e.g. Small batch. Big glow." maxlength="46">
+
+        <label>Pick your glow</label>
+        <div class="swatches">
+          <div class="swatch active" style="background:linear-gradient(135deg,#ff2fb0,#8b2fff)" data-c1="#ff2fb0" data-c2="#8b2fff" data-text="#ffffff"></div>
+          <div class="swatch" style="background:linear-gradient(135deg,#00f0ff,#8b2fff)" data-c1="#00f0ff" data-c2="#8b2fff" data-text="#0d0518"></div>
+          <div class="swatch" style="background:linear-gradient(135deg,#ffe400,#ff7a1a)" data-c1="#ffe400" data-c2="#ff7a1a" data-text="#1a0b2e"></div>
+          <div class="swatch" style="background:linear-gradient(135deg,#00ff9d,#00f0ff)" data-c1="#00ff9d" data-c2="#00f0ff" data-text="#0d0518"></div>
+        </div>
+      </div>
+
+      <div class="mock glow-box">
+        <div class="mock-hero" id="mockHero">
+          <h4 id="mockName">Neon Bean Coffee</h4>
+          <p id="mockSlogan">Small batch. Big glow.</p>
+          <button>Reserve a Table</button>
+        </div>
+        <div class="mock-body">
+          <span class="mock-chip">☕ Flat White €3.20</span>
+          <span class="mock-chip">🥐 Almond Croissant €2.80</span>
+          <span class="mock-chip">📍 Open 8am–7pm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="pill">⏱️ 48-hour delivery</div>
+      <div class="pill">📱 Mobile-first design</div>
+      <div class="pill">🔗 One link, every platform</div>
+      <div class="pill">🚫 No monthly builder fees</div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <h2 class="section-title">Ready to glow?</h2>
+  <p class="section-sub">Independent café pricing — no agency markup, no long contracts.</p>
+  <div class="price-tag">48€<span> / page, delivered in 48h</span></div>
+  <div class="hero-ctas" style="margin-top:26px;">
+    <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Start My Café's Page</a>
+  </div>
+</section>
+
+<footer>
+  Made with ☕ + ⚡ by <a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a>
+</footer>
+
+<script>
+  const nameInput = document.getElementById('cafeName');
+  const sloganInput = document.getElementById('cafeSlogan');
+  const mockName = document.getElementById('mockName');
+  const mockSlogan = document.getElementById('mockSlogan');
+  const mockHero = document.getElementById('mockHero');
+  const mock = document.querySelector('.mock');
+  const swatches = document.querySelectorAll('.swatch');
+
+  nameInput.addEventListener('input', () => {
+    mockName.textContent = nameInput.value.trim() || 'Neon Bean Coffee';
+  });
+  sloganInput.addEventListener('input', () => {
+    mockSlogan.textContent = sloganInput.value.trim() || 'Small batch. Big glow.';
+  });
+
+  swatches.forEach(sw => {
+    sw.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('active'));
+      sw.classList.add('active');
+      const c1 = sw.dataset.c1, c2 = sw.dataset.c2, text = sw.dataset.text;
+      mockHero.style.background = `linear-gradient(135deg, ${c1}, ${c2})`;
+      mockName.style.color = text;
+      mock.style.boxShadow = `0 0 40px ${c1}88`;
+    });
+  });
+</script>
+
+</body>
+</html>

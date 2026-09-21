@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX para Chocolateros y Artesanos del Cacao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet-deep:#160a2e;
+    --violet-mid:#2a1150;
+    --violet-bright:#7c2bff;
+    --gold:#ffd21a;
+    --cyan:#26f7e0;
+    --pink:#ff3fa4;
+    --cream:#fff7e8;
+    --cocoa:#2b160f;
+    --ink:#f4ecff;
+    --line: rgba(244,236,255,0.14);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  html,body{height:100%;}
+  body{
+    background: #ff6600;
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;}
+  .wide-scroll{overflow-x:auto;}
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:600; line-height:1.05; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:rgba(22,10,46,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:600; font-size:1.2rem;}
+  .brand-dot{width:11px; height:11px; border-radius:50%; background:var(--gold); box-shadow:0 0 14px 3px var(--gold);}
+  .navlinks{display:flex; gap:30px; font-size:0.95rem; color:rgba(244,236,255,0.75);}
+  .navlinks a{text-decoration:none; transition:color .2s;}
+  .navlinks a:hover{color:var(--cyan);}
+  .nav-cta{
+    background:var(--gold); color:var(--cocoa); font-weight:600; font-size:0.9rem;
+    padding:10px 20px; border-radius:100px; text-decoration:none;
+    box-shadow:0 0 0 rgba(255,210,26,0); transition:box-shadow .25s, transform .2s;
+  }
+  .nav-cta:hover{box-shadow:0 0 26px 4px rgba(255,210,26,0.55); transform:translateY(-1px);}
+
+  /* HERO */
+  .hero{position:relative; padding:96px 0 60px;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
+  .eyebrow-line{display:flex; align-items:center; gap:10px; color:var(--cyan); font-size:0.95rem; margin-bottom:22px;}
+  .eyebrow-line svg{flex:none;}
+  h1.hero-head{font-size:clamp(2.5rem, 5vw, 3.9rem); max-width:11ch;}
+  h1.hero-head .melt{
+    background:linear-gradient(100deg, var(--gold), var(--pink) 55%, var(--cyan));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lede{margin-top:22px; font-size:1.15rem; line-height:1.6; color:rgba(244,236,255,0.82); max-width:46ch;}
+  .hero-actions{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold); color:var(--cocoa); font-weight:600; font-size:1rem;
+    padding:15px 28px; border-radius:100px; text-decoration:none; border:none; cursor:pointer;
+    box-shadow:0 0 34px 2px rgba(255,210,26,0.35); transition:transform .2s, box-shadow .25s;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 0 44px 6px rgba(255,210,26,0.55);}
+  .btn-ghost{
+    background:transparent; color:var(--ink); font-weight:600; font-size:1rem;
+    padding:15px 26px; border-radius:100px; text-decoration:none; border:1px solid var(--line);
+    transition:border-color .2s, color .2s;
+  }
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan);}
+  .hero-proof{margin-top:38px; display:flex; gap:28px; flex-wrap:wrap; font-size:0.88rem; color:rgba(244,236,255,0.6);}
+  .hero-proof b{color:var(--ink); font-weight:600;}
+
+  /* HERO ART */
+  .hero-art{position:relative; display:flex; align-items:center; justify-content:center;}
+  .hero-art svg{width:100%; max-width:440px; filter:drop-shadow(0 20px 60px rgba(255,63,164,0.25));}
+  .glow-ring{position:absolute; width:420px; height:420px; border-radius:50%;
+    background:radial-gradient(circle, rgba(124,43,255,0.5), transparent 70%);
+    filter:blur(10px); z-index:-1;}
+
+  /* SECTION HEADS */
+  .section{padding:88px 0;}
+  .section-head{max-width:640px; margin:0 0 52px;}
+  .section-head .kicker{color:var(--cyan); font-size:0.95rem; margin-bottom:14px; display:block;}
+  .section-head h2{font-size:clamp(2rem, 3.4vw, 2.7rem);}
+  .section-head p{margin-top:16px; color:rgba(244,236,255,0.78); font-size:1.05rem; line-height:1.6; max-width:52ch;}
+
+  /* WHY GRID */
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:22px; overflow:hidden;}
+  .why-card{background:var(--violet-deep); padding:34px 28px; position:relative;}
+  .why-card:hover{background:var(--violet-mid);}
+  .why-icon{width:46px; height:46px; margin-bottom:20px;}
+  .why-card h3{font-size:1.25rem; margin-bottom:10px; font-weight:600;}
+  .why-card p{color:rgba(244,236,255,0.72); font-size:0.95rem; line-height:1.55;}
+
+  /* CUSTOMIZER (interactive) */
+  .customizer{
+    border-radius:28px; border:1px solid var(--line);
+    background:linear-gradient(160deg, rgba(124,43,255,0.18), rgba(38,247,224,0.08));
+    padding:48px;
+    display:grid; grid-template-columns:0.95fr 1.05fr; gap:48px; align-items:center;
+  }
+  .flavors{display:flex; flex-direction:column; gap:14px;}
+  .flavor-btn{
+    display:flex; align-items:center; gap:16px; width:100%;
+    background:rgba(22,10,46,0.5); border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px; cursor:pointer; text-align:left; transition:border-color .2s, background .2s;
+    color:var(--ink); font-family:'Space Grotesk',sans-serif;
+  }
+  .flavor-btn:hover{border-color:rgba(244,236,255,0.35);}
+  .flavor-btn.active{border-color:var(--gold); background:rgba(255,210,26,0.08);}
+  .swatch{width:34px; height:34px; border-radius:50%; flex:none; box-shadow:inset 0 0 0 2px rgba(255,255,255,0.15);}
+  .flavor-btn .fl-name{font-weight:600; font-size:1.02rem;}
+  .flavor-btn .fl-desc{font-size:0.85rem; color:rgba(244,236,255,0.6); margin-top:2px;}
+
+  .preview{
+    border-radius:20px; padding:30px; min-height:320px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    border:1px solid rgba(255,255,255,0.12);
+    transition:background .5s ease, box-shadow .5s ease;
+  }
+  .preview .pv-eyebrow{font-size:0.8rem; opacity:0.75; margin-bottom:10px;}
+  .preview h4{font-family:'Fraunces',serif; font-size:1.7rem; font-weight:600; line-height:1.15; transition:color .4s;}
+  .preview .pv-sub{margin-top:10px; font-size:0.95rem; opacity:0.85; max-width:34ch;}
+  .preview .pv-cta{
+    align-self:flex-start; margin-top:22px; padding:11px 22px; border-radius:100px;
+    font-weight:600; font-size:0.9rem; transition:background .4s, color .4s;
+  }
+  .preview .pv-score{margin-top:26px; font-size:0.8rem; opacity:0.75;}
+
+  /* MOCKUP SHOWCASE */
+  .showcase{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;}
+  .browser-card{border-radius:18px; overflow:hidden; border:1px solid var(--line); background:var(--violet-mid); box-shadow:0 30px 70px rgba(0,0,0,0.4);}
+  .browser-bar{display:flex; gap:7px; padding:14px 16px; background:rgba(0,0,0,0.2);}
+  .browser-bar span{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.2);}
+
+  /* PROCESS */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .step{padding:26px 22px; border-radius:18px; border:1px solid var(--line); background:rgba(244,236,255,0.03);}
+  .step .step-mark{font-family:'Fraunces',serif; font-size:1.6rem; color:var(--gold); margin-bottom:14px;}
+  .step h3{font-size:1.05rem; margin-bottom:8px;}
+  .step p{font-size:0.88rem; color:rgba(244,236,255,0.68); line-height:1.5;}
+
+  /* CTA */
+  .cta-band{
+    border-radius:28px; padding:64px 48px; text-align:center;
+    background:linear-gradient(120deg, rgba(255,63,164,0.25), rgba(124,43,255,0.4) 50%, rgba(38,247,224,0.2));
+    border:1px solid var(--line); position:relative; overflow:hidden;
+  }
+  .cta-band h2{font-size:clamp(1.9rem,3.6vw,2.6rem); max-width:16ch; margin:0 auto;}
+  .cta-band p{margin-top:16px; color:rgba(244,236,255,0.8); max-width:44ch; margin-left:auto; margin-right:auto;}
+  .cta-band .hero-actions{justify-content:center; margin-top:30px;}
+
+  footer{padding:44px 0 70px; color:rgba(244,236,255,0.5); font-size:0.85rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--line);}
+
+  @media (prefers-reduced-motion: no-preference){
+    .float{animation:float 6s ease-in-out infinite;}
+    @keyframes float{0%,100%{transform:translateY(0px);} 50%{transform:translateY(-14px);}}
+    .drip{animation:drip 3.4s ease-in-out infinite;}
+    @keyframes drip{0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);}}
+  }
+
+  @media (max-width:920px){
+    .hero-grid, .showcase, .customizer{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .navlinks{display:none;}
+    .customizer{padding:30px;}
+  }
+  @media (max-width:560px){
+    .steps{grid-template-columns:1fr;}
+    .hero{padding-top:60px;}
+    .cta-band{padding:44px 24px;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="brand-dot"></span> EasyLandX</div>
+    <div class="navlinks">
+      <a href="#why">Por qué funciona</a>
+      <a href="#customize">Pruébalo</a>
+      <a href="#showcase">Ver una página</a>
+      <a href="#process">Cómo funciona</a>
+    </div>
+    <a class="nav-cta" href="#cta">Obtén tu página</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-line">
+        <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 1c3 4 6 6.5 6 10.5A6 6 0 1 1 4 11.5C4 7.5 7 5 10 1Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        Diseñado para quienes trabajan con cacao, no con código
+      </div>
+      <h1 class="hero-head">Una página de aterrizaje tan irresistible como tu <span class="melt">chocolate</span></h1>
+      <p class="lede">EasyLandX crea páginas de aterrizaje rápidas y espectaculares para chocolateros y creadores de chocolate artesanal — para que tus clientes saboreen tu historia, exploren tus tabletas y compren en línea en una semana, no en tres meses.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#cta">Obtén tu página de chocolate</a>
+        <a class="btn-ghost" href="#customize">Ver el personalizador ↓</a>
+      </div>
+      <div class="hero-proof">
+        <div><b>7 días</b> del pedido a tu página activa</div>
+        <div><b>Sin código</b> por tu parte</div>
+        <div><b>Enfoque móvil</b> — la mayoría compra desde su teléfono</div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="glow-ring"></div>
+      <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" class="float">
+        <defs>
+          <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#5a2c17"/>
+            <stop offset="100%" stop-color="#2b160f"/>
+          </linearGradient>
+          <linearGradient id="drizzle" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffd21a"/>
+            <stop offset="100%" stop-color="#ff3fa4"/>
+          </linearGradient>
+        </defs>
+        <rect x="60" y="120" width="300" height="200" rx="22" fill="url(#barGrad)"/>
+        <g stroke="#160a2e" stroke-width="4">
+          <line x1="60" y1="170" x2="360" y2="170"/>
+          <line x1="60" y1="220" x2="360" y2="220"/>
+          <line x1="60" y1="270" x2="360" y2="270"/>
+          <line x1="135" y1="120" x2="135" y2="320"/>
+          <line x1="210" y1="120" x2="210" y2="320"/>
+          <line x1="285" y1="120" x2="285" y2="320"/>
+        </g>
+        <path class="drip" d="M120 118 C120 90 150 92 150 118 C150 140 160 150 160 168 C160 186 132 186 132 168 C132 155 120 140 120 118 Z" fill="url(#drizzle)"/>
+        <path class="drip" d="M250 118 C250 96 272 96 272 118 C272 150 286 150 286 178 C286 200 240 200 240 178 C240 155 250 148 250 118 Z" fill="url(#drizzle)" style="animation-delay:.6s"/>
+        <circle cx="90" cy="90" r="10" fill="#26f7e0"/>
+        <circle cx="340" cy="340" r="14" fill="#ff3fa4"/>
+        <circle cx="345" cy="100" r="7" fill="#ffd21a"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Por qué los chocolateros eligen EasyLandX</span>
+      <h2>Tu producto ya se vende solo. Tu web debería estar a la altura.</h2>
+      <p>El chocolate entra primero por los ojos. Las páginas de EasyLandX están diseñadas para destacar la textura, el color y el arte de tu producto en cualquier pantalla, vendiendo de forma intuitiva.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <svg class="why-icon" viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="28" rx="6" fill="none" stroke="#ffd21a" stroke-width="2.2"/><path d="M16 20h16M16 26h10" stroke="#26f7e0" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <h3>Un menú que se lee como una cata</h3>
+        <p>Tabletas, bombones, colecciones de temporada y cajas de regalo con presentaciones dedicadas — más cerca de un menú degustación que de una lista interminable.</p>
+      </div>
+      <div class="why-card">
+        <svg class="why-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="15" fill="none" stroke="#ff3fa4" stroke-width="2.2"/><path d="M24 16v8l6 4" stroke="#ffd21a" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <h3>Lista en aproximadamente una semana</h3>
+        <p>Envíanos tus fotos y sabores: EasyLandX construye todo a su alrededor para que no te pierdas ninguna festividad o campaña de mercado.</p>
+      </div>
+      <div class="why-card">
+        <svg class="why-icon" viewBox="0 0 48 48"><path d="M24 10c8 6 14 10 14 18a14 14 0 1 1-28 0c0-8 6-12 14-18Z" fill="none" stroke="#26f7e0" stroke-width="2.2"/></svg>
+        <h3>Diseñada para convertir antojos</h3>
+        <p>Precios claros, un botón directo de compra y un diseño optimizado para las compras de impulso que genera el chocolate.</p>
+      </div>
+      <div class="why-card">
+        <svg class="why-icon" viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="20" rx="4" fill="none" stroke="#ffd21a" stroke-width="2.2"/><circle cx="24" cy="26" r="5" fill="none" stroke="#ff3fa4" stroke-width="2.2"/></svg>
+        <h3>Proceso de compra perfecto en móvil</h3>
+        <p>Muchos regalos se eligen desde el móvil a última hora — cada página se adapta a smartphones para que comprar sea rápido y sencillo.</p>
+      </div>
+      <div class="why-card">
+        <svg class="why-icon" viewBox="0 0 48 48"><path d="M12 30c4-10 8-16 12-16s8 6 12 16" fill="none" stroke="#26f7e0" stroke-width="2.2" stroke-linecap="round"/><circle cx="24" cy="34" r="3" fill="#ffd21a"/></svg>
+        <h3>Espacio para tu historia de origen</h3>
+        <p>Origen del grano, tueste, valores de producción — secciones pensadas para conectar y convertir a nuevos clientes en compradores habituales.</p>
+      </div>
+      <div class="why-card">
+        <svg class="why-icon" viewBox="0 0 48 48"><path d="M24 8l4 8 9 1-6.5 6 1.5 9-8-4.5-8 4.5 1.5-9L11 17l9-1 4-8Z" fill="none" stroke="#ff3fa4" stroke-width="2"/></svg>
+        <h3>Pensado para pequeños obradores</h3>
+        <p>EasyLandX ofrece tarifas accesibles para que el presupuesto de tu taller se invierta en cacao, no en desarrollo web.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="customize">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Pruébalo tú mismo</span>
+      <h2>Elige un chocolate. Mira cómo cambia tu página.</h2>
+      <p>Cada página de EasyLandX se adapta a lo que realmente elaboras. Toca un tipo de chocolate a continuación para ver cómo la tipografía, los colores y el ambiente se transforman.</p>
+    </div>
+
+    <div class="customizer">
+      <div class="flavors" role="group" aria-label="Elige un estilo de chocolate para la vista previa">
+        <button class="flavor-btn active" data-key="dark">
+          <span class="swatch" style="background:#3b1f14;"></span>
+          <span><span class="fl-name">Negro, origen único</span><br><span class="fl-desc">Elegante, sobrio, centrado en la historia</span></span>
+        </button>
+        <button class="flavor-btn" data-key="milk">
+          <span class="swatch" style="background:#a9713a;"></span>
+          <span><span class="fl-name">Chocolate con leche</span><br><span class="fl-desc">Cálido, acogedor, ideal para regalar</span></span>
+        </button>
+        <button class="flavor-btn" data-key="white">
+          <span class="swatch" style="background:#f3e3c6;"></span>
+          <span><span class="fl-name">Chocolate blanco</span><br><span class="fl-desc">Luminoso, fresco, listo para celebrar</span></span>
+        </button>
+        <button class="flavor-btn" data-key="ruby">
+          <span class="swatch" style="background:#e0557a;"></span>
+          <span><span class="fl-name">Chocolate ruby</span><br><span class="fl-desc">Atrevido, moderno, para compartir</span></span>
+        </button>
+      </div>
+
+      <div class="preview" id="previewPanel">
+        <div>
+          <div class="pv-eyebrow" id="pvEyebrow">EDICIÓN LIMITADA · ORIGEN ÚNICO</div>
+          <h4 id="pvHead">Cacao de una sola finca en cada tableta.</h4>
+          <p class="pv-sub" id="pvSub">Una página diseñada en torno al origen, el proceso y la historia detrás de cada cosecha.</p>
+        </div>
+        <div>
+          <span class="pv-cta" id="pvCta">Ver la colección</span>
+          <div class="pv-score" id="pvScore">Estilo de vista previa: intenso y artesanal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="showcase">
+  <div class="wrap showcase">
+    <div>
+      <span class="kicker" style="color:var(--cyan); font-size:.95rem; display:block; margin-bottom:14px;">Lo que obtienes exactamente</span>
+      <h2 style="font-size:clamp(1.9rem,3.2vw,2.4rem); margin-bottom:16px;">Una página diseñada para impulsar tu chocolatería</h2>
+      <p style="color:rgba(244,236,255,0.78); line-height:1.6; max-width:46ch;">Una cabecera que muestra tu producto, un catálogo fácil de explorar, tu historia de origen y una llamada a la acción clara — sin distracciones ni menús innecesarios.</p>
+    </div>
+    <div class="browser-card">
+      <div class="browser-bar"><span></span><span></span><span></span></div>
+      <svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg" style="width:100%; display:block; background:#1c0e37;">
+        <rect x="0" y="0" width="520" height="140" fill="#160a2e"/>
+        <text x="30" y="55" font-family="Fraunces, serif" font-size="26" fill="#fff7e8">Maison Cacao</text>
+        <text x="30" y="82" font-family="Space Grotesk, sans-serif" font-size="13" fill="#26f7e0">Del grano a la tableta, elaboración semanal</text>
+        <rect x="30" y="100" width="160" height="28" rx="14" fill="#ffd21a"/>
+        <text x="48" y="119" font-family="Space Grotesk, sans-serif" font-size="12" fill="#2b160f">Comprar lote de la semana</text>
+        <circle cx="440" cy="70" r="46" fill="#ff3fa4" opacity="0.25"/>
+        <circle cx="400" cy="40" r="18" fill="#26f7e0" opacity="0.5"/>
+        <g transform="translate(30,160)">
+          <rect width="140" height="100" rx="10" fill="#3b1f14"/>
+          <rect width="140" height="100" rx="10" fill="none" stroke="#ffd21a" stroke-width="1.5"/>
+          <text x="12" y="120" font-family="Space Grotesk, sans-serif" font-size="12" fill="#fff7e8">72% Ecuador</text>
+        </g>
+        <g transform="translate(190,160)">
+          <rect width="140" height="100" rx="10" fill="#a9713a"/>
+          <text x="12" y="120" font-family="Space Grotesk, sans-serif" font-size="12" fill="#fff7e8">Leche y Avellanas</text>
+        </g>
+        <g transform="translate(350,160)">
+          <rect width="140" height="100" rx="10" fill="#e0557a"/>
+          <text x="12" y="120" font-family="Space Grotesk, sans-serif" font-size="12" fill="#fff7e8">Ruby Frutos Rojos</text>
+        </g>
+        <rect x="30" y="290" width="460" height="60" rx="12" fill="#2a1150" stroke="#26f7e0" stroke-width="1"/>
+        <text x="50" y="325" font-family="Space Grotesk, sans-serif" font-size="13" fill="#f4ecff">"De las fincas de origen a tu mesa" — conoce nuestra historia →</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Paso a paso</span>
+      <h2>De tu lista de sabores a tu web activa en 4 pasos</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-mark">1</div><h3>Comparte tus productos</h3><p>Envíanos fotos, tus variedades y precios — sin formularios complejos ni tecnicismos de diseño.</p></div>
+      <div class="step"><div class="step-mark">2</div><h3>Diseñamos tu página</h3><p>EasyLandX crea una landing personalizada según tu menú y tu historia, sin plantillas genéricas.</p></div>
+      <div class="step"><div class="step-mark">3</div><h3>Revisa y ajusta</h3><p>Pide los cambios que necesites: cambia fotos, reordena productos o ajusta los tonos de color.</p></div>
+      <div class="step"><div class="step-mark">4</div><h3>Lanza y empieza a vender</h3><p>Tu página se publica con enlaces de compra listos, a tiempo para tu próximo evento o temporada.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cta">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Haz que tu chocolate sea el protagonista</h2>
+      <p>Cuéntale a EasyLandX qué elaboras y obtén una página web que despierte el deseo de probarlo — activa en una semana y adaptada a tu presupuesto.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#">Comenzar mi página</a>
+        <a class="btn-ghost" href="#">Ver precios</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:16px;">
+    <div>EasyLandX — páginas de aterrizaje asequibles y enfocadas en la conversión</div>
+    <div>easylandx.github.io</div>
+  </div>
+</footer>
+
+<script>
+  const data = {
+    dark: {
+      eyebrow: "EDICIÓN LIMITADA · ORIGEN ÚNICO",
+      head: "Cacao de una sola finca en cada tableta.",
+      sub: "Una página diseñada en torno al origen, el proceso y la historia detrás de cada cosecha.",
+      cta: "Ver la colección",
+      mood: "intenso y artesanal",
+      bg: "linear-gradient(135deg, #2b160f, #160a2e)",
+      accent: "#ffd21a",
+      ctaBg: "#ffd21a",
+      ctaColor: "#2b160f"
+    },
+    milk: {
+      eyebrow: "PLACER DIARIO",
+      head: "La tableta a la que siempre regresan.",
+      sub: "Tonos cálidos y diseño fluido, pensado para regalos y compras recurrentes.",
+      cta: "Encargar caja regalo",
+      mood: "cálido y acogedor",
+      bg: "linear-gradient(135deg, #6b3a1a, #2b160f)",
+      accent: "#ffd21a",
+      ctaBg: "#ffd21a",
+      ctaColor: "#2b160f"
+    },
+    white: {
+      eyebrow: "LUMINOSO · CELEBRACIÓN",
+      head: "Creado para momentos especiales.",
+      sub: "Una paleta clara y espacio amplio para bodas, fiestas y temporadas festivas.",
+      cta: "Explorar kits de regalo",
+      mood: "elegante y festivo",
+      bg: "linear-gradient(135deg, #4a3a20, #241236)",
+      accent: "#f3e3c6",
+      ctaBg: "#f3e3c6",
+      ctaColor: "#2b160f"
+    },
+    ruby: {
+      eyebrow: "MODERNO · PARA COMPARTIR",
+      head: "Chocolate diseñado para enamorar la vista.",
+      sub: "Colores vibrantes y ritmo dinámico, optimizado para productos altamente compartibles.",
+      cta: "Obtener el set ruby",
+      mood: "atrevido y dinámico",
+      bg: "linear-gradient(135deg, #7a1f45, #2a1150)",
+      accent: "#26f7e0",
+      ctaBg: "#26f7e0",
+      ctaColor: "#160a2e"
+    }
+  };
+
+  const buttons = document.querySelectorAll('.flavor-btn');
+  const panel = document.getElementById('previewPanel');
+  const els = {
+    eyebrow: document.getElementById('pvEyebrow'),
+    head: document.getElementById('pvHead'),
+    sub: document.getElementById('pvSub'),
+    cta: document.getElementById('pvCta'),
+    score: document.getElementById('pvScore')
+  };
+
+  function applyTheme(key){
+    const t = data[key];
+    panel.style.background = t.bg;
+    panel.style.boxShadow = `0 0 46px 4px ${t.accent}33`;
+    els.eyebrow.style.color = t.accent;
+    els.eyebrow.textContent = t.eyebrow;
+    els.head.textContent = t.head;
+    els.head.style.color = "#fff7e8";
+    els.sub.textContent = t.sub;
+    els.cta.textContent = t.cta;
+    els.cta.style.background = t.ctaBg;
+    els.cta.style.color = t.ctaColor;
+    els.score.innerHTML = "Estilo de vista previa: " + t.mood;
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.key === key));
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.key));
+  });
+
+  applyTheme('dark');
+</script>
+
+</body>
+</html>
