@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>easylandx para Alojamiento Rural — Casas Rurales, Reimaginadas Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --magenta: #ff00a8;
+    --magenta-deep: #c8007f;
+    --magenta-glow: #ff4dc4;
+    --gold: #ffd400;
+    --gold-soft: #ffe985;
+    --tangerine: #ff6a1a;
+    --tangerine-glow: #ff9248;
+    --ink: #2b0022;
+    --cream: #fff6ea;
+    --card: rgba(255,255,255,0.10);
+    --card-border: rgba(255,255,255,0.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Space Grotesk', sans-serif;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(255,212,0,0.20), transparent 40%),
+      radial-gradient(circle at 85% 25%, rgba(255,106,26,0.25), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(255,77,196,0.25), transparent 50%),
+      linear-gradient(160deg, var(--magenta-deep) 0%, var(--magenta) 55%, #e6009a 100%);
+    color:var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0; line-height:1.08;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .glow-text{
+    background:linear-gradient(90deg, var(--gold), var(--tangerine-glow), var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(200,0,127,0.55);
+    border-bottom:1px solid rgba(255,255,255,0.15);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 24px;}
+  .logo{font-family:'Fraunces', serif; font-weight:700; font-size:1.3rem; letter-spacing:0.5px;}
+  .logo span{color:var(--gold);}
+  .nav-cta{
+    background:linear-gradient(90deg, var(--tangerine), var(--gold));
+    color:var(--ink); font-weight:700; padding:9px 18px; border-radius:999px;
+    text-decoration:none; font-size:0.9rem; box-shadow:0 0 18px rgba(255,106,26,0.6);
+  }
+  /* HERO */
+  header.hero{padding:64px 0 20px; position:relative;}
+  .eyebrow{
+    display:inline-block; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase;
+    background:rgba(255,255,255,0.14); border:1px solid var(--card-border);
+    padding:6px 14px; border-radius:999px; margin-bottom:18px;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(2.1rem, 4.4vw, 3.4rem); font-weight:700;}
+  .hero p.sub{font-size:1.08rem; opacity:0.92; max-width:520px; margin:20px 0 28px;}
+  .btn-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn-primary, .btn-ghost{
+    padding:14px 26px; border-radius:999px; font-weight:700; text-decoration:none; font-size:0.98rem;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:linear-gradient(90deg, var(--gold), var(--tangerine)); color:var(--ink); box-shadow:0 0 26px rgba(255,180,0,0.55);}
+  .btn-ghost{border:1.5px solid rgba(255,255,255,0.45); color:var(--cream);}
+  .btn-primary:hover, .btn-ghost:hover{filter:brightness(1.08);}
+
+  /* SVG SCENE */
+  .scene-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:26px; padding:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+  }
+  .scene-toggle{
+    display:flex; align-items:center; justify-content:center; gap:10px; margin-top:14px; font-size:0.85rem;
+  }
+  .switch{
+    position:relative; width:56px; height:30px; background:rgba(255,255,255,0.25); border-radius:999px; cursor:pointer;
+    border:1px solid rgba(255,255,255,0.4);
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px; width:24px; height:24px; border-radius:50%;
+    background:var(--gold); transition:left 0.35s ease, background 0.35s ease; box-shadow:0 0 10px rgba(255,212,0,0.8);
+  }
+  .switch.night .knob{left:28px; background:#dcd2ff; box-shadow:0 0 10px rgba(220,210,255,0.8);}
+
+  /* SECTIONS */
+  section{padding:70px 0;}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 44px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.7rem, 3.4vw, 2.4rem);}
+  .section-head p{opacity:0.9; margin-top:14px; font-size:1.02rem;}
+
+  .feature-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:860px){.feature-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.feature-grid{grid-template-columns:1fr;}}
+  .feature-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:20px; padding:26px;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .feature-card:hover{transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.25);}
+  .feature-card .icon{width:46px; height:46px; margin-bottom:14px;}
+  .feature-card h3{font-size:1.08rem; font-weight:600; font-family:'Space Grotesk', sans-serif; margin-bottom:8px;}
+  .feature-card p{font-size:0.92rem; opacity:0.88; margin:0; line-height:1.5;}
+
+  /* TOGGLE COMPARISON */
+  .compare-wrap{
+    background:var(--card); border:1px solid var(--card-border); border-radius:26px; padding:34px;
+    max-width:760px; margin:0 auto;
+  }
+  .compare-toggle{display:flex; justify-content:center; gap:8px; margin-bottom:28px;}
+  .compare-toggle button{
+    padding:10px 20px; border-radius:999px; border:1.5px solid rgba(255,255,255,0.4);
+    background:transparent; color:var(--cream); font-weight:600; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.9rem;
+  }
+  .compare-toggle button.active{
+    background:linear-gradient(90deg, var(--tangerine), var(--gold)); color:var(--ink); border-color:transparent;
+  }
+  .compare-panel{display:none;}
+  .compare-panel.active{display:block; animation:fadeIn 0.4s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .compare-panel ul{list-style:none; padding:0; margin:0; display:grid; gap:12px;}
+  .compare-panel li{display:flex; gap:10px; align-items:flex-start; font-size:0.98rem;}
+  .compare-panel li::before{content:"✦"; color:var(--gold); flex-shrink:0; margin-top:2px;}
+
+  /* AMBIENCE INTERACTIVE */
+  .ambience-wrap{display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:center;}
+  @media(max-width:860px){.ambience-wrap{grid-template-columns:1fr;}}
+  .ambience-copy p{opacity:0.9; line-height:1.6;}
+  .season-buttons{display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;}
+  .season-buttons button{
+    padding:9px 16px; border-radius:999px; border:1.5px solid rgba(255,255,255,0.4); background:transparent;
+    color:var(--cream); cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.85rem;
+  }
+  .season-buttons button.active{background:linear-gradient(90deg, var(--gold), var(--tangerine)); color:var(--ink); border-color:transparent;}
+
+  /* TESTIMONIAL */
+  .quote-card{
+    max-width:680px; margin:0 auto; text-align:center; background:var(--card); border:1px solid var(--card-border);
+    border-radius:24px; padding:40px 32px;
+  }
+  .quote-card p.quote{font-family:'Fraunces', serif; font-style:italic; font-size:1.3rem; line-height:1.5;}
+  .quote-card .who{margin-top:18px; font-size:0.9rem; opacity:0.85;}
+
+  /* CTA FOOTER */
+  footer{padding:70px 0 50px; text-align:center;}
+  .cta-box{
+    background:linear-gradient(135deg, rgba(255,212,0,0.16), rgba(255,106,26,0.18));
+    border:1px solid var(--card-border); border-radius:28px; padding:50px 30px;
+  }
+  .cta-box h2{font-size:clamp(1.7rem,3.6vw,2.3rem); margin-bottom:16px;}
+  .cta-box p{opacity:0.9; max-width:520px; margin:0 auto 26px;}
+  .fine{margin-top:40px; font-size:0.8rem; opacity:0.6;}
+
+  .stars{position:absolute; inset:0; pointer-events:none;}
+  .star{position:absolute; width:2px; height:2px; background:var(--gold-soft); border-radius:50%; opacity:0; animation:twinkle 3s infinite ease-in-out;}
+  @keyframes twinkle{0%,100%{opacity:0;} 50%{opacity:1;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">easyland<span>x</span></div>
+    <a href="#cta" class="nav-cta">Consigue Tu Página</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">easylandx · 2026 · Alojamiento Rural</span>
+      <h1>Tu Casa Rural Merece un Sitio Web Tan <span class="glow-text">Cálido y Vivo</span> Como la Propia Tierra</h1>
+      <p class="sub">Una página de destino única creada exclusivamente para tu estancia rural: de las que hacen sentir la chispa de la chimenea y el olor a campo antes de reservar.</p>
+      <div class="btn-row">
+        <a href="#cta" class="btn-primary">✦ LLEVA MI CASA RURAL A INTERNET</a>
+        <a href="#why" class="btn-ghost">Descubre Por Qué Funciona ↓</a>
+      </div>
+    </div>
+
+    <div class="scene-card">
+      <svg id="scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; border-radius:16px; overflow:visible;">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop id="skyTop" offset="0%" stop-color="#ffd47a"/>
+            <stop id="skyBottom" offset="100%" stop-color="#ff8a3d"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="400" height="300" fill="url(#sky)" rx="16"/>
+        <g class="stars" id="starGroup"></g>
+        <circle id="sun" cx="320" cy="60" r="26" fill="#ffe063"/>
+        <!-- montañas -->
+        <polygon points="0,190 90,110 160,190" fill="#c8007f" opacity="0.55"/>
+        <polygon points="120,200 220,95 320,200" fill="#a8006a" opacity="0.65"/>
+        <polygon points="250,200 330,130 400,200" fill="#c8007f" opacity="0.55"/>
+        <!-- suelo -->
+        <rect x="0" y="195" width="400" height="105" fill="#3c7a3c"/>
+        <!-- árboles -->
+        <g fill="#2c5c2c">
+          <circle cx="50" cy="185" r="16"/><rect x="47" y="185" width="6" height="16"/>
+          <circle cx="355" cy="180" r="18"/><rect x="352" y="180" width="6" height="18"/>
+        </g>
+        <!-- casa rural -->
+        <g id="house">
+          <rect x="150" y="150" width="110" height="70" fill="#f2e2c8"/>
+          <polygon points="145,150 205,105 265,150" fill="#8a2b2b"/>
+          <rect x="180" y="180" width="26" height="40" fill="#5c3a20"/>
+          <rect id="win1" x="160" y="163" width="20" height="20" fill="#ffd400"/>
+          <rect id="win2" x="228" y="163" width="20" height="20" fill="#ffd400"/>
+          <rect x="230" y="120" width="10" height="26" fill="#7a7a7a"/>
+        </g>
+        <!-- valla -->
+        <g stroke="#5c3a20" stroke-width="3">
+          <line x1="20" y1="215" x2="120" y2="215"/>
+          <line x1="30" y1="200" x2="30" y2="220"/>
+          <line x1="55" y1="200" x2="55" y2="220"/>
+          <line x1="80" y1="200" x2="80" y2="220"/>
+          <line x1="105" y1="200" x2="105" y2="220"/>
+        </g>
+        <!-- ovejas -->
+        <g fill="#fff6ea">
+          <ellipse cx="290" cy="230" rx="14" ry="9"/><circle cx="278" cy="226" r="6" fill="#3c2a2a"/>
+          <ellipse cx="315" cy="240" rx="12" ry="8"/><circle cx="305" cy="237" r="5" fill="#3c2a2a"/>
+        </g>
+      </svg>
+      <div class="scene-toggle">
+        <span>☀ Día</span>
+        <div class="switch" id="dayNightSwitch"><div class="knob"></div></div>
+        <span>Noche ✦</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Por Qué Es la Combinación Perfecta</span>
+      <h2>Las Estancias Rurales Se Venden por las <span class="glow-text">Sensaciones</span>. Una Buena Landing Page, También.</h2>
+      <p>Los huéspedes que reservan una casa rural no comparan hojas de cálculo: imaginan las vistas desde el porche. easylandx diseña páginas que transmiten esa emoción en tres desplazamientos o menos.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="#ffd400" stroke-width="3"/><path d="M14 26l7 7 13-15" fill="none" stroke="#ff6a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Cero Comisiones, Siempre</h3>
+        <p>A diferencia de las plataformas de reserva que se quedan con una parte de cada estancia, tu página de easylandx es 100% tuya: un único pago de desarrollo, reservas directas ilimitadas.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="12" width="32" height="24" rx="4" fill="none" stroke="#ffd400" stroke-width="3"/><path d="M8 16l16 12 16-12" fill="none" stroke="#ff6a1a" stroke-width="3"/></svg>
+        <h3>Reserva Directa por WhatsApp</h3>
+        <p>Con un solo toque, el huésped chatea directamente contigo: sin intermediarios, sin solicitudes perdidas y sin esperar a la bandeja de entrada de una plataforma.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="5" fill="none" stroke="#ffd400" stroke-width="3"/><line x1="18" y1="36" x2="30" y2="36" stroke="#ff6a1a" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Rápida Incluso con Poca Cobertura</h3>
+        <p>El entorno rural implica conexiones inestables para los visitantes que buscan información en ruta. Tu página es un único archivo ligero que se carga en un parpadeo.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 48 48"><path d="M24 6l4 10 11 1-8 8 3 11-10-6-10 6 3-11-8-8 11-1z" fill="none" stroke="#ffd400" stroke-width="3" stroke-linejoin="round"/></svg>
+        <h3>Fotos que Realmente Destacan</h3>
+        <p>Sin las limitaciones de las plantillas de plataformas. Tus paisajes, tus atardeceres y tu chimenea, mostrados a pantalla completa e inolvidables.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="#ffd400" stroke-width="3"/><path d="M24 8v8M24 32v8M8 24h8M32 24h8" stroke="#ff6a1a" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Habla el Idioma de Cada Huésped</h3>
+        <p>Textos multiidioma integrados desde el primer día, para que los viajeros internacionales se sientan tan bienvenidos como los locales.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 48 48"><path d="M8 30c6-14 26-14 32 0" fill="none" stroke="#ffd400" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="18" r="6" fill="none" stroke="#ff6a1a" stroke-width="3"/></svg>
+        <h3>Creada Una Vez, Tuya Para Siempre</h3>
+        <p>Sin suscripciones ni actualizaciones de plugins de las que preocuparse. Un desarrollo sólido y definitivo que sigue funcionando temporada tras temporada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Siente la Diferencia</span>
+      <h2>Observa Cómo Cambia el Paisaje de la <span class="glow-text">Hora Dorada</span> a la <span class="glow-text">Noche Estrellada</span></h2>
+      <p>La misma narrativa visual de arriba es exactamente cómo easylandx presenta tu propiedad: prueba a cambiar de estación abajo para ver cómo una página puede evocar diferentes atmósferas.</p>
+    </div>
+    <div class="ambience-wrap">
+      <div class="ambience-copy">
+        <h3 style="font-size:1.3rem; margin-bottom:10px;">Una Propiedad, Múltiples Ambientes</h3>
+        <p>Una casa rural se siente diferente en cada estación, y tu página de destino puede reflejarlo. easylandx diseña experiencias visuales de temporada para que los visitantes que regresan siempre encuentren algo acogedor, ya sea que planeen una escapada de verano o un retiro invernal junto al fuego.</p>
+        <div class="season-buttons">
+          <button class="active" data-season="spring">Primavera</button>
+          <button data-season="summer">Verano</button>
+          <button data-season="autumn">Otoño</button>
+          <button data-season="winter">Invierno</button>
+        </div>
+      </div>
+      <div class="scene-card">
+        <svg id="seasonScene" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+          <rect x="0" y="0" width="400" height="260" fill="#ffd47a" rx="16" id="seasonSky"/>
+          <rect x="0" y="170" width="400" height="90" fill="#4a8f4a" id="seasonGround"/>
+          <circle cx="200" cy="150" r="70" fill="#5c3a20" id="seasonHillShadow" opacity="0"/>
+          <g id="seasonTrees" fill="#2c5c2c">
+            <circle cx="70" cy="150" r="26"/><rect x="65" y="150" width="10" height="24" fill="#5c3a20"/>
+            <circle cx="330" cy="145" r="30"/><rect x="324" y="145" width="10" height="28" fill="#5c3a20"/>
+          </g>
+          <g id="seasonExtras"></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Adaptado a Cada Tipo de Alojamiento Rural</span>
+      <h2>¿Casa Rural Boutique o Complejo de <span class="glow-text">Turismo Rural</span>?</h2>
+      <p>easylandx adapta la estructura a la forma en que realmente recibes a tus huéspedes.</p>
+    </div>
+    <div class="compare-wrap">
+      <div class="compare-toggle">
+        <button class="active" data-panel="boutique">🏡 Casa Rural Boutique</button>
+        <button data-panel="estate">🌾 Complejo de Turismo Rural</button>
+      </div>
+      <div class="compare-panel active" id="panel-boutique">
+        <ul>
+          <li>Historia centrada en una única propiedad: tu casa, tu jardín, tus vistas, narrados como una experiencia íntima</li>
+          <li>Consulta de disponibilidad instantánea por WhatsApp, sin necesidad de software de reservas</li>
+          <li>Galería diseñada destacando los detalles que enamoran: el porche, la cocina, el amanecer</li>
+          <li>Una llamada a la acción clara: escribirte directamente sin pasar por intermediarios</li>
+        </ul>
+      </div>
+      <div class="compare-panel" id="panel-estate">
+        <ul>
+          <li>Diseño multihabitación o multicabaña con un selector que los huéspedes pueden explorar libremente</li>
+          <li>Espacio para actividades en la finca: paseos a caballo, visitas a la granja, talleres, pícnics</li>
+          <li>Enfoque orientado a grupos y eventos para reuniones familiares, retiros y celebraciones</li>
+          <li>Sección dedicada a tu tienda o productos locales: miel, vino, cerámica o cualquier elaboración propia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="quote-card">
+      <p class="quote">"Antes los huéspedes nos pedían el enlace del portal de reservas. Ahora nos dicen que la propia web fue la razón por la que reservaron."</p>
+      <p class="who">— Así describen los propietarios rurales una página de easylandx</p>
+    </div>
+  </div>
+</section>
+
+<footer id="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>Pongamos Tu Casa Rural en el Mapa — <span class="glow-text">Con Estilo</span></h2>
+      <p>Una sola conversación es todo lo que se necesita para empezar. Cuéntanos sobre tu propiedad y crearemos una página que dé ganas de hacer las maletas.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a href="#" class="btn-primary">✦ Crear Mi Página de Destino</a>
+        <a href="https://easylandx.github.io" class="btn-ghost">Ver el Portafolio ↗</a>
+      </div>
+    </div>
+    <p class="fine">easylandx · 2026 · Páginas de destino personalizadas, creadas historia a historia</p>
+  </div>
+</footer>
+
+<script>
+  // Conmutador Día/Noche
+  const sw = document.getElementById('dayNightSwitch');
+  const skyTop = document.getElementById('skyTop');
+  const skyBottom = document.getElementById('skyBottom');
+  const sun = document.getElementById('sun');
+  const win1 = document.getElementById('win1');
+  const win2 = document.getElementById('win2');
+  const starGroup = document.getElementById('starGroup');
+
+  // generar estrellas
+  for(let i=0;i<40;i++){
+    const s = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    s.setAttribute("cx", Math.random()*400);
+    s.setAttribute("cy", Math.random()*140);
+    s.setAttribute("r", Math.random()*1.4+0.4);
+    s.setAttribute("fill", "#fff6ea");
+    s.setAttribute("opacity", "0");
+    s.style.transition = "opacity 0.6s ease";
+    starGroup.appendChild(s);
+  }
+
+  let isNight = false;
+  sw.addEventListener('click', () => {
+    isNight = !isNight;
+    sw.classList.toggle('night', isNight);
+    if(isNight){
+      skyTop.setAttribute('stop-color', '#2a0a4a');
+      skyBottom.setAttribute('stop-color', '#5c0a6a');
+      sun.setAttribute('fill', '#e8e6f5');
+      sun.setAttribute('cx', '90'); sun.setAttribute('cy', '55'); sun.setAttribute('r','20');
+      win1.setAttribute('fill', '#ffb84d');
+      win2.setAttribute('fill', '#ffb84d');
+      [...starGroup.children].forEach(s => s.setAttribute('opacity', 0.9));
+    } else {
+      skyTop.setAttribute('stop-color', '#ffd47a');
+      skyBottom.setAttribute('stop-color', '#ff8a3d');
+      sun.setAttribute('fill', '#ffe063');
+      sun.setAttribute('cx', '320'); sun.setAttribute('cy', '60'); sun.setAttribute('r','26');
+      win1.setAttribute('fill', '#ffd400');
+      win2.setAttribute('fill', '#ffd400');
+      [...starGroup.children].forEach(s => s.setAttribute('opacity', 0));
+    }
+  });
+
+  // Escena de estaciones
+  const seasonSky = document.getElementById('seasonSky');
+  const seasonGround = document.getElementById('seasonGround');
+  const seasonTrees = document.getElementById('seasonTrees');
+  const seasonExtras = document.getElementById('seasonExtras');
+  const seasonBtns = document.querySelectorAll('.season-buttons button');
+
+  const seasons = {
+    spring: {sky:'#ffe08a', ground:'#5aa15a', trees:'#3a7d3a', extras:`
+      <circle cx="70" cy="140" r="4" fill="#ffb8e0"/><circle cx="82" cy="145" r="4" fill="#ffb8e0"/>
+      <circle cx="330" cy="135" r="4" fill="#ffb8e0"/><circle cx="345" cy="140" r="4" fill="#ffb8e0"/>`},
+    summer: {sky:'#ffd166', ground:'#3f8f3f', trees:'#2c5c2c', extras:`
+      <ellipse cx="200" cy="230" rx="180" ry="14" fill="#ffe08a" opacity="0.5"/>`},
+    autumn: {sky:'#ff9a52', ground:'#a06a2c', trees:'#c25b1e', extras:`
+      <circle cx="120" cy="220" r="4" fill="#e0742a"/><circle cx="140" cy="230" r="4" fill="#c25b1e"/>
+      <circle cx="260" cy="225" r="4" fill="#e0742a"/><circle cx="280" cy="235" r="4" fill="#c25b1e"/>`},
+    winter: {sky:'#c9d9f2', ground:'#eef3fb', trees:'#4a6a4a', extras:`
+      <circle cx="60" cy="90" r="3" fill="#ffffff"/><circle cx="140" cy="70" r="3" fill="#ffffff"/>
+      <circle cx="260" cy="60" r="3" fill="#ffffff"/><circle cx="340" cy="90" r="3" fill="#ffffff"/>
+      <circle cx="200" cy="100" r="3" fill="#ffffff"/>`}
+  };
+
+  function applySeason(name){
+    const s = seasons[name];
+    seasonSky.setAttribute('fill', s.sky);
+    seasonGround.setAttribute('fill', s.ground);
+    seasonTrees.setAttribute('fill', s.trees);
+    seasonExtras.innerHTML = s.extras;
+  }
+  seasonBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      seasonBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applySeason(btn.dataset.season);
+    });
+  });
+  applySeason('spring');
+
+  // Conmutador de comparación
+  const compareBtns = document.querySelectorAll('.compare-toggle button');
+  compareBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      compareBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.compare-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
