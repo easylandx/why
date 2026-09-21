@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX para Ceramistas y Talleres de Alfarería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet: #5B00E0;
+    --violet-deep: #38008F;
+    --violet-shadow: #2A0069;
+    --gold: #FFCB3D;
+    --gold-soft: #FFE49A;
+    --cyan: #26F5FF;
+    --cyan-soft: #B4FBFF;
+    --ink: #FFFFFF;
+    --ink-soft: #E7D9FF;
+    --serif: 'Fraunces', serif;
+    --sans: 'Space Grotesk', sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:inherit;}
+  html{scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior:smooth;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background: var(--violet);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;}
+  a{color:inherit;}
+  .wrap{
+    width:min(1120px, 100% - 3rem);
+    margin-inline:auto;
+  }
+  section{scroll-margin-top:1rem;}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky; top:0;
+    padding-top: calc(env(safe-area-inset-top,0px) + 1.1rem);
+    padding-bottom:1.1rem;
+    background: linear-gradient(var(--violet) 78%, transparent);
+    z-index:20;
+  }
+  .nav-row{display:flex; align-items:center; justify-content:space-between; gap:1rem;}
+  .brand{display:flex; align-items:center; gap:.6rem; font-family:var(--serif); font-weight:600; font-size:1.25rem; letter-spacing:.01em;}
+  .brand svg{width:34px; height:34px; flex:none;}
+  .nav-cta{
+    font-family:var(--sans); font-weight:600; font-size:.92rem;
+    background:var(--gold); color:var(--violet-shadow);
+    border:none; border-radius:999px; padding:.65rem 1.3rem;
+    cursor:pointer; transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 0 0 0 rgba(255,203,61,.6);
+  }
+  .nav-cta:hover{ transform:translateY(-1px); box-shadow: 0 6px 22px -4px rgba(255,203,61,.7);}
+  .nav-cta:focus-visible, button:focus-visible, .swatch:focus-visible{ outline:3px solid var(--cyan); outline-offset:3px; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 3.2rem 0 4.5rem;
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 2.5rem;
+    align-items:center;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size: clamp(2.4rem, 5.4vw, 3.9rem);
+    line-height:1.04;
+    margin:0 0 1.1rem;
+    letter-spacing:-.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    background: linear-gradient(100deg, var(--gold), var(--cyan) 85%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lede{
+    font-size:1.14rem; max-width:46ch; color:var(--ink-soft); margin:0 0 1.9rem;
+  }
+  .hero-ctas{display:flex; gap:.9rem; flex-wrap:wrap; align-items:center;}
+  .btn-primary{
+    font-family:var(--sans); font-weight:600; font-size:1rem;
+    background: var(--gold); color:var(--violet-shadow);
+    border:none; border-radius:999px; padding:.95rem 1.8rem;
+    cursor:pointer; transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow: 0 10px 30px -6px rgba(255,203,61,.65);}
+  .btn-ghost{
+    font-family:var(--sans); font-weight:600; font-size:1rem;
+    background:transparent; color:var(--cyan-soft);
+    border:1.5px solid rgba(38,245,255,.55); border-radius:999px; padding:.9rem 1.6rem;
+    cursor:pointer; transition: background .18s ease, transform .18s ease;
+  }
+  .btn-ghost:hover{ background: rgba(38,245,255,.12); transform:translateY(-2px);}
+
+  .hero-art{ position:relative; display:flex; justify-content:center; }
+  .kiln-glow{
+    position:absolute; inset:auto 0 -8% 0; margin:auto; width:78%; aspect-ratio:1/1; border-radius:50%;
+    background: radial-gradient(circle, rgba(255,203,61,.55), rgba(38,245,255,.28) 45%, transparent 72%);
+    filter: blur(30px);
+    animation: pulse 5.5s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:.65; transform:scale(1); }
+    50%{ opacity:1; transform:scale(1.06); }
+  }
+  #heroVase{ position:relative; width:min(360px, 78vw); filter: drop-shadow(0 18px 34px rgba(20,0,60,.45)); }
+
+  /* ---------- section shared ---------- */
+  .eyebrow-none{ /* intentionally no eyebrow labels per design guidance */ }
+  .section-head{ max-width:56ch; margin-bottom:2.6rem; }
+  .section-head h2{
+    font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem,3.4vw,2.6rem);
+    margin:0 0 .7rem; line-height:1.12;
+  }
+  .section-head p{ color:var(--ink-soft); font-size:1.05rem; margin:0; max-width:52ch;}
+
+  .panel{
+    background: linear-gradient(165deg, var(--violet-deep), var(--violet-shadow));
+    border-radius: 28px;
+  }
+
+  /* ---------- features ---------- */
+  .features{ padding: 1rem 0 4.5rem; }
+  .feature-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:1.1rem;
+  }
+  .feature{
+    padding: 1.7rem 1.5rem 1.9rem;
+    border-radius:22px;
+    background: linear-gradient(160deg, var(--violet-deep), var(--violet-shadow));
+    border-top: 3px solid var(--gold);
+  }
+  .feature:nth-child(2){ border-top-color: var(--cyan); }
+  .feature:nth-child(3){ border-top-color: var(--gold); }
+  .feature:nth-child(4){ border-top-color: var(--cyan); }
+  .feature svg{ width:38px; height:38px; margin-bottom:1rem; }
+  .feature h3{ font-family:var(--serif); font-weight:600; font-size:1.18rem; margin:0 0 .5rem; }
+  .feature p{ margin:0; color:var(--ink-soft); font-size:.96rem; }
+
+  /* ---------- glaze mixer ---------- */
+  .mixer{ padding: 1rem 0 4.5rem; }
+  .mixer-panel{
+    padding: clamp(1.8rem, 4vw, 3.2rem);
+    display:grid; grid-template-columns: .95fr 1.05fr; gap:2.5rem; align-items:center;
+  }
+  .mixer-copy h2{ font-family:var(--serif); font-weight:600; font-size:clamp(1.8rem,3vw,2.4rem); margin:0 0 .8rem; }
+  .mixer-copy p{ color:var(--ink-soft); margin:0 0 1.6rem; max-width:42ch; }
+  .swatches{ display:flex; gap:.85rem; flex-wrap:wrap; }
+  .swatch{
+    width:52px; height:52px; border-radius:50%; border:2.5px solid rgba(255,255,255,.5);
+    cursor:pointer; position:relative; transition: transform .18s ease, border-color .18s ease;
+  }
+  .swatch:hover{ transform:translateY(-3px) scale(1.05); }
+  .swatch[aria-pressed="true"]{ border-color:#fff; box-shadow: 0 0 0 4px rgba(255,255,255,.18); }
+  .swatch.gold{ background: conic-gradient(from 200deg, #FFCB3D, #FF8A3D); }
+  .swatch.cyan{ background: conic-gradient(from 200deg, #26F5FF, #6B7CFF); }
+  .swatch.violet{ background: conic-gradient(from 200deg, #C58BFF, #5B00E0); }
+  .swatch.mix{ background: conic-gradient(from 90deg, #FFCB3D, #26F5FF, #C58BFF, #FFCB3D); }
+  .mixer-hint{ margin-top:1.3rem; font-size:.88rem; color: var(--cyan-soft); min-height:1.4em; }
+
+  .mixer-art{ display:flex; justify-content:center; position:relative; }
+  #mixVase{ width:min(280px,70vw); filter: drop-shadow(0 16px 28px rgba(20,0,60,.5)); transition: filter .3s ease; }
+
+  /* ---------- gallery / shelf ---------- */
+  .shelf-section{ padding: 1rem 0 4.5rem; }
+  .shelf{
+    position:relative;
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:1.6rem;
+    padding: 2.6rem 1.6rem 0;
+    border-radius:28px;
+    background: linear-gradient(165deg, var(--violet-deep), var(--violet-shadow));
+  }
+  .shelf-item{ display:flex; flex-direction:column; align-items:center; text-align:center; padding-bottom:1.8rem; }
+  .shelf-item svg{ width: min(140px, 80%); margin-bottom:1rem; filter: drop-shadow(0 10px 16px rgba(20,0,60,.4)); }
+  .shelf-item span{ font-family:var(--serif); font-size:1.02rem; color: var(--ink-soft); }
+  .shelf-board{ grid-column:1/-1; height:10px; border-radius:6px; margin-top:.4rem;
+    background: linear-gradient(90deg, var(--gold), var(--cyan)); opacity:.85; }
+  .shelf-board-wrap{ grid-column:1/-1; }
+
+  /* ---------- final cta ---------- */
+  .final-cta{ padding: 1rem 0 5rem; text-align:center; }
+  .final-cta .panel{ padding: clamp(2.6rem,6vw,4.5rem) 1.5rem; text-align:center; }
+  .final-cta h2{ font-family:var(--serif); font-weight:600; font-size:clamp(2rem,4vw,3rem); margin:0 0 1rem; }
+  .final-cta p{ color:var(--ink-soft); max-width:44ch; margin:0 auto 2rem; font-size:1.05rem; }
+
+  footer{ padding: 2.4rem 0 3rem; border-top:1px solid rgba(255,255,255,.14); }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+  .foot-row .brand{ font-size:1.05rem; }
+  footer .site-link{ color: var(--cyan-soft); text-decoration:none; font-size:.92rem; }
+  footer .site-link:hover{ text-decoration:underline; }
+
+  @media (max-width: 880px){
+    .hero{ grid-template-columns:1fr; padding-top:2rem; }
+    .hero-art{ order:-1; }
+    .feature-grid{ grid-template-columns: repeat(2,1fr); }
+    .mixer-panel{ grid-template-columns:1fr; }
+    .mixer-art{ order:-1; }
+    .shelf{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 480px){
+    .feature-grid{ grid-template-columns: 1fr; }
+    .shelf{ grid-template-columns: repeat(2,1fr); padding-inline:1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .kiln-glow{ animation:none; }
+    *{ scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="var(--gold)" stroke-width="1.6"/>
+        <path d="M14 13c0 3 1.6 4.6 1.6 7.5S14 25.5 14 28c0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.5-1.6-4.6-1.6-7.5S26 16 26 13" stroke="var(--cyan)" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      EasyLandX
+    </div>
+    <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView()">Crea tu página</button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div>
+      <h1>Tu horno crea<br><em>magia</em>. Tu página<br>también puede brillar.</h1>
+      <p class="lede">EasyLandX crea páginas de aterrizaje asequibles y enfocadas en la conversión para ceramistas y talleres de alfarería — adaptadas a tus esmaltes, tu galería y tu calendario de clases, listas en cuestión de días.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('cta').scrollIntoView()">Crea tu página</button>
+        <button class="btn-ghost" onclick="document.getElementById('mixer').scrollIntoView()">Prueba el mezclador de esmaltes</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="kiln-glow" aria-hidden="true"></div>
+      <svg id="heroVase" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de un jarrón de cerámica brillante">
+        <defs>
+          <linearGradient id="heroGlaze" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--gold)"/>
+            <stop offset="100%" stop-color="var(--cyan)"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="150" cy="335" rx="86" ry="14" fill="#2A0069" opacity=".55"/>
+        <path d="M108 60c-4 24 14 34 14 66 0 30-22 40-22 88 0 36 22 66 50 66s50-30 50-66c0-48-22-58-22-88 0-32 18-42 14-66"
+              fill="url(#heroGlaze)"/>
+        <path d="M108 60c-4 24 14 34 14 66 0 30-22 40-22 88 0 36 22 66 50 66s50-30 50-66c0-48-22-58-22-88 0-32 18-42 14-66"
+              fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <ellipse cx="150" cy="60" rx="42" ry="12" fill="#FFE49A"/>
+        <ellipse cx="150" cy="60" rx="42" ry="12" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+        <ellipse cx="150" cy="56" rx="30" ry="7" fill="#38008F"/>
+        <path d="M118 150c10 6 22 8 32 8s22-2 32-8" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M112 230c14 8 26 11 38 11s24-3 38-11" stroke="rgba(255,255,255,.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features wrap" id="features">
+    <div class="section-head">
+      <h2>Diseñado para el ritmo de un taller en activo</h2>
+      <p>Cada parte de la página está pensada según la forma real en que se crea, exhibe y vende la cerámica.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M8 34h24M12 34V16a8 8 0 0116 0v18" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round"/><path d="M17 34V24a3 3 0 116 0v10" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <h3>Una galería que resalta tus piezas</h3>
+        <p>Tus fotos se cargan rápido y se ven nítidas en cualquier teléfono, convirtiendo las visitas en clientes.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40" fill="none"><rect x="7" y="9" width="26" height="24" rx="4" stroke="var(--cyan)" stroke-width="2.2"/><path d="M7 16h26M14 6v6M26 6v6" stroke="var(--cyan)" stroke-width="2.2" stroke-linecap="round"/><circle cx="16" cy="24" r="2" fill="var(--cyan)"/><circle cx="24" cy="24" r="2" fill="var(--cyan)"/></svg>
+        <h3>Clases que se llenan solas</h3>
+        <p>Muestra los horarios de tus talleres y permite que tus visitantes reserven un torno en un par de toques.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M10 15l4-7h12l4 7" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 15h24l-2 18a3 3 0 01-3 3H13a3 3 0 01-3-3L8 15z" stroke="var(--gold)" stroke-width="2.2" stroke-linejoin="round"/></svg>
+        <h3>Una estantería siempre abierta</h3>
+        <p>Tazas, cuencos y piezas únicas disponibles para la venta directamente desde tu página, de día o de noche.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="18" cy="18" r="11" stroke="var(--cyan)" stroke-width="2.2"/><path d="M26 26l7 7" stroke="var(--cyan)" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <h3>Encuentra a tu próximo alumno</h3>
+        <p>La búsqueda local atrae a personas que buscan «clases de cerámica cerca de mí» directo a tu taller.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIXER -->
+  <section class="mixer wrap" id="mixer">
+    <div class="panel mixer-panel">
+      <div class="mixer-copy">
+        <h2>Elige un esmalte. Mira cómo hornea.</h2>
+        <p>Cada página de EasyLandX se personaliza con los colores propios de tu taller, sin moldes genéricos. Toca un esmalte y observa cómo cambia la pieza.</p>
+        <div class="swatches" role="group" aria-label="Elige un color de esmalte">
+          <button class="swatch gold" aria-pressed="true" aria-label="Esmalte oro ámbar" onclick="setGlaze('gold', this)"></button>
+          <button class="swatch cyan" aria-pressed="false" aria-label="Esmalte cian eléctrico" onclick="setGlaze('cyan', this)"></button>
+          <button class="swatch violet" aria-pressed="false" aria-label="Esmalte violeta profundo" onclick="setGlaze('violet', this)"></button>
+          <button class="swatch mix" aria-pressed="false" aria-label="Esmalte mezcla eléctrica completa" onclick="setGlaze('mix', this)"></button>
+        </div>
+        <p class="mixer-hint" id="mixerHint">Oro ámbar, cálido como el punto máximo del horno.</p>
+      </div>
+      <div class="mixer-art">
+        <svg id="mixVase" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Un cuenco de cerámica que cambia el color de su esmalte al elegir los tonos">
+          <defs>
+            <linearGradient id="mixGlaze" x1="0" y1="0" x2="1" y2="1">
+              <stop id="mixStop1" offset="0%" stop-color="#FFCB3D"/>
+              <stop id="mixStop2" offset="100%" stop-color="#FF8A3D"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="120" cy="270" rx="70" ry="12" fill="#2A0069" opacity=".5"/>
+          <path d="M40 90c0 60 28 66 28 100 0 40 24 66 52 66s52-26 52-66c0-34 28-40 28-100"
+                fill="url(#mixGlaze)" id="mixShape" style="transition:opacity .25s ease;"/>
+          <path d="M40 90c0 60 28 66 28 100 0 40 24 66 52 66s52-26 52-66c0-34 28-40 28-100"
+                fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+          <ellipse cx="120" cy="90" rx="80" ry="16" fill="#FFE49A" id="mixRim"/>
+          <ellipse cx="120" cy="90" rx="80" ry="16" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+          <ellipse cx="120" cy="84" rx="62" ry="10" fill="#38008F"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHELF / GALLERY -->
+  <section class="shelf-section wrap">
+    <div class="section-head">
+      <h2>Tu estantería, en línea</h2>
+      <p>Cuencos, tazas, jarrones, platos — cada pieza tiene su propio espacio, organizadas para que tus visitantes las exploren.</p>
+    </div>
+    <div class="shelf">
+      <div class="shelf-item">
+        <svg viewBox="0 0 140 140"><ellipse cx="70" cy="60" rx="52" ry="16" fill="#FFCB3D"/><path d="M18 60c0 22 8 44 52 44s52-22 52-44" fill="#FFA93D"/><ellipse cx="70" cy="60" rx="52" ry="16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/></svg>
+        <span>Cuenco</span>
+      </div>
+      <div class="shelf-item">
+        <svg viewBox="0 0 140 140"><rect x="34" y="40" width="72" height="70" rx="14" fill="#26F5FF"/><path d="M106 55c14 0 22 8 22 18s-8 18-22 18" fill="none" stroke="#26F5FF" stroke-width="10" stroke-linecap="round"/><ellipse cx="70" cy="40" rx="36" ry="9" fill="#B4FBFF"/></svg>
+        <span>Taza</span>
+      </div>
+      <div class="shelf-item">
+        <svg viewBox="0 0 140 140"><path d="M50 30c-2 16 10 24 10 44 0 22-16 26-16 40 0 12 12 20 26 20s26-8 26-20c0-14-16-18-16-40 0-20 12-28 10-44" fill="#C58BFF"/><ellipse cx="70" cy="30" rx="20" ry="6" fill="#E7D9FF"/></svg>
+        <span>Jarrón</span>
+      </div>
+      <div class="shelf-item">
+        <svg viewBox="0 0 140 140"><ellipse cx="70" cy="76" rx="58" ry="20" fill="#FFCB3D"/><ellipse cx="70" cy="72" rx="58" ry="20" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/><ellipse cx="70" cy="72" rx="34" ry="11" fill="#38008F" opacity=".5"/></svg>
+        <span>Plato</span>
+      </div>
+      <div class="shelf-board-wrap"><div class="shelf-board" aria-hidden="true"></div></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta wrap" id="cta">
+    <div class="panel">
+      <h2>¿Listo para encender tu página?</h2>
+      <p>Envíanos los colores de tu taller, fotos y horarios de clases — EasyLandX les dará forma en una página diseñada para atraer visitantes a tu puerta.</p>
+      <button class="btn-primary" onclick="alert('¡Gracias! En el sitio web de un taller real, esto abriría tu formulario de inicio.')">Crea tu página</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:26px;height:26px;">
+        <circle cx="20" cy="20" r="19" stroke="var(--gold)" stroke-width="1.6"/>
+        <path d="M14 13c0 3 1.6 4.6 1.6 7.5S14 25.5 14 28c0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.5-1.6-4.6-1.6-7.5S26 16 26 13" stroke="var(--cyan)" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      EasyLandX
+    </div>
+    <a class="site-link" href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a>
+  </div>
+</footer>
+
+<script>
+  const glazes = {
+    gold:   { c1:'#FFCB3D', c2:'#FF8A3D', rim:'#FFE49A', hint:"Oro ámbar, cálido como el punto máximo del horno." },
+    cyan:   { c1:'#26F5FF', c2:'#6B7CFF', rim:'#B4FBFF', hint:'Cian eléctrico, fresco como una inmersión en el cubo de esmalte.' },
+    violet: { c1:'#C58BFF', c2:'#5B00E0', rim:'#E7D9FF', hint:'Violeta profundo, rico como la última pieza sacada del horno.' },
+    mix:    { c1:'#FFCB3D', c2:'#26F5FF', rim:'#C58BFF', hint:'La mezcla eléctrica completa — cada esmalte que un taller desearía, en una sola página.' }
+  };
+  function setGlaze(name, btn){
+    const g = glazes[name];
+    document.getElementById('mixStop1').setAttribute('stop-color', g.c1);
+    document.getElementById('mixStop2').setAttribute('stop-color', g.c2);
+    document.getElementById('mixRim').setAttribute('fill', g.rim);
+    document.getElementById('mixerHint').textContent = g.hint;
+    document.querySelectorAll('.swatch').forEach(s => s.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+  }
+</script>
+
+</body>
+</html>
