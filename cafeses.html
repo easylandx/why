@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLandX para Cafeterías — Landing Pages que Atraen Clientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --electric-pink:#ff2fb0;
+    --electric-orange:#ff7a1a;
+    --electric-yellow:#ffe400;
+    --electric-cyan:#00f0ff;
+    --electric-purple:#8b2fff;
+    --ink:#1a0b2e;
+    --cream:#fff7e6;
+    --starbucks-green:#006241;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk', sans-serif;
+    background: radial-gradient(circle at 20% 10%, #006241 0%, #003d29 45%, #002b1d 100%);
+    color: var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.logo{ font-family:'Baloo 2', sans-serif; }
+
+  /* glow utility */
+  .glow-text{ text-shadow: 0 0 8px currentColor, 0 0 22px currentColor; }
+  .glow-box{ box-shadow: 0 0 25px rgba(255,47,176,.5), 0 0 55px rgba(0,240,255,.25); }
+
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw; position:sticky; top:0; z-index:50;
+    background: rgba(0, 43, 29, 0.7); backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .logo{ font-size:1.5rem; font-weight:800; color:var(--electric-yellow); }
+  .logo span{ color:var(--electric-cyan); }
+  nav a.cta{
+    background: linear-gradient(90deg, var(--electric-pink), var(--electric-orange));
+    padding:10px 22px; border-radius:999px; color:var(--ink); font-weight:700;
+    text-decoration:none; box-shadow:0 0 18px rgba(255,122,26,.6);
+    transition: transform .2s;
+  }
+  nav a.cta:hover{ transform: scale(1.07); }
+
+  /* HERO */
+  .hero{
+    min-height:88vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; padding:6vw; position:relative;
+  }
+  .badge{
+    display:inline-block; padding:8px 18px; border-radius:999px; font-size:.85rem;
+    font-weight:700; letter-spacing:.5px; color:var(--ink);
+    background: var(--electric-yellow); box-shadow:0 0 20px rgba(255,228,0,.7);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.6rem); line-height:1.05; max-width:15ch;
+    color:#fff;
+  }
+  .hero h1 .accent1{ color: var(--electric-cyan); }
+  .hero h1 .accent2{ color: var(--electric-pink); }
+  .hero p{
+    max-width:52ch; margin:26px auto 34px; font-size:1.15rem; color:#e9dcff;
+  }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .btn-primary{
+    background: linear-gradient(90deg, var(--electric-pink), var(--electric-purple));
+    color:#fff; padding:16px 34px; border-radius:999px; font-weight:700; font-size:1.05rem;
+    text-decoration:none; border:none; cursor:pointer; animation: pulseGlow 2.2s infinite ease-in-out;
+  }
+  .btn-secondary{
+    background:transparent; border:2px solid var(--electric-cyan); color:var(--electric-cyan);
+    padding:14px 30px; border-radius:999px; font-weight:700; text-decoration:none;
+  }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 18px rgba(255,47,176,.7), 0 0 40px rgba(139,47,255,.4);}
+    50%{ box-shadow:0 0 32px rgba(255,47,176,1), 0 0 70px rgba(139,47,255,.7);}
+  }
+
+  /* Floating coffee illustration */
+  .cup-wrap{ position:relative; width:220px; height:220px; margin:10px auto 0; }
+  svg.steamcup{ width:100%; height:100%; overflow:visible; }
+  .steam{ animation: rise 3.5s infinite ease-in-out; transform-origin:center bottom; }
+  .steam.s2{ animation-delay:.6s; }
+  .steam.s3{ animation-delay:1.2s; }
+  @keyframes rise{
+    0%{ transform: translateY(0) scaleX(1); opacity:.9;}
+    50%{ transform: translateY(-18px) scaleX(1.3); opacity:.4;}
+    100%{ transform: translateY(-36px) scaleX(1); opacity:0;}
+  }
+
+  section{ padding: 8vw 6vw; max-width:1200px; margin:0 auto; }
+  .section-title{ text-align:center; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:14px; color:#fff; }
+  .section-sub{ text-align:center; color:#d8c6ff; max-width:60ch; margin:0 auto 50px; }
+
+  /* WHY GRID */
+  .why-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:26px; }
+  .why-card{
+    background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    border-radius:22px; padding:28px; text-align:left; transition: transform .25s, box-shadow .25s;
+  }
+  .why-card:hover{ transform: translateY(-8px); box-shadow:0 0 30px rgba(0,240,255,.35); border-color:var(--electric-cyan); }
+  .why-card .icon{ font-size:2.2rem; margin-bottom:14px; display:block; }
+  .why-card h3{ color:var(--electric-yellow); margin-bottom:10px; font-size:1.2rem; }
+  .why-card p{ color:#e6d9ff; font-size:.95rem; line-height:1.5; }
+
+  /* INTERACTIVE DEMO (COFFEE BREW SIMULATOR) */
+  .demo{
+    background: linear-gradient(160deg, rgba(0, 98, 65, 0.4), rgba(255,47,176,.15));
+    border-radius:28px; border:1px solid rgba(255,255,255,.15); padding:5vw;
+  }
+  .demo-inner{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+  @media (max-width:820px){ .demo-inner{ grid-template-columns:1fr; } }
+
+  .demo-controls label{ display:block; font-size:.85rem; color:var(--electric-cyan); margin:16px 0 6px; font-weight:700; }
+  
+  .opt-buttons{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+  .opt-btn{
+    padding:10px 16px; border-radius:12px; background:rgba(0,0,0,.3);
+    border:2px solid rgba(255,255,255,.2); color:#fff; cursor:pointer;
+    font-family:inherit; font-weight:500; font-size:.9rem; transition:all .2s ease;
+  }
+  .opt-btn:hover{ border-color:var(--electric-cyan); }
+  .opt-btn.active{ border-color:var(--electric-pink); background:rgba(255,47,176,.2); color:#fff; font-weight:700; }
+
+  /* BREW RESULT DISPLAY */
+  .brew-card{
+    background: rgba(15, 34, 24, 0.85); border-radius:20px; padding:30px;
+    border: 2px solid rgba(255,255,255,.15); text-align:center;
+    transition: all .4s ease;
+  }
+  .brew-icon{ font-size:3.5rem; margin-bottom:12px; display:block; }
+  .brew-title{ font-size:1.5rem; color:var(--electric-yellow); margin-bottom:8px; }
+  .brew-desc{ font-size:.95rem; color:#e6d9ff; line-height:1.5; margin-bottom:18px; }
+  .brew-tags{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
+  .brew-tag{
+    background:rgba(255,255,255,.08); padding:6px 12px; border-radius:999px; font-size:.8rem; color:var(--electric-cyan);
+  }
+
+  /* FEATURES STRIP */
+  .strip{ display:flex; flex-wrap:wrap; gap:22px; justify-content:center; margin-top:50px; }
+  .pill{
+    padding:14px 22px; border-radius:16px; background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12); font-size:.95rem; color:#fff; display:flex; align-items:center; gap:10px;
+  }
+
+  /* PRICING */
+  .pricing{
+    text-align:center; background: radial-gradient(circle at 50% 0%, rgba(255,228,0,.15), transparent 60%);
+    border-radius:28px; padding:6vw; border:1px solid rgba(255,255,255,.1);
+  }
+
+  footer{
+    text-align:center; padding:50px 6vw; color:#b8a6d9; font-size:.85rem;
+  }
+  footer a{ color:var(--electric-cyan); }
+
+  ::selection{ background: var(--electric-pink); color:#fff; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Easy<span>Land</span>X</div>
+  <a class="cta" href="https://easylandx.github.io" target="_blank" rel="noopener">Consigue la Página para tu Cafetería →</a>
+</nav>
+
+<section class="hero">
+  <div class="badge">☕ Creado para Cafeterías Independientes y Cafés de Especialidad</div>
+  <h1>Tu <span class="accent1">Instagram</span> consigue me gustas.<br>Tu <span class="accent2">landing page</span> consigue pedidos.</h1>
+  <p>EasyLandX transforma el ambiente de tu cafetería en una página brillante que atrae a la gente a tu local: reservas de mesa, pedidos para llevar y clientes habituales, todo desde un único enlace en tu biografía.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Prepara Mi Landing Page</a>
+    <a class="btn-secondary" href="#demo">Prueba la Demo en Vivo ↓</a>
+  </div>
+
+  <div class="cup-wrap">
+    <svg class="steamcup" viewBox="0 0 200 200">
+      <g class="steam s1" fill="none" stroke="#00f0ff" stroke-width="5" stroke-linecap="round">
+        <path d="M70 90 Q65 70 75 55 Q85 40 78 25"/>
+      </g>
+      <g class="steam s2" fill="none" stroke="#ff2fb0" stroke-width="5" stroke-linecap="round">
+        <path d="M100 90 Q95 68 105 52 Q115 36 108 20"/>
+      </g>
+      <g class="steam s3" fill="none" stroke="#ffe400" stroke-width="5" stroke-linecap="round">
+        <path d="M130 90 Q125 70 135 55 Q145 40 138 25"/>
+      </g>
+      <ellipse cx="100" cy="175" rx="60" ry="8" fill="#006241" opacity="0.5"/>
+      <path d="M40 95 h120 l-10 55 a15 15 0 0 1 -15 13 h-70 a15 15 0 0 1 -15 -13 Z" fill="#ff7a1a"/>
+      <path d="M40 95 h120 l-3 18 h-114 Z" fill="#ffe400"/>
+      <path d="M160 105 q28 0 28 25 q0 25 -28 25 v-14 q12 0 12 -11 q0 -11 -12 -11 Z" fill="#00f0ff"/>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Por qué las cafeterías brillan con EasyLandX</h2>
+  <p class="section-sub">Las cafeterías independientes se nutren del ambiente, el aroma y el boca a boca; tu página debería transmitir exactamente lo mismo.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="icon">📸</span>
+      <h3>De Instagram → A la Mesa</h3>
+      <p>Convierte a los visitantes de tu perfil en clientes reales con un solo toque: indicaciones para llegar, reservas de mesa y tus especialidades del día en primer plano.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🥐</span>
+      <h3>Un menú que destaca</h3>
+      <p>Tus reposterías y cafés de especialidad mostrados con imágenes apetitosas, no un aburrido PDF que nadie abre.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">💬</span>
+      <h3>Pedidos por WhatsApp a un toque</h3>
+      <p>Olvídate de las aplicaciones de terceros y sus comisiones. Los pedidos llegan directamente a tu WhatsApp.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">📱</span>
+      <h3>Se ve perfecto en móviles</h3>
+      <p>La mayoría de la gente descubre cafeterías desde su teléfono móvil, por eso optimizamos para ello en primer lugar.</p>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2 class="section-title">Prepara el Estilo de tu Página</h2>
+  <p class="section-sub">Selecciona tu nivel de tueste y método de preparación para descubrir el perfil de la landing page de tu cafetería.</p>
+  <div class="demo">
+    <div class="demo-inner">
+      <div class="demo-controls">
+        <label>1. Elige tu Nivel de Tueste</label>
+        <div class="opt-buttons" id="roastOpts">
+          <button class="opt-btn active" data-roast="light">Tueste Claro</button>
+          <button class="opt-btn" data-roast="medium">Tueste Medio</button>
+          <button class="opt-btn" data-roast="dark">Tueste Oscuro</button>
+        </div>
+
+        <label>2. Elige el Método de Preparación</label>
+        <div class="opt-buttons" id="methodOpts">
+          <button class="opt-btn active" data-method="espresso">Espresso</button>
+          <button class="opt-btn" data-method="pour">Método de Goteo</button>
+          <button class="opt-btn" data-method="cold">Cold Brew</button>
+        </div>
+      </div>
+
+      <div class="brew-card glow-box" id="brewCard">
+        <span class="brew-icon" id="brewIcon">⚡☕</span>
+        <h3 class="brew-title" id="brewTitle">Espresso Eléctrico Vibrante</h3>
+        <p class="brew-desc" id="brewDesc">Alta energía, rápido y moderno. Pensado para barras de espresso concurridas y locales de café para llevar que necesitan pedidos rápidos.</p>
+        <div class="brew-tags" id="brewTags">
+          <span class="brew-tag">⚡ Carga Rápida</span>
+          <span class="brew-tag">📲 Menú QR Rápido</span>
+          <span class="brew-tag">🔥 Toque Neón</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="pill">⏱️ Entrega en 48 horas</div>
+      <div class="pill">📱 Diseño Mobile-First</div>
+      <div class="pill">🔗 Un enlace para cada plataforma</div>
+      <div class="pill">🚫 Sin cuotas mensuales de creadores de webs</div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <h2 class="section-title">¿Listo para hacer brillar tu local?</h2>
+  <div class="hero-ctas" style="margin-top:26px;">
+    <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Con EasyLandX</a>
+  </div>
+</section>
+
+<footer>
+  Hecho con ☕ + ⚡ por <a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a>
+</footer>
+
+<script>
+  const brewProfiles = {
+    'light-espresso': {
+      icon: '⚡🍋',
+      title: 'Espresso Cítrico Neón',
+      desc: 'Fresco, moderno y nítido. Perfecto para barras de espresso especializadas que destacan shots de origen único y repostería artesanal.',
+      tags: ['⚡ Alto Contraste', '📲 WhatsApp Directo', '🍋 Estética Brillante'],
+      glow: '0 0 35px rgba(255, 228, 0, 0.4)'
+    },
+    'light-pour': {
+      icon: '🌱☕',
+      title: 'Goteo Minimalista Puro',
+      desc: 'Suave, limpio y elegante. Adaptado para cafeterías de estilo escandinavo y barras de filtro que se enfocan en la historia del origen del grano.',
+      tags: ['🌿 Diseño Minimalista', '📖 Historia del Grano', '✨ Brillo Sutil'],
+      glow: '0 0 35px rgba(0, 240, 255, 0.4)'
+    },
+    'light-cold': {
+      icon: '🧊🍓',
+      title: 'Brisa de Cold Brew Frutal',
+      desc: 'Refrescante, vibrante y ultra suave. Diseñado para impulsar las ventas de verano, bebidas heladas y creaciones avanzadas con frutas.',
+      tags: ['🧊 Estilo Refrescante', '📸 Feed de Instagram', '⚡ Pedido Instantáneo'],
+      glow: '0 0 35px rgba(255, 47, 176, 0.4)'
+    },
+    'medium-espresso': {
+      icon: '⚡☕',
+      title: 'Espresso Eléctrico Vibrante',
+      desc: 'Alta energía, rápido y moderno. Pensado para barras de espresso concurridas y locales de café para llevar que necesitan pedidos rápidos.',
+      tags: ['⚡ Carga Rápida', '📲 Menú QR Rápido', '🔥 Toque Neón'],
+      glow: '0 0 35px rgba(255, 47, 176, 0.5)'
+    },
+    'medium-pour': {
+      icon: '🎨🍯',
+      title: 'Goteo Artesanal de Miel',
+      desc: 'Cálido, acogedor y enfocado en la comunidad. Destaca la repostería del día, disponibilidad de mesas y eventos locales.',
+      tags: ['🥐 Vitrina de Repostería', '📍 Mapa y Cómo Llegar', '☕ Paleta Cálida'],
+      glow: '0 0 35px rgba(255, 122, 26, 0.4)'
+    },
+    'medium-cold': {
+      icon: '🥤✨',
+      title: 'Lounge de Cold Brew de Grifo',
+      desc: 'Relajado, fluido y en tendencia. Ideal para puntos de encuentro de barrio que sirven cold brew de grifo, matcha lattes y aperitivos ligeros.',
+      tags: ['🎵 Reproductor de Spotify', '📱 Optimizado para Móvil', '🥤 Menú de Grifo'],
+      glow: '0 0 35px rgba(139, 47, 255, 0.4)'
+    },
+    'dark-espresso': {
+      icon: '🌃☕',
+      title: 'Espresso Intenso Nocturno',
+      desc: 'Rico, audaz y con carácter. Diseñado para lounges de café nocturnos, barras de espresso martini y cafeterías underground.',
+      tags: ['🌃 Modo Oscuro', '🍸 Menú Nocturno', '⚡ Reserva a Un Toque'],
+      glow: '0 0 35px rgba(139, 47, 255, 0.6)'
+    },
+    'dark-pour': {
+      icon: '📜☕',
+      title: 'Goteo Vintage Clásico',
+      desc: 'Profundo, atemporal y auténtico. Perfecto para tostadores tradicionales, cafés con música en vinilo y locales de herencia.',
+      tags: ['📻 Estilo Retro', '☕ Enfoque en Origen Único', '📞 Contacto Directo'],
+      glow: '0 0 35px rgba(255, 122, 26, 0.5)'
+    },
+    'dark-cold': {
+      icon: '🍫🧊',
+      title: 'Cold Brew Nitro Chocolate',
+      desc: 'Aterciopelado, audaz e indulgente. Destaca bebidas de postre exclusivas, bolsas de grano de café y paquetes de suscripción.',
+      tags: ['🛍️ Enlace a Tienda de Granos', '🍫 Visuales Atractivos', '⚡ Pago Rápido'],
+      glow: '0 0 35px rgba(0, 240, 255, 0.5)'
+    }
+  };
+
+  let activeRoast = 'light';
+  let activeMethod = 'espresso';
+
+  const roastBtns = document.querySelectorAll('#roastOpts .opt-btn');
+  const methodBtns = document.querySelectorAll('#methodOpts .opt-btn');
+
+  function updateBrew() {
+    const key = `${activeRoast}-${activeMethod}`;
+    const data = brewProfiles[key] || brewProfiles['light-espresso'];
+
+    const card = document.getElementById('brewCard');
+    document.getElementById('brewIcon').textContent = data.icon;
+    document.getElementById('brewTitle').textContent = data.title;
+    document.getElementById('brewDesc').textContent = data.desc;
+    
+    const tagsContainer = document.getElementById('brewTags');
+    tagsContainer.innerHTML = data.tags.map(t => `<span class="brew-tag">${t}</span>`).join('');
+    
+    card.style.boxShadow = data.glow;
+  }
+
+  roastBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      roastBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeRoast = btn.dataset.roast;
+      updateBrew();
+    });
+  });
+
+  methodBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      methodBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeMethod = btn.dataset.method;
+      updateBrew();
+    });
+  });
+
+  updateBrew();
+</script>
+
+</body>
+</html>
