@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX para Chefs Privados y Catering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffea00;
+    --bg2:#f5e000;
+    --surface:#ffffff;
+    --surface2:#e6d300;
+    --line: rgba(0,0,0,0.12);
+    --magenta:#d63384;
+    --lime:#0f766e;
+    --cyan:#0284c7;
+    --gold:#b45309;
+    --text:#18181b;
+    --muted:#52525b;
+    --radius: 18px;
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top: env(safe-area-inset-top, 0px);}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    line-height:1.05;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{ margin:0; color:var(--muted); line-height:1.6; }
+  a{color:inherit;}
+  img,svg{max-width:100%; display:block;}
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  .scroll-x{ overflow-x:auto; }
+
+  /* ---------- fondo con destellos ---------- */
+  .glow-field{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  }
+  .blob{ position:absolute; border-radius:50%; filter: blur(90px); opacity:.25; }
+  .blob.b1{ width:520px; height:520px; background:#ffb700; top:-180px; left:-140px; }
+  .blob.b2{ width:460px; height:460px; background:#ff9100; top:280px; right:-160px; opacity:.2;}
+  .blob.b3{ width:420px; height:420px; background:#ffffff; bottom:-160px; left:22%; opacity:.3;}
+
+  /* ---------- encabezado ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(255, 234, 0, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:1180px; margin:0 auto;
+  }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; }
+  .logo-mark{ width:30px; height:30px; }
+  .navlinks{ display:flex; gap:32px; font-size:.95rem; color:var(--text); font-weight:500; }
+  .navlinks a{ text-decoration:none; transition:opacity .2s; }
+  .navlinks a:hover{ opacity:0.7; }
+  .btn{
+    font-family:'Space Grotesk'; font-weight:600; font-size:.95rem;
+    border:none; cursor:pointer; border-radius:999px; padding:13px 26px;
+    transition: transform .18s ease, box-shadow .25s ease;
+  }
+  .btn-primary{
+    background: #000000;
+    color:#ffffff;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+  .btn-ghost{
+    background:transparent; color:var(--text); border:1px solid rgba(0,0,0,.25);
+  }
+  .btn-ghost:hover{ border-color: var(--text); background: rgba(0,0,0,0.05); }
+  .navcta{ display:flex; align-items:center; gap:14px; }
+  .navcta .btn{ padding:10px 20px; font-size:.88rem; }
+  @media (max-width: 780px){ .navlinks{ display:none; } }
+
+  section{ position:relative; z-index:1; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:88px 0 60px; }
+  .hero-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center; }
+  @media (max-width:920px){ .hero-grid{ grid-template-columns:1fr; } }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    color:#000000; font-size:.85rem; font-weight:700; margin-bottom:18px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .kicker .dot{ width:7px; height:7px; border-radius:50%; background:#000000; }
+  .hero h1{ font-size: clamp(2.3rem, 4.6vw, 3.5rem); }
+  .hero h1 .glow-word{
+    background: linear-gradient(100deg, #d63384, #0284c7 60%, #000000);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{ font-size:1.08rem; margin-top:22px; max-width:46ch; color:#27272a; }
+  .hero-actions{ display:flex; gap:16px; margin-top:34px; flex-wrap:wrap; }
+
+  /* ilustración hero */
+  .hero-art{ position:relative; height:420px; }
+  .plate-wrap{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .plate-glow{ filter: drop-shadow(0 12px 28px rgba(0,0,0,.12)); }
+  .floaty{ animation: floaty 5.5s ease-in-out infinite; }
+  .floaty.delay1{ animation-delay: .6s; }
+  .floaty.delay2{ animation-delay: 1.4s; }
+  @keyframes floaty{ 0%,100%{ transform: translateY(0) rotate(0deg);} 50%{ transform: translateY(-14px) rotate(-3deg);} }
+  @media (prefers-reduced-motion: reduce){ .floaty{ animation:none; } }
+  .chip-icon{ position:absolute; width:70px; height:70px; }
+  .chip-icon.hat{ top:8px; right:24px; }
+  .chip-icon.whisk{ bottom:26px; left:6px; }
+  .chip-icon.herb{ bottom:0; right:60px; width:56px; height:56px; }
+
+  /* ---------- títulos de sección ---------- */
+  .sec-head{ max-width:640px; margin-bottom:44px; }
+  .sec-head h2{ font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .sec-head p{ margin-top:14px; font-size:1.02rem; color:#27272a; }
+
+  /* ---------- características ---------- */
+  .features{ padding:70px 0; }
+  .feat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:20px; overflow:hidden; }
+  @media (max-width:920px){ .feat-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .feat-grid{ grid-template-columns:1fr; } }
+  .feat{ background:#ffffff; padding:32px 26px; transition: background .25s; }
+  .feat:hover{ background:#fdfdfd; }
+  .feat .icon{ width:42px; height:42px; margin-bottom:20px; }
+  .feat h3{ font-size:1.05rem; margin-bottom:10px; }
+  .feat p{ font-size:.92rem; color:#52525b; }
+
+  /* ---------- creador interactivo ---------- */
+  .builder{ padding:70px 0; }
+  .builder-box{
+    display:grid; grid-template-columns: .85fr 1.15fr; gap:0;
+    background:#ffffff; border:1px solid var(--line); border-radius:24px; overflow:hidden;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  }
+  @media (max-width:920px){ .builder-box{ grid-template-columns:1fr; } }
+  .builder-controls{ padding:38px 34px; background:#ffffff; }
+  .builder-controls h3{ font-size:1.2rem; margin-bottom:6px; }
+  .builder-controls > p{ font-size:.9rem; margin-bottom:22px; }
+  .cuisine-list{ display:flex; flex-direction:column; gap:10px; }
+  .cuisine-btn{
+    display:flex; align-items:center; gap:12px;
+    background:var(--bg); border:1px solid transparent; color:var(--text);
+    padding:13px 16px; border-radius:14px; cursor:pointer; text-align:left;
+    font-family:'Inter'; font-size:.94rem; font-weight:600;
+    transition: border-color .2s, background .2s, transform .15s;
+  }
+  .cuisine-btn .sw{ width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .cuisine-btn:hover{ transform:translateX(3px); }
+  .cuisine-btn.active{ border-color: #000000; background:var(--bg); box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+
+  .builder-preview{ padding:26px; background:var(--bg2); }
+  .browser-mock{ background:#ffffff; border:1px solid rgba(0,0,0,0.1); border-radius:16px; overflow:hidden; box-shadow: 0 15px 35px rgba(0,0,0,.1); }
+  .browser-bar{ display:flex; align-items:center; gap:8px; padding:12px 16px; background:#f4f4f5; border-bottom:1px solid rgba(0,0,0,0.08); }
+  .browser-bar span{ width:9px; height:9px; border-radius:50%; background:#d4d4d8; }
+  .browser-url{ margin-left:10px; font-size:.72rem; color:var(--muted); font-family:'Inter'; background:#ffffff; border:1px solid rgba(0,0,0,0.08); padding:5px 12px; border-radius:8px; flex:1; }
+  .mock-body{ padding:26px 24px 28px; }
+  .mock-hero{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+  .mock-name{ font-size:.78rem; color:var(--muted); margin-bottom:6px; }
+  .mock-headline{ font-family:'Space Grotesk'; font-size:1.35rem; font-weight:600; transition: color .3s; }
+  .mock-badge{ width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; transition: background .3s, box-shadow .3s; flex-shrink:0; }
+  .mock-menu{ margin-top:22px; display:flex; flex-direction:column; gap:8px; }
+  .mock-menu-item{ display:flex; justify-content:space-between; font-size:.88rem; padding:9px 12px; background:#fafafa; border-radius:10px; border:1px solid #f4f4f5; }
+  .mock-menu-item span:last-child{ color:var(--muted); }
+  .mock-cta{ margin-top:20px; display:inline-block; font-family:'Space Grotesk'; font-size:.85rem; font-weight:600; padding:10px 20px; border-radius:999px; transition: background .3s, box-shadow .3s; color:#ffffff; }
+
+  /* ---------- calculadora de presupuesto ---------- */
+  .calc{ padding:70px 0; }
+  .calc-box{
+    display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center;
+    background: #ffffff;
+    border:1px solid var(--line); border-radius:24px; padding:44px;
+    position:relative; overflow:visible; box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+  @media (max-width:860px){ .calc-box{ grid-template-columns:1fr; } }
+  .calc h3{ font-size:1.3rem; margin-bottom:10px; }
+  .field{ margin-top:22px; }
+  .field label{ display:block; font-size:.85rem; color:var(--muted); margin-bottom:8px; }
+  .seg{ display:flex; gap:8px; flex-wrap:wrap; }
+  .seg button{
+    background:var(--bg); border:1px solid transparent; color:var(--text);
+    padding:99px 15px; border-radius:999px; font-size:.85rem; cursor:pointer;
+    font-family:'Inter'; transition: all .2s; font-weight: 500;
+  }
+  .seg button{ padding: 9px 15px; }
+  .seg button.active{ background:#000000; color:#ffffff; font-weight:600; }
+  input[type=range]{ width:100%; accent-color: #000000; height:6px; }
+  .guest-readout{ font-family:'Space Grotesk'; font-size:2.6rem; color:#000000; margin-top:6px; font-weight: 700; }
+  .quote-card{ background:var(--bg); border:1px solid var(--line); border-radius:18px; padding:28px; text-align:center; }
+  .quote-card .label{ font-size:.82rem; color:#3f3f46; font-weight: 600; }
+  .quote-card .range{ font-family:'Space Grotesk'; font-size:2rem; margin-top:8px; color:#000000; font-weight: 700; }
+  .quote-card .note{ font-size:.78rem; margin-top:10px; color:#3f3f46; }
+
+  .toast{
+    position:fixed; left:50%; bottom:34px; transform: translate(-50%, 30px);
+    background:#000000; border:1px solid #000000; color:#ffffff;
+    padding:14px 22px; border-radius:14px; font-size:.88rem; display:flex; align-items:center; gap:10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    opacity:0; pointer-events:none; transition: opacity .35s ease, transform .35s ease;
+    z-index:80; max-width:90vw;
+  }
+  .toast.show{ opacity:1; transform: translate(-50%, 0); }
+  .toast .pulse{ width:9px; height:9px; border-radius:50%; background:#ffea00; box-shadow:0 0 10px #ffea00; flex-shrink:0; }
+
+  /* ---------- testimonios ---------- */
+  .testimonials{ padding:70px 0; }
+  .tst-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:860px){ .tst-grid{ grid-template-columns:1fr; } }
+  .tst-card{ background:#ffffff; border:1px solid var(--line); border-radius:18px; padding:28px; box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
+  .tst-card p.quote{ color:var(--text); font-size:.98rem; line-height:1.55; }
+  .tst-who{ display:flex; align-items:center; gap:12px; margin-top:20px; }
+  .tst-avatar{ width:38px; height:38px; border-radius:50%; flex-shrink:0; }
+  .tst-name{ font-size:.88rem; font-weight:600; }
+  .tst-role{ font-size:.78rem; color:var(--muted); }
+
+  /* ---------- cta final ---------- */
+  .final-cta{ padding:90px 0 110px; text-align:center; }
+  .final-cta h2{ font-size: clamp(2rem, 4vw, 2.9rem); max-width:16ch; margin:0 auto; }
+  .final-cta .actions{ display:flex; justify-content:center; gap:16px; margin-top:32px; flex-wrap:wrap; }
+
+  footer{ border-top:1px solid var(--line); padding:36px 0; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:.82rem; color:#27272a; }
+  .foot-links{ display:flex; gap:22px; }
+  .foot-links a{ text-decoration:none; color:#27272a; font-weight: 500; }
+  .foot-links a:hover{ opacity: 0.7; }
+
+  :focus-visible{ outline:2px solid #000000; outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="glow-field" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#000000" stroke-width="2"/>
+        <path d="M13 22c2-6 6-10 7-10s5 4 7 10c-2 3-5 4-7 4s-5-1-7-4Z" fill="#000000"/>
+      </svg>
+      easylandx
+    </div>
+    <nav class="navlinks">
+      <a href="#features">Características</a>
+      <a href="#builder">Demostración</a>
+      <a href="#stories">Historias de chefs</a>
+    </nav>
+    <div class="navcta">
+      <a class="btn btn-ghost" href="#builder">Ver demostración</a>
+      <a class="btn btn-primary" href="#final-cta">Empezar ahora</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker"><span class="dot"></span>Diseñado para chefs privados y catering</div>
+        <h1>Tu menú degustación merece una página tan impecable como <span class="glow-word">lo que hay en el plato.</span></h1>
+        <p class="lead">easylandx transforma tu menú, tus fotos y tu calendario en una página de destino que consigue reservas para cenas privadas y servicios de catering — sin diseñadores web, sin código y sin esperas.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#final-cta">Crea tu página</a>
+          <a class="btn btn-ghost" href="#builder">Prueba la demo en vivo ↓</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="plate-wrap">
+          <svg class="plate-glow floaty" width="300" height="300" viewBox="0 0 300 300" fill="none">
+            <circle cx="150" cy="150" r="140" fill="#ffffff" stroke="#e6d300" stroke-width="2"/>
+            <circle cx="150" cy="150" r="105" fill="none" stroke="#e6d300" stroke-width="1.5"/>
+            <path d="M100 150c0-30 20-55 50-55s50 25 50 55-25 45-50 45-50-15-50-45Z" fill="url(#food)"/>
+            <path d="M95 118c8-6 12-14 10-20M150 100c2-9 0-16-4-22M205 118c-8-6-12-14-10-20" stroke="#18181b" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+            <defs>
+              <linearGradient id="food" x1="100" y1="95" x2="200" y2="195">
+                <stop stop-color="#d63384"/><stop offset=".5" stop-color="#b45309"/><stop offset="1" stop-color="#0f766e"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <svg class="chip-icon hat floaty delay1" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="32" fill="#ffffff" stroke="#e6d300"/>
+          <path d="M20 40c0-10 4-18 12-18s12 8 12 18" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/>
+          <rect x="18" y="40" width="28" height="7" rx="3" fill="#0284c7"/>
+        </svg>
+        <svg class="chip-icon whisk floaty delay2" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="32" fill="#ffffff" stroke="#e6d300"/>
+          <path d="M32 18v10M26 20l3 9M38 20l-3 9" stroke="#d63384" stroke-width="3" stroke-linecap="round"/>
+          <path d="M32 28c-7 0-10 8-6 14l6 6 6-6c4-6 1-14-6-14Z" stroke="#d63384" stroke-width="2.5"/>
+        </svg>
+        <svg class="chip-icon herb floaty" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="32" fill="#ffffff" stroke="#e6d300"/>
+          <path d="M32 46V24M32 30l-8-6M32 26l8-6M32 36l-7-4M32 33l7-4" stroke="#0f766e" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARACTERÍSTICAS -->
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Diseñado según la forma real en que reservan los chefs</h2>
+        <p>Cada bloque en easylandx existe porque un profesional de la cocina lo pidió, no por rellenar una plantilla.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat">
+          <svg class="icon" viewBox="0 0 42 42" fill="none"><rect x="6" y="6" width="30" height="30" rx="8" stroke="#0f766e" stroke-width="2"/><path d="M13 17h16M13 22h16M13 27h10" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Menús que se leen como una degustación</h3>
+          <p>Estructura paso a paso con espacio para contar la historia de cada plato, no una lista ajustada de precios.</p>
+        </div>
+        <div class="feat">
+          <svg class="icon" viewBox="0 0 42 42" fill="none"><rect x="6" y="9" width="30" height="24" rx="4" stroke="#0284c7" stroke-width="2"/><path d="M6 16h30M14 6v7M28 6v7" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Formularios que aseguran fechas</h3>
+          <p>El número de invitados, tipo de evento y fecha llegan directo a tu correo, sin cadenas de mensajes interminables.</p>
+        </div>
+        <div class="feat">
+          <svg class="icon" viewBox="0 0 42 42" fill="none"><rect x="7" y="12" width="28" height="20" rx="4" stroke="#d63384" stroke-width="2"/><circle cx="21" cy="22" r="6" stroke="#d63384" stroke-width="2"/><path d="M15 12l2-4h8l2 4" stroke="#d63384" stroke-width="2"/></svg>
+          <h3>Fotografías con todo su brillo</h3>
+          <p>Galerías a pantalla completa optimizadas para fotografía gastronómica: el vapor, los dorados y el emplatado lucen impecables.</p>
+        </div>
+        <div class="feat">
+          <svg class="icon" viewBox="0 0 42 42" fill="none"><rect x="6" y="10" width="30" height="22" rx="5" stroke="#b45309" stroke-width="2"/><path d="M6 17h30" stroke="#b45309" stroke-width="2"/><rect x="12" y="23" width="8" height="4" rx="1" fill="#b45309"/></svg>
+          <h3>Cobro de depósitos al instante</h3>
+          <p>Solicita una tarjeta al momento de la reserva para asegurar la fecha de inmediato.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREADOR INTERACTIVO -->
+  <section class="builder" id="builder">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Elige un estilo de cocina. Observa la transformación.</h2>
+        <p>Prueba diferentes estilos y mira cómo la página se adapta a tu propuesta gastronómica.</p>
+      </div>
+
+      <div class="builder-box">
+        <div class="builder-controls">
+          <h3>El estilo de tu cocina</h3>
+          <p>Un clic cambia el título, la paleta de colores y el menú de ejemplo.</p>
+          <div class="cuisine-list" id="cuisineList" role="group" aria-label="Elige un estilo de cocina"></div>
+        </div>
+
+        <div class="builder-preview">
+          <div class="browser-mock">
+            <div class="browser-bar">
+              <span></span><span></span><span></span>
+              <div class="browser-url" id="mockUrl">easylandx.site/tu-nombre</div>
+            </div>
+            <div class="mock-body">
+              <div class="mock-hero">
+                <div>
+                  <div class="mock-name" id="mockName">Chef Mara Okafor · Cenas Privadas</div>
+                  <div class="mock-headline" id="mockHeadline">Sabores intensos, servidos en tu mesa.</div>
+                </div>
+                <div class="mock-badge" id="mockBadge">🔥</div>
+              </div>
+              <div class="mock-menu" id="mockMenu"></div>
+              <a class="mock-cta" id="mockCta" href="#final-cta">Consultar disponibilidad</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA DE PRESUPUESTO -->
+  <section class="calc">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Páginas equipadas con cotizador automático mientras cocinas</h2>
+        <p>Ajusta el número de invitados y selecciona el tipo de evento: esto es exactamente lo que verá tu cliente en vivo.</p>
+      </div>
+
+      <div class="calc-box">
+        <div>
+          <h3>Calcula una reserva</h3>
+          <div class="field">
+            <label>Tipo de evento</label>
+            <div class="seg" id="eventSeg">
+              <button data-rate="110" class="active">Cena privada</button>
+              <button data-rate="65">Corporativo</button>
+              <button data-rate="90">Boda</button>
+              <button data-rate="55">Cumpleaños</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Invitados</label>
+            <input type="range" min="8" max="240" value="30" id="guestRange">
+            <div class="guest-readout" id="guestReadout">30 invitados</div>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="label">Presupuesto estimado de catering</div>
+          <div class="range" id="quoteRange">2.970 € – 3.960 €</div>
+          <div class="note">Mostrado al instante a tu visitante, sin necesidad de correos de ida y vuelta para dar un estimado.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"><span class="pulse"></span><span id="toastText">Nueva solicitud de reserva recibida</span></div>
+
+  <!-- TESTIMONIOS -->
+  <section class="testimonials" id="stories">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Chefs que cambiaron su menú en PDF por una página web</h2>
+      </div>
+      <div class="tst-grid">
+        <div class="tst-card">
+          <p class="quote">"Antes enviaba fotos de mi menú por mensaje. Ahora los clientes completan el formulario mientras preparo la cocina; mi calendario se llena solo."</p>
+          <div class="tst-who">
+            <svg class="tst-avatar" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#f5e000"/><circle cx="20" cy="16" r="7" fill="#d63384"/><path d="M6 36c2-9 9-14 14-14s12 5 14 14" fill="#d63384"/></svg>
+            <div><div class="tst-name">Dario Reyes</div><div class="tst-role">Chef privado, Austin</div></div>
+          </div>
+        </div>
+        <div class="tst-card">
+          <p class="quote">"El formulario con depósito se pagó solo el primer fin de semana. Se acabó el reservar un sábado para alguien que luego no aparece."</p>
+          <div class="tst-who">
+            <svg class="tst-avatar" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#f5e000"/><circle cx="20" cy="16" r="7" fill="#0284c7"/><path d="M6 36c2-9 9-14 14-14s12 5 14 14" fill="#0284c7"/></svg>
+            <div><div class="tst-name">Priya Nair</div><div class="tst-role">Catering, Nair & Table</div></div>
+          </div>
+        </div>
+        <div class="tst-card">
+          <p class="quote">"Montaron toda la página durante un turno tranquilo de martes. Me siento muy orgulloso del resultado."</p>
+          <div class="tst-who">
+            <svg class="tst-avatar" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#f5e000"/><circle cx="20" cy="16" r="7" fill="#0f766e"/><path d="M6 36c2-9 9-14 14-14s12 5 14 14" fill="#0f766e"/></svg>
+            <div><div class="tst-name">Sam Okonkwo</div><div class="tst-role">Chef privado, Chicago</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="final-cta" id="final-cta">
+    <div class="wrap">
+      <h2>¿Listo para atender tu próxima reserva?</h2>
+      <p style="margin-top:16px; color:#27272a;">Tu página web puede estar lista antes de que tu fondo termine de reducirse.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#">Solicitar tu página</a>
+        <a class="btn btn-ghost" href="#builder">Probar la demo en vivo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>© 2026 easylandx. Páginas de destino para chefs privados y catering.</div>
+    <div class="foot-links">
+      <a href="#features">Características</a>
+      <a href="#stories">Historias</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Creador interactivo de estilos de cocina ----------
+  var cuisines = [
+    {
+      name:'Fuego de leña y Barbacoa', accent:'#b45309', badge:'🔥', emoji:'🔥',
+      chefName:'Chef Mara Okafor · Cenas Privadas',
+      headline:'Sabores intensos, servidos en tu mesa.',
+      menu:[['Falda ahumada, cebolla tostada','34 €'],['Pan plano a la leña','14 €'],['Zanahorias asadas a las brasas','11 €']]
+    },
+    {
+      name:'Cocina vegetal', accent:'#0f766e', badge:'🌿', emoji:'🌿',
+      chefName:'Chef Elin Vos · Cenas Privadas',
+      headline:'Vegetales tratados como el plato principal.',
+      menu:[['Calabaza asada, tahini batido','22 €'],['Tarta de tomate reliquia','17 €'],['Risotto de setas silvestres','26 €']]
+    },
+    {
+      name:'Técnica francesa', accent:'#0284c7', badge:'🥂', emoji:'🥂',
+      chefName:'Chef Louis Marchand · Cenas Privadas',
+      headline:'Técnica clásica, servida en tu hogar.',
+      menu:[['Confit de pato, jugo de cereza','38 €'],['Tarta de puerro y gruyère','16 €'],['Trío de crème brûlée','13 €']]
+    },
+    {
+      name:'Sushi y barra fría', accent:'#d63384', badge:'🍣', emoji:'🍣',
+      chefName:'Chef Nao Takahashi · Cenas Privadas',
+      headline:'El arte del corte como protagonista.',
+      menu:[['Omakase, 10 piezas','95 €'],['Crudo de pez limón','19 €'],['Bacalao negro glaseado con miso','36 €']]
+    },
+    {
+      name:'De la granja a la mesa', accent:'#c2410c', badge:'🧺', emoji:'🧺',
+      chefName:'Chef Ruth Ellison · Cenas Privadas',
+      headline:'Lo mejor que ha traído la huerta esta semana.',
+      menu:[["Plato de cosecha del día del chef",'29 €'],['Pan de maíz a la mantequilla tostada','9 €'],['Galette de frutas de hueso','12 €']]
+    }
+  ];
+
+  var list = document.getElementById('cuisineList');
+  cuisines.forEach(function(c, i){
+    var b = document.createElement('button');
+    b.className = 'cuisine-btn' + (i===0 ? ' active' : '');
+    b.style.setProperty('--accent', c.accent);
+    b.innerHTML = '<span class="sw" style="background:'+c.accent+'"></span>' + c.name;
+    b.addEventListener('click', function(){ selectCuisine(i); });
+    list.appendChild(b);
+  });
+
+  function selectCuisine(i){
+    var c = cuisines[i];
+    Array.prototype.forEach.call(list.children, function(btn, idx){
+      btn.classList.toggle('active', idx===i);
+    });
+    document.getElementById('mockName').textContent = c.chefName;
+    document.getElementById('mockHeadline').textContent = c.headline;
+    document.getElementById('mockHeadline').style.color = c.accent;
+    document.getElementById('mockBadge').textContent = c.badge;
+    document.getElementById('mockBadge').style.background = c.accent + '1a';
+    document.getElementById('mockBadge').style.boxShadow = '0 0 12px -2px ' + c.accent;
+    document.getElementById('mockUrl').textContent = 'easylandx.site/' + c.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g,'-');
+    var menuEl = document.getElementById('mockMenu');
+    menuEl.innerHTML = '';
+    c.menu.forEach(function(item){
+      var row = document.createElement('div');
+      row.className = 'mock-menu-item';
+      row.innerHTML = '<span>'+item[0]+'</span><span>'+item[1]+'</span>';
+      menuEl.appendChild(row);
+    });
+    var cta = document.getElementById('mockCta');
+    cta.style.background = c.accent;
+    cta.style.boxShadow = '0 4px 14px -2px ' + c.accent;
+  }
+  selectCuisine(0);
+
+  // ---------- Calculadora de presupuesto ----------
+  var rate = 110;
+  var seg = document.getElementById('eventSeg');
+  var range = document.getElementById('guestRange');
+  var readout = document.getElementById('guestReadout');
+  var quoteRange = document.getElementById('quoteRange');
+  var toast = document.getElementById('toast');
+  var toastText = document.getElementById('toastText');
+  var toastTimer = null;
+
+  seg.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    Array.prototype.forEach.call(seg.children, function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    rate = parseInt(btn.dataset.rate, 10);
+    updateQuote(true);
+  });
+
+  function fmt(n){ return n.toLocaleString('es-ES') + ' €'; }
+
+  function updateQuote(fireToast){
+    var guests = parseInt(range.value, 10);
+    readout.textContent = guests + ' invitados';
+    var low = Math.round(guests * rate * 0.9 / 10) * 10;
+    var high = Math.round(guests * rate * 1.2 / 10) * 10;
+    quoteRange.textContent = fmt(low) + ' – ' + fmt(high);
+    if(fireToast){
+      toastText.textContent = 'Nueva solicitud: ' + guests + ' invitados, ' + seg.querySelector('.active').textContent;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2400);
+    }
+  }
+  range.addEventListener('input', function(){ updateQuote(false); });
+  range.addEventListener('change', function(){ updateQuote(true); });
+  updateQuote(false);
+
+})();
+</script>
+</body>
+</html>
