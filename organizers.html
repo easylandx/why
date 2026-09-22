@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLandX for Professional Organizers 🧺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FF5A00;
+    --bg-soft: #E65100;
+    --bg-soft-2: #CC4800;
+    --violet: #8A2BFF;
+    --violet-glow: #B37CFF;
+    --orange: #FF5A1F;
+    --orange-glow: #FF9466;
+    --yellow: #FFE500;
+    --yellow-glow: #FFF27A;
+    --gold: #F0C040;
+    --white: #FFF7ED;
+    --muted: #FFE0B2;
+    --line: rgba(255,247,237,0.25);
+    --radius: 20px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display{
+    font-family: 'Unbounded', sans-serif;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  a{ color: inherit; }
+  img, svg { max-width: 100%; display:block; }
+  .wrap{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .glow-text{
+    color: var(--yellow-glow);
+    text-shadow: 0 0 18px rgba(255,229,0,0.55), 0 0 40px rgba(255,229,0,0.25);
+  }
+  .glow-violet{
+    text-shadow: 0 0 18px rgba(138,43,255,0.6), 0 0 44px rgba(138,43,255,0.3);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(255, 90, 0, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .brand{
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size: 1.1rem;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand span.dot{
+    width:10px;height:10px;border-radius:50%;
+    background: var(--yellow);
+    box-shadow: 0 0 10px 3px var(--yellow);
+    display:inline-block;
+  }
+  .nav-cta{
+    background: var(--yellow);
+    color: #120E1E;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size:0.85rem;
+    padding: 10px 20px;
+    border-radius: 999px;
+    text-decoration:none;
+    box-shadow: 0 0 24px rgba(255,229,0,0.45);
+    transition: transform .15s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ transform: translateY(-2px); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-top: 84px; padding-bottom: 60px;
+    background: var(--bg);
+    position: relative;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items:center;
+  }
+  .eyebrow-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    background: var(--bg-soft-2);
+    border: 1px solid rgba(240,192,64,0.5);
+    color: var(--gold);
+    font-weight:700;
+    font-size: 0.82rem;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    font-weight: 900;
+    color: var(--white);
+  }
+  .hero h1 em{
+    font-style: normal;
+    color: var(--yellow-glow);
+    text-shadow: 0 0 22px rgba(255,229,0,0.6), 0 0 50px rgba(255,229,0,0.3);
+  }
+  .hero p.lead{
+    margin-top: 20px;
+    font-size: 1.12rem;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+  .hero-ctas{
+    display:flex; gap:16px; margin-top: 34px; flex-wrap:wrap;
+  }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--yellow), var(--gold));
+    color: #1A1204;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    padding: 16px 30px;
+    border-radius: 14px;
+    text-decoration:none;
+    font-size:0.98rem;
+    box-shadow: 0 0 30px rgba(255,229,0,0.4), 0 12px 24px rgba(0,0,0,0.35);
+    transition: transform .15s ease;
+  }
+  .btn-primary:hover{ transform: translateY(-3px); }
+  .btn-ghost{
+    border: 1.5px solid var(--violet-glow);
+    color: var(--white);
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    padding: 15px 28px;
+    border-radius: 14px;
+    text-decoration:none;
+    font-size:0.95rem;
+    box-shadow: 0 0 20px rgba(138,43,255,0.25) inset;
+  }
+  .hero-art{
+    position: relative;
+  }
+  .hero-art svg{ filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5)); }
+
+  /* ---------- STRIP ---------- */
+  .strip{
+    background: var(--yellow);
+    color: #14100A;
+    padding: 12px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size: 0.82rem;
+  }
+  .strip-track{
+    display:inline-flex;
+    gap: 40px;
+    animation: scroll 22s linear infinite;
+  }
+  .strip-track span{ display:inline-flex; align-items:center; gap:10px; }
+  @keyframes scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+  section{ padding-top: 84px; padding-bottom: 84px; }
+  .section-head{ max-width: 640px; margin-bottom: 48px; }
+  .section-head h2{
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    font-weight: 800;
+  }
+  .section-head p{
+    color: var(--muted);
+    margin-top: 14px;
+    font-size: 1.05rem;
+  }
+  .tag{
+    color: var(--yellow-glow);
+    font-weight:700;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    display:block;
+  }
+
+  /* ---------- WHY CARDS ---------- */
+  .why{ background: var(--bg-soft); }
+  .why-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .why-card{
+    background: var(--bg-soft-2);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    border: 1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .why-card::before{
+    content:"";
+    position:absolute; inset:-2px;
+    border-radius: inherit;
+    padding:2px;
+    background: linear-gradient(135deg, var(--accent, var(--violet)), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0.7;
+  }
+  .why-card:nth-child(1){ --accent: var(--violet); }
+  .why-card:nth-child(2){ --accent: var(--yellow); }
+  .why-card:nth-child(3){ --accent: var(--yellow); }
+  .why-card .icn{
+    width: 52px; height:52px; margin-bottom:18px;
+  }
+  .why-card h3{ font-size: 1.15rem; font-weight:700; margin-bottom:10px; }
+  .why-card p{ color: var(--muted); font-size: 0.98rem; }
+
+  /* ---------- INTERACTIVE GAME ---------- */
+  .game-section{
+    background: var(--bg);
+  }
+  .game-panel{
+    background: var(--bg-soft-2);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 34px;
+  }
+  .game-top{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+    margin-bottom: 26px;
+  }
+  .game-counter{
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .game-counter b{ color: var(--yellow-glow); }
+  .reset-btn{
+    background:none;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor:pointer;
+    font-size:0.85rem;
+  }
+  .pile{
+    display:flex; flex-wrap:wrap; gap: 16px;
+    min-height: 96px;
+    margin-bottom: 30px;
+    padding: 18px;
+    border: 1.5px dashed rgba(255,247,237,0.25);
+    border-radius: 18px;
+  }
+  .item{
+    width: 78px; height: 78px;
+    background: var(--bg);
+    border-radius: 16px;
+    display:flex; align-items:center; justify-content:center;
+    cursor: grab;
+    border: 1px solid var(--line);
+    touch-action: none;
+    user-select: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: box-shadow .15s ease;
+  }
+  .item:active{ cursor: grabbing; }
+  .item svg{ width: 42px; height:42px; pointer-events:none; }
+  .item.dragging{
+    position: fixed;
+    z-index: 200;
+    box-shadow: 0 0 0 3px var(--gold), 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .bins{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .bin{
+    border-radius: 20px;
+    padding: 22px 16px 26px;
+    text-align:center;
+    min-height: 150px;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    gap: 10px;
+    border: 2px solid transparent;
+    position:relative;
+    transition: transform .12s ease;
+  }
+  .bin.hover{ transform: scale(1.03); }
+  .bin[data-bin="keep"]{ background: rgba(138,43,255,0.16); border-color: var(--violet); box-shadow: 0 0 30px rgba(138,43,255,0.25) inset; }
+  .bin[data-bin="donate"]{ background: rgba(255,255,255,0.16); border-color: var(--white); box-shadow: 0 0 30px rgba(255,255,255,0.25) inset; }
+  .bin[data-bin="toss"]{ background: rgba(255,229,0,0.14); border-color: var(--yellow); box-shadow: 0 0 30px rgba(255,229,0,0.2) inset; }
+  .bin-label{
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size: 0.92rem;
+  }
+  .bin[data-bin="keep"] .bin-label{ color: var(--violet-glow); }
+  .bin[data-bin="donate"] .bin-label{ color: var(--white); }
+  .bin[data-bin="toss"] .bin-label{ color: var(--yellow-glow); }
+  .bin-count{ font-size: 0.78rem; color: var(--muted); }
+  .game-msg{
+    margin-top: 24px;
+    text-align:center;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size: 1.05rem;
+    color: var(--white);
+    min-height: 30px;
+  }
+  .game-msg .sub{
+    display:block;
+    font-family:'Manrope',sans-serif;
+    font-weight:400;
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-top: 8px;
+  }
+
+  /* ---------- BEFORE / AFTER ---------- */
+  .transform-section{ background: var(--bg-soft); }
+  .compare{
+    position: relative;
+    border-radius: 24px;
+    overflow:hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 0 60px rgba(138,43,255,0.15);
+    aspect-ratio: 16/9;
+  }
+  .compare .layer{
+    position:absolute; inset:0;
+  }
+  .compare .after{ clip-path: inset(0 0 0 50%); }
+  .compare .divider{
+    position:absolute; top:0; bottom:0; left:50%;
+    width: 3px;
+    background: var(--gold);
+    box-shadow: 0 0 16px var(--gold);
+    transform: translateX(-50%);
+    pointer-events:none;
+  }
+  .compare .handle{
+    position:absolute; top:50%; left:50%;
+    width: 46px; height:46px;
+    background: var(--gold);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700; font-size: 0.8rem;
+    color: #1A1204;
+    box-shadow: 0 0 20px rgba(240,192,64,0.7);
+  }
+  .compare input[type="range"]{
+    position:absolute; inset:0;
+    width: 100%; height:100%;
+    opacity:0; cursor: ew-resize;
+    margin:0;
+  }
+  .compare-caption{
+    display:flex; justify-content:space-between;
+    margin-top: 14px;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ---------- QUOTE / VALUE STRIP ---------- */
+  .value-strip{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align:center;
+  }
+  .value-item .num{
+    font-family:'Unbounded', sans-serif;
+    font-weight:900;
+    font-size: 2.1rem;
+    color: var(--yellow-glow);
+    text-shadow: 0 0 20px rgba(255,229,0,0.4);
+  }
+  .value-item .lbl{ color: var(--muted); font-size:0.9rem; margin-top:6px; }
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    background: var(--bg);
+    text-align:center;
+  }
+  .final-cta h2{
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    max-width: 720px;
+    margin: 0 auto 18px;
+  }
+  .final-cta p{ color: var(--muted); max-width: 520px; margin: 0 auto 32px; }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    text-align:center;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer a{ color: var(--gold); font-weight:700; text-decoration:none; }
+
+  @media (max-width: 860px){
+    .hero .wrap{ grid-template-columns: 1fr; }
+    .hero-art{ order:-1; max-width: 320px; margin: 0 auto; }
+    .why-grid{ grid-template-columns: 1fr; }
+    .bins{ grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .bin{ padding: 14px 8px 18px; min-height:120px; }
+    .value-strip{ grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>EasyLandX</div>
+    <a class="nav-cta" href="https://easylandx.github.io" target="_blank" rel="noopener">Get your page</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow-pill">🧺 Built for Professional Organizers</span>
+      <h1>Your space is organized.<br>Now let's <em>declutter</em> your website.</h1>
+      <p class="lead">EasyLandX turns your organizing expertise into a landing page that books consultations while you're busy folding fitted sheets and labeling bins.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">See EasyLandX →</a>
+        <a class="btn-ghost" href="#sort-game">Try the sort game</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shelfGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8A2BFF"/>
+            <stop offset="1" stop-color="#4B12A8"/>
+          </linearGradient>
+          <radialGradient id="glowY" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#FFE500" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#FFE500" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="210" cy="200" r="190" fill="url(#glowY)"/>
+        <!-- shelf unit -->
+        <rect x="60" y="70" width="300" height="300" rx="18" fill="url(#shelfGrad)"/>
+        <rect x="60" y="160" width="300" height="10" fill="#120E1E"/>
+        <rect x="60" y="260" width="300" height="10" fill="#120E1E"/>
+        <rect x="205" y="70" width="10" height="300" fill="#120E1E"/>
+        <!-- folded clothes stack -->
+        <rect x="85" y="95" width="95" height="20" rx="6" fill="#FFE500"/>
+        <rect x="85" y="118" width="95" height="20" rx="6" fill="#FF9466"/>
+        <rect x="85" y="141" width="95" height="16" rx="6" fill="#FFF7ED"/>
+        <!-- books -->
+        <rect x="235" y="90" width="18" height="65" fill="#FFE500"/>
+        <rect x="256" y="95" width="18" height="60" fill="#FF5A1F"/>
+        <rect x="277" y="88" width="18" height="67" fill="#FFF7ED"/>
+        <rect x="298" y="100" width="18" height="55" fill="#F0C040"/>
+        <!-- jars -->
+        <circle cx="105" cy="205" r="24" fill="#FFF7ED"/>
+        <rect x="97" y="176" width="16" height="10" rx="3" fill="#F0C040"/>
+        <circle cx="160" cy="210" r="20" fill="#F0C040"/>
+        <rect x="153" y="186" width="14" height="9" rx="3" fill="#FFF7ED"/>
+        <!-- plant -->
+        <rect x="290" y="220" width="46" height="34" rx="6" fill="#FF9466"/>
+        <path d="M313 220 C 300 200, 300 185, 313 170 C 326 185, 326 200, 313 220 Z" fill="#FFE500"/>
+        <path d="M313 220 C 296 208, 288 195, 296 178 C 310 188, 316 202, 313 220 Z" fill="#FFF27A" opacity="0.8"/>
+        <!-- baskets bottom -->
+        <rect x="82" y="288" width="110" height="60" rx="12" fill="#FFF7ED"/>
+        <rect x="82" y="288" width="110" height="14" rx="6" fill="#F0C040"/>
+        <rect x="222" y="288" width="110" height="60" rx="12" fill="#FF5A1F"/>
+        <rect x="222" y="288" width="110" height="14" rx="6" fill="#FFE500"/>
+        <!-- sparkle -->
+        <g fill="#F0C040">
+          <path d="M355 55 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 z"/>
+          <path d="M45 300 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>🧺 CLIENT-READY IN DAYS</span>
+    <span>✨ NO CODE, NO CLUTTER</span>
+    <span>📦 BUILT FOR ORGANIZERS</span>
+    <span>🧺 CLIENT-READY IN DAYS</span>
+    <span>✨ NO CODE, NO CLUTTER</span>
+    <span>📦 BUILT FOR ORGANIZERS</span>
+  </div>
+</div>
+
+<section class="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Why organizers choose EasyLandX</span>
+      <h2>You bring the calm. We bring the page.</h2>
+      <p>You already turn chaos into order for a living. Your website should reflect that same clarity the moment someone lands on it.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <svg class="icn" viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="6" fill="#8A2BFF"/><rect x="12" y="18" width="24" height="4" rx="2" fill="#FFF7ED"/><rect x="12" y="26" width="16" height="4" rx="2" fill="#FFE500"/></svg>
+        <h3>Everything, one glance</h3>
+        <p>Services, before/after photos, and booking links live on a single page — organized the way you'd organize a closet.</p>
+      </div>
+      <div class="why-card">
+        <svg class="icn" viewBox="0 0 48 48"><circle cx="24" cy="20" r="12" fill="#FF5A1F"/><rect x="14" y="34" width="20" height="8" rx="4" fill="#FFF7ED"/></svg>
+        <h3>Built around your voice</h3>
+        <p>Your tone, your photos, your process — Kondo-calm or full-speed decluttering, the page matches how you actually work.</p>
+      </div>
+      <div class="why-card">
+        <svg class="icn" viewBox="0 0 48 48"><rect x="8" y="8" width="14" height="14" rx="4" fill="#FFE500"/><rect x="26" y="8" width="14" height="14" rx="4" fill="#F0C040"/><rect x="8" y="26" width="14" height="14" rx="4" fill="#F0C040"/><rect x="26" y="26" width="14" height="14" rx="4" fill="#FFE500"/></svg>
+        <h3>Ready for every device</h3>
+        <p>Clients often search for help mid-move or mid-meltdown, on their phone. Your page keeps up, wherever they find you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="game-section" id="sort-game">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Try it yourself</span>
+      <h2>Sort the clutter. Then imagine your inbox this tidy.</h2>
+      <p>Drag each item into Keep, Donate, or Toss — the same quick calls you help clients make every day.</p>
+    </div>
+    <div class="game-panel">
+      <div class="game-top">
+        <div class="game-counter">Sorted: <b id="sortedCount">0</b> / <span id="totalCount">6</span></div>
+        <button class="reset-btn" id="resetGame">Reset pile</button>
+      </div>
+
+      <div class="pile" id="pile">
+        <div class="item" data-item="sweater" draggable="false">
+          <svg viewBox="0 0 48 48"><path d="M14 8 L24 4 L34 8 L44 16 L38 24 L34 20 L34 44 L14 44 L14 20 L10 24 L4 16 Z" fill="#8A2BFF"/></svg>
+        </div>
+        <div class="item" data-item="books" draggable="false">
+          <svg viewBox="0 0 48 48"><rect x="6" y="30" width="36" height="8" rx="2" fill="#FF5A1F"/><rect x="8" y="20" width="32" height="8" rx="2" fill="#FFE500"/><rect x="10" y="10" width="28" height="8" rx="2" fill="#FFF7ED"/></svg>
+        </div>
+        <div class="item" data-item="lamp" draggable="false">
+          <svg viewBox="0 0 48 48"><path d="M14 6 H34 L28 20 H20 Z" fill="#FFE500"/><rect x="22" y="20" width="4" height="18" fill="#F0C040"/><ellipse cx="24" cy="40" rx="14" ry="4" fill="#8A2BFF"/></svg>
+        </div>
+        <div class="item" data-item="boxes" draggable="false">
+          <svg viewBox="0 0 48 48"><rect x="6" y="18" width="18" height="18" fill="#F0C040"/><rect x="24" y="12" width="18" height="24" fill="#FF9466"/><path d="M6 18 L15 18 L15 36 M24 12 L33 12 L33 36" stroke="#1A1204" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+        </div>
+        <div class="item" data-item="mugs" draggable="false">
+          <svg viewBox="0 0 48 48"><path d="M8 14 H30 V32 A11 11 0 0 1 8 32 Z" fill="#FFF7ED"/><path d="M30 18 H38 A6 6 0 0 1 38 30 H30 Z" fill="none" stroke="#FFF7ED" stroke-width="4"/></svg>
+        </div>
+        <div class="item" data-item="cables" draggable="false">
+          <svg viewBox="0 0 48 48"><path d="M8 10 C 8 30, 40 12, 40 32" stroke="#8A2BFF" stroke-width="5" fill="none"/><path d="M14 38 C 18 20, 34 34, 30 10" stroke="#FFE500" stroke-width="5" fill="none"/></svg>
+        </div>
+      </div>
+
+      <div class="bins">
+        <div class="bin" data-bin="keep">
+          <div class="bin-label">KEEP</div>
+          <div class="bin-count" data-count="keep">0 items</div>
+        </div>
+        <div class="bin" data-bin="donate">
+          <div class="bin-label">DONATE</div>
+          <div class="bin-count" data-count="donate">0 items</div>
+        </div>
+        <div class="bin" data-bin="toss">
+          <div class="bin-label">TOSS</div>
+          <div class="bin-count" data-count="toss">0 items</div>
+        </div>
+      </div>
+
+      <div class="game-msg" id="gameMsg"></div>
+    </div>
+  </div>
+</section>
+
+<section class="transform-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">The same move, online</span>
+      <h2>Drag the line. That's what EasyLandX does to a messy website.</h2>
+      <p>The cluttered version tries to say everything at once. The organized version says exactly what a client needs, in the right order.</p>
+    </div>
+
+    <div class="compare">
+      <svg class="layer before" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+        <rect width="640" height="360" fill="#241A3C"/>
+        <g opacity="0.9">
+          <rect x="20" y="20" width="120" height="20" fill="#FF5A1F"/>
+          <rect x="160" y="10" width="90" height="34" fill="#8A2BFF" transform="rotate(-4 205 27)"/>
+          <rect x="270" y="24" width="150" height="16" fill="#FFE500"/>
+          <rect x="440" y="15" width="80" height="30" fill="#FFF7ED" transform="rotate(6 480 30)"/>
+          <rect x="20" y="70" width="200" height="90" fill="#FF9466" transform="rotate(-3 120 115)"/>
+          <rect x="230" y="60" width="110" height="70" fill="#8A2BFF" transform="rotate(5 285 95)"/>
+          <rect x="350" y="80" width="130" height="100" fill="#FFE500" transform="rotate(-6 415 130)"/>
+          <rect x="490" y="65" width="120" height="85" fill="#FFF7ED" transform="rotate(4 550 107)"/>
+          <rect x="30" y="190" width="80" height="80" fill="#8A2BFF" transform="rotate(8 70 230)"/>
+          <rect x="120" y="200" width="90" height="60" fill="#FFE500" transform="rotate(-5 165 230)"/>
+          <rect x="220" y="185" width="70" height="90" fill="#FF5A1F" transform="rotate(3 255 230)"/>
+          <rect x="300" y="210" width="110" height="55" fill="#FFF7ED" transform="rotate(-7 355 237)"/>
+          <rect x="420" y="190" width="90" height="85" fill="#8A2BFF" transform="rotate(6 465 232)"/>
+          <rect x="520" y="200" width="100" height="70" fill="#FFE500" transform="rotate(-4 570 235)"/>
+          <rect x="20" y="290" width="600" height="14" fill="#FF9466" transform="rotate(-2 320 297)"/>
+          <rect x="40" y="310" width="560" height="10" fill="#8A2BFF" transform="rotate(2 320 315)"/>
+        </g>
+      </svg>
+      <svg class="layer after" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+        <rect width="640" height="360" fill="#120E1E"/>
+        <rect x="0" y="0" width="640" height="70" fill="#1B1430"/>
+        <rect x="40" y="26" width="140" height="18" rx="4" fill="#FFE500"/>
+        <rect x="470" y="24" width="120" height="22" rx="11" fill="#F0C040"/>
+        <rect x="40" y="110" width="280" height="26" rx="4" fill="#FFF7ED"/>
+        <rect x="40" y="146" width="340" height="14" rx="4" fill="#C7BEDE"/>
+        <rect x="40" y="166" width="300" height="14" rx="4" fill="#C7BEDE"/>
+        <rect x="40" y="202" width="150" height="40" rx="10" fill="#8A2BFF"/>
+        <rect x="420" y="100" width="170" height="170" rx="20" fill="#241A3C" stroke="#F0C040" stroke-width="2"/>
+        <circle cx="505" cy="160" r="30" fill="#FF5A1F"/>
+        <rect x="450" y="210" width="110" height="12" rx="6" fill="#FFE500"/>
+        <rect x="40" y="290" width="560" height="1" fill="#3a2f57"/>
+        <rect x="40" y="310" width="180" height="12" rx="6" fill="#C7BEDE"/>
+      </svg>
+      <div class="divider" id="divider"></div>
+      <div class="handle" id="handle">⇔</div>
+      <input type="range" min="0" max="100" value="50" id="compareRange">
+    </div>
+    <div class="compare-caption">
+      <span>BEFORE: everything, all at once</span>
+      <span>AFTER: EasyLandX</span>
+    </div>
+  </div>
+</section>
+
+<section class="why" style="padding-top:64px; padding-bottom:64px;">
+  <div class="wrap">
+    <div class="value-strip">
+      <div class="value-item"><div class="num">1</div><div class="lbl">page to manage</div></div>
+      <div class="value-item"><div class="num">0</div><div class="lbl">plugins to update</div></div>
+      <div class="value-item"><div class="num">2</div><div class="lbl">languages available</div></div>
+      <div class="value-item"><div class="num">24/7</div><div class="lbl">working for you</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Your closets are organized. Your website is next.</h2>
+    <p>Get a landing page that books consultations, showcases transformations, and keeps every detail exactly where a client expects to find it.</p>
+    <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Start with EasyLandX →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Made with <a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a> — affordable, conversion-focused pages for small businesses.
+  </div>
+</footer>
+
+<script>
+  // ---------- Sort the clutter game ----------
+  (function(){
+    const pile = document.getElementById('pile');
+    const items = Array.from(pile.querySelectorAll('.item'));
+    const bins = Array.from(document.querySelectorAll('.bin'));
+    const counts = { keep: 0, donate: 0, toss: 0 };
+    const total = items.length;
+    let sorted = 0;
+    const sortedCountEl = document.getElementById('sortedCount');
+    const totalCountEl = document.getElementById('totalCount');
+    const msgEl = document.getElementById('gameMsg');
+    totalCountEl.textContent = total;
+
+    const messages = [
+      "One down. Clarity feels good, doesn't it?",
+      "Keep going — the pile is already lighter.",
+      "This is exactly the calm your clients are paying for.",
+      "Halfway organized. Nice work.",
+      "Almost there. One category at a time.",
+    ];
+
+    function binRect(bin){ return bin.getBoundingClientRect(); }
+
+    function pointerDown(e, item){
+      if(item.dataset.done) return;
+      e.preventDefault();
+      const rect = item.getBoundingClientRect();
+      const offsetX = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      const offsetY = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+      const w = rect.width, h = rect.height;
+
+      item.classList.add('dragging');
+      item.style.width = w + 'px';
+      item.style.height = h + 'px';
+      document.body.appendChild(item);
+
+      function move(ev){
+        const cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
+        const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
+        item.style.left = (cx - offsetX) + 'px';
+        item.style.top = (cy - offsetY) + 'px';
+
+        bins.forEach(bin => {
+          const r = binRect(bin);
+          const over = cx > r.left && cx < r.right && cy > r.top && cy < r.bottom;
+          bin.classList.toggle('hover', over);
+        });
+      }
+
+      function up(ev){
+        document.removeEventListener('pointermove', move);
+        document.removeEventListener('pointerup', up);
+        document.removeEventListener('touchmove', move);
+        document.removeEventListener('touchend', up);
+
+        const cx = ev.changedTouches ? ev.changedTouches[0].clientX : ev.clientX;
+        const cy = ev.changedTouches ? ev.changedTouches[0].clientY : ev.clientY;
+        let landed = null;
+        bins.forEach(bin => {
+          const r = binRect(bin);
+          bin.classList.remove('hover');
+          if(cx > r.left && cx < r.right && cy > r.top && cy < r.bottom){ landed = bin; }
+        });
+
+        item.classList.remove('dragging');
+        item.style.position = '';
+        item.style.left = '';
+        item.style.top = '';
+        item.style.width = '';
+        item.style.height = '';
+
+        if(landed && !item.dataset.done){
+          const binName = landed.dataset.bin;
+          counts[binName]++;
+          document.querySelector('[data-count="'+binName+'"]').textContent = counts[binName] + ' items';
+          item.dataset.done = "1";
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.4)';
+          item.style.pointerEvents = 'none';
+          setTimeout(()=> item.remove(), 200);
+
+          sorted++;
+          sortedCountEl.textContent = sorted;
+          if(sorted < total){
+            msgEl.textContent = messages[Math.min(sorted-1, messages.length-1)];
+          } else {
+            msgEl.innerHTML = "All sorted. There's no wrong way to declutter." +
+              "<span class='sub'>Just like there's no wrong way to start organizing your business online — EasyLandX handles the layout, you keep the expertise.</span>";
+          }
+        } else {
+          pile.appendChild(item);
+        }
+      }
+
+      document.addEventListener('pointermove', move);
+      document.addEventListener('pointerup', up);
+      document.addEventListener('touchmove', move, {passive:false});
+      document.addEventListener('touchend', up);
+
+      item.style.position = 'fixed';
+      move(e.touches ? e : e);
+    }
+
+    items.forEach(item => {
+      item.addEventListener('pointerdown', (e)=> pointerDown(e, item));
+      item.addEventListener('touchstart', (e)=> pointerDown(e, item), {passive:false});
+    });
+
+    document.getElementById('resetGame').addEventListener('click', ()=>{
+      location.reload();
+    });
+  })();
+
+  // ---------- Before / after slider ----------
+  (function(){
+    const range = document.getElementById('compareRange');
+    const after = document.querySelector('.compare .after');
+    const divider = document.getElementById('divider');
+    const handle = document.getElementById('handle');
+
+    function update(v){
+      after.style.clipPath = `inset(0 0 0 ${v}%)`;
+      divider.style.left = v + '%';
+      handle.style.left = v + '%';
+    }
+    range.addEventListener('input', ()=> update(range.value));
+    update(50);
+  })();
+</script>
+
+</body>
+</html>
