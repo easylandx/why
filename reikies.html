@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easylandx para Practicantes de Reiki y Sanadores Energéticos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0118;
+    --bg-panel: #140828;
+    --bg-panel-2: #1c0d38;
+    --violet: #b026ff;
+    --magenta: #ff2e9f;
+    --cyan: #00f0ff;
+    --gold: #ffd23f;
+    --green: #39ff88;
+    --ink: #f5eeff;
+    --ink-dim: #c3b0e6;
+    --ink-faint: #8a76b8;
+    --line: rgba(245,238,255,0.12);
+    --radius: 22px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(60% 50% at 82% -5%, rgba(255,46,159,0.35), transparent 60%),
+      radial-gradient(55% 45% at 8% 8%, rgba(0,240,255,0.22), transparent 60%),
+      radial-gradient(70% 60% at 50% 105%, rgba(176,38,255,0.30), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Cinzel', serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:0.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  img,svg{max-width:100%;display:block;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  section{padding:110px 0;position:relative;}
+
+  ::selection{background:var(--magenta);color:#0a0118;}
+
+  a.btn, button.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    text-decoration:none;
+    padding:16px 30px;
+    border-radius:100px;
+    border:none;
+    cursor:pointer;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  a.btn:focus-visible, button.btn:focus-visible, .chakra-node:focus-visible, .gallery-item:focus-visible{
+    outline:3px solid var(--cyan);
+    outline-offset:3px;
+  }
+  .btn-primary{
+    background:linear-gradient(120deg, var(--magenta), var(--violet));
+    color:#fff;
+    box-shadow:0 0 0 rgba(255,46,159,0);
+  }
+  .btn-primary:hover{
+    box-shadow:0 0 36px rgba(255,46,159,0.55);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{
+    border-color:var(--cyan);
+    color:var(--cyan);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:relative;
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px 28px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Cinzel', serif;
+    font-size:1.15rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .logo-mark{width:26px;height:26px;flex:none;}
+  nav .btn{padding:11px 22px;font-size:0.9rem;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:60px 0 100px;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem, 4.2vw, 3.4rem);
+    line-height:1.14;
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:1.15rem;
+    color:var(--ink-dim);
+    max-width:46ch;
+  }
+  .hero-actions{
+    margin-top:36px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .hero-note{
+    margin-top:28px;
+    font-size:0.92rem;
+    color:var(--ink-faint);
+  }
+
+  .mandala-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .mandala{
+    width:100%;
+    max-width:420px;
+    filter:drop-shadow(0 0 40px rgba(176,38,255,0.45));
+  }
+  .mandala .spin-slow{
+    transform-origin:200px 200px;
+    animation:spin 60s linear infinite;
+  }
+  .mandala .spin-slow-rev{
+    transform-origin:200px 200px;
+    animation:spin-rev 90s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  @keyframes spin-rev{ to{ transform:rotate(-360deg); } }
+
+  /* ---------- SECTION HEADS ---------- */
+  .section-head{
+    max-width:56ch;
+    margin-bottom:64px;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem, 3vw, 2.35rem);
+    line-height:1.2;
+  }
+  .section-head p{
+    margin-top:16px;
+    color:var(--ink-dim);
+    font-size:1.05rem;
+  }
+
+  /* ---------- FEATURES (meridian layout) ---------- */
+  .meridian{
+    position:relative;
+  }
+  .meridian-line{
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:2px;
+    transform:translateX(-50%);
+    background:linear-gradient(180deg, transparent, var(--violet), var(--cyan), var(--magenta), transparent);
+    opacity:0.5;
+  }
+  .feature-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+    padding:44px 0;
+    position:relative;
+  }
+  .feature-row:not(:last-child){border-bottom:1px solid var(--line);}
+  .feature-row.reverse .f-icon{order:2;}
+  .feature-row.reverse .f-text{order:1; text-align:right;}
+  .f-icon{
+    display:flex;
+    justify-content:center;
+  }
+  .f-icon svg{width:96px;height:96px;}
+  .f-text h3{
+    font-size:1.3rem;
+    color:var(--ink);
+  }
+  .f-text p{
+    margin-top:12px;
+    color:var(--ink-dim);
+    font-size:1rem;
+  }
+  .feature-row.reverse .f-text{margin-left:auto;}
+
+  /* ---------- INTERACTIVE CHAKRA TOOL ---------- */
+  .tool-panel{
+    background:linear-gradient(165deg, var(--bg-panel), var(--bg-panel-2));
+    border:1px solid var(--line);
+    border-radius:32px;
+    padding:56px;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:48px;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .tool-glow{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(45% 45% at 20% 20%, rgba(176,38,255,0.28), transparent 60%);
+    pointer-events:none;
+  }
+  .chakra-column{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    position:relative;
+    z-index:1;
+  }
+  .chakra-node{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    border:2px solid var(--line);
+    background:rgba(255,255,255,0.03);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform .2s ease, box-shadow .3s ease, border-color .3s ease;
+    position:relative;
+  }
+  .chakra-node .dot{
+    width:16px;height:16px;border-radius:50%;
+    background:var(--c);
+    opacity:0.55;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .chakra-node .connector{
+    position:absolute;
+    top:100%;
+    width:2px;
+    height:20px;
+    background:var(--line);
+  }
+  .chakra-node:last-child .connector{display:none;}
+  .chakra-node:hover, .chakra-node:focus-visible{
+    transform:scale(1.08);
+    border-color:var(--c);
+  }
+  .chakra-node.active{
+    border-color:var(--c);
+    box-shadow:0 0 28px var(--c);
+  }
+  .chakra-node.active .dot{
+    opacity:1;
+    transform:scale(1.15);
+  }
+
+  .chakra-detail{
+    position:relative;
+    z-index:1;
+    min-height:220px;
+  }
+  .chakra-kicker{
+    font-size:0.85rem;
+    color:var(--ink-faint);
+  }
+  .chakra-detail h3{
+    font-family:'Cinzel',serif;
+    font-size:1.7rem;
+    margin-top:6px;
+    color:var(--ink);
+    transition:color .3s ease;
+  }
+  .chakra-freq{
+    display:inline-block;
+    margin-top:14px;
+    padding:6px 16px;
+    border-radius:100px;
+    font-size:0.85rem;
+    font-weight:700;
+    border:1.5px solid var(--line);
+  }
+  .chakra-detail p.desc{
+    margin-top:20px;
+    color:var(--ink-dim);
+    max-width:42ch;
+  }
+  .chakra-hint{
+    margin-top:26px;
+    font-size:0.88rem;
+    color:var(--ink-faint);
+  }
+  .tone-btn{
+    margin-top:22px;
+    background:transparent;
+    border:1.5px solid var(--line);
+    color:var(--ink);
+    padding:11px 22px;
+    border-radius:100px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:0.9rem;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .tone-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .tone-btn svg{width:18px;height:18px;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:22px;
+  }
+  .gallery-item{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:30px 18px;
+    text-align:center;
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .gallery-item:hover{
+    transform:translateY(-4px);
+    border-color:var(--i-color);
+  }
+  .gallery-item svg{width:52px;height:52px;margin:0 auto 16px;}
+  .gallery-item span{
+    font-size:0.9rem;
+    color:var(--ink-dim);
+  }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .t-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px;
+  }
+  .t-card p.quote{
+    font-size:1.02rem;
+    color:var(--ink);
+  }
+  .t-card .who{
+    margin-top:20px;
+    font-size:0.88rem;
+    color:var(--ink-faint);
+  }
+  .t-card .who strong{color:var(--ink-dim); font-weight:700;}
+
+  /* ---------- CTA FOOTER ---------- */
+  .cta-footer{
+    text-align:center;
+    padding:100px 0 60px;
+  }
+  .cta-footer h2{
+    font-size:clamp(1.9rem, 3.6vw, 2.6rem);
+    max-width:20ch;
+    margin:0 auto;
+  }
+  .cta-footer p{
+    margin-top:18px;
+    color:var(--ink-dim);
+  }
+  .cta-footer .hero-actions{justify-content:center;}
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+    text-align:center;
+    font-size:0.85rem;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{opacity:1; transform:none;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .mandala .spin-slow, .mandala .spin-slow-rev{animation:none;}
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
+  @media (max-width: 880px){
+    .hero{grid-template-columns:1fr; text-align:center;}
+    .hero-sub{margin-left:auto;margin-right:auto;}
+    .hero-actions{justify-content:center;}
+    .mandala-wrap{order:-1;}
+    .feature-row, .feature-row.reverse{
+      grid-template-columns:1fr;
+      text-align:center;
+      gap:20px;
+    }
+    .feature-row.reverse .f-icon, .feature-row.reverse .f-text{order:0;}
+    .feature-row.reverse .f-text{text-align:center; margin-left:0;}
+    .meridian-line{display:none;}
+    .tool-panel{grid-template-columns:1fr; padding:36px 24px;}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .testimonials{grid-template-columns:1fr;}
+    section{padding:70px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18" stroke="url(#navgrad)" stroke-width="2"/>
+      <circle cx="20" cy="20" r="6" fill="url(#navgrad)"/>
+      <defs>
+        <linearGradient id="navgrad" x1="2" y1="2" x2="38" y2="38">
+          <stop offset="0" stop-color="#ff2e9f"/>
+          <stop offset="1" stop-color="#00f0ff"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    easylandx
+  </div>
+  <a class="btn btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Ver más páginas</a>
+</nav>
+
+<header class="hero wrap">
+  <div>
+    <h1>Una página de aterrizaje que se siente<br>como la energía que canalizas</h1>
+    <p class="hero-sub">easylandx crea sitios de una sola página para practicantes de Reiki, sanadores de sonido y terapeutas energéticos — lo suficientemente calmados para el trabajo, lo bastante rápidos para reservar desde un teléfono antes de una sesión[cite: 12].</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:hello@easylandx.github.io">Empieza tu página</a>
+      <a class="btn btn-ghost" href="#tool">Prueba la herramienta de alineación</a>
+    </div>
+    <p class="hero-note">Un archivo, un profesional, una paleta construida en torno a tu práctica — sin tomar nada prestado de una biblioteca de plantillas[cite: 12].</p>
+  </div>
+
+  <div class="mandala-wrap">
+    <svg class="mandala" viewBox="0 0 400 400" fill="none">
+      <defs>
+        <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffd23f"/>
+          <stop offset="45%" stop-color="#ff2e9f"/>
+          <stop offset="100%" stop-color="#b026ff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="ringA" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#00f0ff"/>
+          <stop offset="1" stop-color="#b026ff"/>
+        </linearGradient>
+        <linearGradient id="ringB" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ff2e9f"/>
+          <stop offset="1" stop-color="#ffd23f"/>
+        </linearGradient>
+      </defs>
+      <circle cx="200" cy="200" r="60" fill="url(#coreGlow)"/>
+      <g class="spin-slow">
+        <circle cx="200" cy="200" r="120" stroke="url(#ringA)" stroke-width="1.5" stroke-dasharray="4 10" opacity="0.8"/>
+        <g stroke="url(#ringA)" stroke-width="1.5" opacity="0.9">
+          <path d="M200 60 L200 90"/>
+          <path d="M200 310 L200 340"/>
+          <path d="M60 200 L90 200"/>
+          <path d="M310 200 L340 200"/>
+          <path d="M101 101 L122 122"/>
+          <path d="M278 278 L299 299"/>
+          <path d="M101 299 L122 278"/>
+          <path d="M278 122 L299 101"/>
+        </g>
+      </g>
+      <g class="spin-slow-rev">
+        <circle cx="200" cy="200" r="160" stroke="url(#ringB)" stroke-width="1" opacity="0.55"/>
+        <g fill="url(#ringB)" opacity="0.85">
+          <circle cx="200" cy="40" r="4"/>
+          <circle cx="200" cy="360" r="4"/>
+          <circle cx="40" cy="200" r="4"/>
+          <circle cx="360" cy="200" r="4"/>
+          <circle cx="88" cy="88" r="3"/>
+          <circle cx="312" cy="312" r="3"/>
+          <circle cx="88" cy="312" r="3"/>
+          <circle cx="312" cy="88" r="3"/>
+        </g>
+      </g>
+      <g stroke="#f5eeff" stroke-width="1" opacity="0.35">
+        <path d="M200 150 C170 170 170 200 200 220 C230 200 230 170 200 150 Z"/>
+        <path d="M200 180 C185 195 185 210 200 225 C215 210 215 195 200 180 Z"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<section class="wrap meridian reveal">
+  <div class="section-head">
+    <h2>El trabajo energético necesita una página diseñada como una sesión, no como un embudo de ventas</h2>
+    <p>La mayoría de los creadores de sitios web dan a cada negocio el mismo diseño. El Reiki y el trabajo energético se basan en la confianza y el estado de ánimo; por lo tanto, la página debe comportarse exactamente igual[cite: 12].</p>
+  </div>
+
+  <div class="meridian-line" aria-hidden="true"></div>
+
+  <div class="feature-row">
+    <div class="f-icon">
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="34" stroke="#ff2e9f" stroke-width="2"/>
+        <path d="M50 30 L50 45 M50 55 L50 70 M30 50 L45 50 M55 50 L70 50" stroke="#ff2e9f" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="6" fill="#ff2e9f"/>
+      </svg>
+    </div>
+    <div class="f-text">
+      <h3>Una reserva que no rompe la atmósfera</h3>
+      <p>Tu calendario se ubica directamente en la página, diseñado a juego con ella. Un cliente pasa de leer acerca de una sesión a asegurar una hora reservada sin una transición brusca hacia un planificador genérico[cite: 12].</p>
+    </div>
+  </div>
+
+  <div class="feature-row reverse">
+    <div class="f-icon">
+      <svg viewBox="0 0 100 100" fill="none">
+        <path d="M50 20 C60 35 75 40 75 55 C75 68 63 78 50 78 C37 78 25 68 25 55 C25 40 40 35 50 20Z" stroke="#00f0ff" stroke-width="2"/>
+        <path d="M50 78 L50 88" stroke="#00f0ff" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="f-text">
+      <h3>Un menú de sesiones que la gente realmente comprende</h3>
+      <p>Reiki, cuencos tibetanos, equilibrado de chakras, sesiones a distancia... cada uno explicado con lo que ocurre, cuánto dura y qué se debe traer, en lugar de una lista plana de nombres de servicios[cite: 12].</p>
+    </div>
+  </div>
+
+  <div class="feature-row">
+    <div class="f-icon">
+      <svg viewBox="0 0 100 100" fill="none">
+        <path d="M50 15 L80 50 L50 85 L20 50 Z" stroke="#ffd23f" stroke-width="2"/>
+        <path d="M50 15 L50 85 M20 50 L80 50" stroke="#ffd23f" stroke-width="1.2" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="f-text">
+      <h3>Una paleta construida para tu práctica, no una plantilla</h3>
+      <p>Cada página que construimos recibe su propia historia de color e imágenes inspiradas en cómo trabaja realmente ese profesional — nada extraído de un tema compartido que otros clientes también utilicen[cite: 12].</p>
+    </div>
+  </div>
+
+  <div class="feature-row reverse">
+    <div class="f-icon">
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="30" stroke="#39ff88" stroke-width="2"/>
+        <path d="M38 50 L46 58 L64 40" stroke="#39ff88" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="f-text">
+      <h3>Apertura instantánea, incluso con señal lenta</h3>
+      <p>Un solo archivo autocontenido, sin complementos pesados que cargar. Un cliente que consulte tu página desde una habitación tenue justo antes de una sesión verá cómo aparece de inmediato, sin iconos de carga[cite: 12].</p>
+    </div>
+  </div>
+
+  <div class="feature-row">
+    <div class="f-icon">
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="42" r="18" stroke="#b026ff" stroke-width="2"/>
+        <path d="M30 78 C30 62 68 62 68 78" stroke="#b026ff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="f-text">
+      <h3>Encontrado por las personas que te buscan</h3>
+      <p>Diseñado para que los motores de búsqueda entiendan qué ofreces y dónde, permitiendo que términos como "reiki cerca de mí" y "sesión de sanación a distancia" guíen realmente a alguien hasta tu página[cite: 12].</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap reveal" id="tool">
+  <div class="section-head">
+    <h2>Mira el tipo de detalles que incorporamos</h2>
+    <p>Este mapa de alineación de chakras es un pequeño ejemplo de las piezas interactivas que podemos añadir a tu página. La misma idea funciona como una guía de sesiones, un cuestionario de aura o un regulador de respiración para los clientes[cite: 12].</p>
+  </div>
+
+  <div class="tool-panel">
+    <div class="tool-glow" aria-hidden="true"></div>
+    <div class="chakra-column" role="tablist" aria-label="Selector de chakras">
+      <!-- nodos insertados con marcado estático compatible con JS -->
+      <button class="chakra-node active" data-i="0" style="--c:#b026ff" role="tab" aria-selected="true">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+      <button class="chakra-node" data-i="1" style="--c:#6e5bff" role="tab" aria-selected="false">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+      <button class="chakra-node" data-i="2" style="--c:#00f0ff" role="tab" aria-selected="false">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+      <button class="chakra-node" data-i="3" style="--c:#39ff88" role="tab" aria-selected="false">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+      <button class="chakra-node" data-i="4" style="--c:#ffd23f" role="tab" aria-selected="false">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+      <button class="chakra-node" data-i="5" style="--c:#ff7a1a" role="tab" aria-selected="false">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+      <button class="chakra-node" data-i="6" style="--c:#ff2e4d" role="tab" aria-selected="false">
+        <span class="dot"></span><span class="connector"></span>
+      </button>
+    </div>
+
+    <div class="chakra-detail" aria-live="polite">
+      <p class="chakra-kicker">Corona · Sahasrara</p>
+      <h3 id="chakraName" style="color:#b026ff">Conciencia y unidad</h3>
+      <span class="chakra-freq" id="chakraFreq" style="border-color:#b026ff; color:#b026ff">963 Hz</span>
+      <p class="desc" id="chakraDesc">Situado en la coronilla, el punto que los clientes suelen describir como el último en sentirse a medida que la sesión se sumerge en la quietud[cite: 12].</p>
+      <button class="tone-btn" id="toneBtn">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4h4l5 5V5l-5 5H4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 9c1.2 1 1.2 5 0 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Reproducir esta frecuencia
+      </button>
+      <p class="chakra-hint">Haz clic en cualquier punto de arriba: cada uno porta su propio color, nota y tono, del mismo modo que la página de un cliente puede llevar el suyo[cite: 12].</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap reveal">
+  <div class="section-head">
+    <h2>Una biblioteca visual, no una carpeta de fotos de archivo</h2>
+    <p>Cada icono y marca en tu página se dibuja para encajar perfectamente, de modo que nada parezca tomado de una plantilla de bienestar genérica[cite: 12].</p>
+  </div>
+  <div class="gallery">
+    <div class="gallery-item" tabindex="0" style="--i-color:#ff2e9f">
+      <svg viewBox="0 0 60 60" fill="none"><path d="M30 14 C36 22 44 24 44 32 C44 40 38 46 30 46 C22 46 16 40 16 32 C16 24 24 22 30 14Z" stroke="#ff2e9f" stroke-width="2"/></svg>
+      <span>Símbolo de loto</span>
+    </div>
+    <div class="gallery-item" tabindex="0" style="--i-color:#00f0ff">
+      <svg viewBox="0 0 60 60" fill="none"><path d="M30 12 L44 30 L30 48 L16 30 Z" stroke="#00f0ff" stroke-width="2"/><path d="M30 20 L38 30 L30 40 L22 30 Z" stroke="#00f0ff" stroke-width="1.3" opacity="0.6"/></svg>
+      <span>Faceta de cristal</span>
+    </div>
+    <div class="gallery-item" tabindex="0" style="--i-color:#ffd23f">
+      <svg viewBox="0 0 60 60" fill="none"><ellipse cx="30" cy="38" rx="18" ry="7" stroke="#ffd23f" stroke-width="2"/><path d="M30 34 C30 22 30 18 30 14" stroke="#ffd23f" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Cuenco cantor</span>
+    </div>
+    <div class="gallery-item" tabindex="0" style="--i-color:#39ff88">
+      <svg viewBox="0 0 60 60" fill="none"><path d="M18 40 C18 28 24 20 30 20 C36 20 42 28 42 40" stroke="#39ff88" stroke-width="2" stroke-linecap="round"/><path d="M24 40 L36 40" stroke="#39ff88" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Manos abiertas</span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap reveal">
+  <div class="section-head">
+    <h2>Lo que los profesionales notan primero</h2>
+    <p>Comentarios ilustrativos del tipo de práctica para la que está diseñada esta página[cite: 12].</p>
+  </div>
+  <div class="testimonials">
+    <div class="t-card">
+      <p class="quote">Los clientes solían hacer muchas preguntas antes de reservar. La nueva página responde a la mayoría por sí sola, así que el primer mensaje que recibo suele ser simplemente para elegir una hora[cite: 12].</p>
+      <p class="who"><strong>Maestro de Reiki, práctica independiente</strong> — sesiones presenciales y a distancia[cite: 12]</p>
+    </div>
+    <div class="t-card">
+      <p class="quote">Carga rápido incluso en el teléfono viejo que tengo en mi sala de tratamientos, y aun así transmite la misma calma que intento aportar a una sesión[cite: 12].</p>
+      <p class="who"><strong>Sanador de sonido</strong> — práctica en estudio[cite: 12]</p>
+    </div>
+    <div class="t-card">
+      <p class="quote">Me gustó que los colores no vinieran de un selector de temas. Realmente parece algo construido en torno a cómo describo mi propio trabajo[cite: 12].</p>
+      <p class="who"><strong>Trabajo energético y equilibrado de chakras</strong> — consulta en casa[cite: 12]</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap cta-footer reveal">
+  <h2>Dale a tu práctica una página que se sienta como tu energía</h2>
+  <p>Cuéntanos sobre tus sesiones y tu paleta; nosotros construimos el resto en torno a ello[cite: 12].</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="mailto:hello@easylandx.github.io">Empieza tu página</a>
+    <a class="btn btn-ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Ver más páginas de easylandx</a>
+  </div>
+</section>
+
+<footer>
+  easylandx — sitios de una sola página, construidos en torno a tu práctica[cite: 12].
+</footer>
+
+<script>
+(function(){
+  // Desplazamiento revelador (Scroll reveal)
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Datos de chakras
+  var chakras = [
+    {name:"Conciencia y unidad", sanskrit:"Corona · Sahasrara", color:"#b026ff", freq:963,
+     desc:"Situado en la coronilla, el punto que los clientes suelen describir como el último en sentirse a medida que la sesión se sumerge en la quietud."},
+    {name:"Intuición y percepción", sanskrit:"Tercer Ojo · Ajna", color:"#6e5bff", freq:852,
+     desc:"Entre las cejas, vinculado a la claridad y la visión interior; a menudo donde el enfoque de una sesión se vuelve silencioso e introspectivo."},
+    {name:"Verdad y expresión", sanskrit:"Garganta · Vishuddha", color:"#00f0ff", freq:741,
+     desc:"El centro de la voz y la honestidad; los textos de la página para este punto tienden a leerse de la forma más directa y clara."},
+    {name:"Amor y conexión", sanskrit:"Corazón · Anahata", color:"#39ff88", freq:639,
+     desc:"El punto medio del mapa, donde el arraigo terrenal se une con la conciencia superior, y donde se dice que se centra la mayor parte del trabajo de sanación."},
+    {name:"Confianza y poder", sanskrit:"Plexo Solar · Manipura", color:"#ffd23f", freq:528,
+     desc:"Voluntad personal y autoconfianza; un punto con el que muchos profesionales describen trabajar junto a sesiones de dirección de vida o profesional."},
+    {name:"Creatividad y flujo", sanskrit:"Sacro · Svadhisthana", color:"#ff7a1a", freq:417,
+     desc:"Debajo del ombligo, vinculado al cambio y al flujo emocional; a menudo combinado con sesiones en torno a la transición o la liberación."},
+    {name:"Arraigo y estabilidad", sanskrit:"Raíz · Muladhara", color:"#ff2e4d", freq:396,
+     desc:"En la base de la columna vertebral, donde suele comenzar una sesión, asentando al cliente en su cuerpo antes que cualquier otra cosa."}
+  ];
+
+  var nodes = document.querySelectorAll('.chakra-node');
+  var nameEl = document.getElementById('chakraName');
+  var kickerEl = document.querySelector('.chakra-kicker');
+  var freqEl = document.getElementById('chakraFreq');
+  var descEl = document.getElementById('chakraDesc');
+  var toneBtn = document.getElementById('toneBtn');
+  var current = 0;
+  var audioCtx = null;
+
+  function setActive(i){
+    current = i;
+    nodes.forEach(function(n, idx){
+      n.classList.toggle('active', idx === i);
+      n.setAttribute('aria-selected', idx === i ? 'true' : 'false');
+    });
+    var c = chakras[i];
+    nameEl.textContent = c.name;
+    nameEl.style.color = c.color;
+    kickerEl.textContent = c.sanskrit;
+    freqEl.textContent = c.freq + ' Hz';
+    freqEl.style.borderColor = c.color;
+    freqEl.style.color = c.color;
+    descEl.textContent = c.desc;
+    toneBtn.style.color = c.color;
+    toneBtn.style.borderColor = 'rgba(255,255,255,0.12)';
+  }
+
+  nodes.forEach(function(node){
+    node.addEventListener('click', function(){
+      setActive(parseInt(node.dataset.i, 10));
+    });
+  });
+
+  function playTone(freq){
+    try{
+      if(!audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if(audioCtx.state === 'suspended'){ audioCtx.resume(); }
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      var now = audioCtx.currentTime;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.16, now + 0.15);
+      gain.gain.linearRampToValueAtTime(0, now + 2.4);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 2.5);
+    }catch(err){ /* audio no disponible, falla silenciosamente */ }
+  }
+
+  toneBtn.addEventListener('click', function(){
+    playTone(chakras[current].freq);
+  });
+})();
+</script>
+
+</body>
+</html>
