@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx para Queseros Artesanales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --bg: #F5C518;
+    --bg2: #E0AD00;
+    --surface: #FFF3C4;
+    --surface-2: #FFE89C;
+    --ink: #2C1A04;
+    --muted: #6B4E1B;
+
+    --accent: #D9381E;
+    --accent-glow: #D9381E66;
+    --accent2: #D9381E;
+    --accent3: #2C1A04;
+    --accent4: #8B4513;
+
+    --wheel-rind: #D9381E;
+    --wheel-glow: #D9381E66;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(60% 45% at 85% -5%, #FFDF6D 0%, transparent 60%),
+      radial-gradient(50% 40% at 5% 10%, #EAA200 0%, transparent 55%);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; }
+  h1, h2, h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0 0 .4em;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 1em; color: var(--muted); max-width: 62ch; }
+  a { color: inherit; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+  .scrollbox { overflow-x: auto; }
+
+  /* ---------- NAV ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 40;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 18px);
+    padding-bottom: 18px;
+    background: linear-gradient(180deg, var(--bg2) 60%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.15rem; }
+  .logo .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px 3px var(--accent-glow); }
+  nav.links { display: flex; gap: 26px; font-size: .95rem; color: var(--muted); }
+  nav.links a { text-decoration: none; transition: color .2s; }
+  nav.links a:hover, nav.links a:focus-visible { color: var(--accent); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #FFFFFF;
+    font-weight: 600; font-family: 'Work Sans', sans-serif;
+    padding: 12px 22px; border-radius: 100px; border: none;
+    text-decoration: none; cursor: pointer;
+    box-shadow: 0 0 0 0 var(--accent-glow);
+    transition: box-shadow .25s, transform .15s, background .3s;
+  }
+  .btn:hover, .btn:focus-visible { box-shadow: 0 0 26px 4px var(--accent-glow); transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn.ghost {
+    background: transparent; color: var(--ink); border: 1px solid #2C1A0433;
+  }
+  .btn.ghost:hover { border-color: var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 56px 0 84px;
+    display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center;
+  }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
+  .hero .tag {
+    display: inline-block; font-size: .82rem; color: #FFFFFF; background: var(--accent3);
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 18px; font-weight: 600;
+  }
+  .hero p.lede { font-size: 1.1rem; color: var(--muted); }
+  .hero-cta { display: flex; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .hero-art { position: relative; display: grid; place-items: center; min-height: 340px; }
+  .hero-art svg { width: 100%; max-width: 420px; filter: drop-shadow(0 0 60px var(--wheel-glow)); }
+
+  /* ---------- WHY ---------- */
+  section.why { padding: 40px 0 70px; }
+  .section-head { max-width: 640px; margin-bottom: 44px; }
+  .section-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid #2C1A0414;
+    border-radius: 22px;
+    padding: 28px 26px;
+    position: relative;
+  }
+  .card:nth-child(1) { transform: rotate(-1.4deg); }
+  .card:nth-child(2) { transform: rotate(0.8deg); margin-top: 14px; }
+  .card:nth-child(3) { transform: rotate(-0.6deg); }
+  .card .mark {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center; margin-bottom: 16px;
+    font-size: 1.3rem;
+  }
+  .card:nth-child(1) .mark { background: #D9381E22; box-shadow: inset 0 0 0 1px #D9381E55; }
+  .card:nth-child(2) .mark { background: #2C1A0422; box-shadow: inset 0 0 0 1px #2C1A0455; }
+  .card:nth-child(3) .mark { background: #8B451322; box-shadow: inset 0 0 0 1px #8B451355; }
+  .card h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .card p { font-size: .95rem; margin: 0; }
+
+  /* ---------- INTERACTIVE ---------- */
+  section.interactive { padding: 50px 0 80px; }
+  .interactive-panel {
+    background: #F4C2C2;
+    border: 1px solid #2C1A0414;
+    border-radius: 28px;
+    padding: clamp(24px, 4vw, 48px);
+    display: grid; grid-template-columns: .95fr 1.05fr; gap: 42px; align-items: center;
+  }
+  .wheel-stage { display: grid; place-items: center; }
+  .wheel-stage svg { width: 100%; max-width: 300px; transition: filter .4s; }
+  .dial-label { text-align: center; margin-top: 14px; }
+  .dial-label .stage-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--accent); transition: color .4s; }
+  .dial-label .stage-days { font-size: .85rem; color: var(--muted); }
+
+  .dial-controls label.slider-label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px; border-radius: 6px;
+    background: linear-gradient(90deg, #D9381E, #EAA200, #2C1A04, #8B4513);
+    outline: none; margin: 6px 0 22px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+    background: #fff; border: 4px solid var(--bg2); cursor: pointer;
+    box-shadow: 0 0 14px 3px #00000022;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #fff; border: 4px solid var(--bg2); cursor: pointer;
+    box-shadow: 0 0 14px 3px #00000022;
+  }
+  .notes-box {
+    background: var(--bg2); border-radius: 16px; padding: 18px 20px;
+    font-size: .92rem; color: var(--ink); min-height: 96px;
+  }
+  .notes-box strong { color: var(--accent3); }
+
+  .swatches { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .swatch {
+    width: 40px; height: 40px; border-radius: 50%; border: 2px solid #2C1A0433;
+    cursor: pointer; position: relative; transition: transform .15s, box-shadow .25s;
+  }
+  .swatch:hover, .swatch:focus-visible { transform: translateY(-3px); }
+  .swatch[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--bg2), 0 0 0 5px currentColor; }
+  .swatch-hint { font-size: .8rem; color: var(--muted); margin-top: 10px; }
+
+  /* ---------- GALLERY ---------- */
+  section.gallery { padding: 30px 0 80px; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .mock {
+    border-radius: 18px; overflow: hidden; border: 1px solid #2C1A041c;
+    background: var(--surface);
+  }
+  .mock-bar { display: flex; gap: 6px; padding: 10px 12px; background: #2C1A0410; }
+  .mock-bar span { width: 8px; height: 8px; border-radius: 50%; background: #2C1A0430; }
+  .mock-body { padding: 22px 18px 26px; }
+  .mock-body h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1rem; margin: 10px 0 4px; }
+  .mock-body p { font-size: .82rem; margin: 0; }
+
+  /* ---------- FOOTER CTA ---------- */
+  section.cta-final {
+    padding: 70px 0 90px; text-align: center;
+    position: relative;
+  }
+  .cta-final h2 { font-size: clamp(2rem, 4.6vw, 3.1rem); max-width: 16ch; margin: 0 auto 18px; }
+  .cta-final p { margin: 0 auto 30px; }
+  footer.site { padding: 30px 0 calc(30px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #2C1A0414; }
+  .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: .85rem; color: var(--muted); }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-cta { justify-content: center; }
+    .cards { grid-template-columns: 1fr; }
+    .card:nth-child(2) { margin-top: 0; }
+    .interactive-panel { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    nav.links { display: none; }
+  }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="logo"><span class="dot"></span>easylandx</div>
+    <nav class="links">
+      <a href="#why">Por qué queseros</a>
+      <a href="#interactive">Gira la rueda</a>
+      <a href="#gallery">Ejemplos</a>
+    </nav>
+    <a class="btn" href="#cta">Obtén tu página</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div>
+      <span class="tag">Creado para queseros independientes</span>
+      <h1>Una página de destino que madura tan bien como tu queso.</h1>
+      <p class="lede">easylandx crea páginas personalizadas, una quesería a la vez: sin plantillas ni diseños genéricos. Si tu queso requiere meses de cuidado antes de estar listo, tu página merece la misma atención.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#cta">Crea tu página</a>
+        <a class="btn ghost" href="#interactive">Gira la rueda ↓</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 420" aria-hidden="true">
+        <defs>
+          <filter id="glow-hero"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <circle cx="210" cy="210" r="150" fill="none" stroke="var(--accent4)" stroke-width="1" opacity="0.25"/>
+        <circle cx="210" cy="210" r="120" fill="#EAA200" opacity="0.6"/>
+        <g filter="url(#glow-hero)">
+          <circle cx="210" cy="210" r="112" fill="#FFF3C4"/>
+          <path d="M210 210 L322 175 A112 112 0 0 1 322 245 Z" fill="#2C1A04"/>
+          <circle cx="210" cy="210" r="112" fill="none" stroke="var(--accent2)" stroke-width="14"/>
+        </g>
+        <circle cx="175" cy="180" r="7" fill="#E0AD00"/>
+        <circle cx="150" cy="230" r="9" fill="#E0AD00"/>
+        <circle cx="200" cy="255" r="6" fill="#E0AD00"/>
+        <circle cx="165" cy="210" r="5" fill="#E0AD00"/>
+        <path d="M322 175 L370 150 M322 245 L370 268" stroke="#2C1A04" stroke-width="14" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why wrap" id="why">
+    <div class="section-head">
+      <h2>Cada detalle de tu quesería es único. Tu página también debería serlo.</h2>
+      <p>La mayoría de los creadores de páginas parten de una plantilla y te piden que te adaptes a ella. easylandx empieza a partir de tu queso.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="mark">🐐</div>
+        <h3>Sin plantillas, jamás</h3>
+        <p>Tu corteza, tu cava de afinación, tu puesto en el mercado: diseñado para reflejar cómo luce realmente tu quesería, sin encajar en un diseño prediseñado.</p>
+      </div>
+      <div class="card">
+        <div class="mark">💳</div>
+        <h3>No es gratis, y esa es la clave</h3>
+        <p>Pagar por la herramienta nos permite construir páginas auténticas y personalizadas en lugar de revender la misma plantilla gratuita a todas las queserías de la zona.</p>
+      </div>
+      <div class="card">
+        <div class="mark">🧊</div>
+        <h3>Diseñado según tu temporada</h3>
+        <p>Lotes lanzados en primavera, piezas curadas listas en invierno: tu página puede seguir tu calendario real de producción, no una pestaña genérica de "tienda".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE -->
+  <section class="interactive wrap" id="interactive">
+    <div class="section-head">
+      <h2>Gira la rueda y observa cómo tu página evoluciona igual que tu queso.</h2>
+      <p>Este es el tipo de detalle único y específico que easylandx integra en la página de un maestro quesero: una rueda que madura a medida que el visitante la explora.</p>
+    </div>
+
+    <div class="interactive-panel">
+      <div class="wheel-stage">
+        <svg id="wheelSvg" viewBox="0 0 300 300" aria-hidden="true">
+          <defs>
+            <filter id="glow-wheel"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <circle id="haze" cx="150" cy="150" r="105" fill="#D9381E" opacity="0.18"/>
+          <g filter="url(#glow-wheel)">
+            <circle id="rind" cx="150" cy="150" r="86" fill="#D9381E"/>
+            <circle id="paste" cx="150" cy="150" r="70" fill="#FFF3C4"/>
+          </g>
+          <g id="holes">
+            <circle cx="122" cy="130" r="6" fill="#E0AD00"/>
+            <circle cx="165" cy="115" r="5" fill="#E0AD00"/>
+            <circle cx="178" cy="160" r="7" fill="#E0AD00"/>
+            <circle cx="130" cy="175" r="4" fill="#E0AD00"/>
+            <circle cx="150" cy="150" r="5" fill="#E0AD00"/>
+          </g>
+          <g id="fuzz" opacity="0">
+            <circle cx="100" cy="115" r="2.4" fill="#fff"/>
+            <circle cx="108" cy="105" r="1.8" fill="#fff"/>
+            <circle cx="195" cy="120" r="2.2" fill="#fff"/>
+            <circle cx="205" cy="132" r="1.6" fill="#fff"/>
+            <circle cx="118" cy="198" r="2" fill="#fff"/>
+            <circle cx="200" cy="190" r="2.4" fill="#fff"/>
+          </g>
+          <g id="crystals" opacity="0">
+            <rect x="135" y="140" width="4" height="4" fill="#fff" transform="rotate(20 137 142)"/>
+            <rect x="160" y="160" width="3" height="3" fill="#fff" transform="rotate(10 161 161)"/>
+            <rect x="150" y="120" width="3" height="3" fill="#fff" transform="rotate(35 151 121)"/>
+          </g>
+        </svg>
+        <div class="dial-label">
+          <div class="stage-name" id="stageName">Fresco</div>
+          <div class="stage-days" id="stageDays">2 días de afinación</div>
+        </div>
+      </div>
+
+      <div class="dial-controls">
+        <label class="slider-label" for="ageRange">Arrastra para madurar la rueda</label>
+        <input type="range" id="ageRange" min="0" max="100" value="0" aria-describedby="notesBox">
+        <div class="notes-box" id="notesBox">
+          <strong>Notas de cata:</strong> <span id="notesText">Luminoso, lácteo, un poco herbal — este aún no ha entrado en la cava.</span>
+        </div>
+
+        <div class="swatch-hint">Cada quesería elige su propio color de cera: cambiar la muestra modifica toda la página.</div>
+        <div class="swatches" role="group" aria-label="Elige un color de acento">
+          <button class="swatch" style="background:#D9381E; color:#D9381E" data-accent="#D9381E" data-glow="#D9381E66" aria-pressed="true" aria-label="Cera roja"></button>
+          <button class="swatch" style="background:#2C1A04; color:#2C1A04" data-accent="#2C1A04" data-glow="#2C1A0466" aria-pressed="false" aria-label="Marrón oscuro"></button>
+          <button class="swatch" style="background:#8B4513; color:#8B4513" data-accent="#8B4513" data-glow="#8B451366" aria-pressed="false" aria-label="Corteza óxido"></button>
+          <button class="swatch" style="background:#EAA200; color:#EAA200" data-accent="#EAA200" data-glow="#EAA20066" aria-pressed="false" aria-label="Miel dorada"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery wrap" id="gallery">
+    <div class="section-head">
+      <h2>Tres queserías, tres páginas completamente distintas.</h2>
+      <p>Una muestra de cómo puede trabajar un mismo creador: ninguna de estas páginas partió del mismo diseño.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="mock">
+        <div class="mock-bar"><span></span><span></span><span></span></div>
+        <svg viewBox="0 0 260 140"><rect width="260" height="140" fill="#FFF3C4"/><circle cx="70" cy="70" r="46" fill="#D9381E" opacity="0.85"/><rect x="140" y="30" width="90" height="10" rx="5" fill="#2C1A04"/><rect x="140" y="50" width="70" height="8" rx="4" fill="#6B4E1B55"/><rect x="140" y="95" width="60" height="20" rx="10" fill="#D9381E"/></svg>
+        <div class="mock-body">
+          <h4>Quesería costera de chèvre</h4>
+          <p>Diseño inspirado en tablas de mareas para una granja que cura queso de cabra junto al mar.</p>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="mock-bar"><span></span><span></span><span></span></div>
+        <svg viewBox="0 0 260 140"><rect width="260" height="140" fill="#FFF3C4"/><rect x="30" y="30" width="80" height="80" rx="10" fill="#8B4513" opacity="0.85"/><rect x="140" y="40" width="90" height="10" rx="5" fill="#2C1A04"/><rect x="140" y="60" width="60" height="8" rx="4" fill="#6B4E1B55"/><rect x="140" y="95" width="60" height="20" rx="10" fill="#8B4513"/></svg>
+        <div class="mock-body">
+          <h4>Quesería de cava de montaña</h4>
+          <p>Creada sobre un mapa real de sus cavas de maduración, actualizado a medida que cada rueda cura.</p>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="mock-bar"><span></span><span></span><span></span></div>
+        <svg viewBox="0 0 260 140"><rect width="260" height="140" fill="#FFF3C4"/><polygon points="70,25 105,110 35,110" fill="#EAA200" opacity="0.85"/><rect x="140" y="30" width="90" height="10" rx="5" fill="#2C1A04"/><rect x="140" y="50" width="75" height="8" rx="4" fill="#6B4E1B55"/><rect x="140" y="95" width="60" height="20" rx="10" fill="#EAA200"/></svg>
+        <div class="mock-body">
+          <h4>Microquesería urbana</h4>
+          <p>Una página estilo puesto de mercado para un productor que vende sus piezas tres días a la semana.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-final wrap" id="cta">
+    <h2>¿Listo para darle a tu queso su propia página?</h2>
+    <p>Cuéntanos sobre tu quesería y crearemos algo genuinamente tuyo.</p>
+    <a class="btn" href="#" onclick="return false;">Crea tu página</a>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-row">
+    <span>easylandx — páginas de destino personalizadas, sin plantillas</span>
+    <span>Hecho para quienes crean las cosas sin prisa</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Selector de maduración ----------
+  var range = document.getElementById('ageRange');
+  var rind = document.getElementById('rind');
+  var haze = document.getElementById('haze');
+  var fuzz = document.getElementById('fuzz');
+  var crystals = document.getElementById('crystals');
+  var stageName = document.getElementById('stageName');
+  var stageDays = document.getElementById('stageDays');
+  var notesText = document.getElementById('notesText');
+  var wheelSvg = document.getElementById('wheelSvg');
+
+  var stages = [
+    { at: 0,  name: 'Fresco',         days: '2 días de afinación',    rind: '#FFF3C4', fuzz: 0,   crystal: 0,   notes: "Luminoso, lácteo, un poco herbal — este aún no ha entrado en la cava." },
+    { at: 33, name: 'Corteza florecida', days: '3 semanas en la cava', rind: '#EAA200', fuzz: 1,   crystal: 0,   notes: 'Una suave cobertura blanca se forma en el exterior; la pasta empieza a ablandarse justo bajo la corteza.' },
+    { at: 66, name: 'Corteza lavada',   days: '9 semanas, lavado en salmuera', rind: '#D9381E', fuzz: 0.3, crystal: 0.2, notes: 'El lavado constante creó una corteza pegajosa y de carácter intenso — el aroma es potente y el sabor, exquisito.' },
+    { at: 100,name: 'Gran reserva',     days: '14 meses en la cava',  rind: '#7A4A22', fuzz: 0,   crystal: 1,   notes: 'Denso, desmenuzable y salpicado de pequeños cristales crujientes — esta rueda esperó mucho tiempo para este momento.' }
+  ];
+
+  function lerpColor(c1, c2, t){
+    function hex(c,i){ return parseInt(c.slice(1+i*2,3+i*2),16); }
+    var r = Math.round(hex(c1,0) + (hex(c2,0)-hex(c1,0))*t);
+    var g = Math.round(hex(c1,1) + (hex(c2,1)-hex(c1,1))*t);
+    var b = Math.round(hex(c1,2) + (hex(c2,2)-hex(c1,2))*t);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  function update(){
+    var v = parseFloat(range.value);
+    var lo = stages[0], hi = stages[stages.length-1];
+    for (var i=0;i<stages.length-1;i++){
+      if (v >= stages[i].at && v <= stages[i+1].at){ lo = stages[i]; hi = stages[i+1]; break; }
+    }
+    var span = (hi.at - lo.at) || 1;
+    var t = (v - lo.at) / span;
+    var nearest = t < 0.5 ? lo : hi;
+
+    rind.setAttribute('fill', lerpColor(lo.rind, hi.rind, t));
+    haze.setAttribute('fill', lerpColor(lo.rind, hi.rind, t));
+    fuzz.style.opacity = (lo.fuzz + (hi.fuzz - lo.fuzz) * t);
+    crystals.style.opacity = (lo.crystal + (hi.crystal - lo.crystal) * t);
+
+    stageName.textContent = nearest.name;
+    stageDays.textContent = nearest.days;
+    notesText.textContent = nearest.notes;
+
+    var glow = getComputedStyle(document.documentElement).getPropertyValue('--accent-glow').trim() || '#D9381E66';
+    wheelSvg.style.filter = 'drop-shadow(0 0 ' + (14 + t*10) + 'px ' + lerpColor(lo.rind, hi.rind, t) + '55)';
+  }
+  range.addEventListener('input', update);
+  update();
+
+  // ---------- Muestra de cera / Selector de color ----------
+  var swatches = document.querySelectorAll('.swatch');
+  swatches.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      swatches.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      var accent = btn.getAttribute('data-accent');
+      var glow = btn.getAttribute('data-glow');
+      document.documentElement.style.setProperty('--accent', accent);
+      document.documentElement.style.setProperty('--accent-glow', glow);
+      update();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
