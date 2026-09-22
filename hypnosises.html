@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>easylandx para hipnoterapeutas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#150B32;
+    --night-deep:#0B0620;
+    --teal:#57E8CC;
+    --teal-deep:#2FB99E;
+    --amber:#FFB36B;
+    --lavender:#C9B8FF;
+    --ink:#F6F2FF;
+    --ink-dim:#C7BCE8;
+    --surface: rgba(246,242,255,0.07);
+    --surface-strong: rgba(246,242,255,0.15);
+    --border-soft: rgba(246,242,255,0.20);
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Manrope', system-ui, sans-serif;
+    --font-mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--night);
+    line-height:1.65;
+    font-size:1.04rem;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  .wrap{max-width:1080px; margin:0 auto; padding-left:28px; padding-right:28px;}
+
+  /* ---------- NAV ---------- */
+  nav{display:flex; align-items:center; justify-content:space-between; padding:26px 28px; max-width:1080px; margin:0 auto;}
+  .logo{font-family:var(--font-display); font-size:1.35rem; display:flex; align-items:center; gap:10px;}
+  .logo svg{width:22px; height:22px; flex-shrink:0;}
+  .nav-btn{
+    font-family:var(--font-body); font-size:0.92rem; color:var(--night-deep);
+    background:var(--teal); border:none; padding:10px 18px; border-radius:999px;
+    text-decoration:none; font-weight:700; transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .nav-btn:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(87,232,204,0.32);}
+  .nav-btn:focus-visible{outline:3px solid var(--amber); outline-offset:3px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding-top:44px; padding-bottom:10px;}
+  .hero-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:44px; align-items:center;}
+  .hero-art{order:-1;}
+  @media (max-width:840px){ .hero-grid{grid-template-columns:1fr;} .hero-art{order:0;} }
+  .eyebrow{font-family:var(--font-mono); font-size:0.85rem; color:var(--ink-dim); margin:0 0 18px;}
+  h1{font-family:var(--font-display); font-weight:500; font-size:clamp(2.2rem, 4.8vw, 3.3rem); line-height:1.14; margin:0 0 20px; max-width:17ch;}
+  h1 em{font-style:italic; color:var(--teal); font-weight:400;}
+  .lede{font-size:1.13rem; color:var(--ink-dim); max-width:54ch; margin:0 0 30px;}
+  .hero-actions{display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
+  .btn-primary{
+    font-family:var(--font-body); font-weight:700; font-size:1rem;
+    color:var(--night-deep); background:var(--teal); border:none;
+    padding:15px 30px; border-radius:999px; cursor:pointer; text-decoration:none;
+    display:inline-block; transition:transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(87,232,204,0.32);}
+  .btn-primary:focus-visible{outline:3px solid var(--amber); outline-offset:3px;}
+  .btn-ghost{
+    font-family:var(--font-body); font-weight:700; font-size:0.95rem;
+    color:var(--ink); background:var(--surface-strong); border:1px solid var(--border-soft);
+    padding:12px 24px; border-radius:999px; cursor:pointer;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .btn-ghost:hover{transform:translateY(-2px); background:rgba(246,242,255,0.24);}
+  .btn-ghost:focus-visible{outline:3px solid var(--teal); outline-offset:3px;}
+  .scroll-note{font-family:var(--font-mono); font-size:0.85rem; color:var(--ink-dim);}
+
+  .hero-art{display:flex; justify-content:center;}
+  .hero-art svg{width:100%; max-width:330px; height:auto; overflow:visible;}
+  .pocketwatch{animation:sway 4.5s ease-in-out infinite; transform-origin:150px 44px;}
+  @keyframes sway{ 0%,100%{transform:rotate(-4deg);} 50%{transform:rotate(4deg);} }
+
+  /* ---------- DIVIDER ---------- */
+  .swatches{
+    height:4px; margin-top:34px; border-radius:2px;
+    background:repeating-linear-gradient(90deg, #57E8CC 0 28px, transparent 28px 40px, #FFB36B 40px 68px, transparent 68px 80px, #C9B8FF 80px 108px, transparent 108px 120px);
+  }
+
+  /* ---------- SECTION HEAD ---------- */
+  .section-head{max-width:62ch; margin-bottom:36px;}
+  .section-head h2{font-family:var(--font-display); font-weight:500; font-size:clamp(1.6rem,3vw,2.15rem); line-height:1.22; margin:0 0 14px;}
+  .section-head p{color:var(--ink-dim); margin:0; font-size:1.04rem;}
+
+  /* ---------- SESSION WIDGET ---------- */
+  section.session{padding-top:48px; padding-bottom:70px;}
+  .session-panel{
+    background:var(--surface); border:1px solid var(--border-soft); border-radius:24px;
+    padding:36px 32px; display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;
+    position:relative; overflow:hidden;
+  }
+  @media (max-width:760px){ .session-panel{grid-template-columns:1fr; padding:28px 20px;} }
+  .session-stage{display:flex; justify-content:center; position:relative;}
+  .session-stage svg{width:100%; max-width:320px; height:auto; overflow:visible; position:relative; z-index:1;}
+  .session-controls{display:flex; flex-direction:column; gap:18px; position:relative; z-index:1;}
+  .minute-readout{font-family:var(--font-mono); font-weight:500; font-size:0.95rem; color:var(--teal); margin:0;}
+  .stage-text{font-family:var(--font-display); font-weight:500; font-size:1.32rem; line-height:1.3; margin:0; min-height:3.4em;}
+  input[type=range]{width:100%; accent-color:var(--teal); height:28px; cursor:pointer;}
+  input[type=range]:focus-visible{outline:3px solid var(--amber); outline-offset:4px; border-radius:8px;}
+  .range-scale{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-dim); margin-top:-8px;}
+  .session-caption{color:var(--ink-dim); font-size:0.95rem; margin:0; max-width:44ch;}
+  #tensionGroup, #eyeOpenGroup, #eyeClosedGroup, #auraGroup, #calmRingsGroup{transition:opacity 0.35s ease;}
+  #spiralGroup{transform-box:fill-box; transform-origin:center; animation:spiralSpin 3s linear infinite; transition:opacity 0.35s ease;}
+  @keyframes spiralSpin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .glow-tint{position:absolute; inset:0; background:radial-gradient(circle at 32% 40%, rgba(87,232,204,0.22), transparent 60%); opacity:0; transition:opacity 0.4s ease; pointer-events:none;}
+
+  /* ---------- TABS ---------- */
+  section.audience{padding-top:20px; padding-bottom:70px;}
+  .tab-row{display:flex; gap:12px; margin-bottom:30px; flex-wrap:wrap;}
+  .tab-btn{
+    font-family:var(--font-body); font-weight:700; font-size:1rem;
+    color:var(--ink); background:var(--surface); border:1px solid var(--border-soft);
+    padding:12px 24px; border-radius:999px; cursor:pointer;
+    transition:background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .tab-btn.active{background:var(--amber); border-color:var(--amber); color:var(--night-deep);}
+  .tab-btn:focus-visible{outline:3px solid var(--teal); outline-offset:2px;}
+
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  .feature-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;}
+  @media (max-width:700px){ .feature-grid{grid-template-columns:1fr;} }
+  .feature-card{
+    background:var(--surface); border:1px solid var(--border-soft); border-radius:18px;
+    padding:20px 22px; display:flex; gap:14px; align-items:flex-start;
+  }
+  .feature-icon{width:34px; height:34px; flex-shrink:0;}
+  .feature-card h3{margin:0 0 6px; font-family:var(--font-display); font-weight:500; font-size:1.18rem;}
+  .feature-card p{margin:0; color:var(--ink-dim); font-size:0.96rem;}
+
+  /* ---------- WHY IT FITS ---------- */
+  section.fit{padding-top:20px; padding-bottom:70px;}
+  .fit-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;}
+  @media (max-width:900px){ .fit-grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:540px){ .fit-grid{grid-template-columns:1fr;} }
+  .fit-card{
+    background:var(--surface); border:1px solid var(--border-soft); border-radius:18px;
+    padding:20px 18px; text-align:left;
+  }
+  .fit-card .spiral-icon{width:28px; height:28px; margin-bottom:12px; display:block;}
+  .fit-card h3{margin:0 0 8px; font-family:var(--font-display); font-weight:500; font-size:1.12rem; line-height:1.3;}
+  .fit-card p{margin:0; color:var(--ink-dim); font-size:0.94rem;}
+
+  /* ---------- FINAL CTA ---------- */
+  section.final-cta{padding-top:20px; padding-bottom:90px;}
+  .cta-panel{
+    background:rgba(255,179,107,0.10);
+    border:2px solid var(--amber); border-radius:26px; padding:56px 44px; text-align:center;
+  }
+  .cta-panel h2{font-family:var(--font-display); font-weight:500; font-size:clamp(1.65rem,3.2vw,2.3rem); line-height:1.22; margin:0 auto 16px; max-width:24ch;}
+  .cta-panel p{color:var(--ink-dim); max-width:52ch; margin:0 auto 30px; font-size:1.04rem;}
+
+  footer{padding:34px 0 50px; text-align:center; color:var(--ink-dim); font-family:var(--font-mono); font-size:0.85rem;}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="spiral-mark" viewBox="-12 -12 24 24">
+    <path d="M0 0 C3.5 -1.5 6 1 5 4 C4 6.5 0.5 7 -2 5 C-4.5 3 -4 -1 -1 -3 C2.5 -5.5 8 -3 9 2 C10 7.5 5 11 -1 10" fill="none" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<nav>
+  <div class="logo"><svg viewBox="-12 -12 24 24" aria-hidden="true"><use href="#spiral-mark" stroke="#57E8CC"/></svg> easylandx</div>
+  <a class="nav-btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Visitar easylandx</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-grid">
+      <div class="hero-art">
+        <svg viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de un reloj de bolsillo colgando, una luna creciente y una espiral hipnótica flotando entre estrellas suaves.">
+          <g stroke="#57E8CC" stroke-width="1.4" fill="none" opacity="0.35">
+            <circle cx="130" cy="160" r="112"/>
+            <circle cx="130" cy="160" r="96"/>
+          </g>
+          <g stroke="#FFB36B" stroke-width="2" fill="none">
+            <use href="#spiral-mark" x="164" y="30" width="26" height="26"/>
+            <use href="#spiral-mark" x="34" y="60" width="20" height="20"/>
+            <use href="#spiral-mark" x="206" y="196" width="18" height="18"/>
+          </g>
+          <!-- crescent moon -->
+          <path d="M74 56 C60 62 52 76 56 92 C60 108 76 116 90 110 C76 106 66 92 68 76 C70 62 78 54 90 52 C84 52 78 54 74 56 Z" fill="#C9B8FF" opacity="0.85"/>
+          <!-- chain -->
+          <g fill="none" stroke="#D9CEFF" stroke-width="2.4" opacity="0.7">
+            <path d="M150 40 C150 50 158 52 158 62 C158 72 150 74 150 84"/>
+          </g>
+          <!-- pocket watch -->
+          <g class="pocketwatch">
+            <rect x="145" y="30" width="10" height="10" rx="2" fill="#D9CEFF"/>
+            <circle cx="150" cy="150" r="70" fill="#1F1245" stroke="#FFB36B" stroke-width="6"/>
+            <circle cx="150" cy="150" r="56" fill="#150B32" stroke="#57E8CC" stroke-width="1.4"/>
+            <path d="M150 150 C158 132 176 126 194 132 C176 140 164 150 158 164 C152 176 140 178 130 172 C138 166 146 160 150 150 Z" fill="#57E8CC" opacity="0.9"/>
+            <circle cx="150" cy="150" r="4" fill="#FFB36B"/>
+            <line x1="150" y1="150" x2="150" y2="112" stroke="#F6F2FF" stroke-width="2.4" stroke-linecap="round"/>
+            <line x1="150" y1="150" x2="176" y2="150" stroke="#FFB36B" stroke-width="2.4" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">páginas de aterrizaje para hipnoterapeutas · 2026</p>
+        <h1>Una página tan serena como <em>tu consulta</em>.</h1>
+        <p class="lede">La hipnoterapia es calma que se puede sentir desde el primer clic, así que tu web merece transmitir esa misma serenidad. easylandx crea páginas de una sola pantalla que reflejan tu forma de acompañar: una presentación clara, un ritmo pausado y una manera sencilla de decir «quiero reservar mi sesión».</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#audience">Descubre tu página</a>
+          <span class="scroll-note">para hipnoterapeutas y consultas de bienestar</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatches" aria-hidden="true"></div>
+  </header>
+
+  <section class="session">
+    <div class="section-head">
+      <h2>El ritmo de una sesión y el ritmo de una página van de la mano</h2>
+      <p>Mueve el control deslizante para seguir una sesión completa, desde la bienvenida hasta el regreso al aquí y ahora. Esa misma atención a cada fase guía cada sección de una página easylandx.</p>
+    </div>
+    <div class="session-panel">
+      <div class="glow-tint" id="glowTint" aria-hidden="true"></div>
+      <div class="session-stage">
+        <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de una persona relajándose en un sillón mientras una espiral hipnótica flota frente a sus ojos y su respiración se calma.">
+          <!-- armchair -->
+          <path d="M40 260 L40 176 C40 150 60 138 84 138 L216 138 C240 138 260 150 260 176 L260 260 Z" fill="#1F1245"/>
+          <rect x="24" y="168" width="30" height="92" rx="14" fill="#2A1A5C"/>
+          <rect x="246" y="168" width="30" height="92" rx="14" fill="#2A1A5C"/>
+          <!-- calm rings -->
+          <g id="calmRingsGroup" opacity="0" stroke="#57E8CC" stroke-width="1.6" fill="none">
+            <circle cx="150" cy="118" r="86"/>
+            <circle cx="150" cy="118" r="104"/>
+            <circle cx="150" cy="118" r="122"/>
+          </g>
+          <!-- aura -->
+          <g id="auraGroup" opacity="0">
+            <circle cx="150" cy="118" r="74" fill="#57E8CC" opacity="0.10"/>
+            <circle cx="150" cy="118" r="60" fill="#C9B8FF" opacity="0.10"/>
+          </g>
+          <!-- shoulders + body -->
+          <ellipse id="breathGroup" cx="150" cy="214" rx="70" ry="40" fill="#3A2470"/>
+          <!-- neck -->
+          <rect x="134" y="150" width="32" height="34" rx="10" fill="#D9A67E"/>
+          <!-- head -->
+          <ellipse cx="150" cy="112" rx="52" ry="62" fill="#D9A67E"/>
+          <!-- hair -->
+          <path d="M98 96 C96 46 204 46 202 96 C186 68 114 68 98 96 Z" fill="#241344"/>
+          <!-- tension lines (forehead) -->
+          <g id="tensionGroup" stroke="#8A5A3A" stroke-width="1.6" stroke-linecap="round" opacity="1">
+            <path d="M118 78 L132 76"/>
+            <path d="M118 84 L134 82"/>
+            <path d="M168 76 L182 78"/>
+            <path d="M166 82 L182 84"/>
+          </g>
+          <!-- brows -->
+          <path d="M112 92 C120 87 132 87 138 91 M162 91 C168 87 180 87 188 92" fill="none" stroke="#241344" stroke-width="4" stroke-linecap="round"/>
+          <!-- open eyes -->
+          <g id="eyeOpenGroup" opacity="1">
+            <ellipse cx="126" cy="104" rx="11" ry="6" fill="#FFFFFF"/>
+            <ellipse cx="174" cy="104" rx="11" ry="6" fill="#FFFFFF"/>
+            <circle cx="126" cy="104" r="4.4" fill="#241344"/>
+            <circle cx="174" cy="104" r="4.4" fill="#241344"/>
+          </g>
+          <!-- closed eyes -->
+          <g id="eyeClosedGroup" opacity="0" stroke="#241344" stroke-width="2.6" stroke-linecap="round" fill="none">
+            <path d="M116 104 C120 108 132 108 136 104"/>
+            <path d="M164 104 C168 108 180 108 184 104"/>
+          </g>
+          <!-- nose -->
+          <path d="M150 110 C147 124 146 128 152 130" fill="none" stroke="#B87F52" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          <!-- gentle smile -->
+          <path d="M134 142 C142 148 158 148 166 142" fill="none" stroke="#8A5A3A" stroke-width="2.4" stroke-linecap="round"/>
+          <!-- floating spiral -->
+          <g id="spiralGroup" opacity="0" stroke="#FFB36B" stroke-width="2.4" fill="none">
+            <use href="#spiral-mark" x="130" y="88" width="40" height="40"/>
+          </g>
+        </svg>
+      </div>
+      <div class="session-controls">
+        <p class="minute-readout" id="minuteReadout">Minuto 0 de 50</p>
+        <p class="stage-text" id="stageText" aria-live="polite">Bienvenida: se construye un espacio seguro y de confianza</p>
+        <input type="range" id="minuteRange" min="0" max="50" step="1" value="0" aria-label="Minutos de la sesión">
+        <div class="range-scale" aria-hidden="true"><span>Bienvenida</span><span>Profundización</span><span>Regreso</span></div>
+        <p class="session-caption">Cada fase suma calma. Tu página funciona igual: una estructura pensada al detalle, agradable desde la primera mirada.</p>
+        <div><button class="btn-ghost" id="playBtn" type="button">Reproducir sesión</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="audience" id="audience">
+    <div class="section-head">
+      <h2>Pensada para tu forma de acompañar</h2>
+      <p>Una consulta clínica y un espacio de bienestar personal necesitan herramientas distintas sobre una misma base serena. Cambia de vista para ver cómo easylandx se adapta a cada una.</p>
+    </div>
+
+    <div class="tab-row" role="tablist">
+      <button class="tab-btn active" data-tab="clinico" role="tab" aria-selected="true">Terapéutico</button>
+      <button class="tab-btn" data-tab="bienestar" role="tab" aria-selected="false">Bienestar personal</button>
+    </div>
+
+    <div class="tab-panel active" data-panel="clinico">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="9" width="28" height="24" rx="4" fill="none" stroke="#57E8CC" stroke-width="2"/><line x1="6" y1="16" x2="34" y2="16" stroke="#57E8CC" stroke-width="2"/><circle cx="14" cy="24" r="3" fill="#FFB36B"/><circle cx="24" cy="24" r="3" fill="#C9B8FF"/></svg>
+          <div><h3>Programas por objetivo</h3><p>Ansiedad, fobias, dejar el tabaco o gestionar el dolor, presentados con claridad para que cada cliente encuentre su camino.</p></div>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5 L33 11 L33 20 C33 29 27 34 20 36 C13 34 7 29 7 20 L7 11 Z" fill="none" stroke="#57E8CC" stroke-width="2"/><path d="M14 20 L18 24 L27 14" fill="none" stroke="#FFB36B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Ficha de admisión y confidencialidad</h3><p>Recoge antecedentes y preferencias antes de cada sesión, cuidando la privacidad de principio a fin.</p></div>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M8 30 L14 24 A12 12 0 1 1 20 30 Z" fill="#57E8CC"/></svg>
+          <div><h3>Contacto directo por WhatsApp</h3><p>Un botón directo convierte «¿tienes hueco esta semana?» en una cita confirmada al instante.</p></div>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="18" width="14" height="16" rx="2" fill="none" stroke="#57E8CC" stroke-width="2"/><path d="M22 34 L22 20 L29 13 L36 20 L36 34 Z" fill="none" stroke="#FFB36B" stroke-width="2"/><rect x="9" y="22" width="6" height="6" fill="#C9B8FF"/></svg>
+          <div><h3>Sesiones presenciales y online</h3><p>Consulta física y videollamada explicadas con la misma claridad, para que cada cliente elija cómo prefiere avanzar.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="bienestar">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C10 27 5 20 5 13 C5 8 9 5 13 5 C17 5 20 8 20 12 C20 8 23 5 27 5 C31 5 35 8 35 13 C35 20 30 27 20 34 Z" fill="#FFB36B"/></svg>
+          <div><h3>Confianza y autoestima</h3><p>Programas centrados en fortalecer la confianza, presentados con un lenguaje cercano y motivador.</p></div>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M22 5 C15 5 9 11 9 18 C9 28 20 35 20 35 C20 35 31 28 31 18 C31 15 30 12 28 10 C29 13 28 17 25 19 C23 20 20 19 19 17 C18 15 19 12 22 11 C22 9 22 7 22 5 Z" fill="#C9B8FF"/></svg>
+          <div><h3>Hábitos y rendimiento</h3><p>Sueño, concentración y hábitos saludables organizados en itinerarios claros y fáciles de seguir.</p></div>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="#57E8CC" stroke-width="2"/><path d="M13 20 C13 16 16 13 20 13 M27 20 C27 24 24 27 20 27" fill="none" stroke="#FFB36B" stroke-width="2" stroke-linecap="round"/><rect x="9" y="18" width="6" height="8" rx="2" fill="#57E8CC"/><rect x="25" y="18" width="6" height="8" rx="2" fill="#57E8CC"/></svg>
+          <div><h3>Audios de refuerzo</h3><p>Grabaciones para escuchar entre sesiones, dando continuidad a cada avance logrado en consulta.</p></div>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="12" width="28" height="18" rx="3" fill="none" stroke="#57E8CC" stroke-width="2"/><circle cx="20" cy="21" r="4" fill="none" stroke="#FFB36B" stroke-width="2"/><line x1="6" y1="12" x2="6" y2="30" stroke="#57E8CC" stroke-width="2" stroke-dasharray="2 3"/><line x1="34" y1="12" x2="34" y2="30" stroke="#57E8CC" stroke-width="2" stroke-dasharray="2 3"/></svg>
+          <div><h3>Bonos de seguimiento</h3><p>Paquetes de varias sesiones presentados con transparencia, para acompañar el proceso completo.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fit">
+    <div class="section-head">
+      <h2>Una base que va más allá de la estética</h2>
+      <p>Dos ideas centrales que easylandx aporta a cada proyecto de bienestar: una estructura clara que invita a reservar, y un proceso ágil que cuida tu presupuesto.</p>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-card">
+        <svg class="spiral-icon" viewBox="-12 -12 24 24" aria-hidden="true"><use href="#spiral-mark" stroke="#FFB36B"/></svg>
+        <h3>Serenidad desde el primer segundo</h3>
+        <p>La portada transmite la sensación de una sesión ya terminada: en calma, centrada y acogedora.</p>
+      </div>
+      <div class="fit-card">
+        <svg class="spiral-icon" viewBox="-12 -12 24 24" aria-hidden="true"><use href="#spiral-mark" stroke="#FFB36B"/></svg>
+        <h3>Una reserva, un camino claro</h3>
+        <p>Cada sección conduce con suavidad hacia un mismo objetivo, reservar una sesión, manteniendo el foco donde importa.</p>
+      </div>
+      <div class="fit-card">
+        <svg class="spiral-icon" viewBox="-12 -12 24 24" aria-hidden="true"><use href="#spiral-mark" stroke="#FFB36B"/></svg>
+        <h3>Inversión ligera</h3>
+        <p>Diseños a medida a un precio accesible, para que el lanzamiento de tu consulta se sienta tan liviano como una respiración profunda.</p>
+      </div>
+      <div class="fit-card">
+        <svg class="spiral-icon" viewBox="-12 -12 24 24" aria-hidden="true"><use href="#spiral-mark" stroke="#FFB36B"/></svg>
+        <h3>En días, y cada semana más pulida</h3>
+        <p>Tu web se publica en cuestión de días y se perfecciona con cada sesión real, igual que una práctica que mejora con la constancia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="cta-panel">
+      <h2>Dale a tu consulta una página tan serena como tus sesiones</h2>
+      <p>Descubre páginas de aterrizaje ya publicadas para hipnoterapeutas y espacios de bienestar en todo el mundo.</p>
+      <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Visitar easylandx</a>
+    </div>
+  </section>
+
+  <footer>easylandx — páginas de aterrizaje a medida, creadas con cuidado. 2026.</footer>
+
+</div>
+
+<script>
+  (function(){
+    // --- Hypnotherapy session widget ---
+    var tension = document.getElementById('tensionGroup');
+    var eyeOpen = document.getElementById('eyeOpenGroup');
+    var eyeClosed = document.getElementById('eyeClosedGroup');
+    var spiral = document.getElementById('spiralGroup');
+    var aura = document.getElementById('auraGroup');
+    var calmRings = document.getElementById('calmRingsGroup');
+    var breath = document.getElementById('breathGroup');
+    var glowTint = document.getElementById('glowTint');
+    var range = document.getElementById('minuteRange');
+    var readout = document.getElementById('minuteReadout');
+    var stageText = document.getElementById('stageText');
+    var playBtn = document.getElementById('playBtn');
+    var MAX = 50;
+
+    var stages = [
+      [6,  'Bienvenida: se construye un espacio seguro y de confianza'],
+      [16, 'Inducción: la respiración se ralentiza y el cuerpo se relaja'],
+      [26, 'Profundización: la mente entra en un estado de calma serena'],
+      [38, 'Trabajo terapéutico: se exploran sugestiones y visualizaciones'],
+      [46, 'Reorientación: un regreso suave y gradual al aquí y ahora'],
+      [50, '¡Sesión completa! Cuerpo y mente en equilibrio']
+    ];
+
+    function clamp(v){ return Math.max(0, Math.min(1, v)); }
+    function lerp(a, b, t){ return a + (b - a) * clamp(t); }
+    function stageFor(m){
+      for(var i = 0; i < stages.length; i++){ if(m <= stages[i][0]) return stages[i][1]; }
+      return stages[stages.length - 1][1];
+    }
+
+    var minute = 0;
+    function setMinute(m){
+      minute = m;
+      tension.setAttribute('opacity', 1 - clamp((m - 4) / 8));
+      var eyesClosing = clamp((m - 10) / 10);
+      eyeOpen.setAttribute('opacity', 1 - eyesClosing);
+      eyeClosed.setAttribute('opacity', eyesClosing);
+      var spiralVisible = clamp((m - 14) / 10);
+      spiral.setAttribute('opacity', spiralVisible);
+      spiral.style.animationDuration = (5 - 3 * clamp(m / MAX)) + 's';
+      aura.setAttribute('opacity', clamp((m - 20) / 12));
+      calmRings.setAttribute('opacity', m >= MAX ? 1 : 0);
+      glowTint.style.opacity = 0.55 * clamp((m - 8) / 30);
+      var period = lerp(4, 11, m / MAX);
+      var phase = (period > 0 ? (m % period) / period : 0) * Math.PI * 2;
+      var scale = 1 + 0.05 * Math.sin(phase);
+      breath.setAttribute('transform', 'translate(150 214) scale(1 ' + scale.toFixed(3) + ') translate(-150 -214)');
+      readout.textContent = 'Minuto ' + m + ' de ' + MAX;
+      stageText.textContent = stageFor(m);
+      range.value = m;
+      range.setAttribute('aria-valuetext', 'Minuto ' + m + ': ' + stageFor(m));
+    }
+
+    var timer = null;
+    function pausePlayback(){
+      if(timer){ clearInterval(timer); timer = null; }
+      playBtn.textContent = minute >= MAX ? 'Repetir sesión' : 'Reproducir sesión';
+    }
+    function startPlayback(){
+      if(minute >= MAX){ setMinute(0); }
+      playBtn.textContent = 'Pausar sesión';
+      timer = setInterval(function(){
+        if(minute >= MAX){ pausePlayback(); return; }
+        setMinute(minute + 1);
+        if(minute >= MAX){ pausePlayback(); }
+      }, 190);
+    }
+
+    range.addEventListener('input', function(){
+      setMinute(parseInt(range.value, 10));
+      pausePlayback();
+    });
+    playBtn.addEventListener('click', function(){
+      if(timer){ pausePlayback(); } else { startPlayback(); }
+    });
+
+    setMinute(0);
+
+    // --- Terapéutico / Bienestar personal tabs ---
+    var tabButtons = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var target = btn.getAttribute('data-tab');
+        tabButtons.forEach(function(b){
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        panels.forEach(function(p){
+          p.classList.toggle('active', p.getAttribute('data-panel') === target);
+        });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
