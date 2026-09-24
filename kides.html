@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easylandx para Negocios de Fiestas y Entretenimiento Infantil</title>
+<style>
+  :root{
+    --bg: #FF2D6A;
+    --bg-deep: #E01455;
+    --gold: #FFD93D;
+    --turquoise: #2FE6C9;
+    --ink: #2A0A1C;
+    --paper: #FFF6E9;
+    --grape: #7B2FF7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Baloo 2','Poppins',system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(255,217,61,0.25), transparent 40%),
+      radial-gradient(circle at 88% 18%, rgba(47,230,201,0.22), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(123,47,247,0.2), transparent 50%),
+      linear-gradient(160deg, var(--bg) 0%, var(--bg-deep) 100%);
+    color: var(--paper);
+    overflow-x:hidden;
+  }
+  @font-face{
+    font-family:'Baloo 2';
+    src:local('Baloo 2');
+  }
+  h1,h2,h3{ font-family:'Fredoka','Baloo 2',system-ui,sans-serif; margin:0; }
+  a{color:inherit;}
+  .wrap{ max-width:1100px; margin:0 auto; padding:0 24px; }
+
+  /* NAV */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 24px; max-width:1100px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Fredoka','Baloo 2',sans-serif;
+    font-weight:700; font-size:1.4rem; letter-spacing:0.5px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo span{ color:var(--gold); }
+  .nav-cta{
+    background:var(--gold); color:var(--ink); font-weight:700;
+    padding:10px 20px; border-radius:999px; text-decoration:none;
+    font-size:0.95rem; box-shadow:0 0 0 rgba(255,217,61,0.6);
+    transition:transform .2s ease, box-shadow .3s ease;
+  }
+  .nav-cta:hover{ transform:translateY(-2px); box-shadow:0 6px 22px rgba(255,217,61,0.55); }
+
+  /* HERO */
+  .hero{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px;
+    align-items:center; padding:40px 24px 70px; max-width:1100px; margin:0 auto;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4.2vw, 3.4rem);
+    line-height:1.08; color:var(--paper);
+  }
+  .hero h1 em{ font-style:normal; color:var(--gold); }
+  .hero p.lede{
+    margin-top:18px; font-size:1.15rem; line-height:1.6; color:#FFE9D6;
+    max-width:520px;
+  }
+  .hero-ctas{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--turquoise); color:var(--ink); font-weight:700;
+    padding:16px 30px; border-radius:999px; text-decoration:none;
+    font-size:1.05rem; border:3px solid var(--paper);
+    box-shadow:0 0 24px rgba(47,230,201,0.55);
+    transition:transform .2s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-3px) scale(1.02); }
+  .btn-ghost{
+    padding:16px 26px; border-radius:999px; text-decoration:none;
+    font-weight:700; font-size:1.05rem; color:var(--paper);
+    border:2px solid rgba(255,246,233,0.5);
+  }
+  .hero-art{ position:relative; }
+  .hero-art svg{ width:100%; height:auto; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.25)); }
+
+  /* SECTION HEADS */
+  .section{ padding:70px 24px; max-width:1100px; margin:0 auto; }
+  .section h2{
+    font-size:clamp(1.7rem, 3vw, 2.4rem); text-align:center; color:var(--paper);
+  }
+  .section .kicker{
+    text-align:center; color:var(--gold); font-weight:700; font-size:1.05rem;
+    margin-bottom:10px;
+  }
+  .section .sub{
+    text-align:center; max-width:640px; margin:16px auto 0; color:#FFE9D6;
+    font-size:1.05rem; line-height:1.6;
+  }
+
+  /* WHY GRID */
+  .why-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px;
+  }
+  .why-card{
+    background:rgba(255,246,233,0.08);
+    border:2px solid rgba(255,246,233,0.18);
+    border-radius:22px; padding:26px 22px;
+    backdrop-filter:blur(2px);
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .why-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--gold);
+    background:rgba(255,217,61,0.12);
+  }
+  .why-card .icon{ font-size:2.1rem; display:block; margin-bottom:14px; }
+  .why-card h3{ font-size:1.15rem; color:var(--gold); margin-bottom:8px; }
+  .why-card p{ margin:0; color:#FFE9D6; font-size:0.98rem; line-height:1.55; }
+
+  /* BALLOON GAME */
+  .balloon-stage{
+    position:relative; margin-top:50px;
+    background:radial-gradient(circle at 50% 0%, rgba(123,47,247,0.35), rgba(0,0,0,0) 60%);
+    border-radius:32px; border:2px dashed rgba(255,246,233,0.3);
+    padding:50px 24px 40px; min-height:420px;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    overflow:hidden;
+  }
+  .balloon-instructions{
+    color:#FFE9D6; text-align:center; margin-bottom:26px; font-size:1.05rem;
+  }
+  .balloon-row{
+    display:flex; gap:26px; flex-wrap:wrap; justify-content:center; z-index:2;
+  }
+  .balloon-btn{
+    background:none; border:none; cursor:pointer; padding:0;
+    width:86px; height:110px; position:relative;
+    animation:bob 3.4s ease-in-out infinite;
+  }
+  .balloon-btn:nth-child(2n){ animation-duration:3.9s; animation-delay:.3s; }
+  .balloon-btn:nth-child(3n){ animation-duration:3.1s; animation-delay:.6s; }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0) rotate(-2deg); }
+    50%{ transform:translateY(-14px) rotate(2deg); }
+  }
+  .balloon-btn svg{ width:100%; height:100%; filter:drop-shadow(0 10px 14px rgba(0,0,0,0.25)); }
+  .balloon-btn.popped{ visibility:hidden; }
+  .balloon-btn:focus-visible{ outline:3px solid var(--gold); border-radius:12px; }
+
+  .reveal-card{
+    margin-top:30px; background:var(--paper); color:var(--ink);
+    border-radius:20px; padding:22px 26px; max-width:480px; width:100%;
+    box-shadow:0 14px 34px rgba(0,0,0,0.3);
+    display:none; align-items:flex-start; gap:14px; z-index:3;
+  }
+  .reveal-card.show{ display:flex; }
+  .reveal-card .emoji{ font-size:1.8rem; }
+  .reveal-card h4{ margin:0 0 4px; font-family:'Fredoka','Baloo 2',sans-serif; font-size:1.1rem; color:var(--bg-deep); }
+  .reveal-card p{ margin:0; font-size:0.95rem; line-height:1.5; }
+  .progress{
+    margin-top:18px; font-size:0.9rem; color:#FFE9D6; text-align:center;
+  }
+  .reset-btn{
+    margin-top:16px; background:none; border:2px solid rgba(255,246,233,0.5);
+    color:var(--paper); padding:9px 18px; border-radius:999px; cursor:pointer;
+    font-weight:700; font-size:0.9rem; display:none;
+  }
+  .reset-btn.show{ display:inline-block; }
+
+  .confetti-piece{
+    position:fixed; top:-20px; width:10px; height:14px; z-index:50;
+    pointer-events:none; opacity:0.95;
+  }
+
+  /* TOGGLE SECTION */
+  .toggle-wrap{ text-align:center; margin-top:40px; }
+  .toggle-buttons{
+    display:inline-flex; background:rgba(255,246,233,0.12); border-radius:999px;
+    padding:6px; gap:6px; border:2px solid rgba(255,246,233,0.25);
+  }
+  .toggle-buttons button{
+    border:none; background:none; color:var(--paper); font-weight:700;
+    padding:12px 22px; border-radius:999px; cursor:pointer; font-size:0.98rem;
+    font-family:inherit; transition:background .25s ease, color .25s ease;
+  }
+  .toggle-buttons button.active{ background:var(--gold); color:var(--ink); }
+  .toggle-panels{ margin-top:34px; position:relative; }
+  .toggle-panel{
+    display:none; grid-template-columns:repeat(2,1fr); gap:18px; text-align:left;
+  }
+  .toggle-panel.active{ display:grid; }
+  .toggle-panel .point{
+    background:rgba(255,246,233,0.08); border:2px solid rgba(255,246,233,0.16);
+    border-radius:18px; padding:20px; font-size:0.98rem; line-height:1.55; color:#FFE9D6;
+  }
+  .toggle-panel .point strong{ color:var(--turquoise); display:block; margin-bottom:6px; font-size:1.02rem; }
+
+  /* FEATURES STRIP */
+  .features-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:44px;
+  }
+  .feature-pill{
+    background:rgba(255,246,233,0.08); border:2px solid rgba(255,246,233,0.18);
+    border-radius:18px; padding:20px; text-align:center;
+  }
+  .feature-pill .num{
+    font-family:'Fredoka','Baloo 2',sans-serif; font-size:1.6rem; color:var(--gold); display:block;
+  }
+  .feature-pill p{ margin:6px 0 0; font-size:0.9rem; color:#FFE9D6; }
+
+  /* FINAL CTA */
+  .final-cta{
+    text-align:center; padding:80px 24px 100px;
+    background:radial-gradient(circle at 50% 30%, rgba(255,217,61,0.18), transparent 60%);
+  }
+  .final-cta h2{ font-size:clamp(1.8rem,3.6vw,2.6rem); }
+  .final-cta p{ color:#FFE9D6; max-width:520px; margin:16px auto 30px; font-size:1.08rem; line-height:1.6; }
+
+  footer{
+    text-align:center; padding:28px 24px; color:#FFC9DA; font-size:0.88rem;
+    border-top:1px solid rgba(255,246,233,0.15);
+  }
+  footer a{ color:var(--gold); text-decoration:none; font-weight:700; }
+
+  @media (max-width: 860px){
+    .hero{ grid-template-columns:1fr; text-align:center; padding-top:20px; }
+    .hero p.lede{ margin-left:auto; margin-right:auto; }
+    .hero-ctas{ justify-content:center; }
+    .why-grid{ grid-template-columns:1fr; }
+    .toggle-panel{ grid-template-columns:1fr; }
+    .features-strip{ grid-template-columns:repeat(2,1fr); }
+    nav{ flex-direction:column; gap:14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .balloon-btn{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">easyland<span>x</span> 🎈</div>
+  <a class="nav-cta" href="#final-cta">Obtener mi página</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-copy">
+    <h1>Tus fiestas son inolvidables.<br>Tu página web debería <em>resaltar</em> igual.</h1>
+    <p class="lede">easylandx crea páginas de destino personalizadas y enfocadas en dispositivos móviles para empresas de entretenimiento y fiestas infantiles: alegres, rápidas y diseñadas para convertir a un padre que navega en una reserva en menos de un minuto.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#final-cta">Comenzar mi página de fiestas</a>
+      <a class="btn-ghost" href="#balloons">Probar el juego de los globos ↓</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg">
+      <!-- resplandor del cielo -->
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#FFD93D" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#FFD93D" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="castle1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2FE6C9"/>
+          <stop offset="100%" stop-color="#1EC2A8"/>
+        </linearGradient>
+        <linearGradient id="castle2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFD93D"/>
+          <stop offset="100%" stop-color="#F4B400"/>
+        </linearGradient>
+      </defs>
+      <circle cx="240" cy="150" r="180" fill="url(#glow)"/>
+
+      <!-- castillo inflable -->
+      <g transform="translate(90,190)">
+        <rect x="0" y="90" width="300" height="90" rx="14" fill="#7B2FF7"/>
+        <path d="M0 90 Q0 20 60 20 Q60 90 0 90 Z" fill="url(#castle1)"/>
+        <path d="M300 90 Q300 20 240 20 Q240 90 300 90 Z" fill="url(#castle2)"/>
+        <path d="M60 90 Q150 -10 240 90 Z" fill="#FF2D6A"/>
+        <path d="M60 90 Q150 10 240 90 Z" fill="#FFF6E9" opacity="0.15"/>
+        <circle cx="60" cy="20" r="12" fill="#FF2D6A"/>
+        <circle cx="240" cy="20" r="12" fill="#2FE6C9"/>
+        <rect x="120" y="130" width="60" height="50" rx="8" fill="#FFF6E9" opacity="0.9"/>
+        <path d="M0 180 L300 180 L300 195 L0 195 Z" fill="#5A1FC0"/>
+      </g>
+
+      <!-- globos -->
+      <g>
+        <ellipse cx="70" cy="90" rx="28" ry="34" fill="#FF2D6A" stroke="#FFF6E9" stroke-width="3"/>
+        <path d="M70 124 L64 150 L76 150 Z" fill="#FFF6E9" opacity="0.6"/>
+        <line x1="70" y1="150" x2="70" y2="210" stroke="#FFF6E9" stroke-width="2"/>
+      </g>
+      <g>
+        <ellipse cx="400" cy="70" rx="24" ry="30" fill="#2FE6C9" stroke="#FFF6E9" stroke-width="3"/>
+        <path d="M400 100 L395 122 L405 122 Z" fill="#FFF6E9" opacity="0.6"/>
+        <line x1="400" y1="122" x2="400" y2="190" stroke="#FFF6E9" stroke-width="2"/>
+      </g>
+      <g>
+        <ellipse cx="360" cy="130" rx="20" ry="25" fill="#FFD93D" stroke="#FFF6E9" stroke-width="3"/>
+        <path d="M360 155 L356 172 L364 172 Z" fill="#FFF6E9" opacity="0.6"/>
+        <line x1="360" y1="172" x2="360" y2="220" stroke="#FFF6E9" stroke-width="2"/>
+      </g>
+
+      <!-- confeti -->
+      <circle cx="140" cy="60" r="5" fill="#FFD93D"/>
+      <circle cx="330" cy="40" r="4" fill="#FF2D6A"/>
+      <circle cx="200" cy="30" r="4" fill="#2FE6C9"/>
+      <rect x="260" y="60" width="8" height="8" fill="#7B2FF7" transform="rotate(20 264 64)"/>
+      <rect x="110" y="30" width="7" height="7" fill="#2FE6C9" transform="rotate(-15 113 33)"/>
+    </svg>
+  </div>
+</header>
+
+<section class="section">
+  <p class="kicker">POR QUÉ FUNCIONA</p>
+  <h2>Los padres reservan entretenimiento para fiestas como navegan en todo lo demás</h2>
+  <p class="sub">Rápido, desde el teléfono y guiados por lo que ven. Tu sitio web es el momento en que deciden si eres la opción divertida y confiable, o la pestaña que cierran.</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="icon">📱</span>
+      <h3>Diseñado para reservar con un pulgar</h3>
+      <p>La mayoría de los padres buscan desde su teléfono mientras hacen otras cosas, a menudo con sus hijos al lado. Tu página carga al instante y va directo a fotos, paquetes y un botón para reservar.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🎪</span>
+      <h3>Muestra la diversión, no solo datos</h3>
+      <p>Grandes galerías de fotos y videos de fiestas reales (torres de globos, pintacaritas, shows de magia) convencen más que cualquier texto largo.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">💬</span>
+      <h3>WhatsApp e Instagram en un toque</h3>
+      <p>Sin formularios complicados donde perder clientes. Un padre toca un botón y está chateando contigo al instante sobre fechas, temáticas y precios.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🎨</span>
+      <h3>Un diseño tan alegre como tus fiestas</h3>
+      <p>Sin plantillas genéricas. Tu paleta de colores, tu mascota, tu energía: una página diseñada según tu marca real, no los valores predeterminados de un editor básico.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🎂</span>
+      <h3>Paquetes claros, cero confusión</h3>
+      <p>Temáticas, adicionales y niveles de precios organizados de forma sencilla, para que los padres comparen opciones y elijan con confianza sin tener que hacer diez preguntas primero.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">⭐</span>
+      <h3>Confianza justo donde se necesita</h3>
+      <p>Reseñas, notas de seguridad y menciones de eventos realizados están ubicados justo donde un padre indeciso necesita tranquilidad, justo antes del botón de reserva.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="balloons">
+  <p class="kicker">PRUÉBALO TÚ MISMO</p>
+  <h2>Revienta un globo y mira cómo podría funcionar tu sitio</h2>
+  <p class="sub">Este es el tipo de interacción divertida que easylandx puede integrar directamente en tu página: un minijuego que mantiene enganchados a los visitantes mientras descubren por qué contratarte.</p>
+
+  <div class="balloon-stage">
+    <p class="balloon-instructions">🎈 Toca cada globo para reventarlo y descubrir lo que tu página podría hacer</p>
+    <div class="balloon-row" id="balloonRow"></div>
+    <div class="reveal-card" id="revealCard">
+      <span class="emoji" id="revealEmoji">🎉</span>
+      <div>
+        <h4 id="revealTitle"></h4>
+        <p id="revealText"></p>
+      </div>
+    </div>
+    <p class="progress" id="progressText">0 de 6 globos reventados</p>
+    <button class="reset-btn" id="resetBtn">Reiniciar globos 🎈</button>
+  </div>
+</section>
+
+<section class="section">
+  <p class="kicker">HECHO PARA TU MODELO</p>
+  <h2>Animador independiente o empresa completa de entretenimiento: la página se adapta</h2>
+  <p class="sub">Cambia a continuación para ver cómo easylandx se ajusta a la forma en que operas tu negocio.</p>
+
+  <div class="toggle-wrap">
+    <div class="toggle-buttons">
+      <button class="active" data-panel="solo">Animador Independiente</button>
+      <button data-panel="company">Empresa de Entretenimiento</button>
+    </div>
+  </div>
+
+  <div class="toggle-panels">
+    <div class="toggle-panel active" id="panel-solo">
+      <div class="point"><strong>Un rostro, una historia</strong>Tu biografía, los trajes de tus personajes y tus fotos de eventos en primer plano: los padres sienten que están reservando a una persona real, no a un servicio sin rostro.</div>
+      <div class="point"><strong>Disponibilidad sencilla</strong>Un calendario claro de fines de semana o un botón de WhatsApp para "consultar fechas", evitando malabares con mensajes para saber quién está libre.</div>
+      <div class="point"><strong>Catálogo de personajes principales</strong>Muestra de 3 a 5 personajes o shows principales con su propia foto, para que los padres elijan su favorito en segundos.</div>
+      <div class="point"><strong>Reseñas personales destacadas</strong>Testimonios que te mencionan por tu nombre generan la confianza personal necesaria para realizar la reserva.</div>
+    </div>
+    <div class="toggle-panel" id="panel-company">
+      <div class="point"><strong>Catálogo completo en una sola página</strong>Múltiples animadores, personajes y tipos de shows organizados con claridad, para que los padres exploren toda la oferta de tu equipo.</div>
+      <div class="point"><strong>Niveles de paquetes escalables</strong>Desde un mago individual hasta un montaje tipo feria: combina adicionales como pintacaritas, globoflexia y cabinas de fotos en paquetes claros.</div>
+      <div class="point"><strong>Listo para varias ciudades o sedes</strong>Si cubres diferentes zonas o ciudades, tu página puede dirigir a los padres al equipo y precios correspondientes automáticamente.</div>
+      <div class="point"><strong>Modo para eventos corporativos y escolares</strong>Una sección especial dedicada a ferias escolares y eventos empresariales: un comprador diferente con una propuesta adaptada en la misma página.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <p class="kicker">QUÉ INCLUYE</p>
+  <h2>Todo lo que necesita una página de fiestas, nada de más</h2>
+  <div class="features-strip">
+    <div class="feature-pill"><span class="num">📸</span><p>Galería de fotos y videos de eventos</p></div>
+    <div class="feature-pill"><span class="num">🎈</span><p>Animaciones e interactividad divertida</p></div>
+    <div class="feature-pill"><span class="num">💬</span><p>Llamados a la acción directos a WhatsApp e Instagram</p></div>
+    <div class="feature-pill"><span class="num">⚡</span><p>Carga rápida en cualquier teléfono</p></div>
+  </div>
+</section>
+
+<section class="final-cta" id="final-cta">
+  <h2>Creemos una página tan divertida como tus fiestas.</h2>
+  <p>Envíanos tus fotos, personajes y paquetes: easylandx creará una página personalizada y única. Sin plantillas, jamás.</p>
+  <a class="btn-primary" href="#">Reservar mi página de easylandx</a>
+</section>
+
+<footer>
+  easylandx — páginas de destino personalizadas para pequeñas empresas · <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a> · 2026
+</footer>
+
+<script>
+(function(){
+  const balloonData = [
+    { color:"#FF2D6A", emoji:"📸", title:"Fotos reales de fiestas, en primer plano", text:"Tu galería de esculturas de globos, smash cakes y niños felices convence a los clientes antes de decir una sola palabra." },
+    { color:"#2FE6C9", emoji:"💬", title:"Un toque para reservar", text:"Un botón llamativo de WhatsApp convierte a un padre curioso en una conversación sobre fechas y temáticas en segundos." },
+    { color:"#FFD93D", emoji:"🎭", title:"Tus personajes, destacados", text:"Cada disfraz o show tiene su propia tarjeta destacada con fotos, para que los padres elijan su favorito rápidamente." },
+    { color:"#7B2FF7", emoji:"🎂", title:"Paquetes fáciles de comparar", text:"Niveles claros (básico, deluxe, feria completa) con precios incluidos, evitando adivinanzas y rodeos." },
+    { color:"#FF7A2D", emoji:"⭐", title:"Reseñas donde más importan", text:"Testimonios ubicados justo antes del botón de reserva convierten las dudas en confianza." },
+    { color:"#2DD4FF", emoji:"🎪", title:"Una página que refleja tu marca", text:"Alegre, divertida y creada desde cero alrededor de tu negocio, nunca a partir de una plantilla reciclada." }
+  ];
+
+  const row = document.getElementById('balloonRow');
+  const revealCard = document.getElementById('revealCard');
+  const revealEmoji = document.getElementById('revealEmoji');
+  const revealTitle = document.getElementById('revealTitle');
+  const revealText = document.getElementById('revealText');
+  const progressText = document.getElementById('progressText');
+  const resetBtn = document.getElementById('resetBtn');
+  let poppedCount = 0;
+
+  function makeBalloon(data, idx){
+    const btn = document.createElement('button');
+    btn.className = 'balloon-btn';
+    btn.setAttribute('aria-label', 'Revienta el globo para revelar un beneficio');
+    btn.dataset.idx = idx;
+    btn.innerHTML = `
+      <svg viewBox="0 0 90 116" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="45" cy="46" rx="34" ry="42" fill="${data.color}" stroke="#FFF6E9" stroke-width="3"/>
+        <ellipse cx="34" cy="30" rx="9" ry="13" fill="#ffffff" opacity="0.35"/>
+        <path d="M45 88 L38 104 L52 104 Z" fill="#FFF6E9" opacity="0.6"/>
+        <line x1="45" y1="104" x2="45" y2="116" stroke="#FFF6E9" stroke-width="2"/>
+      </svg>`;
+    btn.addEventListener('click', () => popBalloon(btn, data));
+    return btn;
+  }
+
+  function popBalloon(btn, data){
+    if (btn.classList.contains('popped')) return;
+    btn.classList.add('popped');
+    poppedCount++;
+    revealEmoji.textContent = data.emoji;
+    revealTitle.textContent = data.title;
+    revealText.textContent = data.text;
+    revealCard.classList.add('show');
+    progressText.textContent = poppedCount + ' de ' + balloonData.length + ' globos reventados';
+    spawnConfetti(data.color, btn.getBoundingClientRect());
+    if (poppedCount === balloonData.length){
+      resetBtn.classList.add('show');
+    }
+  }
+
+  function spawnConfetti(color, rect){
+    const colors = [color, '#FFD93D', '#FFF6E9'];
+    for (let i=0; i<16; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.background = colors[i % colors.length];
+      piece.style.left = (rect.left + rect.width/2 + (Math.random()*60-30)) + 'px';
+      piece.style.top = (rect.top + rect.height/2) + 'px';
+      piece.style.transform = `rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(piece);
+      const dx = (Math.random()*160-80);
+      const dy = 260 + Math.random()*160;
+      const rot = Math.random()*720-360;
+      const dur = 900 + Math.random()*500;
+      piece.animate([
+        { transform: piece.style.transform + ' translate(0,0)', opacity:1 },
+        { transform: `rotate(${rot}deg) translate(${dx}px, ${dy}px)`, opacity:0 }
+      ], { duration: dur, easing:'cubic-bezier(.2,.6,.4,1)' });
+      setTimeout(()=> piece.remove(), dur+50);
+    }
+  }
+
+  function buildBalloons(){
+    row.innerHTML = '';
+    balloonData.forEach((d, idx) => row.appendChild(makeBalloon(d, idx)));
+    poppedCount = 0;
+    revealCard.classList.remove('show');
+    progressText.textContent = '0 de ' + balloonData.length + ' globos reventados';
+    resetBtn.classList.remove('show');
+  }
+
+  resetBtn.addEventListener('click', buildBalloons);
+  buildBalloons();
+
+  // Sección de cambio (Toggle)
+  const toggleButtons = document.querySelectorAll('.toggle-buttons button');
+  const panels = { solo: document.getElementById('panel-solo'), company: document.getElementById('panel-company') };
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(panels).forEach(p => p.classList.remove('active'));
+      panels[btn.dataset.panel].classList.add('active');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

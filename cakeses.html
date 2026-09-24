@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx para Diseñadores de Pasteles y Reposterías Personalizadas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root, :root:not([data-theme="light"]) {
+    --raspberry: #ff2d78;
+    --raspberry-deep: #e0155e;
+    --fuchsia-glow: #ff5fa8;
+    --gold: #ffd23f;
+    --gold-deep: #f5b400;
+    --mint: #6ef2c9;
+    --mint-deep: #2ee6ac;
+    --choc: #3a1a12;
+    --choc-soft: #5c2c1e;
+    --cream: #fff7ec;
+    --card: #ffffff;
+    --card-line: rgba(58,26,18,0.10);
+    --shadow: rgba(224,21,94,0.28);
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --raspberry: #ff2d78;
+    --raspberry-deep: #d10f52;
+    --fuchsia-glow: #ff5fa8;
+    --gold: #ffd23f;
+    --gold-deep: #f5b400;
+    --mint: #6ef2c9;
+    --mint-deep: #2ee6ac;
+    --choc: #3a1a12;
+    --choc-soft: #5c2c1e;
+    --cream: #fff7ec;
+    --card: #ffffff;
+    --card-line: rgba(58,26,18,0.10);
+    --shadow: rgba(224,21,94,0.28);
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+  body {
+    margin: 0;
+    background: var(--raspberry);
+    color: var(--cream);
+    font-family: 'Manrope', system-ui, sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Baloo 2', 'Manrope', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0;
+  }
+  img, svg { max-width: 100%; }
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .scroller {
+    overflow-x: auto;
+  }
+
+  /* ---------- Fondo con brillo radial ---------- */
+  .glow-field {
+    position: relative;
+    background:
+      radial-gradient(600px 400px at 12% 8%, rgba(255,210,63,0.35), transparent 60%),
+      radial-gradient(700px 500px at 88% 18%, rgba(110,242,201,0.28), transparent 60%),
+      radial-gradient(900px 700px at 50% 100%, rgba(255,95,168,0.4), transparent 60%),
+      linear-gradient(180deg, var(--raspberry-deep), var(--raspberry) 40%, var(--raspberry-deep));
+  }
+
+  /* ---------- Navegación ---------- */
+  header.nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 50;
+    background: rgba(224,21,94,0.72);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--cream);
+    letter-spacing: 0.2px;
+  }
+  .brand-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 14px 4px rgba(255,210,63,0.75);
+  }
+  .nav-cta {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--choc);
+    background: var(--gold);
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 0 0 0 rgba(255,210,63,0.6);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(255,210,63,0.55); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 64px 0 40px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.28);
+    padding: 7px 14px 7px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    color: var(--cream);
+    text-shadow: 0 0 40px rgba(255,95,168,0.5);
+    max-width: 12ch;
+  }
+  .hero h1 span {
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(255,210,63,0.65);
+  }
+  .hero p.lede {
+    margin-top: 22px;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: rgba(255,247,236,0.92);
+    max-width: 46ch;
+  }
+  .hero-ctas {
+    margin-top: 32px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-primary, .btn-ghost {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 15px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--choc);
+    box-shadow: 0 0 34px rgba(255,210,63,0.55);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,210,63,0.6); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 2px solid rgba(255,247,236,0.55);
+  }
+  .btn-ghost:hover { border-color: var(--mint); color: var(--mint); }
+
+  .hero-art { position: relative; }
+  .sprinkle {
+    position: absolute;
+    animation: fall linear infinite;
+    opacity: 0.9;
+  }
+  @keyframes fall {
+    from { transform: translateY(-30px) rotate(0deg); }
+    to { transform: translateY(420px) rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sprinkle { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- Estructura de Secciones ---------- */
+  section { padding: 76px 0; }
+  .panel {
+    background: var(--cream);
+    color: var(--choc);
+  }
+  .kicker {
+    font-weight: 700;
+    color: var(--raspberry-deep);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+    color: var(--choc);
+    max-width: 18ch;
+  }
+  .section-title.on-raspberry { color: var(--cream); }
+  .section-sub {
+    margin-top: 14px;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 62ch;
+    color: var(--choc-soft);
+  }
+  .section-sub.on-raspberry { color: rgba(255,247,236,0.88); }
+
+  /* ---------- Tarjetas de Problema/Solución ---------- */
+  .cardgrid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .flavor-card {
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 22px;
+    padding: 26px 24px;
+    box-shadow: 0 14px 30px rgba(58,26,18,0.08);
+  }
+  .flavor-card .icon-badge {
+    width: 52px; height: 52px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .flavor-card h3 { font-size: 1.15rem; color: var(--choc); margin-bottom: 8px; }
+  .flavor-card p { margin: 0; font-size: 0.98rem; line-height: 1.55; color: var(--choc-soft); }
+
+  /* ---------- Diseñador interactivo (Builder) ---------- */
+  .builder-section { background: var(--raspberry-deep); position: relative; }
+  .builder {
+    margin-top: 46px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 30px;
+    align-items: stretch;
+  }
+  .builder-stage {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    min-height: 380px;
+    position: relative;
+    overflow: hidden;
+  }
+  .builder-stage::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(320px 260px at 50% 30%, rgba(255,210,63,0.22), transparent 70%);
+    pointer-events: none;
+  }
+  .builder-controls {
+    background: var(--cream);
+    color: var(--choc);
+    border-radius: 28px;
+    padding: 30px 28px;
+  }
+  .control-block { margin-bottom: 24px; }
+  .control-block:last-child { margin-bottom: 0; }
+  .control-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .swatch-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    position: relative;
+  }
+  .swatch.active { border-color: var(--choc); transform: scale(1.08); }
+  .tier-btns { display: flex; gap: 10px; }
+  .tier-btn {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 14px;
+    border: 2px solid var(--card-line);
+    background: #fff;
+    font-weight: 700;
+    font-family: 'Manrope', sans-serif;
+    cursor: pointer;
+    color: var(--choc);
+    transition: all 0.15s ease;
+  }
+  .tier-btn.active { border-color: var(--raspberry); background: rgba(255,45,120,0.08); color: var(--raspberry-deep); }
+  .topping-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .topping-chip {
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 2px solid var(--card-line);
+    background: #fff;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--choc-soft);
+    transition: all 0.15s ease;
+  }
+  .topping-chip.active {
+    border-color: var(--mint-deep);
+    background: rgba(46,230,172,0.14);
+    color: #14684f;
+  }
+  .builder-note {
+    margin-top: 22px;
+    font-size: 0.88rem;
+    color: var(--choc-soft);
+    background: rgba(255,210,63,0.18);
+    border: 1px solid rgba(245,180,0,0.35);
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+
+  /* ---------- Secciones intercambiables (Toggle) ---------- */
+  .toggle-section { background: var(--cream); color: var(--choc); }
+  .toggle-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .toggle-switch {
+    display: inline-flex;
+    background: #fff;
+    border: 2px solid var(--card-line);
+    border-radius: 999px;
+    padding: 6px;
+    gap: 4px;
+  }
+  .toggle-opt {
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--choc-soft);
+    cursor: pointer;
+  }
+  .toggle-opt.active {
+    background: var(--raspberry);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(255,45,120,0.35);
+  }
+  .toggle-panels { margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .toggle-panel {
+    background: #fff;
+    border: 1px solid var(--card-line);
+    border-radius: 22px;
+    padding: 24px;
+    display: none;
+  }
+  .toggle-panel.visible { display: block; }
+  .toggle-panel h4 { margin: 0 0 6px; font-size: 1.05rem; color: var(--raspberry-deep); font-family: 'Baloo 2', sans-serif; }
+  .toggle-panel p { margin: 0; font-size: 0.95rem; color: var(--choc-soft); line-height: 1.55; }
+
+  /* ---------- Galería ---------- */
+  .gallery-section { background: linear-gradient(180deg, var(--raspberry), var(--raspberry-deep)); }
+  .gallery-grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .gallery-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+  .gallery-card svg { width: 100%; height: 110px; }
+  .gallery-card p {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  /* ---------- Pasos ---------- */
+  .steps { margin-top: 46px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .step-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 22px 20px;
+    border: 1px solid var(--card-line);
+    position: relative;
+  }
+  .step-card .num {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--mint-deep);
+    -webkit-text-stroke: 1px var(--choc);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .step-card h4 { margin: 0 0 6px; font-size: 1.02rem; color: var(--choc); font-family: 'Baloo 2', sans-serif; }
+  .step-card p { margin: 0; font-size: 0.9rem; color: var(--choc-soft); line-height: 1.5; }
+
+  /* ---------- CTA ---------- */
+  .cta-section { text-align: center; padding: 90px 0 100px; }
+  .cta-section h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--cream); text-shadow: 0 0 40px rgba(255,95,168,0.5); }
+  .cta-section p { margin: 18px auto 0; max-width: 50ch; color: rgba(255,247,236,0.9); font-size: 1.05rem; }
+  .cta-section .hero-ctas { justify-content: center; margin-top: 34px; }
+
+  footer {
+    background: var(--choc);
+    color: rgba(255,247,236,0.7);
+    padding: 30px 0;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ---------- Diseño Adaptativo (Responsive) ---------- */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; }
+    .cardgrid { grid-template-columns: 1fr 1fr; }
+    .builder { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .toggle-panels { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .cardgrid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .nav-inner { padding: 12px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot"></span> easylandx</div>
+    <a class="nav-cta" href="#cta">Obtener mi página</a>
+  </div>
+</header>
+
+<div class="glow-field">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow-pill">🎂 Creado para diseñadores de pasteles y reposterías personalizadas</div>
+      <h1>Tus pasteles son deslumbrantes. <span>Tu sitio web debería serlo también.</span></h1>
+      <p class="lede">easylandx crea una página de destino única para tu repostería en 2026, diseñada en función de tus pasteles reales, tu estilo auténtico y la forma en que tus clientes realmente te piden pedidos. Sin plantillas ni creadores genéricos.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#cta">Mira cómo podría lucir el tuyo</a>
+        <a class="btn-ghost" href="#builder">Prueba el diseñador de pasteles ↓</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de un pastel decorado de tres pisos">
+        <defs>
+          <linearGradient id="tier1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffe9f2"/>
+            <stop offset="100%" stop-color="#ffd0e4"/>
+          </linearGradient>
+          <linearGradient id="tier2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fff3d6"/>
+            <stop offset="100%" stop-color="#ffe29e"/>
+          </linearGradient>
+          <linearGradient id="tier3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d9fff1"/>
+            <stop offset="100%" stop-color="#aef2d8"/>
+          </linearGradient>
+          <radialGradient id="plateGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffd23f" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ffd23f" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="210" cy="358" rx="150" ry="18" fill="url(#plateGlow)"/>
+        <ellipse cx="210" cy="352" rx="120" ry="14" fill="#fff" opacity="0.9"/>
+
+        <!-- nivel 3 base -->
+        <rect x="90" y="270" width="240" height="80" rx="14" fill="url(#tier1)" stroke="#3a1a12" stroke-width="4"/>
+        <path d="M90 284 Q 130 270 170 284 T 250 284 T 330 284" fill="none" stroke="#ff2d78" stroke-width="6" stroke-linecap="round"/>
+        <!-- nivel 2 -->
+        <rect x="125" y="180" width="170" height="90" rx="14" fill="url(#tier2)" stroke="#3a1a12" stroke-width="4"/>
+        <path d="M125 196 Q 160 182 195 196 T 265 196" fill="none" stroke="#ffd23f" stroke-width="6" stroke-linecap="round"/>
+        <path d="M125 226 Q 160 212 195 226 T 265 226" fill="none" stroke="#ffd23f" stroke-width="6" stroke-linecap="round"/>
+        <!-- nivel 1 superior -->
+        <rect x="155" y="110" width="110" height="70" rx="12" fill="url(#tier3)" stroke="#3a1a12" stroke-width="4"/>
+        <path d="M155 124 Q 180 112 205 124 T 255 124" fill="none" stroke="#2ee6ac" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- vela -->
+        <rect x="203" y="78" width="8" height="34" rx="3" fill="#ff2d78"/>
+        <path d="M207 60 C 214 68 214 76 207 82 C 200 76 200 68 207 60 Z" fill="#ffd23f"/>
+
+        <!-- chispas de colores en el pastel -->
+        <g stroke-linecap="round">
+          <line x1="110" y1="300" x2="118" y2="308" stroke="#ff2d78" stroke-width="4"/>
+          <line x1="140" y1="310" x2="132" y2="320" stroke="#2ee6ac" stroke-width="4"/>
+          <line x1="200" y1="305" x2="208" y2="298" stroke="#ffd23f" stroke-width="4"/>
+          <line x1="260" y1="315" x2="252" y2="308" stroke="#ff2d78" stroke-width="4"/>
+          <line x1="300" y1="298" x2="292" y2="306" stroke="#2ee6ac" stroke-width="4"/>
+          <circle cx="180" cy="150" r="5" fill="#ff2d78"/>
+          <circle cx="220" cy="145" r="5" fill="#2ee6ac"/>
+          <circle cx="200" cy="205" r="5" fill="#ffd23f"/>
+        </g>
+      </svg>
+
+      <svg class="sprinkle" style="left:8%; top:0; width:18px; animation-duration:6s; animation-delay:0s;" viewBox="0 0 10 10"><rect width="10" height="4" rx="2" fill="#ffd23f" transform="rotate(20 5 5)"/></svg>
+      <svg class="sprinkle" style="left:30%; top:0; width:14px; animation-duration:7.5s; animation-delay:1s;" viewBox="0 0 10 10"><rect width="10" height="4" rx="2" fill="#6ef2c9" transform="rotate(-15 5 5)"/></svg>
+      <svg class="sprinkle" style="left:55%; top:0; width:16px; animation-duration:5.5s; animation-delay:2s;" viewBox="0 0 10 10"><rect width="10" height="4" rx="2" fill="#ffffff" transform="rotate(40 5 5)"/></svg>
+      <svg class="sprinkle" style="left:75%; top:0; width:15px; animation-duration:8s; animation-delay:0.5s;" viewBox="0 0 10 10"><rect width="10" height="4" rx="2" fill="#ff2d78" transform="rotate(-30 5 5)"/></svg>
+      <svg class="sprinkle" style="left:90%; top:0; width:12px; animation-duration:6.8s; animation-delay:1.6s;" viewBox="0 0 10 10"><rect width="10" height="4" rx="2" fill="#ffd23f" transform="rotate(10 5 5)"/></svg>
+    </div>
+  </div>
+</div>
+
+<section class="panel">
+  <div class="wrap">
+    <div class="kicker">El problema con las opciones habituales</div>
+    <h2 class="section-title">Los creadores de sitios web se hicieron para todos. Ese es exactamente el problema.</h2>
+    <p class="section-sub">Una plantilla genérica no sabe distinguir un pastel estilo "naked" de una escultura en fondant, y definitivamente no puede resaltar la diferencia entre tus cupcakes diarios y tu pastel de bodas de seis pisos. Los reposteros terminan con un sitio que parece de floristería o gimnasio, donde sus fotos de pasteles parecen colocadas como una ocurrencia tardía.</p>
+
+    <div class="cardgrid">
+      <div class="flavor-card">
+        <div class="icon-badge" style="background:rgba(255,45,120,0.12);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 12a8 8 0 0116 0M4 12v6a2 2 0 002 2h12a2 2 0 002-2v-6" stroke="#e0155e" stroke-width="2" stroke-linecap="round"/><circle cx="8" cy="9" r="1.2" fill="#e0155e"/><circle cx="16" cy="9" r="1.2" fill="#e0155e"/><circle cx="12" cy="7" r="1.2" fill="#e0155e"/></svg>
+        </div>
+        <h3>Las plantillas genéricas opacan tu estilo</h3>
+        <p>Las florituras de crema de mantequilla y los acabados modernos de fondant terminan encajonados en el mismo diseño rígido que la página de un fontanero.</p>
+      </div>
+      <div class="flavor-card">
+        <div class="icon-badge" style="background:rgba(255,210,63,0.18);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M4 8h16M4 16h16" stroke="#c98800" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>El proceso de pedido está oculto en menús</h3>
+        <p>Los pasteles personalizados no son productos de "añadir al carrito"; necesitan sabor, tamaño, pisos y fecha del evento. La mayoría de los creadores no piden eso de forma clara.</p>
+      </div>
+      <div class="flavor-card">
+        <div class="icon-badge" style="background:rgba(46,230,172,0.16);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="#14684f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h6v6" stroke="#14684f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Las fotos cargan lento y se ven planas</h3>
+        <p>Las fotografías de tus pasteles son tu mejor carta de presentación. Merecen una página construida para cargar rápido y lucir impecable en cualquier teléfono.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="builder-section glow-field" id="builder">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--gold);">Compruébalo tú mismo</div>
+    <h2 class="section-title on-raspberry">Este es el tipo de experiencia interactiva que tendrán tus clientes</h2>
+    <p class="section-sub on-raspberry">Una página real de easylandx para tu repostería puede permitir que los visitantes diseñen antes de escribirte. Pruébalo abajo: elige el número de pisos, el color de la cobertura y las decoraciones.</p>
+
+    <div class="builder">
+      <div class="builder-stage">
+        <svg id="cakeSvg" viewBox="0 0 300 320" width="260">
+          <ellipse cx="150" cy="296" rx="110" ry="14" fill="#ffffff" opacity="0.85"/>
+          <g id="tiersGroup"></g>
+          <g id="toppingsGroup"></g>
+        </svg>
+      </div>
+
+      <div class="builder-controls">
+        <div class="control-block">
+          <div class="control-label"><span>¿Cuántos pisos?</span></div>
+          <div class="tier-btns">
+            <button class="tier-btn active" data-tiers="1">1 piso</button>
+            <button class="tier-btn" data-tiers="2">2 pisos</button>
+            <button class="tier-btn" data-tiers="3">3 pisos</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div class="control-label"><span>Color de la cobertura</span></div>
+          <div class="swatch-row" id="frostingSwatches">
+            <button class="swatch active" style="background:#ffd0e4" data-color="#ffd0e4" aria-label="Cobertura rosa rubor"></button>
+            <button class="swatch" style="background:#ffe29e" data-color="#ffe29e" aria-label="Cobertura crema de mantequilla dorada"></button>
+            <button class="swatch" style="background:#aef2d8" data-color="#aef2d8" aria-label="Cobertura menta"></button>
+            <button class="swatch" style="background:#c9b8ff" data-color="#c9b8ff" aria-label="Cobertura lila"></button>
+            <button class="swatch" style="background:#ffffff; border:2px solid #eee" data-color="#ffffff" aria-label="Cobertura marfil"></button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div class="control-label"><span>Decoraciones</span></div>
+          <div class="topping-row">
+            <button class="topping-chip active" data-topping="sprinkles">✨ Chispas</button>
+            <button class="topping-chip" data-topping="berries">🍓 Frutos rojos</button>
+            <button class="topping-chip" data-topping="gold">🥇 Hoja de oro</button>
+            <button class="topping-chip" data-topping="macarons">🧁 Macarons</button>
+          </div>
+        </div>
+
+        <div class="builder-note">Este tipo de vista previa en vivo (sabores, tamaños, agregados) es lo que convierte a un visitante en un pedido pagado, directamente en tu página.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="toggle-section">
+  <div class="wrap">
+    <div class="toggle-head">
+      <div>
+        <div class="kicker" style="text-align:center;">Una página adaptada a tu forma real de trabajar</div>
+        <h2 class="section-title" style="max-width:none;">Repostero independiente o taller con tienda: la página se adapta a ti</h2>
+      </div>
+      <div class="toggle-switch">
+        <button class="toggle-opt active" data-target="home">🏠 Repostero Independiente</button>
+        <button class="toggle-opt" data-target="shop">🏬 Repostería con Local</button>
+      </div>
+    </div>
+
+    <div class="toggle-panels">
+      <div class="toggle-panel visible" data-panel="home">
+        <h4>Reserva por fecha, no solo navegación</h4>
+        <p>Un formulario tipo calendario para que reserven tus cupos con semanas de anticipación, asegurando el límite de pasteles personalizados que preparas por semana.</p>
+      </div>
+      <div class="toggle-panel visible" data-panel="home">
+        <h4>Pedidos prioritarios por WhatsApp e Instagram</h4>
+        <p>Un toque para escribirte directamente con la fecha del evento y la selección de sabores prellenados, facilitando el cierre de tus ventas.</p>
+      </div>
+      <div class="toggle-panel" data-panel="shop">
+        <h4>Venta del día y pedidos especiales, juntos</h4>
+        <p>Muestra lo disponible en vitrina hoy y ofrece una ruta clara para pedidos personalizados de bodas y eventos sin confundir al cliente.</p>
+      </div>
+      <div class="toggle-panel" data-panel="shop">
+        <h4>Horarios, mapa y entregas a la vista</h4>
+        <p>Los datos esenciales de tu local (dirección, horarios y estacionamiento) en primer plano para que los clientes te encuentren rápidamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--gold);">Cada especialidad tiene su propio estilo</div>
+    <h2 class="section-title on-raspberry">Tu página debe reflejar tu repostería, no una categoría genérica</h2>
+    <p class="section-sub on-raspberry">Algunas de las direcciones que puede tomar tu página según lo que realmente elaboras.</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <svg viewBox="0 0 120 100"><rect x="20" y="50" width="80" height="34" rx="8" fill="#ffe4ee" stroke="#3a1a12" stroke-width="3"/><path d="M20 58 Q40 48 60 58 T100 58" fill="none" stroke="#ff2d78" stroke-width="4"/><path d="M55 50 C60 40 70 40 60 30 C50 40 60 40 55 50Z" fill="#ffd23f"/></svg>
+        <p>Pasteles de boda</p>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 120 100"><circle cx="60" cy="60" r="30" fill="#fff3d6" stroke="#3a1a12" stroke-width="3"/><path d="M40 55c6-14 34-14 40 0" fill="none" stroke="#c98800" stroke-width="3"/><circle cx="48" cy="48" r="3" fill="#ff2d78"/><circle cx="72" cy="48" r="3" fill="#2ee6ac"/><circle cx="60" cy="40" r="3" fill="#ff2d78"/></svg>
+        <p>Pasteles de cumpleaños con chorreado</p>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 120 100"><rect x="35" y="35" width="20" height="35" rx="6" fill="#ffe29e" stroke="#3a1a12" stroke-width="3"/><rect x="65" y="35" width="20" height="35" rx="6" fill="#d9fff1" stroke="#3a1a12" stroke-width="3"/><circle cx="45" cy="30" r="4" fill="#ff2d78"/><circle cx="75" cy="30" r="4" fill="#ffd23f"/></svg>
+        <p>Torres de cupcakes</p>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 120 100"><path d="M30 70 L60 25 L90 70 Z" fill="#ffd0e4" stroke="#3a1a12" stroke-width="3"/><circle cx="60" cy="30" r="4" fill="#2ee6ac"/><path d="M40 65 Q60 55 80 65" fill="none" stroke="#e0155e" stroke-width="3"/></svg>
+        <p>Arte esculpido en fondant</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="wrap">
+    <div class="kicker">Cómo cobra vida</div>
+    <h2 class="section-title">De "mira mi Instagram" a una página que recibe pedidos</h2>
+    <div class="steps">
+      <div class="step-card">
+        <span class="num">1</span>
+        <h4>Envíanos tus fotos de pasteles</h4>
+        <p>Tus mejores trabajos, tus sabores y tus precios: esa es toda la información requerida.</p>
+      </div>
+      <div class="step-card">
+        <span class="num">2</span>
+        <h4>Diseñamos según tu estilo</h4>
+        <p>Los colores, la tipografía y la distribución se crean a la medida de la estética real de tus pasteles.</p>
+      </div>
+      <div class="step-card">
+        <span class="num">3</span>
+        <h4>Revisas y ajustamos</h4>
+        <p>Perfeccionamos los sabores, mínimos y flujo de pedidos contigo hasta que se adapte exactamente a tu ritmo de trabajo.</p>
+      </div>
+      <div class="step-card">
+        <span class="num">4</span>
+        <h4>Publicamos tu página</h4>
+        <p>Una página totalmente tuya, lista para enlazar en Instagram, Google y enviar por mensaje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section glow-field" id="cta">
+  <div class="wrap">
+    <h2>Construyamos la página que tus pasteles merecen</h2>
+    <p>Cuéntale a easylandx sobre tu repostería y obtén una página personalizada y optimizada para convertir ventas, diseñada en 2026 a la medida de tus creaciones.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Visitar easylandx.github.io</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">easylandx — páginas de destino personalizadas para pequeñas empresas. Creadas con el mismo cuidado que pones en tus <strong>pasteles</strong>.</div>
+</footer>
+
+<script>
+(function() {
+  var tiersGroup = document.getElementById('tiersGroup');
+  var toppingsGroup = document.getElementById('toppingsGroup');
+  var state = { tiers: 1, color: '#ffd0e4', toppings: { sprinkles: true, berries: false, gold: false, macarons: false } };
+
+  var tierGeom = {
+    1: [ {x:75, y:200, w:150, h:96, rx:16} ],
+    2: [ {x:95, y:210, w:110, h:86, rx:14}, {x:60, y:130, w:180, h:96, rx:16} ],
+    3: [ {x:105, y:210, w:90, h:80, rx:12}, {x:75, y:135, w:150, h:88, rx:14}, {x:40, y:70, w:220, h:82, rx:16} ]
+  };
+
+  function darken(hex) {
+    var map = { '#ffd0e4':'#e0155e', '#ffe29e':'#c98800', '#aef2d8':'#14684f', '#c9b8ff':'#6a4bd6', '#ffffff':'#c9c2b8' };
+    return map[hex] || '#3a1a12';
+  }
+
+  function renderCake() {
+    var rects = tierGeom[state.tiers];
+    var svgParts = '';
+    rects.forEach(function(r, i) {
+      svgParts += '<rect x="'+r.x+'" y="'+r.y+'" width="'+r.w+'" height="'+r.h+'" rx="'+r.rx+'" fill="'+state.color+'" stroke="#3a1a12" stroke-width="4"></rect>';
+      svgParts += '<path d="M'+r.x+' '+(r.y+16)+' Q '+(r.x+r.w*0.25)+' '+(r.y+4)+' '+(r.x+r.w*0.5)+' '+(r.y+16)+' T '+(r.x+r.w)+' '+(r.y+16)+'" fill="none" stroke="'+darken(state.color)+'" stroke-width="5" stroke-linecap="round"></path>';
+    });
+    tiersGroup.innerHTML = svgParts;
+
+    var top = rects[rects.length - 1];
+    var toppingSvg = '';
+
+    if (state.toppings.sprinkles) {
+      var sColors = ['#ff2d78', '#ffd23f', '#2ee6ac', '#ffffff'];
+      for (var i = 0; i < 14; i++) {
+        var x = top.x + 10 + Math.random() * (top.w - 20);
+        var y = top.y + 6 + Math.random() * (top.h * 0.5);
+        var rot = Math.floor(Math.random() * 360);
+        var c = sColors[i % sColors.length];
+        toppingSvg += '<rect x="'+x+'" y="'+y+'" width="8" height="3" rx="1.5" fill="'+c+'" transform="rotate('+rot+' '+x+' '+y+')"></rect>';
+      }
+    }
+    if (state.toppings.berries) {
+      var bx = [top.x + top.w*0.2, top.x + top.w*0.5, top.x + top.w*0.8];
+      bx.forEach(function(x) {
+        var y = top.y - 6;
+        toppingSvg += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#c81d4b"></circle>';
+        toppingSvg += '<circle cx="'+(x-3)+'" cy="'+(y-3)+'" r="2" fill="#ffb3c9"></circle>';
+      });
+    }
+    if (state.toppings.gold) {
+      for (var g = 0; g < 5; g++) {
+        var gx = top.x + 12 + (top.w - 24) * (g / 4);
+        var gy = top.y - 2 - (g % 2) * 8;
+        toppingSvg += '<path d="M'+gx+' '+gy+' l6 -10 l6 10 z" fill="#ffd23f" stroke="#c98800" stroke-width="1"></path>';
+      }
+    }
+    if (state.toppings.macarons) {
+      var mx = [top.x + top.w*0.15, top.x + top.w*0.85];
+      mx.forEach(function(x, idx) {
+        var y = top.y - 14;
+        var c = idx === 0 ? '#ffd0e4' : '#aef2d8';
+        toppingSvg += '<ellipse cx="'+x+'" cy="'+y+'" rx="13" ry="8" fill="'+c+'" stroke="#3a1a12" stroke-width="2"></ellipse>';
+        toppingSvg += '<rect x="'+(x-13)+'" y="'+(y-1)+'" width="26" height="4" fill="#fff8e8"></rect>';
+      });
+    }
+
+    toppingsGroup.innerHTML = toppingSvg;
+  }
+
+  document.querySelectorAll('.tier-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tier-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.tiers = parseInt(btn.getAttribute('data-tiers'), 10);
+      renderCake();
+    });
+  });
+
+  document.querySelectorAll('#frostingSwatches .swatch').forEach(function(sw) {
+    sw.addEventListener('click', function() {
+      document.querySelectorAll('#frostingSwatches .swatch').forEach(function(s) { s.classList.remove('active'); });
+      sw.classList.add('active');
+      state.color = sw.getAttribute('data-color');
+      renderCake();
+    });
+  });
+
+  document.querySelectorAll('.topping-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var key = chip.getAttribute('data-topping');
+      state.toppings[key] = !state.toppings[key];
+      chip.classList.toggle('active');
+      renderCake();
+    });
+  });
+
+  renderCake();
+
+  // Selector interactivo: repostero independiente vs tienda
+  document.querySelectorAll('.toggle-opt').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      document.querySelectorAll('.toggle-opt').forEach(function(o) { o.classList.remove('active'); });
+      opt.classList.add('active');
+      var target = opt.getAttribute('data-target');
+      document.querySelectorAll('.toggle-panel').forEach(function(p) {
+        p.classList.toggle('visible', p.getAttribute('data-panel') === target);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
