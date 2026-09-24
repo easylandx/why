@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EasyLandX para Profesores de Esquí y Snowboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1747ff;--lime:#b8ff1a;--pink:#ff2ea6;--cyan:#19e8ff;--ink:#fff;--deep:#08195e}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 'Space Grotesk',system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:'Archivo Black',Impact,sans-serif;line-height:1.05;text-transform:uppercase}
+a{color:inherit}
+.wrap{max-width:1040px;margin:auto;padding:0 20px}
+.top{background:var(--lime);color:var(--deep);font-weight:700;text-align:center;padding:10px 14px;position:sticky;top:0;z-index:9;box-shadow:0 0 24px var(--lime)}
+.top a{background:var(--deep);color:var(--lime);padding:5px 14px;border-radius:99px;text-decoration:none;margin-left:8px;white-space:nowrap}
+.btn{display:inline-block;background:var(--pink);color:#fff;font-weight:700;padding:15px 30px;border-radius:99px;text-decoration:none;border:0;font-size:1.05rem;cursor:pointer;box-shadow:0 0 28px var(--pink),0 0 60px rgba(255,46,166,.5);transition:transform .2s}
+.btn:hover{transform:translateY(-3px) scale(1.04)}
+.btn.lime{background:var(--lime);color:var(--deep);box-shadow:0 0 28px var(--lime),0 0 60px rgba(184,255,26,.5)}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;padding:56px 0 30px}
+.tag{display:inline-block;background:var(--cyan);color:var(--deep);font-weight:700;padding:6px 14px;border-radius:99px;box-shadow:0 0 20px var(--cyan);margin-bottom:16px}
+.hero h1{font-size:clamp(2.3rem,6vw,4.1rem)}
+.hero h1 span{color:var(--lime);text-shadow:0 0 26px var(--lime)}
+.hero p{margin:18px 0 26px;font-size:1.15rem;max-width:34ch}
+.art svg{width:100%;height:auto;filter:drop-shadow(0 0 30px rgba(25,232,255,.55))}
+.flake{position:fixed;top:-20px;color:#fff;opacity:.8;pointer-events:none;animation:fall linear infinite;z-index:1}
+@keyframes fall{to{transform:translateY(110vh) translateX(40px)}}
+section{padding:54px 0;position:relative;z-index:2}
+h2{font-size:clamp(1.7rem,4.5vw,2.8rem);margin-bottom:12px}
+.lead{max-width:60ch;margin-bottom:28px}
+.lab{background:var(--deep);border-radius:28px;padding:26px;display:grid;grid-template-columns:1fr 1.2fr;gap:26px;box-shadow:0 0 0 3px var(--cyan),0 0 50px rgba(25,232,255,.55)}
+.lab h3{font-size:.95rem;color:var(--cyan);margin:14px 0 8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:transparent;color:#fff;border:2px solid var(--cyan);border-radius:99px;padding:8px 16px;font:700 .95rem 'Space Grotesk';cursor:pointer}
+.chip.on{background:var(--cyan);color:var(--deep);box-shadow:0 0 18px var(--cyan)}
+input[type=range]{width:100%;accent-color:var(--lime);height:30px}
+.lv{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700}
+.scene svg{width:100%;height:auto;border-radius:18px;background:linear-gradient(#0f2fd0,#2f66ff)}
+#out{grid-column:1/-1;background:var(--lime);color:var(--deep);border-radius:20px;padding:20px;display:flex;gap:18px;justify-content:space-between;align-items:center;flex-wrap:wrap;box-shadow:0 0 34px rgba(184,255,26,.6)}
+#out b{font-family:'Archivo Black';font-size:1.3rem;text-transform:uppercase;display:block}
+#out .btn{box-shadow:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.card{background:var(--deep);border-radius:22px;padding:24px;border:3px solid var(--c,var(--cyan));box-shadow:0 0 26px var(--c,var(--cyan));transition:transform .25s}
+.card:hover{transform:translateY(-6px) rotate(-1deg)}
+.card .ic{font-size:2.3rem}
+.card h3{font-size:1.15rem;margin:8px 0;color:var(--c,var(--cyan))}
+.tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.tabs .chip{border-color:var(--pink);font-size:1rem}
+.tabs .chip.on{background:var(--pink);color:#fff;box-shadow:0 0 22px var(--pink)}
+.panel{display:none;background:var(--deep);border-radius:24px;padding:26px;border:3px solid var(--pink);box-shadow:0 0 34px rgba(255,46,166,.6)}
+.panel.on{display:block;animation:pop .35s}
+@keyframes pop{from{opacity:0;transform:translateY(12px)}}
+.panel ul{list-style:none;padding:0;display:grid;gap:10px;margin-top:12px}
+.panel li::before{content:"⚡ "}
+.cta{text-align:center;background:var(--pink);color:#fff;border-radius:36px;padding:52px 22px;box-shadow:0 0 60px rgba(255,46,166,.7)}
+.cta p{margin:14px auto 26px;max-width:48ch}
+footer{text-align:center;padding:26px 20px 40px;font-weight:700;position:relative;z-index:2}
+.rv{opacity:0;transform:translateY(24px);transition:.7s}
+.rv.in{opacity:1;transform:none}
+@media(max-width:780px){.hero,.lab{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top">🏂 ¿Listo para llenar tu calendario de clases? <a href="https://easylandx.github.io" target="_blank" rel="noopener">Visita EasyLandX ↗</a></div>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <span class="tag">EasyLandX × Profesores de Esquí y Snowboard</span>
+    <h1>Tus clases merecen una página que <span>conecte</span> directo a la reserva</h1>
+    <p>Una página web rápida y atractiva que muestra tu estilo de enseñanza y convierte cada visita en una solicitud de clase durante toda la temporada.</p>
+    <a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Obtener mi página de profesor →</a>
+  </div>
+  <div class="art">
+    <svg viewBox="0 0 600 400" role="img" aria-label="Montañas nevadas con un esquiador y un snowboarder">
+      <circle cx="470" cy="80" r="46" fill="#b8ff1a"/>
+      <circle cx="470" cy="80" r="66" fill="none" stroke="#b8ff1a" stroke-opacity=".4" stroke-width="8"/>
+      <polygon points="0,330 130,110 250,330" fill="#19e8ff"/>
+      <polygon points="180,330 330,60 500,330" fill="#fff"/>
+      <polygon points="330,60 500,330 380,330 340,190" fill="#ff2ea6" opacity=".8"/>
+      <polygon points="300,105 330,60 360,105 340,120 320,108" fill="#fff" stroke="#19e8ff" stroke-width="3"/>
+      <polygon points="400,330 520,170 600,330" fill="#b8ff1a"/>
+      <path d="M0,330 Q300,300 600,340 L600,400 L0,400Z" fill="#fff"/>
+      <g fill="#08195e"><polygon points="40,340 62,280 84,340"/><polygon points="70,350 96,285 122,350"/><polygon points="500,350 524,290 548,350"/></g>
+      <path id="tr" d="M330,110 C290,150 360,180 300,230 S250,290 200,340" fill="none" stroke="#ff2ea6" stroke-width="5" stroke-dasharray="4 12" stroke-linecap="round"/>
+      <text font-size="42" id="hr">🎿</text>
+      <text x="410" y="318" font-size="40">🏂</text>
+      <g fill="#fff" opacity=".9"><circle cx="90" cy="60" r="4"/><circle cx="220" cy="40" r="3"/><circle cx="560" cy="30" r="4"/><circle cx="40" cy="150" r="3"/></g>
+    </svg>
+  </div>
+</header>
+</div>
+
+<section id="try"><div class="wrap rv">
+  <h2>Prueba el selector de clases</h2>
+  <p class="lead">Este es el tipo de experiencia interactiva y amigable que tu propia página puede ofrecer. Los visitantes eligen su disciplina, nivel y duración, y te envían una solicitud con un solo toque.</p>
+  <div class="lab">
+    <div>
+      <h3>1 · Disciplina</h3>
+      <div class="chips" id="disc"><button class="chip on" data-v="ski">🎿 Esquí</button><button class="chip" data-v="board">🏂 Snowboard</button></div>
+      <h3>2 · Tu nivel</h3>
+      <input type="range" id="lvl" min="0" max="3" value="0" aria-label="Nivel">
+      <div class="lv"><span style="color:#5cff7a">Verde</span><span style="color:#19e8ff">Azul</span><span style="color:#ff5a7a">Roja</span><span>Negra</span></div>
+      <h3>3 · Duración de la clase</h3>
+      <div class="chips" id="dur"><button class="chip on" data-v="1">1 hora</button><button class="chip" data-v="2">2 horas</button><button class="chip" data-v="4">Día completo</button></div>
+    </div>
+    <div class="scene">
+      <svg viewBox="0 0 400 260" aria-label="Vista previa de la pista">
+        <polygon points="0,260 0,60 140,20 400,200 400,260" fill="#fff"/>
+        <polygon points="0,60 140,20 400,200 330,200 130,60" fill="#19e8ff" opacity=".35"/>
+        <g fill="#08195e"><polygon points="20,240 34,205 48,240"/><polygon points="52,246 68,208 84,246"/></g>
+        <path id="run" d="M50 78 C130 70,90 120,190 118 S300 150,250 180 S330 215,360 228" fill="none" stroke="#5cff7a" stroke-width="10" stroke-linecap="round" style="filter:drop-shadow(0 0 8px currentColor)"/>
+        <text id="rd" font-size="34" text-anchor="middle">🎿</text>
+      </svg>
+    </div>
+    <div id="out"><div><b id="t1"></b><span id="t2"></span></div><button class="btn" id="req">Solicitar esta clase</button></div>
+  </div>
+</div></section>
+
+<section><div class="wrap rv">
+  <h2>Por qué EasyLandX es ideal para profesores</h2>
+  <p class="lead">Tu temporada pasa volando, tus alumnos te buscan desde el móvil y tu personalidad es tu marca. EasyLandX está diseñado exactamente para eso.</p>
+  <div class="grid">
+    <div class="card" style="--c:var(--lime)"><div class="ic">⚡</div><h3>Lista antes de la primera nevada</h3><p>Lanza tu página rápidamente para que esté lista en cuanto empiecen a llegar las primeras consultas.</p></div>
+    <div class="card" style="--c:var(--cyan)"><div class="ic">📱</div><h3>Diseñada para la fila del telesilla</h3><p>Los alumnos navegan desde su teléfono entre bajada y bajada. Tu página carga rápido y reserva aún más rápido.</p></div>
+    <div class="card" style="--c:var(--pink)"><div class="ic">🏅</div><h3>Tus certificaciones destacan</h3><p>Muestra tus titulaciones, idiomas y estilo de enseñanza en primer plano para transmitir máxima confianza.</p></div>
+    <div class="card" style="--c:var(--lime)"><div class="ic">🗓️</div><h3>Flexibilidad para la temporada</h3><p>Actualiza la disponibilidad, puntos de encuentro y condiciones de la nieve siempre que la montaña cambie.</p></div>
+    <div class="card" style="--c:var(--cyan)"><div class="ic">🎯</div><h3>Un objetivo claro</h3><p>Cada sección guía al visitante hacia un único botón: solicitar una clase contigo.</p></div>
+    <div class="card" style="--c:var(--pink)"><div class="ic">💎</div><h3>Accesible para cada temporada</h3><p>Páginas enfocadas en la conversión a un precio justo para que mantengas la mayor parte de tus ingresos.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap rv">
+  <h2>Una página. Dos tipos de instructores.</h2>
+  <div class="tabs"><button class="chip on" data-p="p1">🧑‍🏫 Autónomos y particulares</button><button class="chip" data-p="p2">🏫 Escuelas y clubs</button></div>
+  <div class="panel on" id="p1"><h3>Sé el profesor que todos recuerdan</h3><ul>
+    <li>Cuenta tu historia, comparte tus montañas favoritas y muestra tu metodología de enseñanza.</li>
+    <li>Ofrece clases particulares, familiares y para grupos reducidos con opciones claras y atractivas.</li>
+    <li>Recibe solicitudes directamente para que los alumnos contacten contigo en primer lugar.</li>
+    <li>Da la bienvenida a clientes internacionales con una página traducida a su idioma.</li></ul></div>
+  <div class="panel" id="p2"><h3>Unifica a todo tu equipo</h3><ul>
+    <li>Presenta programas para niños, jóvenes y adultos en un solo lugar ordenado y lleno de vida.</li>
+    <li>Muestra tus instructores, niveles de enseñanza y puntos de encuentro.</li>
+    <li>Destaca los campamentos de vacaciones, clubs de competición y reservas para grupos.</li>
+    <li>Ofrece a las familias un camino sencillo desde el interés inicial hasta la plaza confirmada.</li></ul></div>
+</div></section>
+
+<section><div class="wrap rv">
+  <div class="cta">
+    <h2>Tu próxima gran temporada empieza con una página web</h2>
+    <p>Únete a los instructores que reciben a sus visitantes con una página tan enérgica como sus clases.</p>
+    <a class="btn lime" href="https://easylandx.github.io" target="_blank" rel="noopener">Crear mi página con EasyLandX ↗</a>
+  </div>
+</div></section>
+
+<footer>🏂 Hecho con pasión para la comunidad de montaña · <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a></footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+// copos de nieve
+for(let i=0;i<22;i++){const f=document.createElement('div');f.className='flake';f.textContent='❄';f.style.cssText=`left:${Math.random()*100}vw;font-size:${8+Math.random()*14}px;animation-duration:${8+Math.random()*10}s;animation-delay:-${Math.random()*14}s`;document.body.appendChild(f)}
+// esquiador en movimiento en la cabecera
+const tr=$('#tr'),hr=$('#hr'),L=tr.getTotalLength();let h=0;
+(function loop(){h=(h+.0035)%1;const p=tr.getPointAtLength(h*L);hr.setAttribute('x',p.x-18);hr.setAttribute('y',p.y+10);requestAnimationFrame(loop)})();
+// selector de clases
+const cols=['#5cff7a','#19e8ff','#ff5a7a','#08195e'],pos=[.1,.4,.72,.97];
+const names=['Pista Verde','Pista Azul','Pista Roja','Pista Negra'];
+const plan={ski:['Primeros giros y frenada con seguridad','Carving, ritmo y variedad de terrenos','Pendientes, bañados y control de velocidad','Líneas avanzadas y técnica fuera de pista'],
+board:['Equilibrio, deslizamiento y giros encadenados','Carving limpio en talones y punteras','Pendientes, bajada en switch y fluidez','Líneas de freeride y habilidades en park']};
+const dl={1:'1 hora: un impulso enfocado en tu técnica',2:'2 horas: aprende el movimiento y practícalo',4:'Día completo: tu propia aventura en la montaña'};
+const st={d:'ski',l:0,t:1};let cur=.1;const run=$('#run'),rd=$('#rd'),RL=run.getTotalLength();
+function place(v){const p=run.getPointAtLength(v*RL);rd.setAttribute('x',p.x);rd.setAttribute('y',p.y-6)}
+function anim(to){const from=cur,t0=performance.now();(function s(n){const k=Math.min((n-t0)/700,1),e=1-Math.pow(1-k,3);cur=from+(to-from)*e;place(cur);if(k<1)requestAnimationFrame(s)})(t0)}
+function upd(){run.style.color=run.style.stroke=cols[st.l]==='#08195e'?'#08195e':cols[st.l];
+ rd.textContent=st.d==='ski'?'🎿':'🏂';
+ $('#t1').textContent=names[st.l]+' · '+plan[st.d][st.l];
+ $('#t2').textContent=dl[st.t]+' con tu instructor';
+ $('#req').textContent='Solicitar esta clase';anim(pos[st.l])}
+$$('#disc .chip').forEach(b=>b.onclick=()=>{$$('#disc .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');st.d=b.dataset.v;upd()});
+$$('#dur .chip').forEach(b=>b.onclick=()=>{$$('#dur .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');st.t=+b.dataset.v;upd()});
+$('#lvl').oninput=e=>{st.l=+e.target.value;upd()};
+$('#req').onclick=()=>{$('#req').textContent='¡Solicitud enviada a tu bandeja de entrada! ✨'};
+place(cur);upd();
+// pestañas
+$$('.tabs .chip').forEach(b=>b.onclick=()=>{$$('.tabs .chip').forEach(x=>x.classList.remove('on'));$$('.panel').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#'+b.dataset.p).classList.add('on')});
+// revelado al desplazarse
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
+$$('.rv').forEach(x=>io.observe(x));
+</script>
+</body>
+</html>
