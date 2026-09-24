@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Mundo de la Terapia Holística — creado con EasylandX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #12D48D;
+    --bg-soft: #0BB87A;
+    --deep: #06180F;
+    --deep-2: #0B2A1C;
+    --violet: #8A5CF6;
+    --coral: #FF6B4C;
+    --cream: #F3FFF7;
+    --ink: #06180F;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #0FBE7E; --bg-soft: #0AA36C; --deep: #050F0A; }
+  }
+  :root[data-theme="dark"] { --bg: #0FBE7E; --bg-soft: #0AA36C; --deep: #050F0A; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: 'Sora', -apple-system, sans-serif;
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display { font-family: 'Fraunces', Georgia, serif; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+  nav.top { display: flex; align-items: center; justify-content: space-between; padding: 24px 28px; max-width: 1100px; margin: 0 auto; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1rem; opacity: 0.85; }
+  .badge { font-size: 0.78rem; opacity: 0.7; border: 1px solid rgba(6,24,15,0.25); padding: 6px 14px; border-radius: 100px; }
+
+  .hero { padding: 30px 28px 60px; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 6px; } }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.4rem); line-height: 1.08; margin: 0 0 20px; color: var(--deep); letter-spacing: -0.01em; }
+  .hero p.lede { font-size: 1.08rem; line-height: 1.6; max-width: 48ch; color: #08281B; opacity: 0.92; margin: 0 0 26px; }
+  .btn { display: inline-block; padding: 14px 24px; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; font-family: 'Sora', sans-serif; }
+  .btn-ghost { color: var(--deep); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; padding: 14px 0; }
+  .hero-art { position: relative; display: flex; align-items: center; justify-content: center; }
+  .glow-ring { filter: drop-shadow(0 0 40px rgba(255,107,76,0.45)) drop-shadow(0 0 70px rgba(138,92,246,0.3)); }
+
+  section { padding: 70px 0; }
+  .title { font-size: clamp(1.8rem, 3.4vw, 2.5rem); color: var(--deep); margin: 0 0 14px; max-width: 26ch; }
+  .intro { max-width: 60ch; font-size: 1.05rem; line-height: 1.65; opacity: 0.9; margin: 0 0 44px; }
+
+  /* MODALITIES */
+  .modalities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  @media (max-width: 820px) { .modalities-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .modalities-grid { grid-template-columns: 1fr; } }
+  .modality { background: var(--cream); border-radius: 20px; padding: 26px; }
+  .modality .icon { width: 44px; height: 44px; margin-bottom: 14px; }
+  .modality h3 { margin: 0 0 8px; font-size: 1.08rem; color: var(--deep); }
+  .modality p { margin: 0; font-size: 0.92rem; line-height: 1.5; opacity: 0.85; }
+
+  /* CHAKRA EXPLORER */
+  .chakra-section { background: var(--deep); color: var(--cream); border-radius: 32px; margin: 0 20px; padding: 66px 40px 70px; }
+  @media (max-width: 700px) { .chakra-section { margin: 0 10px; padding: 50px 20px 56px; } }
+  .chakra-section .title, .chakra-section .intro { color: var(--cream); }
+  .chakra-section .intro { opacity: 0.8; }
+  .chakra-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: center; }
+  @media (max-width: 820px) { .chakra-layout { grid-template-columns: 1fr; } }
+  .chakra-figure { display: flex; justify-content: center; }
+  .chakra-node { cursor: pointer; transition: r .2s ease, opacity .2s ease; }
+  .chakra-node-outer { transition: opacity .25s ease; opacity: 0; }
+  .chakra-node.active + .chakra-node-outer,
+  .chakra-node-outer.active { opacity: 1; }
+  .chakra-panel { background: rgba(243,255,247,0.06); border: 1px solid rgba(243,255,247,0.14); border-radius: 20px; padding: 30px 32px; min-height: 260px; }
+  .chakra-panel .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; margin-right: 10px; vertical-align: middle; }
+  .chakra-panel h3 { font-size: 1.4rem; margin: 4px 0 4px; }
+  .chakra-panel .sanskrit { opacity: 0.55; font-size: 0.85rem; margin: 0 0 16px; }
+  .chakra-panel p { line-height: 1.6; opacity: 0.9; margin: 0 0 16px; }
+  .chakra-panel .matches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chakra-panel .matches span { font-size: 0.8rem; background: rgba(243,255,247,0.12); padding: 6px 12px; border-radius: 100px; }
+  .chakra-hint { text-align: center; opacity: 0.55; font-size: 0.85rem; margin-top: 18px; }
+
+  /* CTA */
+  .cta { text-align: center; padding: 84px 28px 34px; }
+  .cta h2 { font-size: clamp(2rem, 4vw, 2.7rem); color: var(--deep); margin: 0 0 18px; }
+  .cta p { max-width: 46ch; margin: 0 auto 30px; opacity: 0.85; }
+  .btn-primary { background: var(--deep); color: var(--cream); box-shadow: 0 0 0 rgba(138,92,246,0); transition: box-shadow .25s ease, transform .25s ease; }
+  .btn-primary:hover { box-shadow: 0 6px 34px rgba(138,92,246,0.55); transform: translateY(-2px); }
+
+  footer { padding: 20px 28px 50px; text-align: center; font-size: 0.85rem; opacity: 0.65; }
+  footer a { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="logo">El Mundo de la Terapia Holística</div>
+  <div class="badge">creado con 🌿 easylandx</div>
+</nav>
+
+<header class="hero">
+  <div>
+    <h1>El trabajo comienza antes de que la persona se recueste en la Camilla.</h1>
+    <p class="lede">Un terapeuta holístico lee más que simples síntomas: la tensión acumulada en un hombro, un sistema nervioso atascado en alerta, un campo energético saturado. Esta página trata sobre ese trabajo: las modalidades, el cuerpo y la tranquila atención que requiere.</p>
+    <a class="btn btn-ghost" href="#chakras">Explora los centros de energía ↓</a>
+  </div>
+  <div class="hero-art">
+    <svg viewBox="0 0 360 360" class="glow-ring" aria-hidden="true">
+      <g fill="none">
+        <circle cx="180" cy="180" r="150" stroke="#062015" stroke-opacity="0.08" stroke-width="1.5"/>
+        <circle cx="180" cy="180" r="110" stroke="#062015" stroke-opacity="0.08" stroke-width="1.5"/>
+      </g>
+      <g transform="translate(180,190)">
+        <g id="petal-src"><ellipse cx="0" cy="-64" rx="26" ry="62" fill="#FF6B4C" opacity="0.92"/></g>
+        <use href="#petal-src" transform="rotate(45)"/>
+        <use href="#petal-src" transform="rotate(90)" fill="#8A5CF6"/>
+        <use href="#petal-src" transform="rotate(135)"/>
+        <use href="#petal-src" transform="rotate(180)" fill="#8A5CF6"/>
+        <use href="#petal-src" transform="rotate(225)"/>
+        <use href="#petal-src" transform="rotate(270)" fill="#8A5CF6"/>
+        <use href="#petal-src" transform="rotate(315)"/>
+        <circle r="30" fill="#06180F"/>
+        <circle r="30" fill="none" stroke="#F3FFF7" stroke-opacity="0.4" stroke-width="2"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<section class="wrap">
+  <h2 class="title">Muchas manos, una misma intención</h2>
+  <p class="intro">La terapia holística no es una sola disciplina: es una familia de prácticas que comparten una convicción: tratar a la persona en su totalidad, no solo al síntoma que tiene enfrente.</p>
+  <div class="modalities-grid">
+    <div class="modality">
+      <svg class="icon" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="17" fill="#12D48D"/><path d="M14 24c2 4 5 6 8 6s6-2 8-6" stroke="#06180F" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="17" cy="18" r="2" fill="#06180F"/><circle cx="27" cy="18" r="2" fill="#06180F"/></svg>
+      <h3>Reiki y trabajo energético</h3>
+      <p>Contacto suave o manos flotando sobre el cuerpo, guiando la energía hacia zonas que se sienten bloqueadas o agotadas.</p>
+    </div>
+    <div class="modality">
+      <svg class="icon" viewBox="0 0 44 44" fill="none"><rect x="6" y="19" width="32" height="5" rx="2.5" fill="#8A5CF6"/><circle cx="12" cy="21.5" r="3.5" fill="#06180F"/><circle cx="22" cy="21.5" r="3.5" fill="#06180F"/><circle cx="32" cy="21.5" r="3.5" fill="#06180F"/></svg>
+      <h3>Acupuntura</h3>
+      <p>Finas agujas colocadas a lo largo de los meridianos del cuerpo para aliviar el dolor y restaurar el flujo del qi.</p>
+    </div>
+    <div class="modality">
+      <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M22 8c8 6 14 12 14 20a14 14 0 01-28 0c0-8 6-14 14-20Z" fill="#FF6B4C"/></svg>
+      <h3>Sonoterapia</h3>
+      <p>Cuencos cantarines y tonos resonantes utilizados para llevar al sistema nervioso del estado de alerta al descanso.</p>
+    </div>
+    <div class="modality">
+      <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M22 10c-3 6-10 8-10 15a10 10 0 0020 0c0-7-7-9-10-15Z" fill="#12D48D"/></svg>
+      <h3>Herbolaria</h3>
+      <p>Remedios a base de plantas elegidos para la constitución específica de cada persona, no una receta genérica.</p>
+    </div>
+    <div class="modality">
+      <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M10 30c4-14 20-14 24 0" stroke="#8A5CF6" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="22" cy="12" r="5" fill="#8A5CF6"/></svg>
+      <h3>Yogaterapia</h3>
+      <p>Movimiento y respiración guiados de forma secuenciada según las lesiones, límites y objetivos de cada cuerpo.</p>
+    </div>
+    <div class="modality">
+      <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M8 22c6-10 22-10 28 0" stroke="#FF6B4C" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M8 22c6 10 22 10 28 0" stroke="#FF6B4C" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5"/></svg>
+      <h3>Trabajo corporal y masaje</h3>
+      <p>Liberación manual de la tensión acumulada en la fascia y los músculos, donde a menudo se guarda lo que la mente ha olvidado.</p>
+    </div>
+  </div>
+</section>
+
+<section id="chakras">
+  <div class="chakra-section">
+    <div class="wrap" style="padding:0;">
+      <h2 class="title">Explora los centros de energía</h2>
+      <p class="intro">Muchas prácticas energéticas (como reiki, sonoterapia o yogaterapia) trabajan con los siete chakras. Toca un punto para descubrir qué rige y qué disciplinas suelen aplicarse en él.</p>
+      <div class="chakra-layout">
+        <div class="chakra-figure">
+          <svg viewBox="0 0 200 420" width="220" aria-hidden="true">
+            <path d="M100 20c14 0 24 12 24 26 0 10-6 17-10 22 18 6 30 20 30 40v50c14 4 22 16 22 30v90c0 14-10 24-24 24H58c-14 0-24-10-24-24v-90c0-14 8-26 22-30v-50c0-20 12-34 30-40-4-5-10-12-10-22 0-14 10-26 24-26Z"
+                  fill="none" stroke="#F3FFF7" stroke-opacity="0.22" stroke-width="2"/>
+            <g id="chakra-dots">
+              <circle class="chakra-node" data-i="0" cx="100" cy="36"  r="9" fill="#B98CFF"/>
+              <circle class="chakra-node" data-i="1" cx="100" cy="76"  r="9" fill="#7EA6FF"/>
+              <circle class="chakra-node" data-i="2" cx="100" cy="116" r="9" fill="#6FD8FF"/>
+              <circle class="chakra-node" data-i="3" cx="100" cy="168" r="9" fill="#5CF29B"/>
+              <circle class="chakra-node" data-i="4" cx="100" cy="222" r="9" fill="#FFE45C"/>
+              <circle class="chakra-node" data-i="5" cx="100" cy="276" r="9" fill="#FF9A4D"/>
+              <circle class="chakra-node" data-i="6" cx="100" cy="330" r="9" fill="#FF5C5C"/>
+            </g>
+          </svg>
+        </div>
+        <div class="chakra-panel" id="chakraPanel">
+          <span class="dot" id="panelDot" style="background:#B98CFF"></span><strong id="panelLabel">Corona</strong>
+          <p class="sanskrit" id="panelSanskrit">Sahasrara — el centro superior</p>
+          <h3 id="panelHeading" style="display:none"></h3>
+          <p id="panelText">Asociado con la conciencia, la percepción y una sensación de conexión que va más allá de lo cotidiano. Suele ser el foco al cierre de una sesión, una vez que el cuerpo se ha asentado.</p>
+          <div class="matches" id="panelMatches">
+            <span>Meditación</span><span>Reiki</span><span>Sonoterapia</span>
+          </div>
+        </div>
+      </div>
+      <p class="chakra-hint">Toca cualquier punto de la figura para desplazarte por los siete centros.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Un sitio web concebido con el mismo cuidado que la práctica misma.</h2>
+  <p>Esta página fue creada con EasylandX: sin plantillas, diseñada en función de lo que los terapeutas holísticos realmente necesitan mostrar en su sitio.</p>
+  <a class="btn btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Ver EasylandX</a>
+</section>
+
+<footer>
+  <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a> — páginas de destino para profesionales de la salud holística y el bienestar
+</footer>
+
+<script>
+(function () {
+  var data = [
+    { name: "Corona", sanskrit: "Sahasrara — el centro superior", color: "#B98CFF",
+      text: "Asociado con la conciencia, la percepción y una sensación de conexión que va más allá de lo cotidiano. Suele ser el foco al cierre de una sesión, una vez que el cuerpo se ha asentado.",
+      matches: ["Meditación", "Reiki", "Sonoterapia"] },
+    { name: "Tercer ojo", sanskrit: "Ajna — entre las cejas", color: "#7EA6FF",
+      text: "Vinculado a la intuición y la claridad mental. Se suele trabajar aquí para calmar el ruido mental antes de iniciar un trabajo corporal más profundo.",
+      matches: ["Reiki", "Terapia craneosacral", "Meditación"] },
+    { name: "Garganta", sanskrit: "Vishuddha — base del cuello", color: "#6FD8FF",
+      text: "Rige la expresión y la capacidad de comunicar la verdad. La tensión en esta zona suele manifestarse como una respiración contenida o una voz bloqueada.",
+      matches: ["Sonoterapia", "Trabajo de respiración", "Acupuntura"] },
+    { name: "Corazón", sanskrit: "Anahata — centro del pecho", color: "#5CF29B",
+      text: "El centro de la conexión y del trabajo emocional. Muchas personas experimentan su mayor liberación emocional cuando la atención se enfoca aquí.",
+      matches: ["Reiki", "Masaje", "Sonoterapia"] },
+    { name: "Plexo solar", sanskrit: "Manipura — abdomen superior", color: "#FFE45C",
+      text: "Relacionado con la confianza y la voluntad personal. Es común encontrar esta área contraída en personas sujetas a estrés crónico.",
+      matches: ["Yogaterapia", "Acupuntura", "Herbolaria"] },
+    { name: "Sacro", sanskrit: "Svadhisthana — abdomen inferior", color: "#FF9A4D",
+      text: "Ligado a la creatividad y las emociones. El trabajo corporal en esta zona se aborda con lentitud y siempre con un consentimiento explícito.",
+      matches: ["Masaje", "Yogaterapia", "Reiki"] },
+    { name: "Raíz", sanskrit: "Muladhara — base de la columna", color: "#FF5C5C",
+      text: "Rige la seguridad y el arraigo. Las sesiones suelen comenzar aquí para estabilizar el sistema nervioso antes de proceder con cualquier otra labor.",
+      matches: ["Acupuntura", "Masaje de tejido profundo", "Herbolaria"] }
+  ];
+
+  var nodes = document.querySelectorAll('.chakra-node');
+  var panelDot = document.getElementById('panelDot');
+  var panelLabel = document.getElementById('panelLabel');
+  var panelSanskrit = document.getElementById('panelSanskrit');
+  var panelText = document.getElementById('panelText');
+  var panelMatches = document.getElementById('panelMatches');
+
+  function render(i) {
+    var d = data[i];
+    panelDot.style.background = d.color;
+    panelLabel.textContent = d.name;
+    panelSanskrit.textContent = d.sanskrit;
+    panelText.textContent = d.text;
+    panelMatches.innerHTML = '';
+    d.matches.forEach(function (m) {
+      var s = document.createElement('span');
+      s.textContent = m;
+      panelMatches.appendChild(s);
+    });
+    nodes.forEach(function (n) {
+      var active = n.getAttribute('data-i') === String(i);
+      n.setAttribute('r', active ? 12 : 9);
+      n.style.opacity = active ? 1 : 0.75;
+    });
+  }
+
+  nodes.forEach(function (n) {
+    n.addEventListener('click', function () {
+      render(parseInt(n.getAttribute('data-i'), 10));
+    });
+  });
+
+  render(0);
+})();
+</script>
+
+</body>
+</html>
