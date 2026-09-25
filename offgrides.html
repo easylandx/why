@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Homestead Ready — Asesores de Vida Autosuficiente y Desconectada de la Red</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414;
+    --charcoal:#2b2b2b;
+    --stone:#6b6b6b;
+    --fog:#c9c9c9;
+    --paper:#f4f4f0;
+    --white:#ffffff;
+    --sun:#f4b400;
+    --sun-dim:#e0a300;
+    --radius:2px;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *,*::before,*::after{box-sizing:inherit}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#f4f4f0; --charcoal:#e6e6e2; --stone:#a8a8a3; --fog:#3a3a37;
+      --paper:#141412; --white:#1c1c1a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#f4f4f0; --charcoal:#e6e6e2; --stone:#a8a8a3; --fog:#3a3a37;
+    --paper:#141412; --white:#1c1c1a;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Space Grotesk',sans-serif; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Archivo Black',sans-serif; font-weight:400; line-height:1.05; margin:0; letter-spacing:-0.01em;}
+  a{color:inherit}
+  img,svg{max-width:100%}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .badge{
+    display:block; text-align:center; background:var(--ink); color:var(--paper);
+    font-size:.8rem; padding:9px 12px; text-decoration:none;
+  }
+  .badge:hover{background:var(--sun); color:var(--ink)}
+  nav{
+    position:sticky; top:0; z-index:20; background:var(--paper);
+    border-bottom:2px solid var(--ink);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .navrow{display:flex; align-items:center; justify-content:space-between; padding:16px 24px;}
+  .logo{font-family:'Archivo Black',sans-serif; font-size:1.15rem;}
+  .logo span{color:var(--sun)}
+  .navlinks{display:flex; gap:22px; font-size:.95rem;}
+  .navlinks a{text-decoration:none; border-bottom:2px solid transparent;}
+  .navlinks a:hover{border-color:var(--sun);}
+  .navlinks{display:none}
+  @media(min-width:720px){.navlinks{display:flex}}
+
+  .hero{padding:64px 0 40px; display:grid; gap:36px;}
+  @media(min-width:860px){.hero{grid-template-columns:1.1fr .9fr; align-items:center; padding:88px 0 56px;}}
+  .hero h1{font-size:clamp(2.3rem,6vw,3.6rem);}
+  .hero p{color:var(--stone); font-size:1.1rem; max-width:46ch; margin-top:18px;}
+  .hero-actions{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:14px 26px; font-weight:600; text-decoration:none;
+    border:2px solid var(--ink); border-radius:var(--radius); font-size:.95rem;
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{background:var(--sun); border-color:var(--sun); color:var(--ink)}
+  .btn-line{background:transparent; color:var(--ink);}
+  .btn-line:hover{background:var(--ink); color:var(--paper)}
+
+  section{padding:56px 0; border-top:2px solid var(--fog);}
+  .kicker{font-size:.85rem; color:var(--stone); margin-bottom:10px;}
+  .lede{font-size:1.5rem; max-width:34ch;}
+  .lede strong{color:var(--sun-dim)}
+
+  .pillars{display:grid; gap:2px; margin-top:36px; background:var(--fog);}
+  @media(min-width:640px){.pillars{grid-template-columns:repeat(4,1fr);}}
+  .pillar{background:var(--paper); padding:26px 22px;}
+  .pillar svg{width:44px; height:44px; margin-bottom:14px;}
+  .pillar h3{font-size:1.05rem; font-family:'Space Grotesk',sans-serif; font-weight:700;}
+  .pillar p{color:var(--stone); font-size:.92rem; margin-top:8px;}
+
+  .calc{background:var(--ink); color:var(--paper); border-radius:var(--radius); padding:36px 28px; margin-top:30px;}
+  .calc h3{color:var(--paper); font-size:1.4rem; margin-bottom:6px;}
+  .calc p.sub{color:var(--fog); margin:0 0 26px; font-size:.95rem;}
+  .calc-grid{display:grid; gap:24px;}
+  @media(min-width:800px){.calc-grid{grid-template-columns:1fr 1fr;}}
+  .field{margin-bottom:20px;}
+  .field label{display:flex; justify-content:space-between; font-size:.88rem; color:var(--fog); margin-bottom:8px;}
+  .field output{color:var(--sun); font-weight:700;}
+  input[type=range]{
+    width:100%; -webkit-appearance:none; height:4px; background:var(--stone); border-radius:4px; outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:18px; height:18px; background:var(--sun); border-radius:50%; cursor:pointer;
+    border:2px solid var(--ink);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:18px; height:18px; background:var(--sun); border-radius:50%; cursor:pointer; border:2px solid var(--ink);
+  }
+  .results{border-left:2px solid var(--charcoal); padding-left:24px;}
+  @media(max-width:799px){.results{border-left:none; border-top:2px solid var(--charcoal); padding-left:0; padding-top:20px;}}
+  .result-row{display:flex; align-items:baseline; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--charcoal);}
+  .result-row:last-child{border-bottom:none}
+  .result-row .num{font-family:'Archivo Black',sans-serif; font-size:1.6rem; color:var(--sun);}
+  .result-row .label{font-size:.9rem; color:var(--fog);}
+  .bar{height:8px; background:var(--charcoal); border-radius:4px; overflow:hidden; margin-top:16px;}
+  .bar > i{display:block; height:100%; background:var(--sun); width:0%; transition:width .25s ease;}
+
+  .steps{margin-top:34px; display:grid; gap:22px;}
+  @media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr);}}
+  .step{border-top:3px solid var(--ink); padding-top:14px;}
+  .step .n{font-family:'Archivo Black',sans-serif; font-size:1.6rem; color:var(--sun-dim);}
+  .step h3{font-size:1.05rem; margin-top:6px;}
+  .step p{color:var(--stone); font-size:.92rem; margin-top:8px;}
+
+  .quote{max-width:56ch; margin:0 auto; text-align:center;}
+  .quote p{font-family:'Archivo Black',sans-serif; font-size:1.5rem; line-height:1.25;}
+  .quote span{display:block; margin-top:14px; color:var(--stone); font-size:.9rem; font-family:'Space Grotesk',sans-serif;}
+
+  .cta{text-align:center;}
+  .cta h2{font-size:clamp(1.8rem,5vw,2.6rem); max-width:20ch; margin:0 auto;}
+  .cta p{color:var(--stone); margin:16px auto 26px; max-width:42ch;}
+
+  footer{border-top:2px solid var(--ink); padding:36px 0 0;}
+  .footrow{display:flex; flex-wrap:wrap; gap:18px; justify-content:space-between; align-items:center; padding-bottom:22px;}
+  .footrow small{color:var(--stone);}
+</style>
+</head>
+<body>
+
+<a class="badge" href="https://easylandx.github.io" target="_blank" rel="noopener">Diseño y desarrollo web por EasyLandX — sitios asequibles y enfocados en conversiones para pequeñas empresas</a>
+
+<nav>
+  <div class="wrap navrow">
+    <div class="logo">Homestead<span>·</span>Ready</div>
+    <div class="navlinks">
+      <a href="#pillars">Asesoría</a>
+      <a href="#calculator">Calculadora</a>
+      <a href="#how">Cómo funciona</a>
+      <a href="#contact">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap hero">
+  <div>
+    <div class="kicker">⚡ Asesores de Vida Autosuficiente y Desconectada de la Red</div>
+    <h1>Aprende a gestionar tu propia energía, agua y alimentos — en tu propio terreno.</h1>
+    <p>Asesoramos a familias a través del trabajo real y sin adornos de vivir desconectados de la red: dimensionar un sistema solar, almacenar agua que no se agote y cultivar alimentos que realmente te sustenten. Sin idealismos, solo un sistema que funciona.</p>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href="#calculator">Usa la calculadora de preparación</a>
+      <a class="btn btn-line" href="#contact">Reserva una consulta</a>
+    </div>
+  </div>
+  <svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="270" cy="70" r="34" fill="none" stroke="#f4b400" stroke-width="6"/>
+    <g stroke="#f4b400" stroke-width="6" stroke-linecap="round">
+      <line x1="270" y1="10" x2="270" y2="24"/>
+      <line x1="270" y1="116" x2="270" y2="130"/>
+      <line x1="212" y1="70" x2="226" y2="70"/>
+      <line x1="314" y1="70" x2="328" y2="70"/>
+      <line x1="228" y1="28" x2="238" y2="38"/>
+      <line x1="302" y1="102" x2="312" y2="112"/>
+      <line x1="312" y1="28" x2="302" y2="38"/>
+      <line x1="238" y1="102" x2="228" y2="112"/>
+    </g>
+    <polygon points="60,190 190,190 190,290 60,290" fill="none" stroke="#141414" stroke-width="6"/>
+    <polygon points="45,190 125,130 205,190" fill="none" stroke="#141414" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="100" y="225" width="36" height="65" fill="none" stroke="#141414" stroke-width="5"/>
+    <g stroke="#141414" stroke-width="4">
+      <rect x="20" y="150" width="84" height="42" fill="none" transform="rotate(-18 62 171)"/>
+      <line x1="20" y1="164" x2="104" y2="164" transform="rotate(-18 62 171)"/>
+      <line x1="20" y1="178" x2="104" y2="178" transform="rotate(-18 62 171)"/>
+      <line x1="41" y1="150" x2="41" y2="192" transform="rotate(-18 62 171)"/>
+      <line x1="62" y1="150" x2="62" y2="192" transform="rotate(-18 62 171)"/>
+      <line x1="83" y1="150" x2="83" y2="192" transform="rotate(-18 62 171)"/>
+    </g>
+    <line x1="220" y1="280" x2="340" y2="280" stroke="#6b6b6b" stroke-width="4"/>
+    <line x1="200" y1="290" x2="360" y2="290" stroke="#6b6b6b" stroke-width="2"/>
+  </svg>
+</div>
+
+<section id="pillars">
+  <div class="wrap">
+    <div class="kicker">Los cuatro sistemas</div>
+    <p class="lede">Vivir fuera de la red no es una sola habilidad. Son cuatro sistemas trabajando juntos — <strong>energía, agua, alimentos y refugio</strong> — y nuestra asesoría consiste en dimensionar cada uno correctamente para tu hogar, sin adivinanzas.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <svg viewBox="0 0 48 48"><path d="M27 4 12 26h10l-4 18 19-24H27z" fill="none" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <h3>Energía</h3>
+        <p>Paneles solares y banco de baterías dimensionados para tu consumo diario real, no una estimación de folleto.</p>
+      </div>
+      <div class="pillar">
+        <svg viewBox="0 0 48 48"><path d="M24 6C16 18 10 26 10 32a14 14 0 0 0 28 0C38 26 32 18 24 6z" fill="none" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <h3>Agua</h3>
+        <p>Captación, filtración y almacenamiento para abastecer a un hogar durante un mes seco.</p>
+      </div>
+      <div class="pillar">
+        <svg viewBox="0 0 48 48"><path d="M24 6v14M14 14c0 8 4 12 10 12s10-4 10-12M8 40c4-10 9-14 16-14s12 4 16 14" fill="none" stroke="#141414" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Alimentos</h3>
+        <p>Espacio de cultivo, conservación y ganado menor adaptados a tu terreno y tus necesidades.</p>
+      </div>
+      <div class="pillar">
+        <svg viewBox="0 0 48 48"><path d="M8 24 24 10l16 14M14 22v18h20V22" fill="none" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <h3>Refugio</h3>
+        <p>Aislamiento, ubicación y materiales adaptados a tu clima antes de construir cualquier otra cosa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calculator">
+  <div class="wrap">
+    <div class="kicker">Pruébalo tú mismo</div>
+    <p class="lede">Calculadora de preparación autosuficiente</p>
+    <div class="calc">
+      <h3>Dimensiona tu primer sistema</h3>
+      <p class="sub">Mueve los deslizadores para adaptarlos a tu hogar. Los números se actualizan al instante — esto es una estimación inicial, no un diseño final.</p>
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label>Personas en el hogar <output id="outPeople">3</output></label>
+            <input type="range" id="people" min="1" max="10" value="3">
+          </div>
+          <div class="field">
+            <label>Uso diario de electricidad (kWh) <output id="outKwh">6</output></label>
+            <input type="range" id="kwh" min="1" max="30" value="6">
+          </div>
+          <div class="field">
+            <label>Días de reserva de agua deseados <output id="outDays">14</output></label>
+            <input type="range" id="days" min="3" max="30" value="14">
+          </div>
+        </div>
+        <div class="results">
+          <div class="result-row"><span class="label">Paneles solares (300W c/u)</span><span class="num" id="rPanels">7</span></div>
+          <div class="result-row"><span class="label">Banco de baterías necesario</span><span class="num" id="rBattery">12 kWh</span></div>
+          <div class="result-row"><span class="label">Capacidad del tanque de agua</span><span class="num" id="rTank">1,260 L</span></div>
+          <div class="bar"><i id="rBar" style="width:35%"></i></div>
+          <p class="sub" style="margin-top:14px; margin-bottom:0;">La barra muestra la escala de este sistema en comparación con una gran finca de 10 personas — una referencia de tamaño, no una ficha técnica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="kicker">Cómo funciona la asesoría</div>
+    <p class="lede">Tres sesiones para un plan funcional</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Evaluación del terreno y consumo</h3><p>Recorremos tu terreno y analizamos tus rutinas diarias para definir tus necesidades reales de energía, agua y alimentos.</p></div>
+      <div class="step"><div class="n">2</div><h3>Diseño del sistema</h3><p>Te entregamos listas de equipos dimensionados y una secuencia de construcción: qué instalar primero y por qué.</p></div>
+      <div class="step"><div class="n">3</div><h3>Soporte durante la instalación</h3><p>Seguimiento continuo mientras instalas, resuelves problemas y realizas ajustes a medida que cambian las estaciones.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap quote">
+    <p>&ldquo;Dejamos de adivinar el número de paneles y empezamos con una cifra que realmente se ajustaba a nuestra casa.&rdquo;</p>
+    <span>— Cliente de asesoría, primer año fuera de la red</span>
+  </div>
+</section>
+
+<section id="contact" class="cta">
+  <div class="wrap">
+    <h2>Trae tu terreno, tus preguntas y un libreta de notas.</h2>
+    <p>Las primeras consultas duran 45 minutos y cubren tu terreno, tus objetivos y si nuestra asesoría es la opción adecuada para ti antes de comprometerte a nada.</p>
+    <a class="btn btn-solid" href="mailto:hello@homesteadready.example">Reserva una consulta</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footrow">
+    <div class="logo">Homestead<span>·</span>Ready</div>
+    <small>© 2026 Homestead Ready Coaching</small>
+  </div>
+</footer>
+<a class="badge" href="https://easylandx.github.io" target="_blank" rel="noopener">¿Quieres un sitio web como este para tu negocio? Creado por EasyLandX</a>
+
+<script>
+(function(){
+  var people=document.getElementById('people'),
+      kwh=document.getElementById('kwh'),
+      days=document.getElementById('days'),
+      outPeople=document.getElementById('outPeople'),
+      outKwh=document.getElementById('outKwh'),
+      outDays=document.getElementById('outDays'),
+      rPanels=document.getElementById('rPanels'),
+      rBattery=document.getElementById('rBattery'),
+      rTank=document.getElementById('rTank'),
+      rBar=document.getElementById('rBar');
+
+  function calc(){
+    var p=+people.value, k=+kwh.value, d=+days.value;
+    outPeople.textContent=p; outKwh.textContent=k; outDays.textContent=d;
+
+    var panels=Math.max(1,Math.ceil((k*1000)/(300*5)));
+    var battery=Math.round(k*2*10)/10;
+    var tank=Math.round(p*45*d);
+
+    rPanels.textContent=panels;
+    rBattery.textContent=battery+' kWh';
+    rTank.textContent=tank.toLocaleString()+' L';
+
+    var scale=Math.min(100, Math.round((panels/34)*100));
+    rBar.style.width=scale+'%';
+  }
+  [people,kwh,days].forEach(function(el){ el.addEventListener('input', calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>
