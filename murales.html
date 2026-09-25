@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLandX para Muralistas y Artistas Urbanos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Archivo+Black&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FF5B1F;           /* Naranja Espray Vibrante */
+    --bg-deep: #E24A12;
+    --teal: #00E5C7;         /* Turquesa Pared Eléctrico */
+    --pink: #FF2E9F;         /* Rosa Tag Neón */
+    --yellow: #FFE93B;       /* Amarillo Tiza Brillo */
+    --ink: #1A0F08;
+    --paper: #FFF6E9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Fredoka', sans-serif;
+    background:var(--bg);
+    color:var(--paper);
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.06) 0, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(0,0,0,0.12) 0, transparent 45%);
+  }
+  h1,h2,h3{font-family:'Archivo Black', sans-serif; line-height:1.05; letter-spacing:-0.5px;}
+  a{color:inherit;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  .glow-text{
+    text-shadow: 0 0 8px rgba(255,255,255,0.35), 0 0 22px currentColor;
+  }
+
+  /* Barra superior de enlaces */
+  .topbar{
+    background:var(--ink);
+    padding:12px 0;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    border-bottom:4px solid var(--yellow);
+  }
+  .topbar a{
+    color:var(--yellow);
+    font-weight:600;
+    text-decoration:none;
+    border-bottom:2px dashed var(--yellow);
+  }
+  .topbar a:hover{color:var(--teal); border-color:var(--teal);}
+
+  /* Hero */
+  header.hero{
+    padding:90px 0 70px;
+    position:relative;
+    text-align:center;
+    overflow:hidden;
+  }
+  .spray-tag{
+    display:inline-block;
+    background:var(--pink);
+    color:var(--paper);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    font-size:13px;
+    padding:6px 16px;
+    border-radius:999px;
+    transform:rotate(-3deg);
+    box-shadow:0 0 18px rgba(255,46,159,0.7);
+    margin-bottom:22px;
+  }
+  header.hero h1{
+    font-size:clamp(38px, 7vw, 74px);
+    color:var(--paper);
+  }
+  header.hero h1 span{color:var(--teal);}
+  header.hero p.sub{
+    max-width:640px;
+    margin:22px auto 0;
+    font-size:19px;
+    color:var(--paper);
+    opacity:0.92;
+  }
+  .cta-row{margin-top:34px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:16px 30px;
+    border-radius:14px;
+    font-weight:700;
+    font-size:16px;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+    cursor:pointer;
+    border:none;
+  }
+  .btn-primary{
+    background:var(--teal);
+    color:var(--ink);
+    box-shadow:0 0 0 3px var(--ink), 0 0 24px rgba(0,229,199,0.7);
+  }
+  .btn-secondary{
+    background:transparent;
+    color:var(--paper);
+    border:3px solid var(--paper);
+  }
+  .btn:hover{transform:translateY(-3px) scale(1.03);}
+
+  .can-illustration{
+    width:140px; margin:36px auto 0; display:block;
+  }
+
+  /* Secciones */
+  section{padding:70px 0;}
+  .section-title{
+    text-align:center;
+    font-size:clamp(28px,4.5vw,44px);
+    color:var(--yellow);
+    margin-bottom:14px;
+  }
+  .section-sub{
+    text-align:center;
+    max-width:600px;
+    margin:0 auto 50px;
+    font-size:16px;
+    opacity:0.9;
+  }
+
+  /* Cuadrícula "Por qué se adapta" */
+  .fit-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:26px;
+  }
+  .fit-card{
+    background:rgba(0,0,0,0.28);
+    border:2px solid rgba(255,255,255,0.15);
+    border-radius:18px;
+    padding:28px 24px;
+    backdrop-filter:blur(2px);
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .fit-card:hover{transform:translateY(-6px); border-color:var(--teal);}
+  .fit-card .icon{font-size:38px; margin-bottom:14px; display:block;}
+  .fit-card h3{font-size:19px; color:var(--teal); margin-bottom:10px; font-family:'Fredoka', sans-serif; font-weight:700;}
+  .fit-card p{font-size:14.5px; line-height:1.5; opacity:0.92;}
+
+  /* Divisor ilustrativo de pared de ladrillos */
+  .wall-strip{
+    height:70px;
+    background:
+      linear-gradient(var(--ink), var(--ink)),
+      repeating-linear-gradient(90deg, transparent 0 78px, rgba(255,255,255,0.08) 78px 82px),
+      repeating-linear-gradient(0deg, transparent 0 34px, rgba(255,255,255,0.08) 34px 38px);
+    background-blend-mode:normal;
+  }
+
+  /* Creador de Mural Interactivo */
+  .studio{
+    background:var(--ink);
+    padding:80px 0;
+  }
+  .studio .section-title{color:var(--pink);}
+  .studio-panel{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:28px;
+    max-width:760px;
+    margin:0 auto;
+  }
+  .wall-canvas-holder{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    border:4px solid var(--yellow);
+    box-shadow:0 0 40px rgba(255,233,59,0.25);
+  }
+  #wall{
+    width:100%;
+    height:380px;
+    display:block;
+    touch-action:none;
+    cursor:crosshair;
+    background:
+      repeating-linear-gradient(90deg,#5a3b28 0 96px, #4a2f20 96px 100px),
+      repeating-linear-gradient(0deg,#5a3b28 0 40px, #4a2f20 40px 44px);
+  }
+  .wall-hint{
+    position:absolute; top:12px; left:14px;
+    background:rgba(0,0,0,0.55);
+    padding:6px 12px; border-radius:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    pointer-events:none;
+  }
+  .controls{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+  }
+  .color-dot{
+    width:38px; height:38px; border-radius:50%;
+    border:3px solid rgba(255,255,255,0.4);
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s;
+  }
+  .color-dot.active{transform:scale(1.2); border-color:var(--paper);}
+  .can-size{
+    display:flex; gap:8px; align-items:center;
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+  }
+  input[type="range"]{accent-color: var(--teal); width:120px;}
+  .studio-buttons{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .btn-mini{
+    background:var(--teal); color:var(--ink); border:none;
+    padding:10px 18px; border-radius:10px; font-weight:700; cursor:pointer;
+    font-family:'Fredoka', sans-serif;
+  }
+  .btn-mini.alt{background:var(--pink); color:var(--paper);}
+  .coverage-readout{
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--yellow);
+  }
+  .coverage-bar-track{
+    width:100%; max-width:400px; height:14px; margin:8px auto 0;
+    background:rgba(255,255,255,0.15); border-radius:99px; overflow:hidden;
+  }
+  .coverage-bar-fill{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--teal), var(--pink), var(--yellow));
+    transition:width .25s ease;
+  }
+
+  /* Pestañas para los dos tipos de audiencia */
+  .audience{padding:80px 0;}
+  .tabs{
+    display:flex; justify-content:center; gap:10px; margin-bottom:36px; flex-wrap:wrap;
+  }
+  .tab-btn{
+    background:rgba(0,0,0,0.25);
+    border:2px solid rgba(255,255,255,0.25);
+    color:var(--paper);
+    padding:12px 24px;
+    border-radius:12px;
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+  }
+  .tab-btn.active{
+    background:var(--yellow);
+    color:var(--ink);
+    border-color:var(--yellow);
+  }
+  .tab-content{display:none; max-width:760px; margin:0 auto;}
+  .tab-content.active{display:block;}
+  .tab-content ul{list-style:none; display:grid; gap:14px;}
+  .tab-content li{
+    background:rgba(0,0,0,0.25);
+    border-radius:14px;
+    padding:16px 20px;
+    font-size:15.5px;
+    border-left:4px solid var(--teal);
+  }
+
+  /* Ilustraciones de la galería */
+  .gallery{padding:70px 0;}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+  }
+  .art-card{
+    border-radius:18px;
+    overflow:hidden;
+    border:3px solid rgba(255,255,255,0.18);
+    aspect-ratio:4/3;
+  }
+  .art-card svg{width:100%; height:100%; display:block;}
+
+  /* CTA Final */
+  .final-cta{
+    text-align:center;
+    padding:90px 0 60px;
+  }
+  .final-cta h2{
+    font-size:clamp(30px,5vw,50px);
+    color:var(--paper);
+    margin-bottom:18px;
+  }
+  .final-cta p{max-width:520px; margin:0 auto 30px; opacity:0.92; font-size:16.5px;}
+
+  footer{
+    background:var(--ink);
+    padding:32px 0;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;
+    border-top:4px solid var(--teal);
+  }
+  footer a{
+    color:var(--teal);
+    font-weight:600;
+    text-decoration:none;
+    border-bottom:2px dashed var(--teal);
+  }
+  footer a:hover{color:var(--pink); border-color:var(--pink);}
+  footer .foot-note{opacity:0.6; margin-top:10px;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:600px){
+    header.hero{padding:70px 0 50px;}
+    section{padding:50px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">🎨 Creado con <a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a> — páginas de destino para conseguir más encargos de murales</div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="spray-tag glow-text">🧱 PARA MURALISTAS Y ARTISTAS URBANOS</span>
+    <h1>Tus murales merecen una <span>web</span><br>tan audaz como tu trabajo.</h1>
+    <p class="sub">EasyLandX convierte tu portafolio de murales en una página que te hace destacar, enamora a tus clientes y consigue contrataciones, sin apagar el brillo de un solo bote de espray.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Consigue Mi Página de Destino →</a>
+      <a class="btn btn-secondary" href="#studio">Prueba el Creador de Murales ↓</a>
+    </div>
+    <svg class="can-illustration" viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="30" width="60" height="110" rx="10" fill="#00E5C7"/>
+      <rect x="20" y="30" width="60" height="26" rx="10" fill="#FF2E9F"/>
+      <rect x="30" y="10" width="40" height="22" rx="6" fill="#1A0F08"/>
+      <circle cx="50" cy="4" r="6" fill="#FFE93B"/>
+      <g opacity="0.9">
+        <circle cx="86" cy="12" r="3" fill="#FFE93B"/>
+        <circle cx="94" cy="22" r="2" fill="#FF2E9F"/>
+        <circle cx="80" cy="0" r="2" fill="#00E5C7"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<div class="wall-strip"></div>
+
+<section class="fit-section">
+  <div class="wrap">
+    <h2 class="section-title reveal">Por qué EasyLandX se Adapta Perfectamente a los Muralistas</h2>
+    <p class="section-sub reveal">Tu arte se crea para un espacio único y es inolvidable. Tu sitio web debería transmitir exactamente lo mismo.</p>
+    <div class="fit-grid">
+      <div class="fit-card reveal">
+        <span class="icon">🖼️</span>
+        <h3>Diseño centrado en el portafolio</h3>
+        <p>Imágenes grandes y a pantalla completa de tus murales lideran la página; sin cuadrículas reducidas que compitan con tu obra por la atención.</p>
+      </div>
+      <div class="fit-card reveal">
+        <span class="icon">📍</span>
+        <h3>Ubicación y escala al frente</h3>
+        <p>Muestra la ciudad, el tamaño de la pared y el tiempo de entrega en la parte superior, para que propietarios y organizadores sepan rápido que eres la opción ideal.</p>
+      </div>
+      <div class="fit-card reveal">
+        <span class="icon">🎨</span>
+        <h3>Una paleta adaptada a tu estilo</h3>
+        <p>Colores vivos de grafiti, tonos sobrios de bellas artes o un punto intermedio: cada web de EasyLandX tiene su propia historia de color personalizada, nunca una plantilla reutilizada.</p>
+      </div>
+      <div class="fit-card reveal">
+        <span class="icon">📩</span>
+        <h3>Un botón claro para encargar obras</h3>
+        <p>Un único botón brillante con la llamada a la acción "Encargar un Mural", conectado a tu correo, mensajes directos o formulario de reserva, sin rodeos para encontrar tus datos de contacto.</p>
+      </div>
+      <div class="fit-card reveal">
+        <span class="icon">📱</span>
+        <h3>Excelente visualización en móviles</h3>
+        <p>Los clientes suelen tomar decisiones en el lugar, frente a la pared en blanco: tu página carga rápido y se ve perfecta en dispositivos móviles.</p>
+      </div>
+      <div class="fit-card reveal">
+        <span class="icon">⚡</span>
+        <h3>Lista en días, no en meses</h3>
+        <p>Sin herramientas complejas que aprender ni plantillas con las que luchar: solo tus murales, tu historia y tu voz, lanzados rápidamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wall-strip"></div>
+
+<section class="studio" id="studio">
+  <div class="wrap">
+    <h2 class="section-title reveal">Pinta Tu Propio Mural</h2>
+    <p class="section-sub reveal" style="color:var(--paper);">Elige un color, toma el bote y cubre el ladrillo: este es el tipo de interactividad divertida que EasyLandX puede integrar directamente en tu página.</p>
+    <div class="studio-panel">
+      <div class="wall-canvas-holder">
+        <canvas id="wall"></canvas>
+        <div class="wall-hint">haz clic / arrastra para pintar</div>
+      </div>
+      <div class="controls">
+        <div class="color-dot active" style="background:#00E5C7" data-color="#00E5C7"></div>
+        <div class="color-dot" style="background:#FF2E9F" data-color="#FF2E9F"></div>
+        <div class="color-dot" style="background:#FFE93B" data-color="#FFE93B"></div>
+        <div class="color-dot" style="background:#FF5B1F" data-color="#FF5B1F"></div>
+        <div class="color-dot" style="background:#FFFFFF" data-color="#FFFFFF"></div>
+        <div class="can-size">
+          <label for="nozzle">boquilla</label>
+          <input type="range" id="nozzle" min="6" max="30" value="14">
+        </div>
+      </div>
+      <div class="coverage-readout" id="coverageText">COBERTURA DE LA PARED: 0%</div>
+      <div class="coverage-bar-track"><div class="coverage-bar-fill" id="coverageFill"></div></div>
+      <div class="studio-buttons">
+        <button class="btn-mini" id="clearWall">Limpiar Pared</button>
+        <button class="btn-mini alt" id="fillWall">Firmar Automáticamente</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="audience">
+  <div class="wrap">
+    <h2 class="section-title reveal">Diseñado para Dos Tipos de Visitantes</h2>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="artists">🧱 Compañeros Artistas</button>
+      <button class="tab-btn" data-tab="clients">🏢 Clientes de Inmuebles y Eventos</button>
+    </div>
+    <div class="tab-content active" id="artists">
+      <ul>
+        <li>🖌️ Una página que se siente como la pared de una galería, no como un currículum tradicional.</li>
+        <li>📸 Espacio para fotos del proceso, vídeos en cámara rápida y tomas detrás de escena junto a las obras terminadas.</li>
+        <li>🤝 Una web idónea para colaborar, que puedes compartir fácilmente con otros artistas, comisarios y equipos.</li>
+        <li>🌍 Contenido preparado para varios idiomas si tus contrataciones abarcan distintas ciudades o países.</li>
+      </ul>
+    </div>
+    <div class="tab-content" id="clients">
+      <ul>
+        <li>📐 Información clara sobre los tamaños de pared que has trabajado, para que sepan que puedes asumir el suyo.</li>
+        <li>🗓️ Disponibilidad y tiempo de preparación en un lugar destacado, evitando conversaciones innecesarias para confirmar tus fechas libres.</li>
+        <li>🛡️ Espacio para mostrar seguros, permisos o clientes comerciales anteriores si es relevante para su propiedad.</li>
+        <li>✉️ Un paso siguiente evidente: enviarte un mensaje y reservar la pared.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="wall-strip"></div>
+
+<section class="gallery">
+  <div class="wrap">
+    <h2 class="section-title reveal">Cada Proyecto Tiene Su Propia Obra de Arte</h2>
+    <p class="section-sub reveal">Algunos estilos de ilustración que EasyLandX puede integrar en la página de un muralista.</p>
+    <div class="gallery-grid">
+      <div class="art-card reveal">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#FF2E9F"/>
+          <circle cx="60" cy="60" r="40" fill="#FFE93B"/>
+          <circle cx="140" cy="90" r="55" fill="#00E5C7" opacity="0.85"/>
+          <path d="M0 130 Q50 90 100 130 T200 130 V150 H0 Z" fill="#1A0F08"/>
+        </svg>
+      </div>
+      <div class="art-card reveal">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#00E5C7"/>
+          <g stroke="#1A0F08" stroke-width="6" fill="none">
+            <path d="M10 120 C60 20 140 20 190 120"/>
+          </g>
+          <circle cx="100" cy="60" r="18" fill="#FF5B1F"/>
+          <circle cx="60" cy="90" r="10" fill="#FFE93B"/>
+          <circle cx="150" cy="100" r="12" fill="#FF2E9F"/>
+        </svg>
+      </div>
+      <div class="art-card reveal">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#FFE93B"/>
+          <rect x="20" y="20" width="160" height="110" fill="none" stroke="#1A0F08" stroke-width="6"/>
+          <path d="M20 130 L70 60 L110 100 L140 50 L180 130 Z" fill="#FF2E9F"/>
+          <circle cx="150" cy="45" r="14" fill="#00E5C7" stroke="#1A0F08" stroke-width="4"/>
+        </svg>
+      </div>
+      <div class="art-card reveal">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#FF5B1F"/>
+          <g fill="#FFE93B">
+            <circle cx="40" cy="30" r="6"/><circle cx="70" cy="45" r="4"/>
+            <circle cx="100" cy="20" r="5"/><circle cx="150" cy="40" r="7"/>
+            <circle cx="30" cy="110" r="5"/><circle cx="170" cy="110" r="6"/>
+          </g>
+          <path d="M20 100 Q100 40 180 100 L180 140 L20 140 Z" fill="#1A0F08"/>
+          <path d="M20 100 Q100 40 180 100" stroke="#00E5C7" stroke-width="6" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2 class="reveal">Llevemos tus murales donde los clientes miran primero.</h2>
+    <p class="reveal">Una página atractiva, tu arte a todo color, creada por EasyLandX y lista en cuestión de días.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Iniciar Mi Página de Murales →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Creado para muralistas y artistas urbanos por <a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a>
+    <div class="foot-note">Páginas de destino accesibles y enfocadas en la conversión.</div>
+  </div>
+</footer>
+
+<script>
+// Animación al desplazar (Scroll reveal)
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+// Pestañas
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Creador de Paredes de Murales
+const canvas = document.getElementById('wall');
+const ctx = canvas.getContext('2d');
+let currentColor = '#00E5C7';
+let painting = false;
+let coveredPixels = 0;
+let coverageMap;
+const coverageText = document.getElementById('coverageText');
+const coverageFill = document.getElementById('coverageFill');
+
+function resizeCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  coverageMap = new Uint8Array(canvas.width * canvas.height);
+  coveredPixels = 0;
+  updateCoverage();
+}
+window.addEventListener('resize', resizeCanvas);
+setTimeout(resizeCanvas, 50);
+
+document.querySelectorAll('.color-dot').forEach(dot=>{
+  dot.addEventListener('click', ()=>{
+    document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('active'));
+    dot.classList.add('active');
+    currentColor = dot.dataset.color;
+  });
+});
+
+function getPos(e){
+  const rect = canvas.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return {x: clientX - rect.left, y: clientY - rect.top};
+}
+
+function sprayAt(x, y){
+  const nozzle = parseInt(document.getElementById('nozzle').value, 10);
+  const dots = 10;
+  for(let i=0;i<dots;i++){
+    const angle = Math.random()*Math.PI*2;
+    const dist = Math.random()*nozzle;
+    const px = x + Math.cos(angle)*dist;
+    const py = y + Math.sin(angle)*dist;
+    const r = Math.random()*2.2 + 0.8;
+    ctx.beginPath();
+    ctx.fillStyle = currentColor;
+    ctx.globalAlpha = 0.55 + Math.random()*0.3;
+    ctx.arc(px, py, r, 0, Math.PI*2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  markCoverage(x, y, nozzle);
+}
+
+function markCoverage(x, y, nozzle){
+  if(!coverageMap) return;
+  const w = canvas.width;
+  const h = canvas.height;
+  const x0 = Math.max(0, Math.floor(x-nozzle));
+  const x1 = Math.min(w-1, Math.floor(x+nozzle));
+  const y0 = Math.max(0, Math.floor(y-nozzle));
+  const y1 = Math.min(h-1, Math.floor(y+nozzle));
+  for(let yy=y0; yy<=y1; yy+=2){
+    for(let xx=x0; xx<=x1; xx+=2){
+      const idx = yy*w+xx;
+      if(coverageMap[idx] === 0){
+        coverageMap[idx] = 1;
+        coveredPixels++;
+      }
+    }
+  }
+  updateCoverage();
+}
+
+function updateCoverage(){
+  const total = canvas.width * canvas.height / 4;
+  const pct = Math.min(100, Math.round((coveredPixels/total)*100));
+  coverageText.textContent = 'COBERTURA DE LA PARED: ' + pct + '%';
+  coverageFill.style.width = pct + '%';
+}
+
+canvas.addEventListener('mousedown', (e)=>{ painting = true; const p=getPos(e); sprayAt(p.x,p.y); });
+canvas.addEventListener('mousemove', (e)=>{ if(painting){ const p=getPos(e); sprayAt(p.x,p.y); } });
+window.addEventListener('mouseup', ()=> painting = false);
+canvas.addEventListener('touchstart', (e)=>{ painting=true; const p=getPos(e); sprayAt(p.x,p.y); e.preventDefault(); }, {passive:false});
+canvas.addEventListener('touchmove', (e)=>{ if(painting){ const p=getPos(e); sprayAt(p.x,p.y);} e.preventDefault(); }, {passive:false});
+window.addEventListener('touchend', ()=> painting=false);
+
+document.getElementById('clearWall').addEventListener('click', ()=>{
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  coverageMap = new Uint8Array(canvas.width * canvas.height);
+  coveredPixels = 0;
+  updateCoverage();
+});
+
+document.getElementById('fillWall').addEventListener('click', ()=>{
+  const colors = ['#00E5C7','#FF2E9F','#FFE93B','#FF5B1F','#FFFFFF'];
+  const w = canvas.width, h = canvas.height;
+  for(let i=0;i<140;i++){
+    currentColor = colors[Math.floor(Math.random()*colors.length)];
+    sprayAt(Math.random()*w, Math.random()*h);
+  }
+  currentColor = document.querySelector('.color-dot.active').dataset.color;
+});
+</script>
+
+</body>
+</html>
