@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx para Terapeutas Equinos y Cuidado del Caballo</title>
+<style>
+  :root{
+    --bg: #2E1A47;            /* Vibrant Royal Purple */
+    --bg2: #3D2160;
+    --accent-lime: #B6FF3C;   /* Electric Lime */
+    --accent-gold: #FFC93C;   /* Glowing Gold */
+    --accent-pink: #FF3CAC;   /* Glowing Magenta pop */
+    --text: #FFFDF7;
+    --card: rgba(255,255,255,0.06);
+    --card-border: rgba(182,255,60,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(182,255,60,0.18), transparent 45%),
+      radial-gradient(circle at 85% 20%, rgba(255,60,172,0.18), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(255,201,60,0.14), transparent 50%),
+      linear-gradient(180deg, var(--bg), var(--bg2));
+    color:var(--text);
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    overflow-x:hidden;
+  }
+  a{color:var(--accent-lime);}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 20px 60px;}
+
+  .toplink{
+    display:flex;justify-content:center;margin:18px 0 6px;
+  }
+  .toplink a{
+    text-decoration:none;
+    font-weight:800;
+    letter-spacing:.5px;
+    padding:10px 22px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--accent-lime), var(--accent-gold));
+    color:#1a1030;
+    box-shadow:0 0 18px rgba(182,255,60,0.55), 0 0 40px rgba(255,201,60,0.25);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .toplink a:hover{transform:translateY(-2px) scale(1.03); box-shadow:0 0 26px rgba(182,255,60,0.85);}
+
+  header.hero{
+    text-align:center;
+    padding:50px 10px 20px;
+    position:relative;
+  }
+  .badge{
+    display:inline-block;
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#1a1030;
+    background:var(--accent-pink);
+    padding:6px 14px;
+    border-radius:999px;
+    box-shadow:0 0 20px rgba(255,60,172,0.6);
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(2rem, 5vw, 3.4rem);
+    line-height:1.1;
+    margin:.2em 0;
+    text-shadow:0 0 18px rgba(182,255,60,0.45);
+  }
+  h1 span{
+    background:linear-gradient(90deg, var(--accent-lime), var(--accent-gold), var(--accent-pink));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .sub{
+    font-size:clamp(1rem, 2vw, 1.25rem);
+    max-width:640px;
+    margin:14px auto 0;
+    opacity:.9;
+  }
+
+  .horse-art{
+    display:flex;
+    justify-content:center;
+    margin:30px auto 10px;
+    font-size:clamp(8rem, 20vw, 14rem);
+    line-height:1;
+    user-select:none;
+  }
+
+  @keyframes glowPulse{
+    0%,100%{ filter:drop-shadow(0 0 15px rgba(182,255,60,0.6)); }
+    50%{ filter:drop-shadow(0 0 35px rgba(255,201,60,0.9)); }
+  }
+  .glow-anim{ animation:glowPulse 3.5s ease-in-out infinite; }
+
+  section{margin:56px 0;}
+  .section-title{
+    text-align:center;
+    font-size:clamp(1.5rem,3vw,2.1rem);
+    margin-bottom:8px;
+  }
+  .section-title span{color:var(--accent-lime);}
+  .section-sub{text-align:center;opacity:.85;max-width:600px;margin:0 auto 30px;}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:20px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:18px;
+    padding:22px;
+    backdrop-filter:blur(6px);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:var(--accent-gold);
+    box-shadow:0 8px 30px rgba(255,201,60,0.25);
+  }
+  .card .icon{font-size:2.2rem;display:block;margin-bottom:10px;}
+  .card h3{margin:.2em 0 .4em;color:var(--accent-gold);}
+  .card p{margin:0;opacity:.9;line-height:1.5;font-size:.96rem;}
+
+  /* Quiz */
+  .quiz{
+    background:linear-gradient(160deg, rgba(182,255,60,0.08), rgba(255,60,172,0.08));
+    border:1px solid var(--card-border);
+    border-radius:24px;
+    padding:34px 24px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(255,60,172,0.12);
+  }
+  .quiz h2{margin-top:0;}
+  .quiz-options{
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:22px 0;
+  }
+  .quiz-options button{
+    font-family:inherit;
+    font-size:1rem;
+    font-weight:700;
+    padding:14px 20px;
+    border-radius:14px;
+    border:2px solid var(--accent-lime);
+    background:transparent;
+    color:var(--text);
+    cursor:pointer;
+    transition:all .2s ease;
+    min-width:180px;
+  }
+  .quiz-options button:hover{
+    background:var(--accent-lime);
+    color:#1a1030;
+    box-shadow:0 0 22px rgba(182,255,60,0.7);
+    transform:translateY(-3px);
+  }
+  #quizResult{
+    margin-top:20px;
+    min-height:80px;
+    font-size:1.05rem;
+    padding:0 10px;
+  }
+  #quizResult .result-card{
+    display:inline-block;
+    max-width:520px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid var(--accent-gold);
+    border-radius:16px;
+    padding:18px 22px;
+    box-shadow:0 0 26px rgba(255,201,60,0.3);
+    animation:fadeIn .4s ease;
+  }
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  #quizResult h4{margin:0 0 8px;color:var(--accent-lime);}
+  .restart{
+    margin-top:14px;
+    background:none;
+    border:none;
+    color:var(--accent-pink);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:.9rem;
+  }
+
+  .cta{
+    text-align:center;
+    padding:50px 20px;
+    border-radius:24px;
+    background:linear-gradient(135deg, rgba(182,255,60,0.15), rgba(255,201,60,0.1));
+    border:1px solid var(--card-border);
+  }
+  .cta h2{margin-top:0;}
+  .cta-btn{
+    display:inline-block;
+    margin-top:16px;
+    text-decoration:none;
+    font-weight:800;
+    font-size:1.1rem;
+    padding:16px 34px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+    color:#1a1030;
+    box-shadow:0 0 22px rgba(255,60,172,0.55);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta-btn:hover{transform:translateY(-3px) scale(1.04); box-shadow:0 0 34px rgba(255,201,60,0.8);}
+
+  .bottomlink{
+    display:flex;justify-content:center;margin-top:50px;
+  }
+  .bottomlink a{
+    text-decoration:none;
+    font-weight:800;
+    letter-spacing:.5px;
+    padding:12px 26px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--accent-gold), var(--accent-lime));
+    color:#1a1030;
+    box-shadow:0 0 18px rgba(255,201,60,0.55);
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 10px 10px;
+    font-size:.85rem;
+    opacity:.7;
+  }
+  footer a{color:var(--accent-lime);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="toplink"><a href="https://easylandx.github.io" target="_blank" rel="noopener">🐎 Visita easylandx.github.io</a></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="badge">Diseñado para Establos, No para Salas de Juntas</span>
+    <h1>Páginas de destino que se sienten tan <span>cálidas, vivas y confiables</span><br>como tu práctica</h1>
+    <p class="sub">easylandx ofrece a los terapeutas equinos y profesionales del cuidado del caballo una página de destino brillante y hecha a mano, diseñada para inspirar confianza antes de que un cliente reserve su primera sesión.</p>
+
+    <div class="horse-art glow-anim">
+      🐴
+    </div>
+  </header>
+
+  <section>
+    <h2 class="section-title">Por qué <span>easylandx</span> es la opción perfecta para Terapeutas Equinos y Cuidado del Caballo</h2>
+    <p class="section-sub">Tu trabajo es sensorial, emocional y práctico; tu sitio web también debería sentirse así.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="icon">🐴</span>
+        <h3>Diseñado en Torno al Vínculo Caballo-Humano</h3>
+        <p>Estructuras creadas para mostrar tu manada, tu entorno y la transformación que sienten los clientes, no una plantilla de bienestar genérica adaptada para caballos.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🌿</span>
+        <h3>Primeras Impresiones Tranquilas y Acogedoras</h3>
+        <p>Movimiento suave, detalles brillantes y espacios abiertos que reflejan la calma que tu establo ya ofrece, para que los visitantes la sientan incluso antes de reservar.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📅</span>
+        <h3>Lista para Reservas Desde el Primer Día</h3>
+        <p>Rutas claras para consultar, reservar una sesión o unirse a un programa, de modo que los padres, jinetes y médicos remitentes sepan exactamente qué hacer.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🏆</span>
+        <h3>Credibilidad en Primer Plano</h3>
+        <p>Espacio integrado para certificaciones (PATH Intl., EAGALA y similares), prácticas de seguridad y resultados de clientes que generan confianza rápidamente.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📸</span>
+        <h3>Hecho para Narrativa Visual</h3>
+        <p>Galerías y secciones diseñadas para fotos de tus caballos, la pista y las sesiones, porque en el trabajo equino, ver es creer.</p>
+      </div>
+      <div class="card">
+        <span class="icon">⚡</span>
+        <h3>Rápido, Personalizado y Artesanal</h3>
+        <p>Cada página es elaborada por easylandx específicamente para tu centro, reflejando la personalidad de tu manada y la voz de tu programa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="quiz">
+      <h2>🐎 Encuentra el Estilo de Página easylandx Perfecto para Ti</h2>
+      <p class="section-sub">Responde una pregunta y descubre el enfoque de página de destino que mejor se adapta a tu práctica.</p>
+      <div class="quiz-options" id="quizOptions">
+        <button data-key="pathwork">Psicoterapia Asistida con Equinos</button>
+        <button data-key="physical">Hipoterapia / Rehabilitación Física</button>
+        <button data-key="youth">Programas para Jóvenes y Veteranos</button>
+        <button data-key="lessons">Clases de Equitación Terapéutica</button>
+      </div>
+      <div id="quizResult"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <h2>Dale a la historia de tu manada el espacio que se merece</h2>
+      <p>Las páginas de easylandx están diseñadas a medida —nunca mediante plantillas— para proyectos como el tuyo.</p>
+      <a class="cta-btn" href="https://easylandx.github.io" target="_blank" rel="noopener">🐎 Empieza con easylandx</a>
+    </div>
+  </section>
+
+</div>
+
+<div class="bottomlink"><a href="https://easylandx.github.io" target="_blank" rel="noopener">🐎 easylandx.github.io</a></div>
+
+<footer>
+  Creado por <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx</a> — páginas de destino para Terapeutas Equinos y Cuidado del Caballo.
+</footer>
+
+<script>
+  const results = {
+    pathwork: {
+      title: "La Página de Confianza y Transformación",
+      text: "Un diseño sutil centrado en historias que resalta tu enfoque, el papel de tus caballos en las sesiones y los resultados de los clientes, creado para tranquilizar a los usuarios antes de su primera llamada de contacto."
+    },
+    physical: {
+      title: "La Página de Credibilidad Clínica",
+      text: "Un diseño estructurado desde el inicio con certificaciones, credenciales de terapeutas y objetivos de tratamiento, combinado con fotografías cálidas, para que los médicos remitentes y las familias se sientan seguros rápidamente."
+    },
+    youth: {
+      title: "La Página de Impacto Comunitario",
+      text: "Un diseño vibrante y lleno de historias que destaca los resultados del programa, los patrocinadores y cómo participar, creado para impulsar donaciones, referencias y solicitudes."
+    },
+    lessons: {
+      title: "La Página Acogedora de Clases de Equitación",
+      text: "Un diseño amigable y rico en fotos con niveles de clases claros, una ruta de reserva sencilla y perfiles de los caballos, creado para convertir visitantes curiosos en jinetes habituales."
+    }
+  };
+
+  const resultBox = document.getElementById('quizResult');
+  document.getElementById('quizOptions').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    const key = btn.dataset.key;
+    const r = results[key];
+    resultBox.innerHTML = `
+      <div class="result-card">
+        <h4>${r.title}</h4>
+        <p>${r.text}</p>
+        <button class="restart" onclick="document.getElementById('quizResult').innerHTML=''">Probar otra respuesta</button>
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>
