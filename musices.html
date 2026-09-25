@@ -29,7 +29,7 @@
   .glow-text{text-shadow:0 0 12px currentColor,0 0 30px currentColor;}
   .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
 
-  /* Barra CTA superior */
+  /* Top CTA bar */
   .topbar{
     display:flex;justify-content:center;align-items:center;
     padding:14px 16px;background:var(--bg2);
@@ -84,7 +84,7 @@
   }
   .hype-label{margin-top:10px;font-family:'Bebas Neue';font-size:1.4rem;color:var(--yellow);}
 
-  /* Pestañas */
+  /* Tabs */
   .tabs-section{max-width:800px;margin:70px auto;text-align:center;}
   .tabs-section h2{font-size:2.4rem;color:var(--orange);margin-bottom:24px;}
   .tab-buttons{display:flex;justify-content:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
@@ -99,7 +99,7 @@
   .tab-panel ul{list-style:none;display:grid;gap:10px;}
   .tab-panel li::before{content:"🎸 ";}
 
-  /* Rejilla de razones */
+  /* Why grid */
   .why{max-width:1000px;margin:70px auto;padding:0 24px;}
   .why h2{text-align:center;font-size:2.6rem;color:var(--yellow);margin-bottom:40px;}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
@@ -112,7 +112,7 @@
   .card h3{color:var(--cyan);margin:10px 0 8px;font-size:1.3rem;}
   .card p{opacity:.85;font-size:.95rem;line-height:1.4;}
 
-  /* CTA Final */
+  /* Final CTA */
   .final-cta{text-align:center;padding:80px 24px;}
   .final-cta h2{font-size:2.6rem;color:var(--yellow);margin-bottom:16px;}
   .final-cta p{opacity:.9;margin-bottom:28px;}
@@ -135,24 +135,24 @@
   <span class="float-note" style="bottom:10px;left:20%;animation-delay:2.4s;">♫</span>
 
   <h1 class="glow-text">EasyLandX PARA<br>MÚSICOS INDEPENDIENTES Y BANDAS</h1>
-  <p class="sub">Una página de destino brillante y de alta energía que convierte a los fans, oyentes y asistentes a conciertos en tu próximo público de entradas agotadas — lista en días, no en meses.</p>
+  <p class="sub">Una página de aterrizaje brillante y de alta energía que transforma a tus oyentes y fans en tu próximo público con entradas agotadas — lista en días, no en meses.</p>
 
   <svg class="stage-svg" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="250" cy="200" rx="220" ry="16" fill="#00000055"/>
-    <!-- reflector -->
+    <!-- spotlight -->
     <polygon points="120,0 250,180 0,180" fill="#FFEA0022"/>
     <polygon points="380,0 250,180 500,180" fill="#00F5FF22"/>
-    <!-- torre de amplificadores -->
+    <!-- amp stack -->
     <rect x="40" y="110" width="70" height="70" rx="6" fill="#1A0533" stroke="#FF6B00" stroke-width="3"/>
     <circle cx="55" cy="130" r="8" fill="#FF6B00"/><circle cx="95" cy="130" r="8" fill="#FF6B00"/>
     <circle cx="55" cy="155" r="8" fill="#FF6B00"/><circle cx="95" cy="155" r="8" fill="#FF6B00"/>
-    <!-- guitarra -->
+    <!-- guitar -->
     <g transform="translate(230,60) rotate(15)">
       <rect x="-4" y="-70" width="8" height="80" fill="#FFEA00"/>
       <ellipse cx="0" cy="30" rx="34" ry="46" fill="#FF6B00" stroke="#FFEA00" stroke-width="3"/>
       <ellipse cx="0" cy="30" rx="14" ry="18" fill="#1A0533"/>
     </g>
-    <!-- micrófono -->
+    <!-- mic -->
     <g transform="translate(400,60)">
       <line x1="0" y1="0" x2="0" y2="90" stroke="#00F5FF" stroke-width="4"/>
       <ellipse cx="0" cy="-18" rx="16" ry="22" fill="#00F5FF"/>
@@ -164,7 +164,7 @@
 
 <div class="widget reveal">
   <h2 class="glow-text" style="color:var(--cyan)">🎚️ Mezclador de Escenario en Vivo</h2>
-  <p class="desc">Sube los canales —al igual que afinas el mensaje de tu página de destino— y mira cómo aumenta la emoción del público.</p>
+  <p class="desc">Sube los canales, como si estuvieras afinando el mensaje de tu página, y mira cómo se enciende el público.</p>
   <div class="mixer">
     <div class="channel">
       <div class="eq-bar"><div class="eq-fill" id="eqVocals" style="height:40%"></div></div>
@@ -189,53 +189,53 @@
   </div>
   <div class="hype-wrap">
     <div class="hype-track"><div class="hype-fill" id="hypeFill"></div></div>
-    <div class="hype-label" id="hypeLabel">EMOCIÓN DEL PÚBLICO: CALENTANDO MOTORES</div>
+    <div class="hype-label" id="hypeLabel">ENTUSIASMO DEL PÚBLICO: CALENTANDO</div>
   </div>
 </div>
 
 <section class="tabs-section reveal">
-  <h2>Diseñado para tu Configuración</h2>
+  <h2>Diseñado para tu Estructura</h2>
   <div class="tab-buttons">
     <button class="tab-btn active" data-tab="solo">Artistas Solistas</button>
     <button class="tab-btn" data-tab="band">Bandas Completas</button>
   </div>
   <div class="tab-panel active" id="solo">
     <ul>
-      <li>Una página, todos tus enlaces de streaming (Spotify, Apple Music, YouTube) a un toque brillante</li>
-      <li>Incrusta tu último sencillo o video de sesión en vivo al frente y al centro</li>
-      <li>Captación sencilla de lista de correo para que los fans se enteren de tu próximo lanzamiento antes que nadie</li>
-      <li>Lista de fechas de gira que se actualiza tan rápido como tu calendario</li>
+      <li>Una sola página con todos tus enlaces de streaming (Spotify, Apple Music, YouTube) a un toque</li>
+      <li>Incrusta tu último sencillo o video de sesión en vivo en el centro de atención</li>
+      <li>Formulario sencillo para lista de correo, para que tus fans sean los primeros en enterarse de tu próximo lanzamiento</li>
+      <li>Lista de fechas de gira que se actualiza tan rápido como tu agenda</li>
     </ul>
   </div>
   <div class="tab-panel" id="band">
     <ul>
-      <li>Sección de alineación completa con fotos, roles y redes sociales de cada integrante</li>
-      <li>Área de dossier de prensa / EPK para recintos, promotores y organizadores de festivales</li>
-      <li>Escaparate de merchandising con enlace directo a tu tienda</li>
-      <li>Galería para fotografías de conciertos en vivo y clips de video</li>
+      <li>Sección completa de la alineación con fotos, roles y redes sociales de cada integrante</li>
+      <li>Área de kit de prensa / EPK para salas, promotores y organizadores de festivales</li>
+      <li>Escaparate de mercancía oficial con enlace directo a tu tienda</li>
+      <li>Galería para fotografías y fragmentos de video de tus conciertos en vivo</li>
     </ul>
   </div>
 </section>
 
 <section class="why reveal">
-  <h2 class="glow-text">Por qué EasyLandX se Adapta a los Músicos</h2>
+  <h2 class="glow-text">Por qué EasyLandX es Ideal para Músicos</h2>
   <div class="cards">
-    <div class="card"><div class="ic">⚡</div><h3>En Vivo Rápidamente</h3><p>Tu página se publica antes de la prueba de sonido — sin herramientas complejas ni semanas de espera con un diseñador.</p></div>
-    <div class="card"><div class="ic">📱</div><h3>Lista para tus Fans</h3><p>Se ve impecable en el teléfono que tus fans usan realmente para encontrarte entre canción y canción.</p></div>
-    <div class="card"><div class="ic">🎧</div><h3>Enfocada en Streaming</h3><p>Cada enlace a plataformas —Spotify, Bandcamp, YouTube— a un toque de distancia.</p></div>
+    <div class="card"><div class="ic">⚡</div><h3>En Vivo al Instante</h3><p>Tu página está lista antes de la prueba de sonido: sin editores complejos ni semanas de espera con un diseñador.</p></div>
+    <div class="card"><div class="ic">📱</div><h3>Lista para Fans</h3><p>Se ve impecable en el móvil que tus seguidores usan para buscarte entre canciones.</p></div>
+    <div class="card"><div class="ic">🎧</div><h3>Enfoque en Streaming</h3><p>Cada enlace a plataformas (Spotify, Bandcamp, YouTube) a un solo toque vibrante.</p></div>
     <div class="card"><div class="ic">🗓️</div><h3>Fechas de Gira</h3><p>Actualiza tu calendario de conciertos en minutos, justo antes de salir a la carretera.</p></div>
     <div class="card"><div class="ic">🎨</div><h3>Tu Sonido, Tu Estilo</h3><p>Neón, sombrío, crudo o pulido — la paleta se adapta a tu género, no a una plantilla genérica.</p></div>
-    <div class="card"><div class="ic">📈</div><h3>Diseñada para Convertir</h3><p>Cada sección está pensada para transformar una visita en un stream, un seguidor o una entrada vendida.</p></div>
+    <div class="card"><div class="ic">📈</div><h3>Hecha para Convertir</h3><p>Cada sección está diseñada para transformar una visita en un stream, un seguidor o una entrada vendida.</p></div>
   </div>
 </section>
 
 <section class="final-cta reveal">
-  <h2 class="glow-text">¿Listo para Tomar el Escenario Digital?</h2>
-  <p>Únete a los artistas y bandas que ya usan EasyLandX para convertir a sus oyentes en fans leales.</p>
+  <h2 class="glow-text">¿Listo para Conquistar el Escenario Digital?</h2>
+  <p>Únete a los artistas y bandas que ya usan EasyLandX para convertir oyentes en fans leales.</p>
   <a class="elx-btn" href="https://easylandx.github.io" target="_blank" rel="noopener">🎸 Obtén tu Página EasyLandX</a>
 </section>
 
-<footer>EasyLandX — Páginas de Destino para Músicos Independientes y Bandas · easylandx.github.io</footer>
+<footer>EasyLandX — Páginas de aterrizaje para músicos independientes y bandas · easylandx.github.io</footer>
 
 <script>
   const sliders = ['Vocals','Guitar','Drums','Bass'];
@@ -249,10 +249,10 @@
     const avg = total / sliders.length;
     document.getElementById('hypeFill').style.width = avg+'%';
     const label = document.getElementById('hypeLabel');
-    if(avg < 30) label.textContent = 'EMOCIÓN DEL PÚBLICO: CALENTANDO MOTORES';
-    else if(avg < 60) label.textContent = 'EMOCIÓN DEL PÚBLICO: SINTIENDO EL RITMO';
-    else if(avg < 85) label.textContent = 'EMOCIÓN DEL PÚBLICO: ¡EN LLAMAS! 🔥';
-    else label.textContent = 'EMOCIÓN DEL PÚBLICO: ¡OTRA, OTRA! 🎸🔥';
+    if(avg < 30) label.textContent = 'ENTUSIASMO DEL PÚBLICO: CALENTANDO';
+    else if(avg < 60) label.textContent = 'ENTUSIASMO DEL PÚBLICO: SINTIENDO EL RITMO';
+    else if(avg < 85) label.textContent = 'ENTUSIASMO DEL PÚBLICO: ¡EN LLAMAS! 🔥';
+    else label.textContent = 'ENTUSIASMO DEL PÚBLICO: ¡OTRA, OTRA! 🎸🔥';
   }
   sliders.forEach(n=>document.getElementById('s'+n).addEventListener('input', updateHype));
   updateHype();
