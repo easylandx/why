@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx for Lawyers &amp; Legal Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F1EA;
+    --paper2:#E7E3D6;
+    --ink:#161512;
+    --ink2:#4a483e;
+    --line:rgba(22,21,18,0.20);
+    --line-strong:rgba(22,21,18,0.6);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161512; --paper2:#201f1a; --ink:#EDEAE0; --ink2:#b8b4a5;
+      --line:rgba(237,234,224,0.18); --line-strong:rgba(237,234,224,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161512; --paper2:#201f1a; --ink:#EDEAE0; --ink2:#b8b4a5;
+    --line:rgba(237,234,224,0.18); --line-strong:rgba(237,234,224,0.55);
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Archivo',sans-serif; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Source Serif 4',serif; font-weight:600; margin:0; color:var(--ink);}
+  a{color:inherit;}
+  .rule{border:none; border-top:1px solid var(--line); margin:0;}
+  .wrap{max-width:860px; margin:0 auto; padding:0 28px;}
+
+  /* top link bar */
+  .topbar{border-bottom:1px solid var(--line-strong); padding:14px 0;}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
+  .brand{font-family:'Source Serif 4',serif; font-weight:600; font-size:1.05rem; letter-spacing:.02em;}
+  .topbar a.cta-link{
+    font-size:.85rem; text-decoration:none; border-bottom:1px solid var(--ink);
+    padding-bottom:1px;
+  }
+
+  /* case caption / hero */
+  .caption{ text-align:center; padding:52px 0 8px; }
+  .caption .docket{ font-size:.78rem; color:var(--ink2); letter-spacing:.04em; }
+  .caption h1{ font-size:clamp(2rem, 5vw, 3.1rem); line-height:1.12; margin:14px auto 18px; max-width:16ch; }
+  .caption p.sub{ max-width:52ch; margin:0 auto 30px; color:var(--ink2); font-size:1.05rem; }
+  .hero-art{ display:flex; justify-content:center; padding:6px 0 30px; }
+  .hero-art svg{ width:min(360px,80vw); height:auto; }
+  .btnrow{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; padding-bottom:46px; }
+  .btn{
+    font-family:'Archivo',sans-serif; font-weight:600; font-size:.92rem;
+    padding:12px 22px; border:1px solid var(--ink); text-decoration:none;
+    background:var(--ink); color:var(--paper); display:inline-block;
+  }
+  .btn.ghost{ background:transparent; color:var(--ink); }
+
+  /* exhibit sections */
+  .exhibit{ padding:46px 0; border-top:1px solid var(--line); }
+  .exhibit .tag{ font-size:.78rem; color:var(--ink2); margin-bottom:8px; }
+  .exhibit h2{ font-size:clamp(1.4rem,3vw,1.9rem); max-width:22ch; margin-bottom:18px; }
+  .points{ display:grid; grid-template-columns:1fr 1fr; gap:22px 32px; }
+  @media (max-width:620px){ .points{ grid-template-columns:1fr; } }
+  .point{ border-left:2px solid var(--line-strong); padding-left:16px; }
+  .point h3{ font-size:1.02rem; margin-bottom:6px; }
+  .point p{ margin:0; color:var(--ink2); font-size:.95rem; }
+
+  /* scale interactive */
+  .scale-panel{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+  .scale-stage{ width:100%; max-width:520px; }
+  .verdict-row{ display:flex; justify-content:space-between; width:100%; max-width:520px; font-size:.85rem; color:var(--ink2); }
+  .toggles{ display:grid; grid-template-columns:1fr 1fr; gap:10px 20px; width:100%; max-width:520px; }
+  @media (max-width:480px){ .toggles{ grid-template-columns:1fr; } }
+  .toggle{
+    display:flex; align-items:center; gap:10px; font-size:.92rem;
+    border:1px solid var(--line); padding:10px 12px; cursor:pointer; user-select:none;
+  }
+  .toggle input{ accent-color:var(--ink); width:16px; height:16px; }
+  .verdict-text{ text-align:center; font-family:'Source Serif 4',serif; font-size:1.15rem; min-height:1.6em; }
+
+  /* illustration trio */
+  .trio{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  @media (max-width:620px){ .trio{ grid-template-columns:1fr; } }
+  .trio figure{ margin:0; text-align:center; }
+  .trio svg{ width:74px; height:74px; }
+  .trio figcaption{ margin-top:10px; font-size:.9rem; color:var(--ink2); }
+
+  /* footer */
+  footer{ border-top:1px solid var(--line-strong); padding:40px 0 50px; text-align:center; }
+  footer .btn{ margin-bottom:16px; }
+  footer .credit{ font-size:.8rem; color:var(--ink2); }
+  footer .credit a{ text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">easylandx</span>
+    <a class="cta-link" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit easylandx →</a>
+  </div>
+</div>
+
+<section class="caption">
+  <div class="wrap">
+    <div class="docket">EXHIBIT — LAW FIRM WEBSITES</div>
+    <h1>The website your practice deserves, argued and won</h1>
+    <p class="sub">easylandx builds landing pages for ⚖️ lawyers and legal services — pages that read as credible the moment a client lands on them, and that turn that first visit into a booked consultation.</p>
+  </div>
+  <div class="hero-art">
+    <svg viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="120" y1="18" x2="120" y2="150" stroke="var(--ink)" stroke-width="3"/>
+      <line x1="40" y1="150" x2="200" y2="150" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="120" cy="16" r="6" fill="var(--ink)"/>
+      <line x1="120" y1="40" x2="55" y2="66" stroke="var(--ink)" stroke-width="2.5"/>
+      <line x1="120" y1="40" x2="185" y2="66" stroke="var(--ink)" stroke-width="2.5"/>
+      <path d="M30 66 L55 66 L80 66 L67 100 A26 26 0 0 1 30 100 Z" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M160 66 L185 66 L210 66 L197 100 A26 26 0 0 1 160 100 Z" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="80" y="168" width="80" height="12" fill="var(--ink)"/>
+      <rect x="60" y="182" width="120" height="10" fill="var(--ink)"/>
+    </svg>
+  </div>
+  <div class="btnrow">
+    <a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Get your page</a>
+    <a class="btn ghost" href="#verdict">See the case for it</a>
+  </div>
+</section>
+
+<section class="exhibit">
+  <div class="wrap">
+    <div class="tag">Exhibit A</div>
+    <h2>Clients decide whether to call you before they read a word</h2>
+    <div class="points">
+      <div class="point"><h3>Credibility, at a glance</h3><p>A clean, deliberate layout signals the same discipline a client expects from your casework — before they've read your bio.</p></div>
+      <div class="point"><h3>Built for the consultation call</h3><p>Every section leads toward one action: booking a call. No detours, no clutter competing for attention.</p></div>
+      <div class="point"><h3>Mobile-first, because clients are</h3><p>Someone searching "family lawyer near me" at 11pm is on a phone. Your page reads clearly there first.</p></div>
+      <div class="point"><h3>Fast to launch, easy to update</h3><p>Update a practice area, a result, or your bar admissions yourself, without waiting on a developer's calendar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="exhibit" id="verdict">
+  <div class="wrap">
+    <div class="tag">Exhibit B — The Weighing</div>
+    <h2>Weigh the case for a proper landing page yourself</h2>
+    <p style="color:var(--ink2); max-width:50ch; margin:0 0 26px;">Check the factors that matter to your practice. Watch which side the scale favors.</p>
+
+    <div class="scale-panel">
+      <div class="scale-stage">
+        <svg id="scaleSvg" viewBox="0 0 400 220" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <line x1="200" y1="20" x2="200" y2="170" stroke="var(--ink)" stroke-width="3"/>
+          <circle cx="200" cy="18" r="5" fill="var(--ink)"/>
+          <rect x="150" y="176" width="100" height="10" fill="var(--ink)"/>
+          <rect x="175" y="186" width="50" height="10" fill="var(--ink)"/>
+          <g id="beam">
+            <line x1="90" y1="50" x2="310" y2="50" stroke="var(--ink)" stroke-width="2.5"/>
+            <line id="leftChain" x1="90" y1="50" x2="90" y2="96" stroke="var(--ink)" stroke-width="2"/>
+            <path id="leftPan" d="M60 96 L90 96 L120 96 L105 122 A21 21 0 0 1 75 122 Z" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+            <text x="90" y="150" text-anchor="middle" font-family="Archivo" font-size="12" fill="var(--ink2)">easylandx page</text>
+            <line id="rightChain" x1="310" y1="50" x2="310" y2="96" stroke="var(--ink)" stroke-width="2"/>
+            <path id="rightPan" d="M280 96 L310 96 L340 96 L325 122 A21 21 0 0 1 295 122 Z" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+            <text x="310" y="150" text-anchor="middle" font-family="Archivo" font-size="12" fill="var(--ink2)">Generic site</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="toggles">
+        <label class="toggle"><input type="checkbox" class="w"> Loads in under 2 seconds</label>
+        <label class="toggle"><input type="checkbox" class="w"> Reads clearly on a phone</label>
+        <label class="toggle"><input type="checkbox" class="w"> One clear call to consult</label>
+        <label class="toggle"><input type="checkbox" class="w"> Shows results and credentials</label>
+      </div>
+
+      <div class="verdict-text" id="verdictText">Check a factor to see the scale respond.</div>
+    </div>
+  </div>
+</section>
+
+<section class="exhibit">
+  <div class="wrap">
+    <div class="tag">Exhibit C</div>
+    <h2>What every easylandx legal page carries</h2>
+    <div class="trio">
+      <figure>
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="16" y="14" width="48" height="52" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="24" y1="28" x2="56" y2="28" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="24" y1="38" x2="56" y2="38" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="24" y1="48" x2="46" y2="48" stroke="var(--ink)" stroke-width="2"/>
+        </svg>
+        <figcaption>Bar-ready copy, no filler</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="14" y1="64" x2="66" y2="64" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="20" y1="64" x2="20" y2="30" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="34" y1="64" x2="34" y2="22" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="48" y1="64" x2="48" y2="30" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="60" y1="64" x2="60" y2="22" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="14" y1="20" x2="66" y2="20" stroke="var(--ink)" stroke-width="2.5"/>
+        </svg>
+        <figcaption>A courthouse-solid first impression</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="18" y="46" width="44" height="8" rx="1" stroke="var(--ink)" stroke-width="2.5"/>
+          <line x1="30" y1="46" x2="14" y2="22" stroke="var(--ink)" stroke-width="2.5"/>
+          <rect x="8" y="14" width="18" height="10" transform="rotate(-32 8 14)" stroke="var(--ink)" stroke-width="2.5"/>
+        </svg>
+        <figcaption>A page built and gavelled shut fast</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Bring your practice to easylandx</a>
+    <div class="credit">made by <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var checks = document.querySelectorAll('.w');
+  var beam = document.getElementById('beam');
+  var leftPan = document.getElementById('leftPan');
+  var rightPan = document.getElementById('rightPan');
+  var leftChain = document.getElementById('leftChain');
+  var rightChain = document.getElementById('rightChain');
+  var verdict = document.getElementById('verdictText');
+  var messages = [
+    'Check a factor to see the scale respond.',
+    'One factor in. The scale begins to shift.',
+    'Two factors weighed. The balance is turning.',
+    'Three factors weighed. The verdict is nearly clear.',
+    'All four factors weighed. The verdict: easylandx.'
+  ];
+
+  function update(){
+    var count = 0;
+    checks.forEach(function(c){ if(c.checked) count++; });
+    var angle = count * -5; // degrees, tips left (downward for easylandx)
+    var cx = 200, cy = 50;
+    beam.setAttribute('transform', 'rotate(' + angle + ' ' + cx + ' ' + cy + ')');
+    verdict.textContent = messages[count];
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+</body>
+</html>
