@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX for Preparedness &amp; Self-Reliance Educators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3ECD9;
+    --bg-alt:#EADFC2;
+    --card:#FBF7EC;
+    --ink:#2A2620;
+    --olive:#454E22;
+    --olive-deep:#2F3517;
+    --accent:#C1440E;
+    --line:#CBBE9C;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:18px;
+    line-height:1.5;
+  }
+  h1,h2,h3{font-family:'Barlow Condensed',sans-serif; font-weight:700; margin:0 0 .4em;}
+  .stencil{font-family:'Black Ops One',cursive;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .bar{
+    background:var(--olive-deep); color:var(--card);
+    padding:10px 0; padding-top:calc(10px + env(safe-area-inset-top,0px));
+    font-size:15px; letter-spacing:.02em;
+  }
+  .bar .wrap{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
+  .bar a{ text-decoration:none; border-bottom:2px solid var(--accent); font-weight:600;}
+  .hero{padding:64px 0 48px; text-align:left;}
+  .hero .eyebrow{color:var(--accent); font-weight:700; font-size:15px; letter-spacing:.03em; margin-bottom:10px;}
+  .hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem); line-height:1.05; max-width:14ch;}
+  .hero p{max-width:56ch; font-size:20px; color:var(--olive-deep);}
+  .badges{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 26px;}
+  .badge{background:var(--olive); color:var(--card); padding:6px 14px; border-radius:2px; font-size:15px; font-weight:600;}
+  .cta{
+    display:inline-block; background:var(--accent); color:var(--card); text-decoration:none;
+    padding:14px 28px; font-weight:700; font-size:19px; border-radius:2px; letter-spacing:.02em;
+    border:2px solid var(--olive-deep);
+  }
+  .cta:hover{background:var(--olive-deep);}
+  .cta.ghost{background:transparent; color:var(--olive-deep);}
+  section.block{padding:52px 0;}
+  section.block.alt{background:var(--bg-alt); border-top:2px solid var(--line); border-bottom:2px solid var(--line);}
+  .lede{max-width:70ch; font-size:19px;}
+  .lede h2{font-size:clamp(1.6rem,3.6vw,2.3rem);}
+  .grid{display:grid; grid-template-columns:1fr; gap:24px; margin-top:36px;}
+  @media(min-width:760px){ .grid{grid-template-columns:1fr 1fr;} }
+  .card{
+    background:var(--card); border:2px solid var(--olive); border-radius:3px;
+    padding:26px 24px 28px; display:flex; flex-direction:column; gap:12px;
+  }
+  .card .icon{width:46px; height:46px; color:var(--olive); flex-shrink:0;}
+  .card h3{font-size:1.5rem; display:flex; align-items:center; gap:10px;}
+  .card p.pitch{font-size:17px; color:var(--ink); margin:0;}
+  .widget{
+    margin-top:auto; padding-top:14px; border-top:1px dashed var(--line);
+    font-size:15.5px;
+  }
+  .widget-label{font-weight:700; color:var(--olive-deep); font-size:13px; letter-spacing:.03em; margin-bottom:8px; display:block;}
+  .chk-list{list-style:none; padding:0; margin:0 0 8px;}
+  .chk-list li{display:flex; gap:8px; align-items:flex-start; padding:4px 0;}
+  .chk-list input{margin-top:4px; accent-color:var(--accent); width:18px; height:18px; flex-shrink:0;}
+  .meter{height:12px; background:var(--bg-alt); border:1px solid var(--olive); border-radius:8px; overflow:hidden; margin-top:6px;}
+  .meter-fill{height:100%; background:var(--accent); width:0%; transition:width .3s;}
+  .meter-txt{font-weight:700; margin-top:4px; display:block;}
+  select, .btnrow button, .chip{
+    font-family:'Barlow Condensed',sans-serif; font-size:15.5px; font-weight:600;
+  }
+  select{
+    width:100%; padding:8px 10px; border:1px solid var(--olive); border-radius:2px;
+    background:var(--card); color:var(--ink);
+  }
+  .btnrow{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;}
+  .chip{
+    padding:7px 12px; background:var(--bg-alt); border:1px solid var(--olive); border-radius:20px;
+    cursor:pointer; color:var(--olive-deep);
+  }
+  .chip.on, .chip:hover{background:var(--olive); color:var(--card);}
+  .result{
+    background:var(--bg-alt); border-left:3px solid var(--accent); padding:8px 12px; margin-top:6px;
+    min-height:1.4em; font-size:15.5px;
+  }
+  .range{width:100%; accent-color:var(--accent); margin:6px 0;}
+  .bag-items{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .footer{
+    background:var(--olive-deep); color:var(--bg); padding:44px 0 calc(30px + env(safe-area-inset-bottom,0px));
+    text-align:center;
+  }
+  .footer a{color:var(--card); text-decoration:none; border-bottom:2px solid var(--accent); font-weight:700;}
+  .footer .credit{opacity:.75; font-size:14px; margin-top:18px;}
+  .closing{text-align:center; padding:60px 0;}
+  .closing h2{font-size:clamp(1.8rem,4.2vw,2.6rem); max-width:20ch; margin:0 auto 14px;}
+  :root:not([data-theme="light"]){}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <span>EasyLandX — Landing Pages That Convert</span>
+    <a href="https://easylandx.github.io/" target="_blank" rel="noopener">Visit EasyLandX →</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Built for people who prepare others</div>
+    <h1 class="stencil">Landing pages for the ready, the resilient, and the self-reliant.</h1>
+    <p>EasyLandX builds fast, affordable, conversion-focused landing pages for coaches, consultants, and instructors in the preparedness and self-sufficiency space. One page, built around your expertise, that turns visitors into students, clients, and subscribers.</p>
+    <div class="badges">
+      <span class="badge">🛡️ Preppers</span>
+      <span class="badge">🧰 Emergency Prep</span>
+      <span class="badge">🏠 Homesteading</span>
+      <span class="badge">⚡ Off-Grid</span>
+      <span class="badge">🎒 Bug-Out</span>
+      <span class="badge">🥫 Food Storage</span>
+      <span class="badge">💧 Water Systems</span>
+      <span class="badge">🔋 Solar</span>
+      <span class="badge">🩹 Wilderness First Aid</span>
+      <span class="badge">🔫 Self-Defense</span>
+      <span class="badge">🌾 Permaculture</span>
+    </div>
+    <a class="cta" href="https://easylandx.github.io/" target="_blank" rel="noopener">Get your landing page</a>
+  </div>
+</header>
+
+<section class="block alt">
+  <div class="wrap lede">
+    <h2>Why this niche and EasyLandX are a natural fit</h2>
+    <p>People come to preparedness content in a state of urgency — they need to trust you fast. A generic template or a busy link-in-bio page doesn't do that. A single, sharp landing page built around your actual method — your kit list, your homestead, your off-grid setup — does. That's what EasyLandX builds: no templates, no builders, just a page shaped around what you teach.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2>Eleven ways we build trust for your niche</h2>
+    <p class="lede">Every card below includes a small working example of the kind of interactive element we build directly into your page — not filler, but tools your visitors actually use before they contact you.</p>
+
+    <div class="grid">
+
+      <!-- 1 PREPPERS -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 5 L55 14 V30 C55 45 45 55 32 59 C19 55 9 45 9 30 V14 Z"/><path d="M22 31 L29 38 L43 22"/></svg>
+        <h3>🛡️ Preppers &amp; Preparedness Coaches</h3>
+        <p class="pitch">Your page opens with your readiness philosophy, not a stock photo of canned food. We build a clear framework section so new visitors instantly understand your approach and book a consult.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — READINESS SNAPSHOT</span>
+          <ul class="chk-list" id="prep-list">
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> 3-day water supply</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Family communication plan</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Go-bag packed and ready</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Alternate power source</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> First-aid training current</label></li>
+          </ul>
+          <div class="meter"><div class="meter-fill" id="prep-fill"></div></div>
+          <span class="meter-txt" id="prep-txt">Readiness: 0%</span>
+        </div>
+      </div>
+
+      <!-- 2 EMERGENCY PREP CONSULTANTS -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="8" y="24" width="48" height="30" rx="2"/><path d="M22 24 V16 a4 4 0 0 1 4-4 h12 a4 4 0 0 1 4 4 V24"/><path d="M32 32 v14 M25 39 h14"/></svg>
+        <h3>🧰 Emergency Preparedness Consultants</h3>
+        <p class="pitch">Consulting sells on proof, not persuasion copy. Your page leads with case outcomes and a lead-capture checklist tool, so a visitor's first action is engaging with your material, not bouncing.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — 72-HOUR KIT WEIGHT</span>
+          <ul class="chk-list" id="emg-list">
+            <li><label><input type="checkbox" onchange="score('emg')" value="6"> Water (3L/day)</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="4"> Food rations</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="2"> First-aid kit</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="3"> Radio &amp; batteries</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="1"> Documents pouch</label></li>
+          </ul>
+          <span class="meter-txt" id="emg-txt">Kit weight: 0 lb</span>
+        </div>
+      </div>
+
+      <!-- 3 HOMESTEADING -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M8 30 L32 10 L56 30"/><rect x="14" y="30" width="36" height="24"/><rect x="28" y="38" width="8" height="16"/></svg>
+        <h3>🏠 Homesteading Instructors &amp; Coaches</h3>
+        <p class="pitch">Homesteading students want to see the seasonal rhythm of the work. We build a scrolling story of your land and your calendar, so visitors picture themselves following it with you.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — SEASONAL TASK WHEEL</span>
+          <div class="btnrow" id="season-row">
+            <button class="chip" onclick="showSeason('spring',this)">Spring</button>
+            <button class="chip" onclick="showSeason('summer',this)">Summer</button>
+            <button class="chip" onclick="showSeason('fall',this)">Fall</button>
+            <button class="chip" onclick="showSeason('winter',this)">Winter</button>
+          </div>
+          <div class="result" id="season-out">Pick a season to see the task.</div>
+        </div>
+      </div>
+
+      <!-- 4 OFF-GRID -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M34 4 L14 36 h14 L26 60 L50 26 H36 Z"/></svg>
+        <h3>⚡ Off-Grid &amp; Self-Sufficiency Coaches</h3>
+        <p class="pitch">Self-sufficiency is a numbers game — watts, gallons, square feet. Your page includes a live calculator so visitors run their own numbers and see exactly why they need your course.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — DAILY LOAD ESTIMATOR</span>
+          <ul class="chk-list" id="grid-list">
+            <li><label><input type="checkbox" onchange="score('grid')" value="150"> Fridge (150Wh)</label></li>
+            <li><label><input type="checkbox" onchange="score('grid')" value="300"> Water pump (300Wh)</label></li>
+            <li><label><input type="checkbox" onchange="score('grid')" value="60"> LED lighting (60Wh)</label></li>
+            <li><label><input type="checkbox" onchange="score('grid')" value="200"> Laptop &amp; devices (200Wh)</label></li>
+          </ul>
+          <span class="meter-txt" id="grid-txt">Daily need: 0 Wh</span>
+        </div>
+      </div>
+
+      <!-- 5 BUG-OUT -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="14" y="18" width="36" height="38" rx="6"/><path d="M24 18 v-4 a8 8 0 0 1 16 0 v4"/><path d="M22 30 h20 M22 40 h20"/></svg>
+        <h3>🎒 Bug-Out / Go-Bag Specialists</h3>
+        <p class="pitch">Your product is literally a packing list — so your page should feel like packing. We build a pick-your-gear moment that mirrors your teaching method and ends on your CTA.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — PACK YOUR GO-BAG</span>
+          <div class="bag-items" id="bag-row">
+            <span class="chip" onclick="toggleBag(this,1)">Water filter</span>
+            <span class="chip" onclick="toggleBag(this,1)">Fire kit</span>
+            <span class="chip" onclick="toggleBag(this,1)">Knife</span>
+            <span class="chip" onclick="toggleBag(this,1)">Shelter</span>
+            <span class="chip" onclick="toggleBag(this,1)">Rations</span>
+          </div>
+          <span class="meter-txt" id="bag-txt">Packed: 0 / 5 essentials</span>
+        </div>
+      </div>
+
+      <!-- 6 FOOD STORAGE -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="16" y="18" width="32" height="38" rx="3"/><rect x="20" y="10" width="24" height="8" rx="2"/><path d="M20 30 h24 M20 40 h24"/></svg>
+        <h3>🥫 Food Storage &amp; Preservation Experts</h3>
+        <p class="pitch">Shelf-life is your most-searched question. We build a lookup tool right into your hero section so it answers visitors immediately — and hands them to you for the full method.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — SHELF-LIFE LOOKUP</span>
+          <select id="food-sel" onchange="lookup('food')">
+            <option value="">Choose a stored food…</option>
+            <option value="Rice (sealed, cool, dark): 25–30 years">White rice</option>
+            <option value="Honey: indefinite if sealed and dry">Honey</option>
+            <option value="Freeze-dried meals: 20–25 years">Freeze-dried meals</option>
+            <option value="Home-canned vegetables: 1–2 years for best quality">Home-canned vegetables</option>
+            <option value="Wheat berries: 25–30 years sealed">Wheat berries</option>
+          </select>
+          <div class="result" id="food-out">Pick a food to see its shelf life.</div>
+        </div>
+      </div>
+
+      <!-- 7 WATER -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 6 C32 6 14 30 14 42 a18 18 0 0 0 36 0 C50 30 32 6 32 6 Z"/></svg>
+        <h3>💧 Water Purification &amp; Off-Grid Systems</h3>
+        <p class="pitch">Different water problems need different solutions — that nuance is your expertise. A scenario-matcher on your page proves that depth before a visitor ever books a call.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — MATCH THE METHOD</span>
+          <select id="water-sel" onchange="lookup('water')">
+            <option value="">Choose a water problem…</option>
+            <option value="Cloudy stream water: pre-filter, then boil or use a 0.1-micron filter">Cloudy / sediment-heavy water</option>
+            <option value="Suspected bacteria/viruses: boil 1 min, or UV/chemical treatment">Biological contamination</option>
+            <option value="Chemical runoff risk: activated carbon + distillation">Chemical contamination</option>
+            <option value="Long-term storage: rotate every 6 months, store in food-grade containers">Long-term water storage</option>
+          </select>
+          <div class="result" id="water-out">Pick a scenario to see the method.</div>
+        </div>
+      </div>
+
+      <!-- 8 SOLAR -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="10" y="14" width="44" height="30" rx="2"/><path d="M10 24 h44 M10 34 h44 M27 14 v30 M37 14 v30"/></svg>
+        <h3>🔋 Solar / Alternative Energy for Preppers</h3>
+        <p class="pitch">Sizing a system is the #1 barrier to going solar. A slider that turns daily usage into a panel count gives visitors an instant answer — and a clear reason to hire you to build it right.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — PANEL SIZING SLIDER</span>
+          <input type="range" min="1" max="20" value="5" class="range" id="solar-range" oninput="solarCalc()">
+          <div class="result" id="solar-out">5 kWh/day → about 2 x 300W panels</div>
+        </div>
+      </div>
+
+      <!-- 9 WILDERNESS FIRST AID -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="32" cy="32" r="24"/><path d="M32 20 v24 M20 32 h24"/></svg>
+        <h3>🩹 Wilderness &amp; Disaster First Aid Instructors</h3>
+        <p class="pitch">Under pressure, people need the first step, fast. We build a symptom-to-response reference into your page, showing exactly the clarity your courses deliver in the field.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — FIRST RESPONSE FINDER</span>
+          <select id="fa-sel" onchange="lookup('fa')">
+            <option value="">Choose a situation…</option>
+            <option value="Elevate the limb, apply firm direct pressure, do not remove soaked dressings">Severe bleeding</option>
+            <option value="Move to shade, cool the body, give small sips of water if conscious">Heat exhaustion</option>
+            <option value="Insulate from ground, remove wet clothing, warm the core gradually">Hypothermia</option>
+            <option value="Immobilize the joint above and below, do not realign, seek evacuation">Suspected fracture</option>
+          </select>
+          <div class="result" id="fa-out">Pick a situation to see the first step.</div>
+        </div>
+      </div>
+
+      <!-- 10 SELF-DEFENSE -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="32" r="2.5" fill="currentColor"/></svg>
+        <h3>🔫 Self-Defense &amp; Situational Awareness Coaches</h3>
+        <p class="pitch">Awareness training is about mindset, not just moves. A live version of the classic color-code system on your page demonstrates your framework in seconds — the fastest possible trust-build.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — AWARENESS COLOR CODE</span>
+          <div class="btnrow" id="code-row">
+            <button class="chip" onclick="showCode('white',this)">White</button>
+            <button class="chip" onclick="showCode('yellow',this)">Yellow</button>
+            <button class="chip" onclick="showCode('orange',this)">Orange</button>
+            <button class="chip" onclick="showCode('red',this)">Red</button>
+          </div>
+          <div class="result" id="code-out">Pick a code to see what it means.</div>
+        </div>
+      </div>
+
+      <!-- 11 PERMACULTURE -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 58 V26"/><path d="M32 34 C32 20 20 16 12 16 C12 28 20 34 32 34 Z"/><path d="M32 26 C32 14 44 10 52 10 C52 22 44 26 32 26 Z"/></svg>
+        <h3>🌾 Permaculture &amp; Resilient Gardening Instructors</h3>
+        <p class="pitch">Companion planting, guilds, succession — your knowledge is a system. A quick matcher tool shows visitors that system at a glance, and points them to your full planting guides.</p>
+        <div class="widget">
+          <span class="widget-label">TRY IT — COMPANION PLANT MATCH</span>
+          <select id="perm-sel" onchange="lookup('perm')">
+            <option value="">Choose a crop…</option>
+            <option value="Basil, marigold, onion — repel pests and boost flavor">Tomatoes</option>
+            <option value="Corn, squash, pole beans — the Three Sisters guild">Beans</option>
+            <option value="Beans, peas, radish — avoid planting near alliums">Carrots</option>
+            <option value="Beans, corn, nasturtium — plant away from tomatoes">Squash</option>
+          </select>
+          <div class="result" id="perm-out">Pick a crop to see its best companions.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="block alt closing">
+  <div class="wrap">
+    <h2 class="stencil">Your knowledge deserves more than a link-in-bio.</h2>
+    <p class="lede" style="margin:0 auto 26px;">Every page above is a custom build — your gear, your land, your method. No two EasyLandX pages look alike, because no two preparedness businesses are alike.</p>
+    <a class="cta" href="https://easylandx.github.io/" target="_blank" rel="noopener">Start your landing page</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="https://easylandx.github.io/" target="_blank" rel="noopener">Visit EasyLandX →</a>
+    <p class="credit">© 2026 EasyLandX. Built by EasyLandX.</p>
+  </div>
+</footer>
+
+<script>
+  function score(id){
+    var boxes = document.querySelectorAll('#'+id+'-list input');
+    var sum = 0;
+    boxes.forEach(function(b){ if(b.checked) sum += parseInt(b.value,10); });
+    if(id==='prep'){
+      document.getElementById('prep-fill').style.width = sum+'%';
+      document.getElementById('prep-txt').textContent = 'Readiness: '+sum+'%';
+    } else if(id==='emg'){
+      document.getElementById('emg-txt').textContent = 'Kit weight: '+sum+' lb';
+    } else if(id==='grid'){
+      document.getElementById('grid-txt').textContent = 'Daily need: '+sum+' Wh';
+    }
+  }
+
+  var seasons = {
+    spring: 'Spring: start seedlings, repair fencing, rotate pasture.',
+    summer: 'Summer: harvest and preserve, manage irrigation, breed livestock.',
+    fall: 'Fall: put up the harvest, cure firewood, winterize coops.',
+    winter: 'Winter: plan next season, maintain tools, tend animals indoors.'
+  };
+  function showSeason(key, el){
+    document.getElementById('season-out').textContent = seasons[key];
+    document.querySelectorAll('#season-row .chip').forEach(function(c){ c.classList.remove('on'); });
+    el.classList.add('on');
+  }
+
+  var codes = {
+    white: 'White — unaware and unprepared. The state to avoid in public.',
+    yellow: 'Yellow — relaxed alertness. Your default state when out and about.',
+    orange: 'Orange — a specific alert. Something has caught your attention.',
+    red: 'Red — action mode. You are responding to a confirmed threat.'
+  };
+  function showCode(key, el){
+    document.getElementById('code-out').textContent = codes[key];
+    document.querySelectorAll('#code-row .chip').forEach(function(c){ c.classList.remove('on'); });
+    el.classList.add('on');
+  }
+
+  var bagCount = 0, bagTotal = 5;
+  function toggleBag(el){
+    el.classList.toggle('on');
+    bagCount += el.classList.contains('on') ? 1 : -1;
+    document.getElementById('bag-txt').textContent = 'Packed: '+bagCount+' / '+bagTotal+' essentials';
+  }
+
+  function lookup(prefix){
+    var sel = document.getElementById(prefix+'-sel');
+    var out = document.getElementById(prefix+'-out');
+    out.textContent = sel.value || 'Pick an option to see the result.';
+  }
+
+  function solarCalc(){
+    var kwh = parseInt(document.getElementById('solar-range').value,10);
+    var panels = Math.ceil((kwh*1000)/300/4);
+    document.getElementById('solar-out').textContent = kwh+' kWh/day → about '+panels+' x 300W panels (4 sun-hours est.)';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX para Educadores de Preparación y Autosuficiencia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3ECD9;
+    --bg-alt:#EADFC2;
+    --card:#FBF7EC;
+    --ink:#2A2620;
+    --olive:#454E22;
+    --olive-deep:#2F3517;
+    --accent:#C1440E;
+    --line:#CBBE9C;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:18px;
+    line-height:1.5;
+  }
+  h1,h2,h3{font-family:'Barlow Condensed',sans-serif; font-weight:700; margin:0 0 .4em;}
+  .stencil{font-family:'Black Ops One',cursive;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .bar{
+    background:var(--olive-deep); color:var(--card);
+    padding:10px 0; padding-top:calc(10px + env(safe-area-inset-top,0px));
+    font-size:15px; letter-spacing:.02em;
+  }
+  .bar .wrap{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
+  .bar a{ text-decoration:none; border-bottom:2px solid var(--accent); font-weight:600;}
+  .hero{padding:64px 0 48px; text-align:left;}
+  .hero .eyebrow{color:var(--accent); font-weight:700; font-size:15px; letter-spacing:.03em; margin-bottom:10px;}
+  .hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem); line-height:1.05; max-width:14ch;}
+  .hero p{max-width:56ch; font-size:20px; color:var(--olive-deep);}
+  .badges{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 26px;}
+  .badge{background:var(--olive); color:var(--card); padding:6px 14px; border-radius:2px; font-size:15px; font-weight:600;}
+  .cta{
+    display:inline-block; background:var(--accent); color:var(--card); text-decoration:none;
+    padding:14px 28px; font-weight:700; font-size:19px; border-radius:2px; letter-spacing:.02em;
+    border:2px solid var(--olive-deep);
+  }
+  .cta:hover{background:var(--olive-deep);}
+  .cta.ghost{background:transparent; color:var(--olive-deep);}
+  section.block{padding:52px 0;}
+  section.block.alt{background:var(--bg-alt); border-top:2px solid var(--line); border-bottom:2px solid var(--line);}
+  .lede{max-width:70ch; font-size:19px;}
+  .lede h2{font-size:clamp(1.6rem,3.6vw,2.3rem);}
+  .grid{display:grid; grid-template-columns:1fr; gap:24px; margin-top:36px;}
+  @media(min-width:760px){ .grid{grid-template-columns:1fr 1fr;} }
+  .card{
+    background:var(--card); border:2px solid var(--olive); border-radius:3px;
+    padding:26px 24px 28px; display:flex; flex-direction:column; gap:12px;
+  }
+  .card .icon{width:46px; height:46px; color:var(--olive); flex-shrink:0;}
+  .card h3{font-size:1.5rem; display:flex; align-items:center; gap:10px;}
+  .card p.pitch{font-size:17px; color:var(--ink); margin:0;}
+  .widget{
+    margin-top:auto; padding-top:14px; border-top:1px dashed var(--line);
+    font-size:15.5px;
+  }
+  .widget-label{font-weight:700; color:var(--olive-deep); font-size:13px; letter-spacing:.03em; margin-bottom:8px; display:block;}
+  .chk-list{list-style:none; padding:0; margin:0 0 8px;}
+  .chk-list li{display:flex; gap:8px; align-items:flex-start; padding:4px 0;}
+  .chk-list input{margin-top:4px; accent-color:var(--accent); width:18px; height:18px; flex-shrink:0;}
+  .meter{height:12px; background:var(--bg-alt); border:1px solid var(--olive); border-radius:8px; overflow:hidden; margin-top:6px;}
+  .meter-fill{height:100%; background:var(--accent); width:0%; transition:width .3s;}
+  .meter-txt{font-weight:700; margin-top:4px; display:block;}
+  select, .btnrow button, .chip{
+    font-family:'Barlow Condensed',sans-serif; font-size:15.5px; font-weight:600;
+  }
+  select{
+    width:100%; padding:8px 10px; border:1px solid var(--olive); border-radius:2px;
+    background:var(--card); color:var(--ink);
+  }
+  .btnrow{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;}
+  .chip{
+    padding:7px 12px; background:var(--bg-alt); border:1px solid var(--olive); border-radius:20px;
+    cursor:pointer; color:var(--olive-deep);
+  }
+  .chip.on, .chip:hover{background:var(--olive); color:var(--card);}
+  .result{
+    background:var(--bg-alt); border-left:3px solid var(--accent); padding:8px 12px; margin-top:6px;
+    min-height:1.4em; font-size:15.5px;
+  }
+  .range{width:100%; accent-color:var(--accent); margin:6px 0;}
+  .bag-items{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .footer{
+    background:var(--olive-deep); color:var(--bg); padding:44px 0 calc(30px + env(safe-area-inset-bottom,0px));
+    text-align:center;
+  }
+  .footer a{color:var(--card); text-decoration:none; border-bottom:2px solid var(--accent); font-weight:700;}
+  .footer .credit{opacity:.75; font-size:14px; margin-top:18px;}
+  .closing{text-align:center; padding:60px 0;}
+  .closing h2{font-size:clamp(1.8rem,4.2vw,2.6rem); max-width:20ch; margin:0 auto 14px;}
+  :root:not([data-theme="light"]){}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <span>EasyLandX — Páginas de destino que convierten</span>
+    <a href="https://easylandx.github.io/" target="_blank" rel="noopener">Visita EasyLandX →</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Creado para quienes preparan a otros</div>
+    <h1 class="stencil">Páginas de destino para los preparados, los resilientes y los autosuficientes.</h1>
+    <p>EasyLandX crea páginas de destino rápidas, económicas y enfocadas en la conversión para entrenadores, consultores e instructores en el ámbito de la preparación y la autosuficiencia. Una sola página, estructurada en torno a tu experiencia, que convierte a los visitantes en estudiantes, clientes y suscriptores.</p>
+    <div class="badges">
+      <span class="badge">🛡️ Supervivencialistas (Preppers)</span>
+      <span class="badge">🧰 Preparación ante Emergencias</span>
+      <span class="badge">🏠 Vida en el Campo (Homesteading)</span>
+      <span class="badge">⚡ Fuera de la Red (Off-Grid)</span>
+      <span class="badge">🎒 Mochila de Evacuación (Bug-Out)</span>
+      <span class="badge">🥫 Almacenamiento de Alimentos</span>
+      <span class="badge">💧 Sistemas de Agua</span>
+      <span class="badge">🔋 Energía Solar</span>
+      <span class="badge">🩹 Primeros Auxilios en la Naturaleza</span>
+      <span class="badge">🔫 Autodefensa</span>
+      <span class="badge">🌾 Permacultura</span>
+    </div>
+    <a class="cta" href="https://easylandx.github.io/" target="_blank" rel="noopener">Obtén tu página de destino</a>
+  </div>
+</header>
+
+<section class="block alt">
+  <div class="wrap lede">
+    <h2>Por qué este nicho y EasyLandX encajan de forma natural</h2>
+    <p>Las personas llegan al contenido de preparación en un estado de urgencia: necesitan confiar en ti rápidamente. Una plantilla genérica o una página de enlaces saturada no logran eso. En su lugar, una única y nítida página de destino construida alrededor de tu método real —tu lista de equipo, tu granja, tu instalación fuera de la red— sí lo hace. Eso es lo que construye EasyLandX: sin plantillas, sin constructores, solo una página diseñada en torno a lo que enseñas.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2>Once formas en que generamos confianza para tu nicho</h2>
+    <p class="lede">Cada tarjeta a continuación incluye un pequeño ejemplo funcional del tipo de elemento interactivo que integramos directamente en tu página: no es relleno, sino herramientas que tus visitantes realmente usan antes de ponerse en contacto contigo.</p>
+
+    <div class="grid">
+
+      <!-- 1 PREPPERS -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 5 L55 14 V30 C55 45 45 55 32 59 C19 55 9 45 9 30 V14 Z"/><path d="M22 31 L29 38 L43 22"/></svg>
+        <h3>🛡️ Supervivencialistas y Entrenadores de Preparación</h3>
+        <p class="pitch">Tu página comienza con tu filosofía de preparación, no con una foto de stock de comida enlatada. Cream Chúa una sección de marco conceptual clara para que los nuevos visitantes comprendan instantáneamente tu enfoque y reserven una consulta.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — RESUMEN DE PREPARACIÓN</span>
+          <ul class="chk-list" id="prep-list">
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Suministro de agua para 3 días</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Plan de comunicación familiar</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Mochila de evacuación lista</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Fuente de energía alternativa</label></li>
+            <li><label><input type="checkbox" onchange="score('prep')" value="20"> Formación en primeros auxilios actualizada</label></li>
+          </ul>
+          <div class="meter"><div class="meter-fill" id="prep-fill"></div></div>
+          <span class="meter-txt" id="prep-txt">Preparación: 0%</span>
+        </div>
+      </div>
+
+      <!-- 2 EMERGENCY PREP CONSULTANTS -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="8" y="24" width="48" height="30" rx="2"/><path d="M22 24 V16 a4 4 0 0 1 4-4 h12 a4 4 0 0 1 4 4 V24"/><path d="M32 32 v14 M25 39 h14"/></svg>
+        <h3>🧰 Consultores de Preparación ante Emergencias</h3>
+        <p class="pitch">La consultoría se vende con pruebas, no con textos persuasivos vacíos. Tu página encabeza con resultados de casos y una herramienta de lista de verificación para captura de prospectos, de modo que la primera acción del visitante sea interactuar con tu material en lugar de abandonar el sitio.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — PESO DEL KIT DE 72 HORAS</span>
+          <ul class="chk-list" id="emg-list">
+            <li><label><input type="checkbox" onchange="score('emg')" value="6"> Agua (3L/día)</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="4"> Raciones de comida</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="2"> Botiquín de primeros auxilios</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="3"> Radio y pilas</label></li>
+            <li><label><input type="checkbox" onchange="score('emg')" value="1"> Bolsa para documentos</label></li>
+          </ul>
+          <span class="meter-txt" id="emg-txt">Peso del kit: 0 lb</span>
+        </div>
+      </div>
+
+      <!-- 3 HOMESTEADING -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M8 30 L32 10 L56 30"/><rect x="14" y="30" width="36" height="24"/><rect x="28" y="38" width="8" height="16"/></svg>
+        <h3>🏠 Instructores y Entrenadores de Vida en el Campo</h3>
+        <p class="pitch">Los estudiantes de homesteading quieren ver el ritmo estacional del trabajo. Construimos una historia interactiva de tu tierra y tu calendario para que los visitantes se imaginen siguiéndote el paso.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — RUEDA DE TAREAS ESTACIONALES</span>
+          <div class="btnrow" id="season-row">
+            <button class="chip" onclick="showSeason('spring',this)">Primavera</button>
+            <button class="chip" onclick="showSeason('summer',this)">Verano</button>
+            <button class="chip" onclick="showSeason('fall',this)">Otoño</button>
+            <button class="chip" onclick="showSeason('winter',this)">Invierno</button>
+          </div>
+          <div class="result" id="season-out">Elige una estación para ver la tarea.</div>
+        </div>
+      </div>
+
+      <!-- 4 OFF-GRID -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M34 4 L14 36 h14 L26 60 L50 26 H36 Z"/></svg>
+        <h3>⚡ Entrenadores de Vida Fuera de la Red y Autosuficiencia</h3>
+        <p class="pitch">La autosuficiencia es un juego de números: vatios, galones, pies cuadrados. Tu página incluye una calculadora en vivo para que los visitantes calculen sus propios números y comprendan exactamente por qué necesitan tu curso.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — ESTIMADOR DE CONSUMO DIARIO</span>
+          <ul class="chk-list" id="grid-list">
+            <li><label><input type="checkbox" onchange="score('grid')" value="150"> Nevera (150Wh)</label></li>
+            <li><label><input type="checkbox" onchange="score('grid')" value="300"> Bomba de agua (300Wh)</label></li>
+            <li><label><input type="checkbox" onchange="score('grid')" value="60"> Iluminación LED (60Wh)</label></li>
+            <li><label><input type="checkbox" onchange="score('grid')" value="200"> Portátil y dispositivos (200Wh)</label></li>
+          </ul>
+          <span class="meter-txt" id="grid-txt">Demanda diaria: 0 Wh</span>
+        </div>
+      </div>
+
+      <!-- 5 BUG-OUT -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="14" y="18" width="36" height="38" rx="6"/><path d="M24 18 v-4 a8 8 0 0 1 16 0 v4"/><path d="M22 30 h20 M22 40 h20"/></svg>
+        <h3>🎒 Especialistas en Mochilas de Evacuación</h3>
+        <p class="pitch">Tu producto es literalmente una lista de empaque, por lo que tu página debe sentirse como armar el equipo. Creamos un momento interactivo de selección de equipo que refleja tu método de enseñanza y culmina en tu llamada a la acción (CTA).</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — ARMA TU MOCHILA DE EVACUACIÓN</span>
+          <div class="bag-items" id="bag-row">
+            <span class="chip" onclick="toggleBag(this,1)">Filtro de agua</span>
+            <span class="chip" onclick="toggleBag(this,1)">Kit de fuego</span>
+            <span class="chip" onclick="toggleBag(this,1)">Cuchillo</span>
+            <span class="chip" onclick="toggleBag(this,1)">Refugio</span>
+            <span class="chip" onclick="toggleBag(this,1)">Raciones</span>
+          </div>
+          <span class="meter-txt" id="bag-txt">Empacado: 0 / 5 esenciales</span>
+        </div>
+      </div>
+
+      <!-- 6 FOOD STORAGE -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="16" y="18" width="32" height="38" rx="3"/><rect x="20" y="10" width="24" height="8" rx="2"/><path d="M20 30 h24 M20 40 h24"/></svg>
+        <h3>🥫 Expertos en Almacenamiento y Conservación de Alimentos</h3>
+        <p class="pitch">La vida útil de los alimentos es tu pregunta más frecuente. Integramপূর্ণ una herramienta de consulta directamente en tu sección principal para responder a los visitantes de inmediato y derivarlos hacia ti para conocer el método completo.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — CONSULTA DE VIDA ÚTIL</span>
+          <select id="food-sel" onchange="lookup('food')">
+            <option value="">Elige un alimento almacenado...</option>
+            <option value="Arroz (sellado, fresco y oscuro): 25–30 años">Arroz blanco</option>
+            <option value="Miel: indefinida si se mantiene sellada y seca">Miel</option>
+            <option value="Comidas liofilizadas: 20–25 años">Comidas liofilizadas</option>
+            <option value="Verduras en conserva casera: 1–2 años para mayor calidad">Verduras en conserva casera</option>
+            <option value="Trigo en grano: 25–30 años sellado">Trigo en grano</option>
+          </select>
+          <div class="result" id="food-out">Elige un alimento para ver su vida útil.</div>
+        </div>
+      </div>
+
+      <!-- 7 WATER -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 6 C32 6 14 30 14 42 a18 18 0 0 0 36 0 C50 30 32 6 32 6 Z"/></svg>
+        <h3>💧 Purificación de Agua y Sistemas Fuera de la Red</h3>
+        <p class="pitch">Los diferentes problemas del agua exigen distintas soluciones; ese matiz constituye tu experiencia. Un recomendador de escenarios en tu página demuestra esa profundidad antes de que un visitante reserve una llamada.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — EMPAREJA EL MÉTODO</span>
+          <select id="water-sel" onchange="lookup('water')">
+            <option value="">Elige un problema con el agua...</option>
+            <option value="Agua de arroyo turbia: prefiltrar, luego hervir o usar un filtro de 0.1 micras">Agua turbia / con muchos sedimentos</option>
+            <option value="Sospecha de bacterias/virus: hervir 1 min, o tratamiento UV/químico">Contaminación biológica</option>
+            <option value="Riesgo de escorrentía química: carbón activado + destilación">Contaminación química</option>
+            <option value="Almacenamiento a largo plazo: rotar cada 6 meses, guardar en recipientes aptos para alimentos">Almacenamiento de agua a largo plazo</option>
+          </select>
+          <div class="result" id="water-out">Elige un escenario para ver el método.</div>
+        </div>
+      </div>
+
+      <!-- 8 SOLAR -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="10" y="14" width="44" height="30" rx="2"/><path d="M10 24 h44 M10 34 h44 M27 14 v30 M37 14 v30"/></svg>
+        <h3>🔋 Energía Solar y Alternativa para Supervivencialistas</h3>
+        <p class="pitch">Dimensionar un sistema es la principal barrera para pasarse a la energía solar. Un control deslizante que transforma el consumo diario en una cantidad de paneles ofrece a los visitantes una respuesta instantánea y un motivo claro para contratarte.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — CONTROL DESLIZANTE DE PANELES</span>
+          <input type="range" min="1" max="20" value="5" class="range" id="solar-range" oninput="solarCalc()">
+          <div class="result" id="solar-out">5 kWh/día → aprox. 2 paneles de 300W</div>
+        </div>
+      </div>
+
+      <!-- 9 WILDERNESS FIRST AID -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="32" cy="32" r="24"/><path d="M32 20 v24 M20 32 h24"/></svg>
+        <h3>🩹 Instructores de Primeros Auxilios en Zonas Silvestres y Desastres</h3>
+        <p class="pitch">Bajo presión, las personas necesitan conocer el primer paso con rapidez. Integramos una referencia de síntomas y respuestas en tu página, mostrando la absoluta claridad que tus cursos aportan sobre el terreno.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — BUSCADOR DE PRIMERA RESPUESTA</span>
+          <select id="fa-sel" onchange="lookup('fa')">
+            <option value="">Elige una situación...</option>
+            <option value="Elevar la extremidad, aplicar presión directa y firme, no retirar los apósitos empapados">Hemorragia grave</option>
+            <option value="Mover a la sombra, enfriar el cuerpo, dar pequeños sorbos de agua si está consciente">Agotamiento por calor</option>
+            <option value="Aislar del suelo, quitar la ropa mojada, calentar el núcleo corporal gradualmente">Hipotermia</option>
+            <option value="Inmovilizar la articulación superior e inferior, no realinear, buscar evacuación">Sospecha de fractura</option>
+          </select>
+          <div class="result" id="fa-out">Elige una situación para ver el primer paso.</div>
+        </div>
+      </div>
+
+      <!-- 10 SELF-DEFENSE -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="32" r="2.5" fill="currentColor"/></svg>
+        <h3>🔫 Entrenadores de Autodefensa y Conciencia Situacional</h3>
+        <p class="pitch">El entrenamiento en conciencia trata sobre la mentalidad, no solo sobre movimientos físicos. Una versión interactiva del clásico sistema de códigos de colores en tu página demuestra tu metodología en segundos, logrando generar confianza con la máxima rapidez.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — CÓDIGO DE COLOR DE CONCIENCIA</span>
+          <div class="btnrow" id="code-row">
+            <button class="chip" onclick="showCode('white',this)">Blanco</button>
+            <button class="chip" onclick="showCode('yellow',this)">Amarillo</button>
+            <button class="chip" onclick="showCode('orange',this)">Naranja</button>
+            <button class="chip" onclick="showCode('red',this)">Rojo</button>
+          </div>
+          <div class="result" id="code-out">Elige un código para ver lo que significa.</div>
+        </div>
+      </div>
+
+      <!-- 11 PERMACULTURE -->
+      <div class="card">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 58 V26"/><path d="M32 34 C32 20 20 16 12 16 C12 28 20 34 32 34 Z"/><path d="M32 26 C32 14 44 10 52 10 C52 22 44 26 32 26 Z"/></svg>
+        <h3>🌾 Instructores de Permacultura y Jardinería Resiliente</h3>
+        <p class="pitch">Cultivos asociados, gremios de plantas, sucesión ecológica: tu conocimiento conforma un sistema. Una herramienta rápida de emparejamiento muestra ese sistema a los visitantes de un vistazo y los dirige hacia tus guías de siembra completas.</p>
+        <div class="widget">
+          <span class="widget-label">PRUÉBALO — EMPAREJAMIENTO DE PLANTAS COMPAÑERAS</span>
+          <select id="perm-sel" onchange="lookup('perm')">
+            <option value="">Elige un cultivo...</option>
+            <option value="Albahaca, caléndula, cebolla: repelen plagas y potencian el sabor">Tomates</option>
+            <option value="Maíz, calabaza, judías trepadoras: el gremio de las Tres Hermanas">Judías</option>
+            <option value="Judías, guisantes, rábanos: evitar plantar cerca de alliums">Zanahorias</option>
+            <option value="Judías, maíz, capuchina: plantar lejos de los tomates">Calabaza</option>
+          </select>
+          <div class="result" id="perm-out">Elige un cultivo para ver sus mejores compañeros.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="block alt closing">
+  <div class="wrap">
+    <h2 class="stencil">Tu conocimiento merece más que una simple página de enlaces.</h2>
+    <p class="lede" style="margin:0 auto 26px;">Cada página anterior es un diseño personalizado: tu equipo, tu tierra, tu método. No hay dos páginas de EasyLandX iguales, porque no hay dos negocios de preparación idénticos.</p>
+    <a class="cta" href="https://easylandx.github.io/" target="_blank" rel="noopener">Comienza tu página de destino</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="https://easylandx.github.io/" target="_blank" rel="noopener">Visita EasyLandX →</a>
+    <p class="credit">© 2026 EasyLandX. Creado por EasyLandX.</p>
+  </div>
+</footer>
+
+<script>
+  function score(id){
+    var boxes = document.querySelectorAll('#'+id+'-list input');
+    var sum = 0;
+    boxes.forEach(function(b){ if(b.checked) sum += parseInt(b.value,10); });
+    if(id==='prep'){
+      document.getElementById('prep-fill').style.width = sum+'%';
+      document.getElementById('prep-txt').textContent = 'Preparación: '+sum+'%';
+    } else if(id==='emg'){
+      document.getElementById('emg-txt').textContent = 'Peso del kit: '+sum+' lb';
+    } else if(id==='grid'){
+      document.getElementById('grid-txt').textContent = 'Demanda diaria: '+sum+' Wh';
+    }
+  }
+
+  var seasons = {
+    spring: 'Primavera: iniciar semilleros, reparar cercas, rotar pastos.',
+    summer: 'Verano: cosechar y conservar, gestionar el riego, criar ganado.',
+    fall: 'Otoño: recoger la cosecha, almacenar leña, acondicionar gallineros para el invierno.',
+    winter: 'Winter: planificar la próxima temporada, mantener herramientas, cuidar animales bajo techo.'
+  };
+  function showSeason(key, el){
+    document.getElementById('season-out').textContent = seasons[key];
+    document.querySelectorAll('#season-row .chip').forEach(function(c){ c.classList.remove('on'); });
+    el.classList.add('on');
+  }
+
+  var codes = {
+    white: 'Blanco — desatento y desprevenido. El estado que se debe evitar en público.',
+    yellow: 'Amarillo — alerta relajada. Tu estado predeterminado al salir a la calle.',
+    orange: 'Naranja — alerta específica. Algo ha captado tu atención.',
+    red: 'Rojo — modo de acción. Estás respondiendo a una amenaza confirmada.'
+  };
+  function showCode(key, el){
+    document.getElementById('code-out').textContent = codes[key];
+    document.querySelectorAll('#code-row .chip').forEach(function(c){ c.classList.remove('on'); });
+    el.classList.add('on');
+  }
+
+  var bagCount = 0, bagTotal = 5;
+  function toggleBag(el){
+    el.classList.toggle('on');
+    bagCount += el.classList.contains('on') ? 1 : -1;
+    document.getElementById('bag-txt').textContent = 'Empacado: '+bagCount+' / '+bagTotal+' esenciales';
+  }
+
+  function lookup(prefix){
+    var sel = document.getElementById(prefix+'-sel');
+    var out = document.getElementById(prefix+'-out');
+    out.textContent = sel.value || 'Elige una opción para ver el resultado.';
+  }
+
+  function solarCalc(){
+    var kwh = parseInt(document.getElementById('solar-range').value,10);
+    var panels = Math.ceil((kwh*1000)/300/4);
+    document.getElementById('solar-out').textContent = kwh+' kWh/día → aprox. '+panels+' paneles de 300W (est. 4 horas de sol)';
+  }
+</script>
+
+</body>
+</html>
