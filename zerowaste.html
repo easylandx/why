@@ -90,7 +90,7 @@
   .tally{font-family:'Archivo Black',sans-serif;font-size:16px;text-align:center;min-height:44px;}
   .reset{
     background:none;border:2px solid var(--ink);padding:8px 16px;
-    font:600 13px 'Inter',sans-serif;cursor:pointer;
+    font:600 13px 'Inter',sans-serif;cursor:pointer;margin-top:16px;
   }
 
   footer{padding:48px 0 60px;text-align:center;border-top:3px solid var(--ink);}
@@ -201,11 +201,11 @@
   const jarItemsEl = document.getElementById('jarItems');
   const tallyEl = document.getElementById('tally');
   const messages = [
-    'Your jar is empty. Tap an item to start.',
-    'One piece in. Simple, on purpose.',
-    'Two in. Still nothing you don\\'t need.',
-    'Three in. Everything earns its spot.',
-    'Full kit, one container — that\\'s the whole idea behind easylandx too.'
+    "Your jar is empty. Tap an item to start.",
+    "One piece in. Simple, on purpose.",
+    "Two in. Still nothing you don't need.",
+    "Three in. Everything earns its spot.",
+    "Full kit, one container — that's the whole idea behind easylandx too."
   ];
   let used = 0;
 
@@ -218,9 +218,9 @@
       btn.classList.add('used');
       btn.disabled = true;
       used++;
-      const x = 30 + (i % 2) * 90 + (Math.random()*10-5);
-      const y = 190 - used * 34 + (Math.random()*6-3);
-      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      const x = 55 + (i % 2) * 55 + (Math.random() * 8 - 4);
+      const y = 180 - (used * 28) + (Math.random() * 6 - 3);
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.setAttribute('transform', `translate(${x},${y})`);
       g.innerHTML = item.jar;
       jarItemsEl.appendChild(g);
@@ -233,7 +233,10 @@
     jarItemsEl.innerHTML = '';
     used = 0;
     tallyEl.textContent = messages[0];
-    kitEl.querySelectorAll('button').forEach(b => { b.classList.remove('used'); b.disabled = false; });
+    kitEl.querySelectorAll('button').forEach(b => { 
+      b.classList.remove('used'); 
+      b.disabled = false; 
+    });
   });
 </script>
 
