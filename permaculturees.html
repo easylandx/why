@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rootstead — Instructores de Permacultura y Jardinería Resiliente</title>
+<meta name="description" content="Páginas de destino creadas para instructores de permacultura y jardinería resiliente, por EasyLandX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1710;
+    --panel:#16241A;
+    --panel-2:#1C2E20;
+    --line:#2B4433;
+    --ink:#EFF6F0;
+    --ink-dim:#9FB6A6;
+    --accent:#4CAF63;
+    --accent-light:#9BE8A9;
+    --accent-dark:#1F3D28;
+    --max:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Bitter',serif;
+    font-weight:900;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  img,svg{max-width:100%;display:block;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    background:var(--bg);
+    position:sticky;top:0;z-index:20;
+  }
+  .topbar-inner{
+    display:flex;align-items:center;justify-style:space-between;
+    padding:18px 0;gap:16px;flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Bitter',serif;font-weight:700;font-size:1.15rem;
+  }
+  .brand .mark{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.05rem;
+  }
+  .el-link{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1.5px solid var(--accent);
+    color:var(--accent-light);
+    padding:9px 16px;border-radius:999px;
+    font-weight:600;font-size:0.92rem;
+    text-decoration:none;
+    transition:background .15s ease, color .15s ease;
+  }
+  .el-link:hover{background:var(--accent);color:#0D1710;}
+  .el-link .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:76px 0 60px;border-bottom:1px solid var(--line);}
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;
+  }
+  .eyebrow{
+    color:var(--accent-light);font-weight:600;font-size:0.95rem;
+    margin-bottom:18px;
+  }
+  .hero h1{font-size:clamp(2.3rem,4.6vw,3.6rem);margin-bottom:22px;}
+  .hero h1 em{font-style:normal;color:var(--accent-light);}
+  .hero p.lead{
+    font-size:1.15rem;color:var(--ink-dim);max-width:46ch;margin-bottom:32px;
+  }
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:10px;
+    font-weight:700;font-size:1rem;text-decoration:none;
+    border:2px solid transparent;
+  }
+  .btn-primary{background:var(--accent);color:#0D1710;}
+  .btn-primary:hover{background:var(--accent-light);}
+  .btn-ghost{border-color:var(--line);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--accent);}
+
+  .hero-art{
+    background:var(--panel);border:1px solid var(--line);border-radius:18px;
+    padding:24px;
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0;}
+  .section-head{max-width:60ch;margin-bottom:40px;}
+  .section-head .eyebrow{margin-bottom:12px;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:14px;}
+  .section-head p{color:var(--ink-dim);font-size:1.05rem;}
+
+  /* ---------- builder widget ---------- */
+  .builder{
+    background:var(--panel);border:1px solid var(--line);border-radius:18px;
+    padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  }
+  .layer-controls h3{font-size:1.15rem;margin-bottom:6px;}
+  .layer-controls > p{color:var(--ink-dim);font-size:0.95rem;margin-bottom:22px;}
+  .layer-list{display:flex;flex-direction:column;gap:8px;margin-bottom:26px;}
+  .layer-btn{
+    display:flex;align-items:center;gap:14px;
+    background:var(--panel-2);border:1px solid var(--line);
+    border-radius:10px;padding:12px 14px;cursor:pointer;
+    text-align:left;color:var(--ink);width:100%;
+    font-family:'Work Sans',sans-serif;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .layer-btn .swatch{
+    width:16px;height:16px;border-radius:4px;flex-shrink:0;
+    background:var(--line);
+    transition:background .15s ease;
+  }
+  .layer-btn .txt{flex:1;}
+  .layer-btn .name{font-weight:600;font-size:0.98rem;display:block;}
+  .layer-btn .hint{color:var(--ink-dim);font-size:0.83rem;display:block;margin-top:2px;}
+  .layer-btn.active{border-color:var(--accent);background:rgba(76,175,99,0.12);}
+  .layer-btn.active .swatch{background:var(--accent);}
+  .layer-btn:focus-visible{outline:2px solid var(--accent-light);outline-offset:2px;}
+
+  .score-row{
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--line);padding-top:20px;
+  }
+  .score-label{font-weight:600;font-size:0.95rem;}
+  .score-label .big{
+    display:block;font-family:'Bitter',serif;font-weight:900;
+    font-size:2.1rem;color:var(--accent-light);
+  }
+  .score-bar{
+    flex:1;margin-left:24px;height:10px;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:999px;overflow:hidden;
+  }
+  .score-fill{
+    height:100%;width:0%;background:var(--accent);
+    transition:width .35s ease;
+  }
+
+  .scene-wrap{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px;}
+  .scene-caption{text-align:center;color:var(--ink-dim);font-size:0.85rem;margin-top:12px;}
+
+  .layer-group{transition:opacity .35s ease, transform .35s ease;}
+  .layer-group.off{opacity:0.08;}
+
+  /* ---------- audience tabs ---------- */
+  .tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+  .tab-btn{
+    background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);
+    padding:12px 20px;border-radius:999px;font-weight:600;cursor:pointer;
+    font-family:'Work Sans',sans-serif;font-size:0.95rem;
+  }
+  .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#0D1710;}
+  .tab-panels{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:38px;}
+  .tab-panel{display:none;grid-template-columns:1fr 1fr;gap:36px;}
+  .tab-panel.active{display:grid;}
+  .tab-panel h3{font-size:1.35rem;margin-bottom:14px;}
+  .tab-panel p{color:var(--ink-dim);margin-bottom:18px;}
+  .tab-panel ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .tab-panel li{
+    padding-left:26px;position:relative;color:var(--ink);font-size:0.98rem;
+  }
+  .tab-panel li::before{
+    content:"";position:absolute;left:0;top:9px;
+    width:9px;height:9px;border-radius:2px;background:var(--accent);
+  }
+
+  /* ---------- why cards ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .why-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:28px;
+  }
+  .why-card .num{
+    font-family:'Bitter',serif;font-weight:900;font-size:1.6rem;color:var(--accent);
+    margin-bottom:14px;display:block;
+  }
+  .why-card h3{font-size:1.15rem;margin-bottom:10px;}
+  .why-card p{color:var(--ink-dim);font-size:0.95rem;}
+
+  /* ---------- footer CTA ---------- */
+  .footer-cta{
+    border-top:1px solid var(--line);padding:72px 0 40px;text-align:center;
+  }
+  .footer-cta h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:16px;}
+  .footer-cta p{color:var(--ink-dim);max-width:46ch;margin:0 auto 30px;font-size:1.05rem;}
+  .footer-fine{
+    margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    color:var(--ink-dim);font-size:0.85rem;
+  }
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .builder{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .tab-panel{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand"><span class="mark">🌾</span> Rootstead</div>
+    <a class="el-link" href="https://easylandx.github.io" target="_blank" rel="noopener">
+      <span class="dot"></span> Creado por EasyLandX
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Para instructores de permacultura y jardinería resiliente</div>
+        <h1>Enseña a las personas a cultivar <em>bosques comestibles</em>, no solo jardines.</h1>
+        <p class="lead">Una página de destino que muestra lo que abarcan tus cursos, a quiénes van dirigidos y cómo reservar un lugar — diseñada de la misma forma en que enseñas: capa por capa, temporada por temporada.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#builder">Prueba el creador de capas</a>
+          <a class="btn btn-ghost" href="#tabs">Descubre para quién es</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de un bosque comestible por capas con suelo, raíces, cubierta vegetal, arbustos y un árbol de dosel">
+          <rect x="0" y="0" width="420" height="320" fill="#16241A"/>
+          <rect x="0" y="230" width="420" height="90" fill="#1F3D28"/>
+          <path d="M0 230 Q60 218 120 230 T240 230 T360 230 T420 224 V320 H0 Z" fill="#26402D"/>
+          <path d="M40 260 Q70 268 60 292" stroke="#4CAF63" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M110 265 Q140 275 150 300" stroke="#4CAF63" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M300 262 Q270 274 280 298" stroke="#4CAF63" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M360 258 Q340 270 352 292" stroke="#4CAF63" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <g>
+            <circle cx="70" cy="222" r="5" fill="#9BE8A9"/>
+            <circle cx="150" cy="226" r="6" fill="#9BE8A9"/>
+            <circle cx="230" cy="222" r="5" fill="#9BE8A9"/>
+            <circle cx="310" cy="226" r="6" fill="#9BE8A9"/>
+            <circle cx="380" cy="222" r="5" fill="#9BE8A9"/>
+          </g>
+          <g>
+            <ellipse cx="105" cy="215" rx="26" ry="15" fill="#2B4433"/>
+            <ellipse cx="330" cy="212" rx="30" ry="16" fill="#2B4433"/>
+          </g>
+          <rect x="196" y="120" width="10" height="112" fill="#3A2A1E"/>
+          <path d="M206 200 Q230 190 236 160" stroke="#4CAF63" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M196 190 Q172 178 168 150" stroke="#4CAF63" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="201" cy="90" r="72" fill="#4CAF63"/>
+          <circle cx="150" cy="115" r="42" fill="#4CAF63"/>
+          <circle cx="256" cy="112" r="46" fill="#4CAF63"/>
+          <circle cx="201" cy="70" r="8" fill="#9BE8A9" opacity="0.6"/>
+          <circle cx="170" cy="95" r="6" fill="#9BE8A9" opacity="0.6"/>
+          <circle cx="232" cy="98" r="6" fill="#9BE8A9" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="builder">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Interactividad — como lo explicarías en clase</div>
+        <h2>Construye un bosque comestible, capa por capa</h2>
+        <p>El diseño en permacultura distribuye las plantas a diferentes alturas para que cada capa cumpla una función. Activa las capas y observa cómo el jardín — y su resiliencia — se complementan.</p>
+      </div>
+
+      <div class="builder">
+        <div class="layer-controls">
+          <h3>Las siete capas</h3>
+          <p>Activa cada una para añadirla a la siembra.</p>
+          <div class="layer-list" id="layerList"></div>
+          <div class="score-row">
+            <div class="score-label">Resiliencia<span class="big" id="scoreNum">0/7</span></div>
+            <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+          </div>
+        </div>
+
+        <div class="scene-wrap">
+          <svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama de las siete capas del bosque comestible superponiéndose a medida que las activas">
+            <rect x="0" y="0" width="360" height="300" fill="#0D1710"/>
+            <rect x="0" y="0" width="360" height="220" fill="#0D1710"/>
+            <rect x="0" y="220" width="360" height="80" fill="#1C120C"/>
+
+            <g id="layer-root" class="layer-group off">
+              <path d="M180 224 L172 250 M180 224 L188 252 M180 224 L164 244 M180 224 L196 246" stroke="#9BE8A9" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M120 226 L112 248 M120 226 L128 250" stroke="#9BE8A9" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M240 226 L232 248 M240 226 L248 250" stroke="#9BE8A9" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <g id="layer-ground" class="layer-group off">
+              <ellipse cx="90" cy="216" rx="20" ry="7" fill="#4CAF63"/>
+              <ellipse cx="150" cy="219" rx="24" ry="8" fill="#4CAF63"/>
+              <ellipse cx="210" cy="217" rx="22" ry="7" fill="#4CAF63"/>
+              <ellipse cx="270" cy="219" rx="20" ry="7" fill="#4CAF63"/>
+            </g>
+
+            <g id="layer-vine" class="layer-group off">
+              <path d="M180 220 Q170 190 186 168 Q198 148 182 122" stroke="#9BE8A9" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <circle cx="186" cy="168" r="3" fill="#9BE8A9"/>
+              <circle cx="182" cy="122" r="3" fill="#9BE8A9"/>
+            </g>
+
+            <g id="layer-herb" class="layer-group off">
+              <path d="M120 212 Q116 196 122 186 M120 212 Q124 198 130 190" stroke="#4CAF63" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M240 212 Q236 196 242 186 M240 212 Q244 198 250 190" stroke="#4CAF63" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M90 214 Q88 202 92 194" stroke="#4CAF63" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <g id="layer-shrub" class="layer-group off">
+              <circle cx="95" cy="196" r="24" fill="#26402D"/>
+              <circle cx="270" cy="194" r="26" fill="#26402D"/>
+              <circle cx="60" cy="204" r="16" fill="#26402D"/>
+            </g>
+
+            <g id="layer-sub" class="layer-group off">
+              <rect x="256" y="150" width="7" height="60" fill="#3A2A1E"/>
+              <circle cx="259" cy="140" r="34" fill="#2B4433"/>
+              <rect x="128" y="150" width="7" height="60" fill="#3A2A1E"/>
+              <circle cx="131" cy="140" r="30" fill="#2B4433"/>
+            </g>
+
+            <g id="layer-canopy" class="layer-group off">
+              <rect x="176" y="80" width="9" height="130" fill="#3A2A1E"/>
+              <circle cx="180" cy="70" r="58" fill="#4CAF63"/>
+              <circle cx="140" cy="92" r="34" fill="#4CAF63"/>
+              <circle cx="222" cy="90" r="36" fill="#4CAF63"/>
+            </g>
+
+            <rect x="0" y="220" width="360" height="80" fill="#1C120C" opacity="0.001"/>
+            <path d="M0 220 Q90 212 180 220 T360 220 V300 H0 Z" fill="#1F3D28"/>
+          </svg>
+          <p class="scene-caption">Cada capa que activas añade una función al jardín: sombra, alimento, mantillo o nitrógeno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabs">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Quién reserva tus cursos</div>
+        <h2>Una página, dos tipos de estudiantes</h2>
+        <p>Tu audiencia se divide en dos grupos con preguntas distintas. La página responde a ambos sin que ninguno tenga que desplazarse buscando la respuesta.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Audiencia">
+        <button class="tab-btn active" data-tab="home" role="tab" aria-selected="true">Particulares y cultivadores de patio</button>
+        <button class="tab-btn" data-tab="comm" role="tab" aria-selected="false">Escuelas y huertos comunitarios</button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel active" id="panel-home">
+          <div>
+            <h3>Transforma un patio en un sistema</h3>
+            <p>La mayoría de tus estudiantes comienzan con césped, unas pocas macetas o un terreno que nunca funcionó del todo. Quieren un plan realizable para esta temporada, no un curso puramente teórico.</p>
+          </div>
+          <ul>
+            <li>Lectura del terreno: sol, flujo de agua y suelo, explicados en su propio terreno</li>
+            <li>Un plan de siembra a la medida de un patio real, no de una granja de demostración</li>
+            <li>Sesiones de seguimiento a lo largo de toda una temporada de cultivo</li>
+            <li>Grupos reducidos, para responder a cada pregunta</li>
+          </ul>
+        </div>
+        <div class="tab-panel" id="panel-comm">
+          <div>
+            <h3>Diseña un terreno que se mantenga por sí solo</h3>
+            <p>Los huertos escolares y comunitarios necesitan un diseño que resista la rotación de personas —nuevos voluntarios, nuevos estudiantes, nuevas temporadas— sin empezar desde cero cada año.</p>
+          </div>
+          <ul>
+            <li>Un mapa de siembra compartido que cualquiera en el equipo pueda seguir</li>
+            <li>Capas de bajo mantenimiento que reducen el trabajo semanal</li>
+            <li>Sesiones prácticas en las que todo el grupo puede participar</li>
+            <li>Una guía sencilla de relevo para los voluntarios de la siguiente temporada</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Por qué la página sigue la propia ética de la permacultura</div>
+        <h2>Cuidado de la tierra, cuidado de las personas, reparto justo</h2>
+        <p>Los mismos tres principios que enseñas en el campo también estructuran la página, para que se sienta como una extensión de tu curso y no como un anuncio publicitario convencional.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <span class="num">1</span>
+          <h3>Cuidado de la tierra</h3>
+          <p>El diseño utiliza una paleta botánica unificada, fotografías reales del jardín y nada que deba reemplazarse la próxima temporada; una página construida como se construye un bancal.</p>
+        </div>
+        <div class="why-card">
+          <span class="num">2</span>
+          <h3>Cuidado de las personas</h3>
+          <p>Fechas de cursos claras, precios transparentes y un proceso de reserva a un solo clic, para que la atención del visitante se centre en tu curso y no en cómo encontrarlo.</p>
+        </div>
+        <div class="why-card">
+          <span class="num">3</span>
+          <h3>Reparto justo</h3>
+          <p>Cada visitante encuentra el mismo camino claro para inscribirse, ya sea que te haya conocido por un amigo, un puesto en el mercado o una búsqueda en línea.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer-cta">
+  <div class="wrap">
+    <h2>Tu curso merece una página tan pensada como tu jardín.</h2>
+    <p>EasyLandX crea páginas como esta para instructores de permacultura y jardinería resiliente: adaptadas a tu curso, tu temporada y tus estudiantes.</p>
+    <a class="btn btn-primary" href="https://easylandx.github.io" target="_blank" rel="noopener">Visitar EasyLandX</a>
+
+    <div class="footer-fine wrap">
+      <span>Rootstead — una página de ejemplo para instructores de permacultura y jardinería resiliente</span>
+      <span>Creado por <a href="https://easylandx.github.io" target="_blank" rel="noopener" style="color:var(--accent-light);text-decoration:none;">EasyLandX</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var layers = [
+    {id:"layer-root",   name:"Capa de raíces",        hint:"Cultivos subterráneos que descompactan el suelo"},
+    {id:"layer-ground",  name:"Cubierta vegetal",      hint:"Plantas rastreras que dan sombra al suelo y conservan la humedad"},
+    {id:"layer-herb",    name:"Capa herbácea",         hint:"Hierbas perennes y hortalizas que ocupan el nivel medio"},
+    {id:"layer-shrub",   name:"Capa de arbustos",      hint:"Bayas y arbustos frutales a la altura del pecho"},
+    {id:"layer-vine",    name:"Capa trepadora",        hint:"Plantas trepadoras que aprovechan la altura sin ocupar más espacio en el suelo"},
+    {id:"layer-sub",     name:"Subdosel",              hint:"Árboles frutales más pequeños que ocupan el espacio bajo el dosel"},
+    {id:"layer-canopy",  name:"Capa de dosel",         hint:"Árboles altos que aportan sombra y estructura a todo lo que está debajo"}
+  ];
+
+  var list = document.getElementById("layerList");
+  var scoreNum = document.getElementById("scoreNum");
+  var scoreFill = document.getElementById("scoreFill");
+  var active = {};
+
+  layers.forEach(function(layer){
+    active[layer.id] = false;
+    var btn = document.createElement("button");
+    btn.className = "layer-btn";
+    btn.type = "button";
+    btn.setAttribute("aria-pressed","false");
+    btn.innerHTML =
+      '<span class="swatch"></span>' +
+      '<span class="txt"><span class="name">' + layer.name + '</span>' +
+      '<span class="hint">' + layer.hint + '</span></span>';
+    btn.addEventListener("click", function(){
+      active[layer.id] = !active[layer.id];
+      btn.classList.toggle("active", active[layer.id]);
+      btn.setAttribute("aria-pressed", active[layer.id] ? "true" : "false");
+      var svgLayer = document.getElementById(layer.id);
+      if(svgLayer){ svgLayer.classList.toggle("off", !active[layer.id]); }
+      updateScore();
+    });
+    list.appendChild(btn);
+  });
+
+  function updateScore(){
+    var count = Object.keys(active).filter(function(k){return active[k];}).length;
+    scoreNum.textContent = count + "/7";
+    scoreFill.style.width = Math.round((count/7)*100) + "%";
+  }
+
+  // audience tabs
+  var tabBtns = document.querySelectorAll(".tab-btn");
+  var panels = { home: document.getElementById("panel-home"), comm: document.getElementById("panel-comm") };
+  tabBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabBtns.forEach(function(b){ b.classList.remove("active"); b.setAttribute("aria-selected","false"); });
+      Object.values(panels).forEach(function(p){ p.classList.remove("active"); });
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected","true");
+      panels[btn.dataset.tab].classList.add("active");
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
