@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wilderness & Disaster First Aid Instructors</title>
+<style>
+:root{
+  --ink:#111111; --paper:#ffffff; --grey:#e9e9e9; --mid:#8a8a8a; --accent:#d7263d;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:inherit; margin:0; padding:0;}
+html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+body{
+  font-family:'Helvetica Neue',Arial,sans-serif;
+  background:var(--paper); color:var(--ink); line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+.wrap{max-width:1000px; margin:0 auto; padding:0 24px;}
+.bar{
+  position:sticky; top:0; z-index:20; top:env(safe-area-inset-top,0px);
+  background:var(--paper); border-bottom:3px solid var(--ink);
+  display:flex; align-items:center; justify-content:space-between; padding:14px 24px;
+}
+.bar .brand{font-weight:900; letter-spacing:0.5px; font-size:1.1rem;}
+.bar .brand span{color:var(--accent);}
+.el-link{
+  display:inline-block; text-decoration:none; font-weight:800; font-size:0.85rem;
+  border:2px solid var(--ink); padding:8px 16px; border-radius:999px; transition:all .15s ease;
+}
+.el-link:hover{background:var(--ink); color:var(--paper);}
+.el-link.top{background:var(--accent); border-color:var(--accent); color:var(--paper);}
+.el-link.top:hover{background:var(--ink); border-color:var(--ink);}
+
+section{padding:72px 0;}
+.hero{padding-top:56px; padding-bottom:56px; border-bottom:3px solid var(--ink);}
+.hero .grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
+@media(max-width:760px){.hero .grid{grid-template-columns:1fr;}}
+.tag{
+  display:inline-flex; align-items:center; gap:8px; border:2px solid var(--ink);
+  border-radius:999px; padding:6px 14px; font-weight:800; font-size:0.75rem;
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:18px;
+}
+.tag .dot{width:8px; height:8px; border-radius:50%; background:var(--accent);}
+h1{font-size:clamp(2.1rem,5vw,3.4rem); font-weight:900; line-height:1.05; letter-spacing:-1px;}
+h1 em{font-style:normal; color:var(--accent);}
+.sub{margin-top:18px; font-size:1.1rem; color:#333; max-width:46ch;}
+.cta-row{margin-top:28px; display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  border:2px solid var(--ink); background:var(--ink); color:var(--paper); font-weight:800;
+  padding:14px 26px; border-radius:6px; cursor:pointer; font-size:0.95rem;
+}
+.btn.outline{background:transparent; color:var(--ink);}
+.btn:hover{background:var(--accent); border-color:var(--accent); color:var(--paper);}
+
+.stats{display:flex; gap:32px; margin-top:36px; flex-wrap:wrap;}
+.stat b{display:block; font-size:1.8rem; font-weight:900;}
+.stat span{font-size:0.8rem; color:var(--mid); text-transform:uppercase; letter-spacing:0.5px;}
+
+.about h2, .sim h2, .skills h2{
+  font-size:clamp(1.6rem,3.5vw,2.2rem); font-weight:900; letter-spacing:-0.5px; margin-bottom:14px;
+}
+.about p{max-width:65ch; color:#333; font-size:1.05rem;}
+.about-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr;}}
+
+.skills{background:var(--grey); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink);}
+.skill-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:32px;}
+@media(max-width:760px){.skill-grid{grid-template-columns:repeat(2,1fr);}}
+.skill-card{background:var(--paper); border:2px solid var(--ink); border-radius:10px; padding:22px 16px; text-align:center;}
+.skill-card svg{width:56px; height:56px; margin-bottom:10px;}
+.skill-card h3{font-size:0.95rem; font-weight:800;}
+.skill-card p{font-size:0.8rem; color:var(--mid); margin-top:4px;}
+
+.sim-box{
+  border:3px solid var(--ink); border-radius:14px; margin-top:32px; overflow:hidden;
+}
+.sim-head{background:var(--ink); color:var(--paper); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;}
+.sim-head strong{font-size:1rem;}
+.score-pill{background:var(--accent); border-radius:999px; padding:6px 14px; font-weight:800; font-size:0.85rem;}
+.sim-body{padding:26px 22px;}
+.scenario-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+@media(max-width:640px){.scenario-grid{grid-template-columns:1fr;}}
+.scenario-card{
+  border:2px solid var(--ink); border-radius:10px; padding:16px; cursor:pointer; background:var(--paper);
+  text-align:left; font-family:inherit;
+}
+.scenario-card:hover{background:var(--ink); color:var(--paper);}
+.scenario-card b{display:block; font-size:0.95rem; margin-bottom:4px;}
+.scenario-card span{font-size:0.8rem; color:var(--mid);}
+.scenario-card:hover span{color:#ccc;}
+
+.q-step{display:none;}
+.q-step.active{display:block;}
+.q-title{font-weight:800; font-size:1.05rem; margin-bottom:14px;}
+.opt-list{display:flex; flex-direction:column; gap:10px;}
+.opt-btn{
+  text-align:left; border:2px solid var(--ink); background:var(--paper); border-radius:8px;
+  padding:12px 16px; cursor:pointer; font-size:0.95rem; font-family:inherit;
+}
+.opt-btn:hover{border-color:var(--accent);}
+.opt-btn.correct{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+.opt-btn.wrong{background:var(--accent); color:var(--paper); border-color:var(--accent);}
+.feedback{margin-top:14px; padding:14px; border-left:4px solid var(--accent); background:var(--grey); font-size:0.92rem; display:none;}
+.feedback.show{display:block;}
+.sim-nav{margin-top:18px; display:flex; justify-content:space-between; align-items:center;}
+.back-link{background:none; border:none; text-decoration:underline; cursor:pointer; font-weight:700; font-family:inherit; color:var(--ink);}
+.done-box{text-align:center; padding:10px 0;}
+.done-box .big{font-size:2.4rem; font-weight:900;}
+
+.cert{border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); text-align:center;}
+.cert h2{font-size:clamp(1.6rem,3.5vw,2.2rem); font-weight:900;}
+.cert p{max-width:52ch; margin:14px auto 0; color:#333;}
+
+footer{padding:44px 0 60px; text-align:center;}
+footer .el-link{margin-top:16px;}
+footer .fine{margin-top:18px; font-size:0.78rem; color:var(--mid);}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand">WILD<span>+</span>DISASTER FIRST AID</div>
+  <a class="el-link top" href="https://easylandx.github.io" target="_blank" rel="noopener">Built by EasyLandX ↗</a>
+</div>
+
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <div class="tag"><span class="dot"></span> Instructor-Led Certification</div>
+      <h1>Train to save lives when help is <em>hours</em> away.</h1>
+      <p class="sub">Hands-on wilderness and disaster first aid instruction for guides, rescue teams, and everyday adventurers. Real scenarios. Real pressure. Real skills.</p>
+      <div class="cta-row">
+        <button class="btn" onclick="document.getElementById('sim').scrollIntoView()">Try the Field Simulator</button>
+        <button class="btn outline" onclick="document.getElementById('courses').scrollIntoView()">See Courses</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>1,200+</b><span>Instructors Trained</span></div>
+        <div class="stat"><b>40hr</b><span>Core Field Course</span></div>
+        <div class="stat"><b>24/7</b><span>Field Decision Drills</span></div>
+      </div>
+    </div>
+    <div>
+      <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="400" height="340" fill="none"/>
+        <polygon points="0,300 90,150 150,260 220,90 340,300" fill="none" stroke="#111111" stroke-width="6" stroke-linejoin="round"/>
+        <line x1="0" y1="300" x2="400" y2="300" stroke="#111111" stroke-width="6"/>
+        <circle cx="300" cy="60" r="34" fill="#d7263d"/>
+        <rect x="292" y="38" width="16" height="44" fill="#ffffff"/>
+        <rect x="278" y="52" width="44" height="16" fill="#ffffff"/>
+        <path d="M60 300 L60 220 A20 20 0 0 1 80 200 L120 200 A20 20 0 0 1 140 220 L140 300" fill="none" stroke="#111111" stroke-width="6"/>
+        <circle cx="100" cy="230" r="10" fill="#111111"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap about-grid">
+    <div>
+      <h2>Why field instructors are different.</h2>
+      <p>Our instructors don't teach from a slide deck in a clean classroom. They've packed wound kits by headlamp, splinted fractures on scree slopes, and triaged patients in collapsed structures. Every course is built around one rule: if it can't be done with dirty hands and a shaking flashlight, it doesn't make the curriculum.</p>
+      <p style="margin-top:14px;">We certify instructors to teach wilderness first aid (WFA/WFR-level) and urban disaster response — improvised evacuation, mass-casualty triage, and psychological first aid under chaos.</p>
+    </div>
+    <svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="180" width="340" height="14" fill="#111111"/>
+      <rect x="60" y="60" width="60" height="120" fill="none" stroke="#111111" stroke-width="6"/>
+      <rect x="150" y="90" width="60" height="90" fill="none" stroke="#111111" stroke-width="6"/>
+      <rect x="240" y="40" width="60" height="140" fill="none" stroke="#111111" stroke-width="6"/>
+      <rect x="255" y="95" width="30" height="30" fill="#d7263d"/>
+      <line x1="65" y1="65" width="6" x2="115" y2="175" stroke="#d7263d" stroke-width="6"/>
+    </svg>
+  </div>
+</section>
+
+<section class="skills" id="courses">
+  <div class="wrap">
+    <h2>What instructors are certified to teach</h2>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <svg viewBox="0 0 64 64"><rect x="14" y="8" width="36" height="48" fill="none" stroke="#111" stroke-width="4"/><rect x="24" y="2" width="16" height="12" fill="#d7263d"/><line x1="20" y1="24" x2="44" y2="24" stroke="#111" stroke-width="3"/><line x1="20" y1="34" x2="44" y2="34" stroke="#111" stroke-width="3"/></svg>
+        <h3>Wound &amp; Trauma Care</h3>
+        <p>Bleeding control, splinting, and improvised bandaging.</p>
+      </div>
+      <div class="skill-card">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="20" r="10" fill="none" stroke="#111" stroke-width="4"/><line x1="32" y1="30" x2="32" y2="50" stroke="#111" stroke-width="4"/><line x1="32" y1="38" x2="18" y2="50" stroke="#111" stroke-width="4"/><line x1="32" y1="38" x2="46" y2="50" stroke="#d7263d" stroke-width="4"/></svg>
+        <h3>Mass-Casualty Triage</h3>
+        <p>Rapid sorting and prioritization under pressure.</p>
+      </div>
+      <div class="skill-card">
+        <svg viewBox="0 0 64 64"><polygon points="32,10 54,50 10,50" fill="none" stroke="#111" stroke-width="4"/><rect x="26" y="34" width="12" height="4" fill="#d7263d"/><rect x="30" y="24" width="4" height="14" fill="#d7263d"/></svg>
+        <h3>Improvised Shelter &amp; Evac</h3>
+        <p>Terrain evacuation and exposure protection.</p>
+      </div>
+      <div class="skill-card">
+        <svg viewBox="0 0 64 64"><rect x="16" y="20" width="32" height="24" rx="4" fill="none" stroke="#111" stroke-width="4"/><circle cx="24" cy="46" r="6" fill="#111"/><circle cx="40" cy="46" r="6" fill="#111"/><rect x="26" y="10" width="12" height="10" fill="#d7263d"/></svg>
+        <h3>Rescue Coordination</h3>
+        <p>Communication and command in disaster zones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sim" id="sim">
+  <div class="wrap">
+    <h2>Field Decision Simulator</h2>
+    <p style="color:#333; max-width:60ch;">Step into an instructor's boots. Pick a scenario, make the call under pressure, and see how you'd score against certification standards.</p>
+
+    <div class="sim-box">
+      <div class="sim-head">
+        <strong id="simHeadTitle">Choose a Scenario</strong>
+        <span class="score-pill" id="scorePill">Score: 0 / 0</span>
+      </div>
+      <div class="sim-body">
+
+        <div class="q-step active" id="step-menu">
+          <div class="scenario-grid">
+            <button class="scenario-card" onclick="startScenario('bleed')">
+              <b>🩸 Deep Cut, No Cell Signal</b>
+              <span>Trailhead is 6 hours out.</span>
+            </button>
+            <button class="scenario-card" onclick="startScenario('collapse')">
+              <b>🏚️ Building Collapse</b>
+              <span>Multiple casualties, aftershocks continue.</span>
+            </button>
+            <button class="scenario-card" onclick="startScenario('hypo')">
+              <b>❄️ Hypothermia on Ridge</b>
+              <span>Storm rolling in, group of 4.</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="q-step" id="step-q0"></div>
+        <div class="q-step" id="step-q1"></div>
+        <div class="q-step" id="step-done">
+          <div class="done-box">
+            <div class="big" id="finalScore">0/0</div>
+            <p>Scenario complete.</p>
+            <button class="btn" style="margin-top:16px;" onclick="resetSim()">Try Another Scenario</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cert">
+  <div class="wrap">
+    <h2>Ready to teach in the field?</h2>
+    <p>Our instructor certification pathway is built for people who already lead — guides, medics, and responders ready to train the next generation.</p>
+    <div class="cta-row" style="justify-content:center; margin-top:24px;">
+      <button class="btn">Apply for Instructor Certification</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="justify-content:center; display:inline-flex;">WILD<span style="color:#d7263d;">+</span>DISASTER FIRST AID</div>
+    <p class="fine">Wilderness &amp; Disaster First Aid Instructor Certification</p>
+    <a class="el-link" href="https://easylandx.github.io" target="_blank" rel="noopener">Site built by EasyLandX ↗</a>
+    <p class="fine">© 2026 Wilderness &amp; Disaster First Aid Instructors. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const scenarios = {
+  bleed: {
+    title: "Deep Cut, No Cell Signal",
+    questions: [
+      {
+        q: "A hiker has a deep laceration on the forearm, bleeding heavily. What's your first move?",
+        opts: [
+          {t:"Apply direct pressure with a clean cloth immediately", correct:true, fb:"Correct — direct pressure controls bleeding fastest and buys time before any other step."},
+          {t:"Elevate the arm and wait to see if it slows", correct:false, fb:"Elevation helps, but it's a secondary step — direct pressure must start immediately."},
+          {t:"Run for help before treating the wound", correct:false, fb:"Never leave a heavily bleeding patient untreated. Control the bleed first."}
+        ]
+      },
+      {
+        q: "Bleeding won't stop after 10 minutes of pressure. What next?",
+        opts: [
+          {t:"Apply a tourniquet above the wound if trained and available", correct:true, fb:"Correct — a properly applied tourniquet is the right escalation for uncontrolled limb bleeding."},
+          {t:"Add more cloth on top and keep pressing", correct:false, fb:"Layering can help briefly, but persistent uncontrolled bleeding needs escalation to a tourniquet."},
+          {t:"Loosen pressure to check the wound", correct:false, fb:"Checking too early can restart bleeding — keep pressure and escalate instead."}
+        ]
+      }
+    ]
+  },
+  collapse: {
+    title: "Building Collapse",
+    questions: [
+      {
+        q: "You arrive at a partially collapsed building with several injured people. First priority?",
+        opts: [
+          {t:"Scan the scene for immediate hazards before entering", correct:true, fb:"Correct — scene safety comes first. A rescuer who becomes a casualty helps no one."},
+          {t:"Rush to the loudest cry for help", correct:false, fb:"Loudest isn't always most critical, and rushing in ignores scene safety."},
+          {t:"Start treating the nearest visible injury", correct:false, fb:"Treating one person before assessing the scene and triaging can cost lives elsewhere."}
+        ]
+      },
+      {
+        q: "You have 5 casualties and limited supplies. What's your approach?",
+        opts: [
+          {t:"Triage by severity — treat those who can be saved with immediate care first", correct:true, fb:"Correct — mass-casualty triage prioritizes who can be helped most effectively, fastest."},
+          {t:"Treat casualties in the order you find them", correct:false, fb:"Order of discovery isn't order of medical priority — triage properly."},
+          {t:"Focus all resources on the most critical patient only", correct:false, fb:"In mass-casualty situations, unsalvageable-critical cases are deprioritized to save more lives overall."}
+        ]
+      }
+    ]
+  },
+  hypo: {
+    title: "Hypothermia on Ridge",
+    questions: [
+      {
+        q: "A group member is shivering violently, slurring words, and stumbling. What do you do first?",
+        opts: [
+          {t:"Get them out of wind and wet clothing, insulate immediately", correct:true, fb:"Correct — stopping further heat loss is the priority before any rewarming technique."},
+          {t:"Give them hot coffee to warm up fast", correct:false, fb:"Caffeine and hot liquids can worsen dehydration and aren't the first step — insulation comes first."},
+          {t:"Have them keep hiking to generate body heat", correct:false, fb:"Exertion in moderate-to-severe hypothermia can trigger dangerous cardiac events — stop and insulate."}
+        ]
+      },
+      {
+        q: "Symptoms worsen — confusion and slowed breathing. What's the priority now?",
+        opts: [
+          {t:"Handle gently, insulate the core, and arrange emergency evacuation", correct:true, fb:"Correct — severe hypothermia patients must be moved gently; rough handling can trigger cardiac arrest."},
+          {t:"Vigorously rub limbs to restore circulation", correct:false, fb:"Vigorous rubbing in severe hypothermia can push cold blood to the core and worsen the condition."},
+          {t:"Submerge in warm water quickly", correct:false, fb:"Rapid rewarming in the field is dangerous without medical monitoring — gentle handling and evac is correct."}
+        ]
+      }
+    ]
+  }
+};
+
+let current = null;
+let qIndex = 0;
+let score = 0;
+let total = 0;
+
+function startScenario(key){
+  current = scenarios[key];
+  qIndex = 0;
+  score = 0;
+  total = current.questions.length;
+  document.getElementById('simHeadTitle').textContent = current.title;
+  updateScore();
+  showStep('menu', false);
+  renderQuestion();
+}
+
+function updateScore(){
+  document.getElementById('scorePill').textContent = 'Score: ' + score + ' / ' + total;
+}
+
+function showStep(id, activate){
+  document.querySelectorAll('.q-step').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('step-' + id);
+  if(activate !== false) el.classList.add('active');
+}
+
+function renderQuestion(){
+  const qData = current.questions[qIndex];
+  const stepId = 'q' + qIndex;
+  let container = document.getElementById('step-' + stepId);
+  if(!container){
+    container = document.createElement('div');
+    container.className = 'q-step';
+    container.id = 'step-' + stepId;
+    document.querySelector('.sim-body').insertBefore(container, document.getElementById('step-done'));
+  }
+  container.innerHTML = `
+    <div class="q-title">Step ${qIndex+1} of ${current.questions.length}: ${qData.q}</div>
+    <div class="opt-list" id="opts-${stepId}"></div>
+    <div class="feedback" id="fb-${stepId}"></div>
+    <div class="sim-nav">
+      <button class="back-link" onclick="resetSim()">← Back to scenarios</button>
+      <button class="btn outline" id="next-${stepId}" style="display:none;" onclick="nextQuestion()">Continue →</button>
+    </div>
+  `;
+  const optsWrap = document.getElementById('opts-' + stepId);
+  qData.opts.forEach((opt, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.textContent = opt.t;
+    b.onclick = () => answer(stepId, i);
+    optsWrap.appendChild(b);
+  });
+  showStep(stepId);
+}
+
+function answer(stepId, i){
+  const qData = current.questions[qIndex];
+  const opts = qData.opts;
+  const buttons = document.querySelectorAll('#opts-' + stepId + ' .opt-btn');
+  buttons.forEach((b, idx) => {
+    b.disabled = true;
+    if(opts[idx].correct) b.classList.add('correct');
+    else if(idx === i) b.classList.add('wrong');
+  });
+  if(opts[i].correct) score++;
+  updateScore();
+  const fb = document.getElementById('fb-' + stepId);
+  fb.textContent = opts[i].fb;
+  fb.classList.add('show');
+  document.getElementById('next-' + stepId).style.display = 'inline-block';
+}
+
+function nextQuestion(){
+  qIndex++;
+  if(qIndex >= current.questions.length){
+    document.getElementById('finalScore').textContent = score + '/' + total;
+    showStep('done');
+  } else {
+    renderQuestion();
+  }
+}
+
+function resetSim(){
+  document.getElementById('simHeadTitle').textContent = 'Choose a Scenario';
+  score = 0; total = 0;
+  updateScore();
+  showStep('menu');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harvest Keep — Food Storage &amp; Long-Term Preservation Experts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EA;
+    --paper:#F1E4C4;
+    --amber:#C9852B;
+    --amber-deep:#8A5A1B;
+    --ink:#2B1B0E;
+    --line: rgba(43,27,14,0.18);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --cream:#FBF6EA; --paper:#F1E4C4; --amber:#C9852B; --amber-deep:#8A5A1B; --ink:#2B1B0E;
+    }
+  }
+  html{scroll-behavior:smooth; scroll-padding-top: env(safe-area-inset-top,0px);}
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0; font-weight:700; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 clamp(24px,6vw,72px);}
+
+  /* top bar */
+  .topbar{border-bottom:1px solid var(--line); background:var(--cream);}
+  .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 0; gap:16px; flex-wrap:wrap;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:700; font-size:1.15rem;}
+  .brand svg{width:28px; height:28px;}
+  .easylandx-link{
+    font-size:0.85rem; padding:7px 14px; border:1px solid var(--ink); border-radius:999px;
+    text-decoration:none; white-space:nowrap;
+  }
+  .easylandx-link:hover{background:var(--ink); color:var(--cream);}
+
+  /* hero */
+  .hero{padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,64px);}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;}
+  @media (max-width:820px){ .hero-grid{grid-template-columns:1fr;} }
+  .eyebrow{font-size:0.95rem; color:var(--amber-deep); margin-bottom:14px;}
+  h1{font-size:clamp(2.2rem,4.4vw,3.4rem); line-height:1.06;}
+  .hero p.lede{font-size:1.15rem; line-height:1.6; max-width:46ch; margin-top:18px; color:var(--ink); opacity:0.85;}
+  .cta-row{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:14px 26px; border-radius:6px; font-weight:600; text-decoration:none;
+    border:2px solid var(--ink);
+  }
+  .btn-solid{background:var(--ink); color:var(--cream);}
+  .btn-solid:hover{background:var(--amber-deep); border-color:var(--amber-deep);}
+  .btn-outline{background:transparent; color:var(--ink);}
+  .btn-outline:hover{background:var(--paper);}
+  .hero-art{display:flex; justify-content:center;}
+  .hero-art svg{width:100%; max-width:340px; height:auto;}
+
+  /* sections */
+  section{padding:clamp(48px,7vw,84px) 0; border-top:1px solid var(--line);}
+  .section-head{max-width:60ch; margin-bottom:40px;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  h2{font-size:clamp(1.6rem,3vw,2.2rem);}
+  .section-head p{margin-top:12px; font-size:1.05rem; line-height:1.6; opacity:0.85;}
+
+  /* methods grid */
+  .methods{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  @media (max-width:900px){ .methods{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .methods{grid-template-columns:1fr;} }
+  .method{background:var(--paper); border-radius:10px; padding:26px 22px; border:1px solid var(--line);}
+  .method svg{width:44px; height:44px; margin-bottom:14px;}
+  .method h3{font-size:1.1rem; margin-bottom:8px;}
+  .method p{margin:0; font-size:0.93rem; line-height:1.5; opacity:0.8;}
+
+  /* tool */
+  .tool-card{
+    background:var(--ink); color:var(--cream); border-radius:16px; padding:clamp(28px,5vw,48px);
+    display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;
+  }
+  @media (max-width:820px){ .tool-card{grid-template-columns:1fr;} }
+  .tool-card h2, .tool-card .section-head p{color:var(--cream);}
+  .tool-controls label{display:block; font-size:0.85rem; margin:16px 0 6px; opacity:0.75;}
+  select{
+    width:100%; padding:12px 14px; border-radius:6px; border:1px solid rgba(251,246,234,0.3);
+    background:rgba(251,246,234,0.08); color:var(--cream); font-size:1rem; font-family:inherit;
+  }
+  select option{color:var(--ink);}
+  .jar-wrap{display:flex; flex-direction:column; align-items:center; gap:18px;}
+  .result{
+    background:rgba(251,246,234,0.08); border:1px solid rgba(251,246,234,0.25); border-radius:10px;
+    padding:18px 20px; width:100%; max-width:320px; text-align:center;
+  }
+  .result .duration{font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:var(--amber);}
+  .result .method-name{font-size:0.95rem; margin-top:4px; opacity:0.85;}
+  .result .tip{font-size:0.82rem; margin-top:10px; opacity:0.65; line-height:1.4;}
+  #jarFill{transition:height 0.5s ease;}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; text-align:center;}
+  @media (max-width:700px){ .stats{grid-template-columns:1fr;} }
+  .stat .num{font-family:'Fraunces',serif; font-size:2.4rem; font-weight:700; color:var(--amber-deep);}
+  .stat .label{font-size:0.9rem; opacity:0.75; margin-top:6px;}
+
+  /* footer */
+  footer{border-top:1px solid var(--line); padding:48px 0 40px;}
+  .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; align-items:center;}
+  .footer-note{font-size:0.85rem; opacity:0.6; max-width:40ch;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    #jarFill{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3h8v3l1.5 1.5V20a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V7.5L8 6V3z"/><path d="M8 9h8"/></svg>
+      Harvest Keep
+    </div>
+    <a class="easylandx-link" href="https://easylandx.github.io" target="_blank" rel="noopener">Site by EasyLandX ↗</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">🥫 Food Storage &amp; Long-Term Preservation Experts</div>
+      <h1>Keep a season's harvest good for years, not weeks.</h1>
+      <p class="lede">We plan pantries, root cellars and freeze-dry rooms for families and small farms — matching the right method to every food so nothing goes to waste before it's needed.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#tool">Try the shelf-life tool</a>
+        <a class="btn btn-outline" href="#methods">See our methods</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 240 260" fill="none" stroke="#2B1B0E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="55" y="70" width="130" height="160" rx="14" fill="#F1E4C4"/>
+        <path d="M85 70V45a10 10 0 0 1 10-10h50a10 10 0 0 1 10 10v25" fill="none"/>
+        <rect x="75" y="30" width="90" height="16" rx="6" fill="#C9852B" stroke="none"/>
+        <path d="M55 120h130M55 160h130M55 200h130" opacity="0.4"/>
+        <circle cx="95" cy="140" r="9" fill="#C9852B" stroke="none"/>
+        <circle cx="120" cy="150" r="9" fill="#C9852B" stroke="none"/>
+        <circle cx="145" cy="138" r="9" fill="#C9852B" stroke="none"/>
+        <circle cx="105" cy="180" r="9" fill="#8A5A1B" stroke="none"/>
+        <circle cx="135" cy="185" r="9" fill="#8A5A1B" stroke="none"/>
+        <path d="M40 245c20-10 30 10 50 0s30 10 50 0 30 10 50 0" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="methods">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Our craft</div>
+      <h2>Four ways to make food last</h2>
+      <p>Every ingredient has a method it prefers. We design the storage system around the food, not the other way round.</p>
+    </div>
+    <div class="methods">
+      <div class="method">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#8A5A1B" stroke-width="2"><rect x="12" y="16" width="24" height="26" rx="4"/><path d="M18 16v-6a6 6 0 0 1 12 0v6"/><path d="M18 26h12M18 32h12"/></svg>
+        <h3>Water-bath &amp; pressure canning</h3>
+        <p>Jams, sauces and low-acid vegetables sealed for one to five years on a shelf.</p>
+      </div>
+      <div class="method">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#8A5A1B" stroke-width="2"><path d="M24 6v36M12 14l24 20M36 14 12 34M24 6l-6 6M24 6l6 6M24 42l-6-6M24 42l6-6"/></svg>
+        <h3>Freeze-drying</h3>
+        <p>Removes nearly all moisture, keeping full flavor and nutrients for 15–25 years.</p>
+      </div>
+      <div class="method">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#8A5A1B" stroke-width="2"><rect x="9" y="9" width="30" height="30" rx="4"/><path d="M9 20h30M20 9v30"/></svg>
+        <h3>Vacuum sealing</h3>
+        <p>Pulls air out to slow oxidation — grains, meat and dried goods stay fresh far longer.</p>
+      </div>
+      <div class="method">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#8A5A1B" stroke-width="2"><path d="M24 6c-8 10-14 18-14 26a14 14 0 0 0 28 0c0-8-6-16-14-26z"/><path d="M24 20v18"/></svg>
+        <h3>Root cellaring</h3>
+        <p>Cool, humid, dark storage that keeps root vegetables firm for months without power.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tool">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">🥫 Try it yourself</div>
+      <h2>Shelf-life estimator</h2>
+      <p>Pick a food and see the storage method we'd recommend, and roughly how long it will keep.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tool-controls">
+        <label for="foodSelect">Food</label>
+        <select id="foodSelect">
+          <option value="tomatoSauce">Tomato sauce</option>
+          <option value="greenBeans">Green beans</option>
+          <option value="rice">White rice</option>
+          <option value="applesFD">Apples</option>
+          <option value="carrots">Carrots</option>
+          <option value="groundBeef">Ground beef</option>
+          <option value="flour">Flour</option>
+          <option value="potatoes">Potatoes</option>
+          <option value="eggsPowder">Eggs (powdered)</option>
+          <option value="onions">Onions</option>
+        </select>
+        <label for="methodSelect">Storage method</label>
+        <select id="methodSelect"></select>
+      </div>
+      <div class="jar-wrap">
+        <svg viewBox="0 0 100 130" width="110">
+          <defs>
+            <clipPath id="jarClip"><path d="M20 30h60v82a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8V30z"/></clipPath>
+          </defs>
+          <rect id="jarFill" clip-path="url(#jarClip)" x="20" y="30" width="60" height="90" fill="#C9852B"/>
+          <path d="M20 30h60v82a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8V30z" fill="none" stroke="#FBF6EA" stroke-width="2.4"/>
+          <path d="M32 30V16a6 6 0 0 1 6-6h24a6 6 0 0 1 6 6v14" fill="none" stroke="#FBF6EA" stroke-width="2.4"/>
+          <rect x="28" y="6" width="44" height="12" rx="4" fill="#FBF6EA" stroke="none" opacity="0.9"/>
+        </svg>
+        <div class="result">
+          <div class="duration" id="durationOut">1–2 years</div>
+          <div class="method-name" id="methodOut">Water-bath canning</div>
+          <div class="tip" id="tipOut">Store in a cool, dark place below 70°F for best results.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Why it matters</div>
+      <h2>Storage done right pays for itself</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">30–40%</div><div class="label">of household food is typically wasted before it's eaten</div></div>
+      <div class="stat"><div class="num">25 yrs</div><div class="label">shelf life possible for properly freeze-dried staples</div></div>
+      <div class="stat"><div class="num">0 kWh</div><div class="label">power needed for a well-built root cellar</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Get started</div>
+      <h2>Let's plan your pantry, cellar or freeze-dry room</h2>
+      <p>Tell us what you're growing or stocking up on, and we'll map out the storage setup that fits your space and budget.</p>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="#tool">Estimate shelf life</a>
+      <a class="btn btn-outline" href="mailto:hello@harvestkeep.example">Book a consultation</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-note">Harvest Keep — food storage and long-term preservation planning for homes and small farms.</div>
+    <a class="easylandx-link" href="https://easylandx.github.io" target="_blank" rel="noopener">Site by EasyLandX ↗</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var data = {
+    tomatoSauce: { methods: {
+      canning: {label:"Water-bath canning", duration:"1–2 years", tip:"Store jars in a cool, dark place below 70°F.", fill:0.6},
+      freeze: {label:"Freezing", duration:"8–12 months", tip:"Leave headspace in containers to allow for expansion.", fill:0.4}
+    }},
+    greenBeans: { methods:{
+      pressure: {label:"Pressure canning", duration:"1–3 years", tip:"Low-acid vegetables need a pressure canner, not water-bath.", fill:0.55},
+      freezeDry: {label:"Freeze-drying", duration:"15–20 years", tip:"Blanch briefly before drying for best color and texture.", fill:0.95}
+    }},
+    rice: { methods:{
+      vacuum: {label:"Vacuum sealing + oxygen absorber", duration:"10–20 years", tip:"Pair with food-grade buckets for pest protection.", fill:0.9},
+      pantry: {label:"Sealed pantry container", duration:"1–2 years", tip:"Keep away from moisture and direct light.", fill:0.4}
+    }},
+    applesFD: { methods:{
+      freezeDry: {label:"Freeze-drying", duration:"15–20 years", tip:"Slice thin and treat with lemon juice to keep color.", fill:0.92},
+      rootCellar: {label:"Cool storage", duration:"2–4 months", tip:"Store away from other produce — apples release ripening gas.", fill:0.3}
+    }},
+    carrots: { methods:{
+      rootCellar: {label:"Root cellaring", duration:"4–6 months", tip:"Pack in damp sand at 32–40°F and high humidity.", fill:0.5},
+      freezeDry: {label:"Freeze-drying", duration:"15–20 years", tip:"Blanch before drying to preserve texture.", fill:0.92}
+    }},
+    groundBeef: { methods:{
+      freeze: {label:"Vacuum-sealed freezing", duration:"1–2 years", tip:"Vacuum sealing prevents freezer burn far longer than bags.", fill:0.45},
+      freezeDry: {label:"Freeze-drying", duration:"15–25 years", tip:"Cook fully before freeze-drying to remove fat, which shortens shelf life.", fill:0.95}
+    }},
+    flour: { methods:{
+      vacuum: {label:"Vacuum sealing + oxygen absorber", duration:"5–10 years", tip:"Store in a cool, dry spot away from sunlight.", fill:0.75},
+      pantry: {label:"Sealed pantry container", duration:"6–12 months", tip:"Whole wheat flour keeps shorter than white due to natural oils.", fill:0.35}
+    }},
+    potatoes: { methods:{
+      rootCellar: {label:"Root cellaring", duration:"5–8 months", tip:"Keep in the dark — light causes sprouting and green skin.", fill:0.6},
+      pantry: {label:"Cool pantry", duration:"1–2 months", tip:"Never store potatoes next to onions — they spoil each other faster.", fill:0.25}
+    }},
+    eggsPowder: { methods:{
+      freezeDry: {label:"Freeze-drying", duration:"10–15 years", tip:"Rehydrate with water at a 1:1 ratio when ready to use.", fill:0.85},
+      vacuum: {label:"Vacuum-sealed powder", duration:"5–8 years", tip:"Keep sealed until use — once opened, use within a year.", fill:0.6}
+    }},
+    onions: { methods:{
+      rootCellar: {label:"Cool, dry storage", duration:"3–5 months", tip:"Needs airflow — mesh bags work better than sealed containers.", fill:0.4},
+      freezeDry: {label:"Freeze-drying", duration:"15–20 years", tip:"Dice before drying for easier rehydration in cooking.", fill:0.92}
+    }}
+  };
+
+  var foodSelect = document.getElementById('foodSelect');
+  var methodSelect = document.getElementById('methodSelect');
+  var durationOut = document.getElementById('durationOut');
+  var methodOut = document.getElementById('methodOut');
+  var tipOut = document.getElementById('tipOut');
+  var jarFill = document.getElementById('jarFill');
+
+  function populateMethods(){
+    var food = data[foodSelect.value];
+    methodSelect.innerHTML = '';
+    Object.keys(food.methods).forEach(function(key){
+      var opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = food.methods[key].label;
+      methodSelect.appendChild(opt);
+    });
+  }
+
+  function render(){
+    var food = data[foodSelect.value];
+    var m = food.methods[methodSelect.value];
+    if(!m) return;
+    durationOut.textContent = m.duration;
+    methodOut.textContent = m.label;
+    tipOut.textContent = m.tip;
+    var maxH = 90;
+    jarFill.setAttribute('y', 30 + (maxH - maxH*m.fill));
+    jarFill.setAttribute('height', maxH*m.fill);
+  }
+
+  foodSelect.addEventListener('change', function(){ populateMethods(); render(); });
+  methodSelect.addEventListener('change', render);
+
+  populateMethods();
+  render();
+})();
+</script>
+
+</body>
+</html>
