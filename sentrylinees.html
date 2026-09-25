@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SentryLine — Entrenamiento en Autodefensa y Conciencia Situacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a09;
+    --panel:#161613;
+    --line:#38372f;
+    --white:#f2f0e8;
+    --gray:#8c8a7d;
+    --accent:#e8590c;
+    --accent-dim:#a53f08;
+    --radius:0;
+    font-size:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.55;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Big Shoulders Display',sans-serif;font-weight:900;letter-spacing:.01em;line-height:.94;text-transform:uppercase;}
+  a{color:inherit;}
+  img,svg{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .mono{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--gray);}
+
+  /* marco visor con soportes de esquina, utilizado como recurso estructural vinculado al tema de vigilancia/conciencia */
+  .bracket{position:relative;}
+  .bracket::before,.bracket::after{content:"";position:absolute;width:18px;height:18px;border-color:var(--accent);}
+  .bracket::before{top:-1px;left:-1px;border-top:2px solid var(--accent);border-left:2px solid var(--accent);}
+  .bracket::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent);}
+
+  /* ---- barra superior de enlaces ---- */
+  .topbar{border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 24px;max-width:1120px;margin:0 auto;flex-wrap:wrap;gap:8px;}
+  .topbar a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.06em;color:var(--gray);text-decoration:none;border-bottom:1px solid transparent;}
+  .topbar a:hover{color:var(--white);border-color:var(--accent);}
+
+  /* ---- navegación ---- */
+  header.nav{padding:22px 0;border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;}
+  .logo{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:1.35rem;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:10px;}
+  .logo svg{width:26px;height:26px;flex:none;}
+  .btn{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.05em;
+    padding:12px 22px;background:var(--accent);color:var(--black);text-decoration:none;font-weight:500;
+    border:1px solid var(--accent);
+  }
+  .btn:hover{background:transparent;color:var(--accent);}
+  .btn-outline{background:transparent;color:var(--white);border:1px solid var(--line);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---- hero ---- */
+  .hero{padding:88px 0 72px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);}
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero p.lede{margin-top:22px;max-width:46ch;color:#cfccc0;font-size:1.05rem;}
+  .hero-actions{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-figure{padding:18px;}
+  .stat-row{margin-top:44px;display:flex;gap:40px;flex-wrap:wrap;}
+  .stat-row div b{display:block;font-family:'Big Shoulders Display',sans-serif;font-size:2rem;color:var(--accent);}
+  .stat-row div span{font-size:.78rem;color:var(--gray);}
+
+  /* ---- estructura de sección ---- */
+  section{padding:74px 0;border-bottom:1px solid var(--line);}
+  .section-head{max-width:60ch;margin-bottom:40px;}
+  .section-head .mono{margin-bottom:10px;display:block;}
+  .section-head h2{font-size:clamp(2rem,4vw,2.9rem);}
+  .section-head p{margin-top:14px;color:#cfccc0;}
+
+  /* ---- selector de código cooper ---- */
+  .code-panel{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border:1px solid var(--line);}
+  .code-select{border-right:1px solid var(--line);}
+  .code-btn{
+    width:100%;text-align:left;padding:20px 24px;background:transparent;border:0;border-bottom:1px solid var(--line);
+    color:var(--gray);font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.04em;cursor:pointer;
+    display:flex;align-items:center;gap:14px;transition:background .15s;
+  }
+  .code-btn:last-child{border-bottom:0;}
+  .code-btn .dot{width:10px;height:10px;border-radius:50%;background:var(--line);flex:none;transition:background .15s,box-shadow .15s;}
+  .code-btn[aria-pressed="true"]{background:var(--panel);color:var(--white);}
+  .code-btn[aria-pressed="true"] .dot{background:var(--accent);box-shadow:0 0 0 4px rgba(232,89,12,.18);}
+  .code-detail{padding:32px;}
+  .code-detail h3{font-size:1.7rem;margin-bottom:12px;}
+  .code-detail p{color:#cfccc0;max-width:52ch;}
+  .code-meter{margin-top:22px;height:6px;background:var(--panel);border:1px solid var(--line);}
+  .code-meter i{display:block;height:100%;background:var(--accent);transition:width .25s;}
+
+  /* ---- ejercicio interactivo ---- */
+  .drill{display:grid;grid-template-columns:1.3fr .7fr;gap:36px;align-items:start;}
+  .scene-wrap{border:1px solid var(--line);background:var(--panel);position:relative;}
+  .scene-wrap svg{width:100%;height:auto;display:block;cursor:crosshair;}
+  .hotspot{cursor:pointer;}
+  .hotspot circle.ring{fill:none;stroke:var(--gray);stroke-width:1.4;stroke-dasharray:3 3;opacity:.55;}
+  .hotspot.found circle.ring{stroke:var(--accent);stroke-dasharray:none;opacity:1;}
+  .hotspot.miss circle.ring{stroke:#c94b2c;}
+  .hotspot text{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:var(--gray);}
+  .hotspot.found text{fill:var(--accent);}
+  .drill-panel{border:1px solid var(--line);padding:26px;}
+  .drill-panel h3{font-size:1.4rem;margin-bottom:14px;}
+  .drill-status{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--gray);margin-bottom:18px;line-height:1.7;}
+  .drill-status b{color:var(--white);}
+  #drillLog{list-style:none;font-size:.85rem;min-height:96px;margin-bottom:18px;color:#cfccc0;}
+  #drillLog li{padding:7px 0;border-bottom:1px solid var(--line);}
+  #drillLog li.bad{color:#c94b2c;}
+  #drillLog li.good{color:var(--accent);}
+  #drillResult{margin-top:6px;font-family:'Big Shoulders Display',sans-serif;font-size:1.6rem;min-height:1.2em;}
+  .reset-btn{margin-top:16px;background:transparent;border:1px solid var(--line);color:var(--gray);font-family:'IBM Plex Mono',monospace;font-size:.75rem;padding:10px 18px;cursor:pointer;}
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---- entrenadores ---- */
+  .coach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .coach-card{background:var(--black);padding:30px;}
+  .coach-card svg{width:56px;height:56px;margin-bottom:20px;}
+  .coach-card h3{font-size:1.25rem;margin-bottom:6px;}
+  .coach-card .role{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.05em;display:block;margin-bottom:12px;}
+  .coach-card p{color:#cfccc0;font-size:.92rem;}
+
+  /* ---- programas ---- */
+  .program-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .program-card{background:var(--black);padding:32px;display:flex;flex-direction:column;}
+  .program-card.mid{background:var(--panel);}
+  .program-card .tag{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--gray);letter-spacing:.05em;}
+  .program-card h3{font-size:1.7rem;margin:10px 0 4px;}
+  .program-card .price{font-family:'Big Shoulders Display',sans-serif;font-size:1.9rem;color:var(--accent);margin-bottom:16px;}
+  .program-card ul{list-style:none;color:#cfccc0;font-size:.9rem;flex:1;}
+  .program-card li{padding:8px 0;border-top:1px solid var(--line);}
+  .program-card li:first-child{border-top:0;}
+  .program-card .btn{margin-top:22px;text-align:center;}
+
+  /* ---- testimonios ---- */
+  .quote-row{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  blockquote{border-top:2px solid var(--accent);padding-top:16px;}
+  blockquote p{font-size:1.02rem;color:var(--white);}
+  blockquote cite{display:block;margin-top:14px;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--gray);}
+
+  /* ---- cta ---- */
+  .cta{text-align:center;padding:90px 0;}
+  .cta h2{font-size:clamp(2.2rem,5vw,3.4rem);max-width:16ch;margin:0 auto 18px;}
+  .cta p{color:#cfccc0;max-width:48ch;margin:0 auto 30px;}
+
+  footer{padding:34px 0;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  footer a.elx{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--gray);text-decoration:none;border-bottom:1px solid transparent;}
+  footer a.elx:hover{color:var(--accent);border-color:var(--accent);}
+
+  @media(max-width:860px){
+    .hero-grid,.drill,.code-panel{grid-template-columns:1fr;}
+    .coach-grid,.program-grid,.quote-row{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="mono">RED GRID STUDIO NETWORK</span>
+    <a href="https://easylandx.github.io" target="_blank" rel="noopener">↳ TAMBIÉN CREADO POR NOSOTROS: EASYLANDX.GITHUB.IO</a>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.2" stroke="#e8590c" stroke-width="1.6"/><circle cx="12" cy="12" r="3.4" fill="#e8590c"/><line x1="12" y1="1" x2="12" y2="5.5" stroke="#e8590c" stroke-width="1.6"/><line x1="12" y1="18.5" x2="12" y2="23" stroke="#e8590c" stroke-width="1.6"/><line x1="1" y1="12" x2="5.5" y2="12" stroke="#e8590c" stroke-width="1.6"/><line x1="18.5" y1="12" x2="23" y2="12" stroke="#e8590c" stroke-width="1.6"/></svg>
+      SentryLine
+    </div>
+    <a class="btn" href="#drill">Prueba el ejercicio de conciencia</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="mono">ENTRENAMIENTO EN AUTODEFENSA Y CONCIENCIA SITUACIONAL</span>
+      <h1 style="margin-top:14px;">Anticípate <em>antes</em> de que suceda.</h1>
+      <p class="lede">SentryLine entrena a personas y familias para evaluar un entorno, mantener un perímetro y actuar con decisión — habilidades diseñadas para la vida diaria y para los momentos que esperas que nunca lleguen.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#programs">Ver programas de entrenamiento</a>
+        <a class="btn btn-outline" href="#drill">Ejecutar prueba de percepción</a>
+      </div>
+      <div class="stat-row">
+        <div><b>1.400+</b><span>personas entrenadas desde 2019</span></div>
+        <div><b>0,6s</b><span>reacción promedio en ejercicio tras el entrenamiento</span></div>
+        <div><b>4</b><span>niveles de alerta enseñados</span></div>
+      </div>
+    </div>
+    <div class="hero-figure bracket">
+      <svg viewBox="0 0 320 340" fill="none">
+        <rect x="0" y="0" width="320" height="340" fill="#161613"/>
+        <circle cx="160" cy="120" r="120" stroke="#38372f" stroke-width="1"/>
+        <circle cx="160" cy="120" r="80" stroke="#38372f" stroke-width="1"/>
+        <circle cx="160" cy="120" r="40" stroke="#e8590c" stroke-width="1.2"/>
+        <line x1="160" y1="0" x2="160" y2="240" stroke="#38372f" stroke-width="1"/>
+        <line x1="40" y1="120" x2="280" y2="120" stroke="#38372f" stroke-width="1"/>
+        <!-- silueta de figura en escaneo -->
+        <g transform="translate(115,150)">
+          <circle cx="45" cy="10" r="14" fill="#f2f0e8"/>
+          <path d="M20 40c0-16 11-27 25-27s25 11 25 27v58H20V40z" fill="#f2f0e8"/>
+          <path d="M70 55l32-18" stroke="#f2f0e8" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="104" cy="30" r="5" fill="#e8590c"/>
+        </g>
+        <path d="M158 118l14 -8 M158 118l-4 16" stroke="#e8590c" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="12" y="262" width="296" height="1" fill="#38372f"/>
+        <text x="12" y="288" font-family="IBM Plex Mono" font-size="10" fill="#8c8a7d">SUJETO / ESCANEO BASE</text>
+        <text x="12" y="306" font-family="IBM Plex Mono" font-size="10" fill="#e8590c">ESTADO: CONDICIÓN AMARILLA</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="code">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">MARCO FUNDAMENTAL</span>
+      <h2>Las cuatro condiciones.</h2>
+      <p>Cada programa de SentryLine se basa en el modelo de niveles de alerta de Cooper: una escala sencilla para medir qué tan atento estás a tu entorno. Selecciona una condición para ver cómo funciona.</p>
+    </div>
+    <div class="code-panel bracket">
+      <div class="code-select" role="tablist" aria-label="Niveles de alerta">
+        <button class="code-btn" data-i="0" aria-pressed="true"><span class="dot"></span>CONDICIÓN BLANCA — distraído</button>
+        <button class="code-btn" data-i="1" aria-pressed="false"><span class="dot"></span>CONDICIÓN AMARILLA — alerta relajada</button>
+        <button class="code-btn" data-i="2" aria-pressed="false"><span class="dot"></span>CONDICIÓN NARANJA — alerta enfocada</button>
+        <button class="code-btn" data-i="3" aria-pressed="false"><span class="dot"></span>CONDICIÓN ROJA — acción</button>
+      </div>
+      <div class="code-detail">
+        <h3 id="codeTitle">Blanca</h3>
+        <p id="codeText">Inconsciente de tu entorno — el estado por defecto para la mayoría de las personas la mayor parte del tiempo, y el estado del que cada ejercicio de SentryLine busca sacarte antes de que sufra las consecuencias.</p>
+        <div class="code-meter"><i id="codeMeter" style="width:15%"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="drill">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">EJERCICIO INTERACTIVO</span>
+      <h2>Escanea la plaza.</h2>
+      <p>Hay tres indicadores reales de amenaza ocultos en esta escena, junto con dos detalles inofensivos colocados para poner a prueba tu disciplina. Haz clic solo en lo que realmente requiera atención; los escaneos limpios y rápidos obtienen la puntuación más alta.</p>
+    </div>
+    <div class="drill">
+      <div class="scene-wrap bracket">
+        <svg id="scene" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="700" height="420" fill="#161613"/>
+          <!-- edificios -->
+          <rect x="0" y="0" width="700" height="230" fill="#1d1d1a"/>
+          <rect x="20" y="30" width="140" height="200" fill="#161613" stroke="#38372f"/>
+          <rect x="190" y="10" width="120" height="220" fill="#161613" stroke="#38372f"/>
+          <rect x="340" y="50" width="150" height="180" fill="#161613" stroke="#38372f"/>
+          <rect x="520" y="20" width="160" height="210" fill="#161613" stroke="#38372f"/>
+          <!-- ventanas -->
+          <g stroke="#38372f">
+            <rect x="40" y="55" width="18" height="24" fill="#0a0a09"/><rect x="80" y="55" width="18" height="24" fill="#0a0a09"/><rect x="120" y="55" width="18" height="24" fill="#0a0a09"/>
+            <rect x="215" y="35" width="18" height="24" fill="#0a0a09"/><rect x="255" y="35" width="18" height="24" fill="#0a0a09"/>
+            <rect x="370" y="75" width="18" height="24" fill="#0a0a09"/><rect x="410" y="75" width="18" height="24" fill="#0a0a09"/><rect x="450" y="75" width="18" height="24" fill="#0a0a09"/>
+            <rect x="555" y="45" width="18" height="24" fill="#0a0a09"/><rect x="600" y="45" width="18" height="24" fill="#0a0a09"/><rect x="645" y="45" width="18" height="24" fill="#0a0a09"/>
+          </g>
+          <!-- suelo -->
+          <rect x="0" y="230" width="700" height="190" fill="#181815"/>
+          <line x1="0" y1="230" x2="700" y2="230" stroke="#38372f"/>
+          <!-- farola -->
+          <line x1="560" y1="230" x2="560" y2="150" stroke="#8c8a7d" stroke-width="3"/>
+          <circle cx="560" cy="145" r="7" fill="#e8590c" opacity=".8"/>
+          <!-- banco -->
+          <rect x="150" y="300" width="90" height="8" fill="#8c8a7d"/>
+          <line x1="158" y1="308" x2="158" y2="326" stroke="#8c8a7d" stroke-width="4"/>
+          <line x1="222" y1="308" x2="222" y2="326" stroke="#8c8a7d" stroke-width="4"/>
+          <!-- mochila desatendida cerca del banco (amenaza 1) -->
+          <rect x="255" y="296" width="26" height="20" rx="2" fill="#f2f0e8"/>
+          <!-- figura observando desde el umbral (amenaza 2) -->
+          <rect x="20" y="150" width="34" height="80" fill="#0a0a09"/>
+          <circle cx="37" cy="176" r="7" fill="#f2f0e8"/>
+          <path d="M28 200c0-9 6-15 9-15s9 6 9 15v18H28v-18z" fill="#f2f0e8"/>
+          <!-- furgoneta bloqueando la salida del callejón (amenaza 3) -->
+          <rect x="440" y="255" width="120" height="46" rx="4" fill="#26251f" stroke="#8c8a7d"/>
+          <rect x="452" y="264" width="26" height="16" fill="#0a0a09"/>
+          <circle cx="465" cy="301" r="9" fill="#0a0a09"/><circle cx="535" cy="301" r="9" fill="#0a0a09"/>
+          <!-- señuelo: perro (inofensivo) -->
+          <ellipse cx="410" cy="350" rx="18" ry="9" fill="#f2f0e8"/>
+          <circle cx="428" cy="345" r="6" fill="#f2f0e8"/>
+          <!-- señuelo: buzón (inofensivo) -->
+          <rect x="90" y="330" width="16" height="30" fill="#8c8a7d"/>
+          <rect x="86" y="322" width="24" height="12" rx="4" fill="#8c8a7d"/>
+
+          <!-- puntos de interés -->
+          <g class="hotspot" data-id="bag" data-threat="true" data-label="Mochila desatendida, sin propietario cerca" tabindex="0" role="button" aria-label="Inspeccionar la mochila junto al banco">
+            <circle class="ring" cx="268" cy="306" r="26"/>
+            <text x="268" y="346" text-anchor="middle">1</text>
+          </g>
+          <g class="hotspot" data-id="watcher" data-threat="true" data-label="Figura fija en un umbral, vigilando la plaza" tabindex="0" role="button" aria-label="Inspeccionar la figura en el umbral">
+            <circle class="ring" cx="37" cy="190" r="30"/>
+            <text x="37" y="234" text-anchor="middle">2</text>
+          </g>
+          <g class="hotspot" data-id="van" data-threat="true" data-label="Vehículo estacionado bloqueando la única salida trasera" tabindex="0" role="button" aria-label="Inspeccionar la furgoneta que bloquea la salida">
+            <circle class="ring" cx="500" cy="278" r="34"/>
+            <text x="500" y="326" text-anchor="middle">3</text>
+          </g>
+          <g class="hotspot" data-id="dog" data-threat="false" data-label="Solo un perro — no es un indicador de amenaza" tabindex="0" role="button" aria-label="Inspeccionar el perro">
+            <circle class="ring" cx="418" cy="349" r="24"/>
+            <text x="418" y="383" text-anchor="middle">4</text>
+          </g>
+          <g class="hotspot" data-id="mailbox" data-threat="false" data-label="Mobiliario urbano — no es un indicador de amenaza" tabindex="0" role="button" aria-label="Inspeccionar el buzón">
+            <circle class="ring" cx="98" cy="340" r="22"/>
+            <text x="98" y="372" text-anchor="middle">5</text>
+          </g>
+        </svg>
+      </div>
+      <div class="drill-panel">
+        <h3>Reporte de escaneo</h3>
+        <div class="drill-status">
+          AMENAZAS DETECTADAS: <b id="foundCount">0</b> / 3<br>
+          FALSAS ALARMAS: <b id="missCount">0</b><br>
+          TIEMPO EN ESCENA: <b id="timeCount">0.0s</b>
+        </div>
+        <ul id="drillLog"><li>Escaneo iniciado. Haz clic en los puntos numerados de la escena.</li></ul>
+        <div id="drillResult"></div>
+        <button class="reset-btn" id="resetDrill">REINICIAR ESCANEO</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="coaches">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">TUS ENTRENADORES</span>
+      <h2>Capacitados para enseñar, no solo para ejecutar.</h2>
+    </div>
+    <div class="coach-grid">
+      <div class="coach-card">
+        <svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="18" r="10" stroke="#e8590c" stroke-width="2"/><path d="M8 50c0-13 9-22 20-22s20 9 20 22" stroke="#e8590c" stroke-width="2"/></svg>
+        <h3>R. Calder</h3>
+        <span class="role">ENTRENADOR PRINCIPAL — DEFENSA PERSONAL</span>
+        <p>Catorce años enseñando defensa a corta distancia y desescalada tanto a estudiantes principiantes como a familias.</p>
+      </div>
+      <div class="coach-card">
+        <svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="22" stroke="#e8590c" stroke-width="2"/><circle cx="28" cy="28" r="6" fill="#e8590c"/><line x1="28" y1="6" x2="28" y2="14" stroke="#e8590c" stroke-width="2"/><line x1="28" y1="42" x2="28" y2="50" stroke="#e8590c" stroke-width="2"/></svg>
+        <h3>M. Ibarra</h3>
+        <span class="role">CONCIENCIA Y PLANIFICACIÓN DE RUTAS</span>
+        <p>Desarrolla los hábitos de observación detrás de cada ejercicio: analizar multitudes, salidas y comportamientos base antes de que algo salga mal.</p>
+      </div>
+      <div class="coach-card">
+        <svg viewBox="0 0 56 56" fill="none"><rect x="10" y="10" width="36" height="36" stroke="#e8590c" stroke-width="2"/><path d="M18 28h20M28 18v20" stroke="#e8590c" stroke-width="2"/></svg>
+        <h3>D. Voss</h3>
+        <span class="role">PROGRAMA FAMILIAR Y PREPARACIÓN</span>
+        <p>Adapta cada técnica para hogares: niños, adultos mayores y grupos con movilidad mixta practicando juntos, no por separado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">PROGRAMAS</span>
+      <h2>Elige tu punto de partida.</h2>
+    </div>
+    <div class="program-grid">
+      <div class="program-card">
+        <span class="tag">INDIVIDUAL</span>
+        <h3>Fundamentos</h3>
+        <div class="price">$220<span style="font-size:.9rem;color:var(--gray);"> / 4 sem</span></div>
+        <ul>
+          <li>Sesiones semanales de 90 min</li>
+          <li>Entrenamiento de conciencia base</li>
+          <li>Fundamentos de defensa cercana</li>
+          <li>Evaluación de riesgo personal</li>
+        </ul>
+        <a class="btn btn-outline" href="#">Iniciar fundamentos</a>
+      </div>
+      <div class="program-card mid">
+        <span class="tag">FAMILIAR</span>
+        <h3>Preparación</h3>
+        <div class="price">$390<span style="font-size:.9rem;color:var(--gray);"> / 6 sem</span></div>
+        <ul>
+          <li>Plan de amenazas para el hogar</li>
+          <li>Ejercicios adaptados a niños y adultos mayores</li>
+          <li>Revisión del perímetro del hogar</li>
+          <li>Punto de encuentro y plan de comunicaciones</li>
+        </ul>
+        <a class="btn" href="#">Reservar programa familiar</a>
+      </div>
+      <div class="program-card">
+        <span class="tag">AVANZADO</span>
+        <h3>Conciencia Táctica</h3>
+        <div class="price">$560<span style="font-size:.9rem;color:var(--gray);"> / 8 sem</span></div>
+        <ul>
+          <li>Ejercicios basados en escenarios</li>
+          <li>Entrenamiento en poca luz y multitud</li>
+          <li>Seguridad en vehículos y rutas</li>
+          <li>Horas de entrenamiento 1 a 1</li>
+        </ul>
+        <a class="btn btn-outline" href="#">Postular a avanzado</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">DESDE EL PERÍMETRO</span>
+      <h2>Lo que cambia tras el entrenamiento.</h2>
+    </div>
+    <div class="quote-row">
+      <blockquote>
+        <p>Antes caminaba por un estacionamiento sin pensar en nada. Ahora ubico las salidas antes que cualquier otra cosa.</p>
+        <cite>— Graduado del programa Fundamentos</cite>
+      </blockquote>
+      <blockquote>
+        <p>Los ejercicios familiares le dieron a mis hijos un plan en lugar de miedo. Esa distinción importa más de lo que esperaba.</p>
+        <cite>— Padre del programa de Preparación</cite>
+      </blockquote>
+      <blockquote>
+        <p>El ejercicio de escaneo en su sitio web me convenció antes de reservar una sesión: es exactamente lo que luego entrenas en clase.</p>
+        <cite>— Estudiante de Conciencia Táctica</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="cta" style="border-bottom:0;">
+  <div class="wrap">
+    <span class="mono">LISTOS CUANDO TÚ LO ESTÉS</span>
+    <h2 style="margin-top:16px;">Agenda una evaluación inicial.</h2>
+    <p>Treinta minutos, un entrenador, una lectura clara de tu nivel actual — y qué programa se adapta mejor a ti o a tu hogar.</p>
+    <a class="btn" href="#">Agendar evaluación</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="mono">SENTRYLINE COACHING — CREADO POR GRID STUDIO NETWORK</span>
+    <a class="elx" href="https://easylandx.github.io" target="_blank" rel="noopener">↳ Más desarrollos en EASYLANDX.GITHUB.IO</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Interactivo de código de colores de Cooper
+  var conditions = [
+    {title:"Blanca", text:"Inconsciente de tu entorno — el estado por defecto para la mayoría de las personas la mayor parte del tiempo, y el estado del que cada ejercicio de SentryLine busca sacarte antes de que sufra las consecuencias.", width:"15%"},
+    {title:"Amarilla", text:"Alerta relajada. No estás paranoico, estás informado: identificas salidas, observas quién está alrededor, consciente de la plaza sin obsesionarte con ella.", width:"45%"},
+    {title:"Naranja", text:"Alerta enfocada. Algo específico tiene tu atención — un comportamiento, una persona, un hueco en la multitud — y estás decidiendo qué hacer al respecto.", width:"75%"},
+    {title:"Roja", text:"Acción. La decisión está tomada y tu cuerpo ya se está moviendo en consecuencia — crear distancia, buscar ayuda o defenderte. Este estado debe ser breve y poco frecuente.", width:"100%"}
+  ];
+  var btns = document.querySelectorAll(".code-btn");
+  var title = document.getElementById("codeTitle");
+  var text = document.getElementById("codeText");
+  var meter = document.getElementById("codeMeter");
+  btns.forEach(function(b){
+    b.addEventListener("click", function(){
+      btns.forEach(function(o){o.setAttribute("aria-pressed","false");});
+      b.setAttribute("aria-pressed","true");
+      var c = conditions[+b.dataset.i];
+      title.textContent = c.title;
+      text.textContent = c.text;
+      meter.style.width = c.width;
+    });
+  });
+
+  // Ejercicio de conciencia situacional
+  var hotspots = document.querySelectorAll(".hotspot");
+  var foundCountEl = document.getElementById("foundCount");
+  var missCountEl = document.getElementById("missCount");
+  var timeCountEl = document.getElementById("timeCount");
+  var log = document.getElementById("drillLog");
+  var resultEl = document.getElementById("drillResult");
+  var resetBtn = document.getElementById("resetDrill");
+  var startTime, timerId, found, misses, done, finished;
+
+  function addLog(msg, cls){
+    var li = document.createElement("li");
+    li.textContent = msg;
+    if(cls) li.className = cls;
+    log.insertBefore(li, log.firstChild);
+    while(log.children.length > 5) log.removeChild(log.lastChild);
+  }
+
+  function tick(){
+    if(finished) return;
+    var s = ((performance.now() - startTime)/1000).toFixed(1);
+    timeCountEl.textContent = s + "s";
+    timerId = requestAnimationFrame(tick);
+  }
+
+  function rate(elapsed, misses){
+    if(misses === 0 && elapsed < 8) return "ESCANEO LIMPIO — Disciplina de Condición Amarilla.";
+    if(misses <= 1 && elapsed < 14) return "ESCANEO SÓLIDO — unos segundos lento.";
+    return "ESCANEO COMPLETO — la conciencia requiere práctica. Reinicia e inténtalo de nuevo.";
+  }
+
+  function finish(){
+    finished = true;
+    cancelAnimationFrame(timerId);
+    var elapsed = (performance.now() - startTime)/1000;
+    resultEl.textContent = rate(elapsed, misses);
+    addLog("Las tres amenazas fueron marcadas en " + elapsed.toFixed(1) + "s.", "good");
+  }
+
+  function reset(){
+    found = 0; misses = 0; finished = false; done = {};
+    foundCountEl.textContent = "0";
+    missCountEl.textContent = "0";
+    timeCountEl.textContent = "0.0s";
+    resultEl.textContent = "";
+    log.innerHTML = "<li>Escaneo iniciado. Haz clic en los puntos numerados de la escena.</li>";
+    hotspots.forEach(function(h){ h.classList.remove("found","miss"); });
+    startTime = performance.now();
+    cancelAnimationFrame(timerId);
+    timerId = requestAnimationFrame(tick);
+  }
+
+  function handle(h){
+    if(finished || done[h.dataset.id]) return;
+    var isThreat = h.dataset.threat === "true";
+    if(isThreat){
+      done[h.dataset.id] = true;
+      h.classList.add("found");
+      found++;
+      foundCountEl.textContent = found;
+      addLog("Detectado: " + h.dataset.label, "good");
+      if(found === 3) finish();
+    } else {
+      h.classList.add("miss");
+      misses++;
+      missCountEl.textContent = misses;
+      addLog("Falsa alarma: " + h.dataset.label, "bad");
+      setTimeout(function(){ h.classList.remove("miss"); }, 500);
+    }
+  }
+
+  hotspots.forEach(function(h){
+    h.addEventListener("click", function(){ handle(h); });
+    h.addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); handle(h); } });
+  });
+  resetBtn.addEventListener("click", reset);
+  reset();
+})();
+</script>
+</body>
+</html>
