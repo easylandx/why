@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx para Asesores Financieros y Planificadores Independientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0C08;
+    --surface:#161209;
+    --surface-2:#1D1710;
+    --gold:#C9A227;
+    --gold-bright:#E8C158;
+    --gold-deep:#8A6D1F;
+    --ivory:#F4EEDD;
+    --ivory-dim:#B9AE8F;
+    --line:#3A2F14;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ivory);}
+  body{
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-0.01em;}
+  a{color:inherit;}
+  img,svg{max-width:100%;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+  .scrollx{overflow-x:auto;}
+
+  /* Nav */
+  nav{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+    background:rgba(14,12,8,0.9);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--gold-bright);text-decoration:none;font-weight:600;}
+  .nav-cta{
+    border:1px solid var(--gold-deep);color:var(--gold-bright);
+    padding:8px 16px;border-radius:2px;text-decoration:none;font-size:0.9rem;
+    transition:background .2s, color .2s;
+  }
+  .nav-cta:hover{background:var(--gold);color:#0E0C08;}
+
+  /* Hero */
+  .hero{padding:88px 0 64px;border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+  .eyebrow{color:var(--ivory-dim);font-size:0.95rem;margin:0 0 18px;}
+  h1{font-size:clamp(2.2rem,4.2vw,3.2rem);line-height:1.08;margin:0 0 22px;color:var(--ivory);}
+  h1 em{font-style:italic;color:var(--gold-bright);}
+  .lede{font-size:1.08rem;color:var(--ivory-dim);max-width:46ch;margin:0 0 32px;}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold);color:#14110A;padding:13px 26px;border-radius:2px;
+    text-decoration:none;font-weight:600;font-size:0.98rem;border:1px solid var(--gold);
+    transition:background .2s;
+  }
+  .btn-primary:hover{background:var(--gold-bright);}
+  .btn-ghost{
+    padding:13px 24px;border-radius:2px;text-decoration:none;font-size:0.98rem;
+    color:var(--ivory);border:1px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--gold-deep);}
+
+  /* Hero illustration */
+  .illus{width:100%;height:auto;}
+
+  /* Sections */
+  section{padding:72px 0;border-bottom:1px solid var(--line);}
+  .section-head{max-width:56ch;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(1.6rem,2.6vw,2.1rem);margin:0 0 14px;}
+  .section-head p{color:var(--ivory-dim);margin:0;}
+
+  /* Value grid */
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .value-card{background:var(--bg);padding:32px;}
+  .value-card svg{width:34px;height:34px;margin-bottom:18px;}
+  .value-card h3{font-size:1.1rem;margin:0 0 10px;color:var(--gold-bright);font-weight:500;}
+  .value-card p{color:var(--ivory-dim);margin:0;font-size:0.96rem;}
+
+  /* Builder */
+  .builder{display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:start;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:0.82rem;color:var(--ivory-dim);margin-bottom:7px;letter-spacing:.02em;}
+  .field input, .field select{
+    width:100%;background:var(--surface);border:1px solid var(--line);color:var(--ivory);
+    padding:11px 13px;border-radius:2px;font-family:'Inter',sans-serif;font-size:0.98rem;
+  }
+  .field input:focus, .field select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+
+  .preview-frame{
+    border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface);
+  }
+  .preview-bar{
+    display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);
+  }
+  .preview-bar span{width:9px;height:9px;border-radius:50%;background:var(--gold-deep);}
+  .preview-url{
+    margin-left:10px;font-size:0.78rem;color:var(--ivory-dim);
+    background:var(--surface-2);padding:3px 10px;border-radius:2px;flex:1;
+  }
+  .preview-body{padding:38px 32px;background:linear-gradient(180deg,var(--surface-2),var(--bg));min-height:220px;}
+  #pv-name{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--ivory);margin:0 0 6px;}
+  #pv-tagline{color:var(--gold-bright);font-size:1rem;margin:0 0 18px;}
+  #pv-specialty{
+    display:inline-block;font-size:0.8rem;color:var(--gold-bright);border:1px solid var(--gold-deep);
+    padding:4px 10px;border-radius:2px;margin-bottom:22px;
+  }
+  .pv-cta{
+    display:inline-block;background:var(--gold);color:#14110A;padding:10px 20px;border-radius:2px;
+    font-size:0.9rem;font-weight:600;
+  }
+
+  /* Testimonial */
+  .testimonial{padding:64px 0;border-bottom:1px solid var(--line);}
+  blockquote{
+    font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.3rem,2.4vw,1.7rem);
+    color:var(--ivory);max-width:34ch;margin:0 0 24px;line-height:1.35;
+  }
+  .cite{color:var(--ivory-dim);font-size:0.92rem;}
+  .cite b{color:var(--gold-bright);font-weight:600;}
+
+  /* Footer */
+  footer{padding:56px 0 80px;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  footer p{color:var(--ivory-dim);font-size:0.88rem;margin:8px 0 0;}
+
+  @media (max-width:760px){
+    .hero-grid, .builder{grid-template-columns:1fr;}
+    .value-grid{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .illus .grow{transform-origin:bottom;animation:rise 1.1s ease-out both;}
+    .illus .g1{animation-delay:.05s;}
+    .illus .g2{animation-delay:.18s;}
+    .illus .g3{animation-delay:.31s;}
+    .illus .g4{animation-delay:.44s;}
+    @keyframes rise{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="https://easylandx.github.io/" target="_blank" rel="noopener">easylandx</a>
+    <a class="nav-cta" href="https://easylandx.github.io/" target="_blank" rel="noopener">Visita easylandx →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">easylandx para asesores financieros y planificadores independientes</p>
+      <h1>Los clientes investigan a su asesor <em>antes</em> de la primera llamada.<br>Dales una razón para confiar en ti.</h1>
+      <p class="lede">Un cliente potencial llega a tu página, la observa durante tres segundos y decide si te ves como alguien que gestiona bien el dinero. easylandx crea esa página —clara, creíble y lista rápidamente— para que la decisión juegue a tu favor.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="https://easylandx.github.io/" target="_blank" rel="noopener">Crea tu página</a>
+        <a class="btn-ghost" href="#builder">Ver vista previa</a>
+      </div>
+    </div>
+    <div>
+      <svg class="illus" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de barras doradas en crecimiento con línea de tendencia">
+        <rect x="0" y="0" width="420" height="340" fill="none"/>
+        <line x1="30" y1="290" x2="400" y2="290" stroke="#3A2F14" stroke-width="1"/>
+        <g class="grow g1"><rect x="55" y="200" width="46" height="90" fill="#8A6D1F"/></g>
+        <g class="grow g2"><rect x="130" y="150" width="46" height="140" fill="#A9861F"/></g>
+        <g class="grow g3"><rect x="205" y="95" width="46" height="195" fill="#C9A227"/></g>
+        <g class="grow g4"><rect x="280" y="45" width="46" height="245" fill="#E8C158"/></g>
+        <polyline points="60,205 145,155 220,100 295,50 365,30" fill="none" stroke="#F4EEDD" stroke-width="2"/>
+        <circle cx="365" cy="30" r="5" fill="#F4EEDD"/>
+        <text x="30" y="315" fill="#B9AE8F" font-family="Inter, sans-serif" font-size="12">Clientes potenciales que agendan consulta tras la visita</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Diseñado según cómo los asesores se ganan la confianza</h2>
+      <p>Cada elección en tu página tiene peso: un sitio desordenado transmite falta de atención, y los planificadores independientes rara vez reciben una segunda oportunidad. easylandx parte de esa realidad.</p>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.4"><path d="M12 2l7 3v6c0 5-3.4 8.6-7 11-3.6-2.4-7-6-7-11V5l7-3z"/></svg>
+        <h3>Credibilidad al instante</h3>
+        <p>Diseño y tipografía creados para servicios de patrimonio, jubilación y sucesiones: el visitante percibe solidez desde el primer segundo.</p>
+      </div>
+      <div class="value-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 4v5"/></svg>
+        <h3>Claridad que cumple la normativa</h3>
+        <p>Lenguaje claro y descargos de responsabilidad ubicados justo donde la regulación los requiere, sin añadir complicaciones de revisión.</p>
+      </div>
+      <div class="value-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3>Lista en cuestión de días</h3>
+        <p>Tu firma, tu especialidad y tu voz: publicada lo suficientemente rápido para captar al cliente potencial que está decidiendo esta semana.</p>
+      </div>
+      <div class="value-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.4"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"/></svg>
+        <h3>Diseñada para agendar llamadas</h3>
+        <p>Un camino claro desde el encabezado hasta la consulta: el único objetivo de la página es transformar una visita en una conversación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Mira la página de tu firma al instante</h2>
+      <p>Escribe tus datos a la izquierda y observa cómo toma forma la sección principal de tu futura página a la derecha: esto es lo primero que verá tu cliente potencial.</p>
+    </div>
+    <div class="builder">
+      <div>
+        <div class="field">
+          <label for="in-name">Tu nombre</label>
+          <input id="in-name" type="text" placeholder="María Chen, CFP®" maxlength="40">
+        </div>
+        <div class="field">
+          <label for="in-specialty">Especialidad</label>
+          <select id="in-specialty">
+            <option>Planificación de la Jubilación</option>
+            <option>Gestión de Patrimonios</option>
+            <option>Planificación Sucesoria</option>
+            <option>Estrategia Fiscal</option>
+            <option>Planificación Financiera Independiente</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="in-tagline">Lema o frase principal</label>
+          <input id="in-tagline" type="text" placeholder="Planes diseñados alrededor de tu vida real, no de una plantilla" maxlength="70">
+        </div>
+      </div>
+      <div class="preview-frame">
+        <div class="preview-bar">
+          <span></span><span></span><span></span>
+          <span class="preview-url" id="pv-url">tunombre.easylandx.co</span>
+        </div>
+        <div class="preview-body">
+          <p id="pv-name">María Chen, CFP®</p>
+          <p id="pv-tagline">Planes diseñados alrededor de tu vida real, no de una plantilla</p>
+          <span id="pv-specialty">Planificación de la Jubilación</span>
+          <div><a class="pv-cta" href="#">Agendar una consulta</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="wrap">
+    <blockquote>“Antes, los clientes potenciales me enviaban correos con preguntas que ya estaban respondidas en mi sitio antiguo. Ahora agendan directamente desde la página.”</blockquote>
+    <p class="cite"><b>María Chen, CFP®</b> — Planificadora de Jubilación Independiente</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="logo" href="https://easylandx.github.io/" target="_blank" rel="noopener">easylandx</a>
+      <a class="btn-primary" href="https://easylandx.github.io/" target="_blank" rel="noopener">Crea tu página</a>
+    </div>
+    <p>Creado por easylandx. Diseñado para asesores financieros y planificadores independientes.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nameEl = document.getElementById('in-name');
+  var specEl = document.getElementById('in-specialty');
+  var tagEl = document.getElementById('in-tagline');
+  var pvName = document.getElementById('pv-name');
+  var pvSpec = document.getElementById('pv-specialty');
+  var pvTag = document.getElementById('pv-tagline');
+  var pvUrl = document.getElementById('pv-url');
+
+  function slug(s){
+    return s.toLowerCase().trim().split(',')[0].replace(/[^a-z0-9]+/g,'').slice(0,18) || 'tunombre';
+  }
+  function update(){
+    pvName.textContent = nameEl.value.trim() || 'María Chen, CFP®';
+    pvTag.textContent = tagEl.value.trim() || 'Planes diseñados alrededor de tu vida real, no de una plantilla';
+    pvSpec.textContent = specEl.value;
+    pvUrl.textContent = slug(nameEl.value || 'tunombre') + '.easylandx.co';
+  }
+  nameEl.addEventListener('input', update);
+  tagEl.addEventListener('input', update);
+  specEl.addEventListener('change', update);
+})();
+</script>
+
+</body>
+</html>
