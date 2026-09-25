@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx for Luthiers</title>
+<style>
+  :root{
+    --bg:#100805;
+    --bg2:#24120b;
+    --violet:#d47a3e;
+    --violet-glow:#f0a062;
+    --amber:#ffb020;
+    --amber-glow:#ffd166;
+    --cyan:#e8ba7d;
+    --text:#faedd9;
+    --text-dim:#cbb09c;
+    --card:#2a160d;
+    --border:#4e2817;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --bg:#100805; --bg2:#24120b; } }
+  :root[data-theme="dark"]{ --bg:#100805; --bg2:#24120b; }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:radial-gradient(circle at 20% 0%, var(--bg2), var(--bg) 60%);
+    color:var(--text);
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    overflow-x:hidden;
+  }
+  a{color:var(--amber-glow);}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 24px;padding-top:calc(18px + env(safe-area-inset-top,0px));
+    position:sticky;top:0;z-index:10;
+    background:rgba(16,8,5,0.88);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{font-weight:800;letter-spacing:1px;font-size:1.1rem;color:var(--violet-glow);text-shadow:0 0 12px var(--violet);}
+  .cta-link{
+    display:inline-block;
+    background:var(--amber);color:#1a0f00;font-weight:700;
+    padding:8px 16px;border-radius:30px;text-decoration:none;
+    box-shadow:0 0 18px rgba(255,176,32,0.4);white-space:nowrap;font-size:0.9rem;
+  }
+  header.hero{
+    text-align:center;padding:70px 20px 40px;position:relative;
+  }
+  h1{
+    font-size:clamp(2rem,6vw,3.4rem);
+    background:linear-gradient(90deg,var(--violet-glow),var(--amber-glow),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 30px rgba(212,122,62,0.35);
+    line-height:1.15;font-weight:900;
+  }
+  .sub{color:var(--text-dim);max-width:600px;margin:18px auto 30px;font-size:1.05rem;}
+  .top-link-row{margin-bottom:10px;font-size:0.95rem;color:var(--text-dim);}
+  section{padding:50px 20px;}
+  h2{
+    font-size:clamp(1.5rem,4vw,2.2rem);text-align:center;margin-bottom:36px;
+    color:var(--amber-glow);text-shadow:0 0 16px rgba(255,176,32,0.4);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:960px;margin:0 auto;}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:22px;box-shadow:0 0 0 rgba(0,0,0,0);
+    transition:box-shadow .25s, transform .25s;
+  }
+  .card:hover{box-shadow:0 0 24px rgba(212,122,62,0.45);transform:translateY(-3px);}
+  .card svg{width:46px;height:46px;margin-bottom:12px;}
+  .card h3{color:var(--violet-glow);margin-bottom:8px;font-size:1.1rem;}
+  .card p{color:var(--text-dim);font-size:0.92rem;line-height:1.5;}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;max-width:960px;margin:0 auto;}
+  .gallery .art{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:16px;text-align:center;
+  }
+  .gallery svg{width:100%;height:140px;}
+  .gallery span{display:block;margin-top:8px;color:var(--text-dim);font-size:0.85rem;}
+  .interactive-wrap{
+    max-width:640px;margin:0 auto;text-align:center;
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    padding:30px 16px 20px;box-shadow:0 0 40px rgba(232,186,125,0.12);
+  }
+  .interactive-wrap p.hint{color:var(--text-dim);margin-bottom:14px;font-size:0.9rem;}
+  #guitar{width:100%;max-width:520px;touch-action:manipulation;}
+  .string-group{cursor:pointer;}
+  .string-hitbox{stroke:transparent;stroke-width:12px;}
+  footer{
+    text-align:center;padding:40px 20px calc(40px + env(safe-area-inset-bottom,0px));
+    border-top:1px solid var(--border);margin-top:20px;
+  }
+  footer p:first-child{margin-bottom:20px;}
+  footer .made{color:var(--text-dim);font-size:0.85rem;margin-top:20px;}
+  .glow-divider{
+    height:2px;max-width:200px;margin:0 auto 40px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+    box-shadow:0 0 12px var(--cyan);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">easylandx</div>
+  <a class="cta-link" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit easylandx →</a>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top-link-row">🎸 Built for the craft — see it live at <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a></div>
+    <h1>Landing Pages, Tuned Like a Fine Instrument</h1>
+    <p class="sub">easylandx gives luthiers a page as considered as their instruments — every curve, every detail, hand-fitted to your craft.</p>
+  </div>
+</header>
+
+<div class="glow-divider"></div>
+
+<section>
+  <h2>Why easylandx Fits Luthiers</h2>
+  <div class="grid">
+    <div class="card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--violet-glow)" stroke-width="1.6"><path d="M3 21l6-6M14 3l7 7-4 4-7-7 4-4z"/><path d="M9 13l2 2"/></svg>
+      <h3>Crafted, Not Cut-and-Pasted</h3>
+      <p>Every easylandx page is built by hand for your shop — the way you build every guitar, mandolin, or violin by hand.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber-glow)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <h3>Built Around Your Instruments</h3>
+      <p>Feature soundboards, inlay work, restorations, and commissions with layouts designed to showcase tonewood and detail.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg>
+      <h3>Commission &amp; Repair Booking</h3>
+      <p>Clear pathways for custom builds, repairs, and setups — so players find you and know exactly how to reach out.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--violet-glow)" stroke-width="1.6"><path d="M4 12h16M4 6h16M4 18h10"/></svg>
+      <h3>Fast, Resonant Loading</h3>
+      <p>Lightweight pages that load as cleanly as a well-set neck plays — no lag between a player finding you and hearing back.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber-glow)" stroke-width="1.6"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+      <h3>A Portfolio That Sings</h3>
+      <p>Gallery-first layouts built to let your finished instruments — and the wood grain, purfling, and rosettes — do the talking.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.6"><path d="M12 20V4M6 8l6-4 6 4"/></svg>
+      <h3>Grows With Your Shop</h3>
+      <p>From a solo bench to a full workshop with apprentices, easylandx pages scale alongside your reputation.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Pluck a String</h2>
+  <div class="interactive-wrap">
+    <p class="hint">This is the kind of detail easylandx builds into your page — tap or click the strings.</p>
+    <svg id="guitar" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bodyGrad" cx="50%" cy="50%" r="70%">
+          <stop offset="0%" stop-color="#4e2513"/>
+          <stop offset="100%" stop-color="#1c0f0a"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="420" cy="110" rx="90" ry="95" fill="url(#bodyGrad)" stroke="#d47a3e" stroke-width="2"/>
+      <ellipse cx="420" cy="110" rx="55" ry="58" fill="none" stroke="#ffb020" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="420" cy="110" r="26" fill="#100805" stroke="#e8ba7d" stroke-width="2"/>
+      <rect x="40" y="65" width="330" height="90" rx="4" fill="#2a160d" stroke="#4e2817"/>
+      <rect x="20" y="68" width="26" height="84" rx="2" fill="#ffb020"/>
+      <g id="strings" stroke-linecap="round">
+        <g class="string-group" data-note="0">
+          <line class="string-hitbox" x1="55" y1="75" x2="360" y2="75"/>
+          <line class="string" x1="55" y1="75" x2="360" y2="75" stroke="#f0a062" stroke-width="2.5"/>
+        </g>
+        <g class="string-group" data-note="1">
+          <line class="string-hitbox" x1="55" y1="89" x2="360" y2="89"/>
+          <line class="string" x1="55" y1="89" x2="360" y2="89" stroke="#ffd166" stroke-width="2.5"/>
+        </g>
+        <g class="string-group" data-note="2">
+          <line class="string-hitbox" x1="55" y1="103" x2="360" y2="103"/>
+          <line class="string" x1="55" y1="103" x2="360" y2="103" stroke="#e8ba7d" stroke-width="2.5"/>
+        </g>
+        <g class="string-group" data-note="3">
+          <line class="string-hitbox" x1="55" y1="117" x2="360" y2="117"/>
+          <line class="string" x1="55" y1="117" x2="360" y2="117" stroke="#f0a062" stroke-width="2.5"/>
+        </g>
+        <g class="string-group" data-note="4">
+          <line class="string-hitbox" x1="55" y1="131" x2="360" y2="131"/>
+          <line class="string" x1="55" y1="131" x2="360" y2="131" stroke="#ffd166" stroke-width="2.5"/>
+        </g>
+        <g class="string-group" data-note="5">
+          <line class="string-hitbox" x1="55" y1="145" x2="360" y2="145"/>
+          <line class="string" x1="55" y1="145" x2="360" y2="145" stroke="#e8ba7d" stroke-width="2.5"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<section>
+  <h2>Made for the Bench</h2>
+  <div class="gallery">
+    <div class="art">
+      <svg viewBox="0 0 100 100"><ellipse cx="50" cy="60" rx="30" ry="32" fill="none" stroke="#d47a3e" stroke-width="2"/><circle cx="50" cy="55" r="10" fill="none" stroke="#ffb020" stroke-width="1.5"/><rect x="46" y="10" width="8" height="35" fill="#e8ba7d" opacity="0.7"/></svg>
+      <span>Body &amp; Neck Outline</span>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 100 100"><path d="M20 50 Q35 20 50 50 Q65 80 80 50" fill="none" stroke="#ffd166" stroke-width="2"/><ellipse cx="35" cy="45" rx="6" ry="14" fill="none" stroke="#f0a062" stroke-width="1.5" transform="rotate(-20 35 45)"/><ellipse cx="65" cy="45" rx="6" ry="14" fill="none" stroke="#f0a062" stroke-width="1.5" transform="rotate(20 65 45)"/></svg>
+      <span>Violin f-holes</span>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 100 100"><path d="M10 30 Q30 40 10 50 Q30 60 10 70" stroke="#e8ba7d" stroke-width="1.5" fill="none"/><path d="M25 25 Q45 35 25 45 Q45 55 25 65 Q45 75 25 85" stroke="#ffb020" stroke-width="1.5" fill="none"/><path d="M45 20 Q65 30 45 40 Q65 50 45 60 Q65 70 45 80 Q65 90 45 100" stroke="#d47a3e" stroke-width="1.5" fill="none"/></svg>
+      <span>Wood Grain Texture</span>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 100 100"><rect x="20" y="45" width="60" height="6" fill="#f0a062"/><rect x="20" y="55" width="60" height="6" fill="#ffd166"/><line x1="30" y1="20" x2="30" y2="80" stroke="#e8ba7d" stroke-width="2"/><line x1="50" y1="20" x2="50" y2="80" stroke="#e8ba7d" stroke-width="2"/><line x1="70" y1="20" x2="70" y2="80" stroke="#e8ba7d" stroke-width="2"/></svg>
+      <span>Fretboard Inlay</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Ready for a page tuned to your workshop?</p>
+  <a class="cta-link" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit easylandx →</a>
+  <p class="made">Made by easylandx</p>
+</footer>
+
+<script>
+(function(){
+  var AudioCtx = window.AudioContext || window.webkitAudioContext;
+  var ctx = null;
+  var freqs = [329.63, 246.94, 196.00, 146.83, 110.00, 82.41]; // high E to low E
+  function pluck(groupEl){
+    if(!ctx){ ctx = new AudioCtx(); }
+    var idx = parseInt(groupEl.getAttribute('data-note'), 10);
+    var stringEl = groupEl.querySelector('.string');
+    var freq = freqs[idx] || 220;
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.1);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 1.1);
+
+    var y1 = stringEl.getAttribute('y1');
+    var origStroke = stringEl.getAttribute('stroke');
+    var animId = 'anim-' + idx + '-' + Date.now();
+    var animate = document.createElementNS('http://www.w3.org/2000/svg','animate');
+    animate.setAttribute('attributeName','y1');
+    animate.setAttribute('values', y1+';'+(parseFloat(y1)-3)+';'+(parseFloat(y1)+3)+';'+y1+';'+(parseFloat(y1)-1.5)+';'+y1);
+    animate.setAttribute('dur','0.4s');
+    animate.setAttribute('id', animId);
+    stringEl.appendChild(animate);
+    try{ animate.beginElement(); }catch(e){}
+    setTimeout(function(){ if(stringEl.contains(animate)) stringEl.removeChild(animate); }, 450);
+    stringEl.style.filter = 'drop-shadow(0 0 6px ' + origStroke + ')';
+    setTimeout(function(){ stringEl.style.filter = ''; }, 450);
+  }
+  document.querySelectorAll('.string-group').forEach(function(el){
+    el.addEventListener('click', function(){ pluck(el); });
+    el.addEventListener('touchstart', function(e){ e.preventDefault(); pluck(el); }, {passive:false});
+  });
+})();
+</script>
+
+</body>
+</html>
