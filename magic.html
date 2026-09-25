@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLandX for Magicians &amp; Illusionists — Landing Pages That Vanish Doubt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #6a1fc9;
+    --bg-mid: #3d0f80;
+    --bg-deep: #1c0640;
+    --gold: #ffd23f;
+    --cyan: #35f5f2;
+    --pink: #ff3ec8;
+    --white: #fdf6ff;
+    --card: rgba(255,255,255,0.06);
+    --card-border: rgba(255,255,255,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(circle at 15% 10%, rgba(139,58,229,0.35), transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(255,62,200,0.14), transparent 55%),
+      radial-gradient(circle at 50% 95%, rgba(106,31,201,0.4), transparent 55%),
+      linear-gradient(180deg, var(--bg-deep), var(--bg-mid) 35%, var(--bg) 55%, var(--bg-mid) 78%, var(--bg-deep));
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  .sparkle-field{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .sparkle{position:absolute;border-radius:50%;background:var(--gold);opacity:.5;filter:blur(0.5px);animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1.3)}}
+
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  .topbar{display:flex;justify-content:center;padding:22px 0;}
+  .elx-link{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono', monospace;font-size:.85rem;font-weight:600;
+    color:var(--gold); text-decoration:none;
+    border:1px solid rgba(255,210,63,0.45); border-radius:999px;
+    padding:8px 18px; background:rgba(255,210,63,0.06);
+    transition: all .25s ease;
+  }
+  .elx-link:hover{background:rgba(255,210,63,0.18); box-shadow:0 0 22px rgba(255,210,63,0.5); transform:translateY(-1px);}
+
+  header.hero{text-align:center; padding: 40px 0 20px;}
+  .badge{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--cyan); border:1px solid rgba(53,245,242,0.5);
+    padding:6px 14px; border-radius:999px; margin-bottom:22px; background:rgba(53,245,242,0.07);
+  }
+  h1{
+    font-family:'Cinzel Decorative', serif; font-weight:900;
+    font-size: clamp(2.1rem, 6vw, 4rem); line-height:1.12; margin-bottom:20px;
+    background: linear-gradient(100deg, var(--gold), var(--pink) 55%, var(--cyan));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 0 40px rgba(255,62,200,0.25);
+  }
+  .hero p.sub{
+    max-width:620px;margin:0 auto 30px; font-size:1.08rem; color:rgba(253,246,255,0.85); line-height:1.6;
+  }
+  .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+  .btn{
+    font-weight:700;padding:14px 30px;border-radius:14px;text-decoration:none;
+    font-size:1rem; display:inline-block; transition: all .25s ease;
+  }
+  .btn-primary{
+    background: linear-gradient(100deg, var(--gold), var(--pink));
+    color:#1a0330; box-shadow: 0 0 30px rgba(255,62,200,0.45);
+  }
+  .btn-primary:hover{transform:translateY(-2px) scale(1.02); box-shadow:0 0 46px rgba(255,210,63,0.6);}
+  .btn-ghost{
+    border:1px solid var(--cyan); color:var(--cyan); background:rgba(53,245,242,0.06);
+  }
+  .btn-ghost:hover{background:rgba(53,245,242,0.16); box-shadow:0 0 24px rgba(53,245,242,0.4);}
+
+  /* wand illustration */
+  .wand-scene{display:flex;justify-content:center;margin: 30px auto 10px;}
+  svg{display:block;}
+  .float{animation: floaty 5s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  section{padding: 70px 0; position:relative;}
+  .reveal{opacity:0; transform:translateY(26px); transition: all .7s cubic-bezier(.2,.7,.3,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  h2{
+    font-family:'Cinzel Decorative', serif; font-weight:700;
+    font-size: clamp(1.5rem, 4vw, 2.3rem); text-align:center; margin-bottom:14px;
+    color: var(--white);
+  }
+  .h2-accent{color:var(--gold);}
+  p.section-sub{text-align:center; max-width:600px; margin:0 auto 40px; color:rgba(253,246,255,0.75);}
+
+  /* ===== Trick widget: Interactive Top Hat ===== */
+  .trick-panel{
+    background: var(--card); border:1px solid var(--card-border); border-radius:26px;
+    padding: 44px 28px; backdrop-filter: blur(6px);
+    box-shadow: 0 0 60px rgba(255,62,200,0.08), inset 0 0 40px rgba(255,255,255,0.02);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .hat-stage{position:relative; width:220px; height:220px; display:flex; align-items:flex-end; justify-content:center;}
+  
+  .hat-btn{background:none; border:none; cursor:pointer; padding:0; line-height:0; position:relative; z-index:4;}
+  .hat-btn svg{display:block; filter: drop-shadow(0 0 18px rgba(255,210,63,0.25));}
+  .hat-btn.tapped svg{animation: hatShake .5s ease;}
+  @keyframes hatShake{
+    0%,100%{transform:rotate(0deg);}
+    20%{transform:rotate(-4deg);}
+    40%{transform:rotate(3deg);}
+    60%{transform:rotate(-2deg);}
+    80%{transform:rotate(1deg);}
+  }
+
+  /* Animated elements coming out of hat */
+  .hat-contents{
+    position:absolute; bottom:60px; left:50%; transform:translateX(-50%);
+    width:100%; height:100%; pointer-events:none; z-index:3;
+  }
+  
+  /* Rabbit */
+  .interactive-rabbit{
+    position:absolute; bottom:0; left:50%;
+    transform: translateX(-50%) translateY(40px) scale(0.6);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  }
+  .interactive-rabbit.pop-out{
+    transform: translateX(-50%) translateY(-35px) scale(1);
+    opacity: 1;
+  }
+
+  /* Surprise Items (Cards, Flowers, Key) */
+  .hat-item{
+    position:absolute; bottom:10px; left:50%;
+    font-size:2.2rem; opacity:0;
+    transform: translate(-50%, 0) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+  }
+  .hat-item.pop-left{
+    opacity:1;
+    transform: translate(-90px, -50px) rotate(-20deg) scale(1);
+  }
+  .hat-item.pop-right{
+    opacity:1;
+    transform: translate(45px, -55px) rotate(20deg) scale(1);
+  }
+  .hat-item.pop-top{
+    opacity:1;
+    transform: translate(-50%, -90px) rotate(5deg) scale(1.1);
+  }
+
+  .puff{
+    position:absolute; left:50%; top:60px; width:14px; height:14px; border-radius:50%;
+    background: radial-gradient(circle, #fff, var(--cyan) 60%, transparent 70%);
+    opacity:0; pointer-events:none; z-index:5;
+  }
+  .puff.go{animation: puffOut .8s ease-out forwards;}
+  @keyframes puffOut{
+    0%{opacity:.9; transform:translate(-50%,0) scale(.4);}
+    100%{opacity:0; transform:translate(calc(-50% + var(--dx))) translateY(var(--dy)) scale(1.8);}
+  }
+  .tap-hint{
+    font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color: var(--gold); margin-top:6px;
+  }
+  .reveal-box{
+    width:100%; max-width:440px; min-height:110px;
+    background: linear-gradient(160deg, #12042a, #2a0a4d);
+    border:2px solid var(--cyan); border-radius:20px;
+    padding:22px 24px; margin-top:10px;
+    display:flex; align-items:center; gap:16px;
+    box-shadow: 0 0 30px rgba(53,245,242,0.3);
+    opacity:0; transform:translateY(10px); transition: opacity .4s ease, transform .4s ease;
+  }
+  .reveal-box.show{opacity:1; transform:translateY(0);}
+  .reveal-box .ric{font-size:2.1rem; flex-shrink:0;}
+  .reveal-box .rtxt h4{font-family:'Cinzel Decorative',serif; font-size:1rem; color:var(--gold); margin-bottom:6px;}
+  .reveal-box .rtxt p{font-size:.86rem; line-height:1.5; color:rgba(253,246,255,0.88);}
+  .reveal-placeholder{font-size:.9rem; color:rgba(253,246,255,0.55); text-align:center; margin:auto;}
+
+  .wonder-wrap{display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:20px;}
+  .wonder-ring-box{position:relative; width:160px; height:160px;}
+  svg.ring{transform:rotate(-90deg);}
+  .ring-bg{fill:none; stroke: rgba(255,255,255,0.08); stroke-width:12;}
+  .ring-fg{fill:none; stroke: url(#ringGrad); stroke-width:12; stroke-linecap:round;
+    stroke-dasharray: 439.8; stroke-dashoffset:439.8; transition: stroke-dashoffset .9s ease;
+    filter: drop-shadow(0 0 10px rgba(255,62,200,0.6));}
+  .ring-label{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .ring-label .num{font-family:'Cinzel Decorative',serif; font-size:1.9rem; color:var(--gold);}
+  .ring-label .txt{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.08em; color:rgba(253,246,255,0.7); text-transform:uppercase;}
+  .wonder-caption{text-align:center; font-size:.92rem; color:rgba(253,246,255,0.75); max-width:420px;}
+  .wonder-caption b{color:var(--cyan);}
+  .reset-link{background:none;border:none;color:var(--pink); font-family:'JetBrains Mono',monospace; font-size:.75rem; cursor:pointer; text-decoration:underline; margin-top:4px;}
+
+  /* audience tabs */
+  .tabs-nav{display:flex; justify-content:center; gap:10px; margin-bottom:30px; flex-wrap:wrap;}
+  .tab-btn{
+    font-family:'JetBrains Mono',monospace; font-size:.8rem; font-weight:600; letter-spacing:.03em;
+    padding:10px 20px; border-radius:999px; border:1px solid var(--card-border);
+    background:var(--card); color:rgba(253,246,255,0.75); cursor:pointer; transition: all .25s ease;
+  }
+  .tab-btn.active{
+    color:#1a0330; background: linear-gradient(100deg, var(--cyan), var(--gold));
+    border-color:transparent; box-shadow:0 0 24px rgba(53,245,242,0.4);
+  }
+  .tab-panel{display:none;}
+  .tab-panel.active{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:18px;}
+  .tab-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:18px; padding:22px;
+  }
+  .tab-card .ic{font-size:1.8rem; margin-bottom:10px; display:block;}
+  .tab-card h4{font-family:'Cinzel Decorative',serif; font-size:1.05rem; margin-bottom:8px; color:var(--gold);}
+  .tab-card p{font-size:.9rem; color:rgba(253,246,255,0.75); line-height:1.5;}
+
+  /* why it fits */
+  .fit-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px;}
+  .fit-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:20px; padding:26px 22px;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .fit-card:hover{transform:translateY(-4px); box-shadow:0 10px 40px rgba(255,62,200,0.18);}
+  .fit-card .ic{font-size:2rem; margin-bottom:12px; display:block;}
+  .fit-card h3{font-family:'Cinzel Decorative',serif; font-size:1.1rem; margin-bottom:8px; color:var(--white);}
+  .fit-card p{font-size:.9rem; color:rgba(253,246,255,0.72); line-height:1.55;}
+
+  footer{text-align:center; padding: 60px 0 80px;}
+  footer h2{margin-bottom:16px;}
+  footer p{color:rgba(253,246,255,0.75); max-width:520px; margin:0 auto 30px;}
+  .fine{margin-top:50px; font-family:'JetBrains Mono',monospace; font-size:.72rem; color:rgba(253,246,255,0.4);}
+
+  @media (max-width:480px){
+    .hat-stage{width:180px; height:190px;}
+    .hat-btn svg{width:120px; height:96px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sparkle-field" id="sparkleField"></div>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="elx-link" href="https://easylandx.github.io" target="_blank" rel="noopener">✨ EasyLandX — easylandx.github.io</a>
+  </div>
+
+  <header class="hero">
+    <span class="badge">🪄 Built for Magicians &amp; Illusionists</span>
+    <h1>Your Act Deserves a Landing Page<br>That Disappears Doubt</h1>
+    <p class="sub">EasyLandX turns your magic — stage shows, close-up sets, corporate gigs — into a landing page that books shows while you're still taking your bow. No page builder. No bloated theme. Just a page that performs.</p>
+    <div class="cta-row">
+      <a href="https://easylandx.github.io" target="_blank" rel="noopener" class="btn btn-primary">Conjure My Page →</a>
+      <a href="#trick" class="btn btn-ghost">Try the Trick Below</a>
+    </div>
+
+    <div class="wand-scene">
+      <svg class="float" width="260" height="150" viewBox="0 0 260 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- top hat -->
+        <ellipse cx="70" cy="118" rx="46" ry="10" fill="#12042a" stroke="#ffd23f" stroke-width="2"/>
+        <rect x="42" y="70" width="56" height="48" rx="4" fill="#1c0740" stroke="#ffd23f" stroke-width="2"/>
+        <rect x="36" y="64" width="68" height="12" rx="4" fill="#250a4a" stroke="#ffd23f" stroke-width="2"/>
+        <rect x="42" y="90" width="56" height="8" fill="#ff3ec8" opacity="0.85"/>
+        <!-- rabbit ears popping out -->
+        <path d="M58 70 C54 40, 66 30, 68 55" stroke="#fdf6ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M76 70 C80 40, 68 28, 66 54" stroke="#fdf6ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="70" cy="76" r="10" fill="#fdf6ff"/>
+        <circle cx="66" cy="74" r="1.6" fill="#1a0330"/>
+        <circle cx="74" cy="74" r="1.6" fill="#1a0330"/>
+        <!-- wand -->
+        <line x1="130" y1="130" x2="220" y2="30" stroke="#12042a" stroke-width="7" stroke-linecap="round"/>
+        <line x1="130" y1="130" x2="220" y2="30" stroke="#fdf6ff" stroke-width="7" stroke-linecap="round" stroke-dasharray="10 8"/>
+        <circle cx="220" cy="30" r="7" fill="#ffd23f"/>
+        <!-- sparkles from wand tip -->
+        <g stroke="#35f5f2" stroke-width="2" stroke-linecap="round">
+          <line x1="232" y1="16" x2="240" y2="8"/>
+          <line x1="238" y1="26" x2="250" y2="24"/>
+          <line x1="226" y1="6" x2="222" y2="-4"/>
+        </g>
+        <g stroke="#ff3ec8" stroke-width="2" stroke-linecap="round">
+          <line x1="210" y1="20" x2="204" y2="10"/>
+          <line x1="215" y1="34" x2="226" y2="40"/>
+        </g>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ============ TRICK WIDGET ============ -->
+  <section id="trick">
+    <h2 class="reveal">Tap the Hat. <span class="h2-accent">Pull Out a Reason to Book.</span></h2>
+    <p class="section-sub reveal">Every tap of the wand pulls something new out of the hat — just like your act, the reveal is the whole point. Tap three times to see it all.</p>
+
+    <div class="trick-panel reveal">
+      <div class="hat-stage">
+        
+        <!-- Elements emerging from hat -->
+        <div class="hat-contents">
+          <!-- Rabbit SVG -->
+          <svg class="interactive-rabbit" id="rabbit" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 45 C26 10, 42 0, 44 32" stroke="#fdf6ff" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path d="M58 45 C64 10, 48 0, 46 32" stroke="#fdf6ff" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path d="M34 43 C28 15, 42 6, 44 32" stroke="#ff3ec8" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+            <path d="M56 43 C62 15, 48 6, 46 32" stroke="#ff3ec8" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+            <circle cx="45" cy="55" r="18" fill="#fdf6ff"/>
+            <circle cx="39" cy="52" r="2.5" fill="#1a0330"/>
+            <circle cx="51" cy="52" r="2.5" fill="#1a0330"/>
+            <polygon points="45,58 41,55 49,55" fill="#ff3ec8"/>
+            <path d="M45 60 L45 64 M45 64 Q41 67 37 65 M45 64 Q49 67 53 65" stroke="#1a0330" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+
+          <!-- Extra magic items -->
+          <div class="hat-item" id="itemCards">🃏</div>
+          <div class="hat-item" id="itemFlowers">💐</div>
+          <div class="hat-item" id="itemKey">🔑</div>
+        </div>
+
+        <button class="hat-btn" id="hatBtn" aria-label="Tap the magic hat">
+          <svg width="150" height="120" viewBox="0 0 150 120" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="75" cy="96" rx="62" ry="12" fill="#12042a" stroke="#ffd23f" stroke-width="2.5"/>
+            <rect x="35" y="34" width="80" height="64" rx="6" fill="#1c0740" stroke="#ffd23f" stroke-width="2.5"/>
+            <rect x="27" y="26" width="96" height="16" rx="6" fill="#250a4a" stroke="#ffd23f" stroke-width="2.5"/>
+            <rect x="35" y="60" width="80" height="10" fill="#ff3ec8" opacity="0.85"/>
+          </svg>
+        </button>
+        <div class="puff" id="puff1" style="--dx:-40px; --dy:-70px;"></div>
+        <div class="puff" id="puff2" style="--dx:10px; --dy:-85px;"></div>
+        <div class="puff" id="puff3" style="--dx:45px; --dy:-65px;"></div>
+      </div>
+      <div class="tap-hint" id="tapHint">👉 Tap the hat</div>
+
+      <div class="reveal-box" id="revealBox">
+        <p class="reveal-placeholder" id="revealPlaceholder">Your first reveal appears here...</p>
+      </div>
+
+      <div class="wonder-wrap">
+        <div class="wonder-ring-box">
+          <svg class="ring" width="160" height="160" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffd23f"/>
+                <stop offset="55%" stop-color="#ff3ec8"/>
+                <stop offset="100%" stop-color="#35f5f2"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="80" cy="80" r="70"/>
+            <circle class="ring-fg" id="wonderRing" cx="80" cy="80" r="70"/>
+          </svg>
+          <div class="ring-label">
+            <div class="num" id="wonderNum">0%</div>
+            <div class="txt">Wonder</div>
+          </div>
+        </div>
+        <p class="wonder-caption">Tap the hat <b>3 times</b> and watch the <b>Wonder Meter</b> fill — same way a great landing page fills a booking calendar, one reveal at a time.</p>
+        <button class="reset-link" id="resetTrick">↺ Reset the trick</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUDIENCE TABS ============ -->
+  <section>
+    <h2 class="reveal">Every Kind of <span class="h2-accent">Illusionist</span>, Covered</h2>
+    <p class="section-sub reveal">Whichever stage you work, your page adapts to the show.</p>
+
+    <div class="reveal">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="stage">🎭 Stage &amp; Theater Magicians</button>
+        <button class="tab-btn" data-tab="closeup">🃏 Close-Up &amp; Street Magicians</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-stage">
+        <div class="tab-card"><span class="ic">🎪</span><h4>Big-Room Presence</h4><p>Full-bleed hero visuals and video embeds that make a 500-seat theater feel like the front row.</p></div>
+        <div class="tab-card"><span class="ic">🗓️</span><h4>Tour Date Blocks</h4><p>Clean sections for upcoming shows, venues, and ticket links — updated in minutes, not migrations.</p></div>
+        <div class="tab-card"><span class="ic">🏆</span><h4>Press &amp; Awards Strip</h4><p>Logos, quotes, and credentials that turn "who is this?" into "how do I book them?"</p></div>
+      </div>
+      <div class="tab-panel" id="tab-closeup">
+        <div class="tab-card"><span class="ic">🥂</span><h4>Event-Ready CTA</h4><p>One-tap inquiry forms built for planners booking weddings, corporate mixers, and private parties.</p></div>
+        <div class="tab-card"><span class="ic">🎥</span><h4>Bite-Size Trick Clips</h4><p>Short looping visuals that sell the "wait, how?" reaction in three seconds flat.</p></div>
+        <div class="tab-card"><span class="ic">📍</span><h4>Local Discovery</h4><p>Built to rank for "magician near me" searches — because most close-up bookings start local.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY IT FITS ============ -->
+  <section>
+    <h2 class="reveal">Why EasyLandX Is <span class="h2-accent">Perfect for Magic</span></h2>
+    <p class="section-sub reveal">Illusion runs on precision and timing. So does your page.</p>
+
+    <div class="fit-grid reveal">
+      <div class="fit-card">
+        <span class="ic">⚡</span>
+        <h3>Fast as a Sleight</h3>
+        <p>Lightning load times mean the mystery starts the instant someone clicks — no spinner to break the spell.</p>
+      </div>
+      <div class="fit-card">
+        <span class="ic">🎨</span>
+        <h3>A Page as Unique as Your Act</h3>
+        <p>No two magicians perform the same — your page won't look like a template either. Fully custom, every time.</p>
+      </div>
+      <div class="fit-card">
+        <span class="ic">🌙</span>
+        <h3>Built for the Theatrical</h3>
+        <p>Rich glow, motion, and reveal animations that echo the drama of your stage — without a single line of code from you.</p>
+      </div>
+      <div class="fit-card">
+        <span class="ic">📅</span>
+        <h3>From Curious to Booked</h3>
+        <p>A clear path from "wow" to "when are you free?" — inquiry forms and contact links placed exactly where interest peaks.</p>
+      </div>
+      <div class="fit-card">
+        <span class="ic">📱</span>
+        <h3>Show-Ready on Any Screen</h3>
+        <p>Planners book from their phones backstage and at bars. Your page performs flawlessly wherever they open it.</p>
+      </div>
+      <div class="fit-card">
+        <span class="ic">🔮</span>
+        <h3>Mystery That Converts</h3>
+        <p>Every section is paced like a trick — tension, reveal, payoff — so visitors keep scrolling until they book.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2 class="reveal">Ready for Your <span class="h2-accent">Grand Reveal?</span></h2>
+    <p class="reveal">Let EasyLandX build the page. You handle the applause.</p>
+    <div class="cta-row reveal">
+      <a href="https://easylandx.github.io" target="_blank" rel="noopener" class="btn btn-primary">✨ Get My EasyLandX Page — easylandx.github.io</a>
+    </div>
+    <p class="fine">EasyLandX — landing pages, conjured for magicians &amp; illusionists.</p>
+  </footer>
+
+</div>
+
+<script>
+// sparkle field background
+(function(){
+  const field = document.getElementById('sparkleField');
+  const colors = ['#ffd23f','#35f5f2','#ff3ec8'];
+  for(let i=0;i<40;i++){
+    const s = document.createElement('div');
+    s.className='sparkle';
+    const size = 2 + Math.random()*3;
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.background = colors[Math.floor(Math.random()*colors.length)];
+    s.style.animationDelay = (Math.random()*3)+'s';
+    s.style.animationDuration = (2.5+Math.random()*2.5)+'s';
+    field.appendChild(s);
+  }
+})();
+
+// scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+// audio: soft sparkle chime via Web Audio API
+let audioCtx;
+function chime(freqs){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{
+      const t = audioCtx.currentTime + i*0.07;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type='sine';
+      osc.frequency.setValueAtTime(f, t);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.12, t+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t+0.5);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(t); osc.stop(t+0.55);
+    });
+  }catch(e){}
+}
+
+// trick widget logic: Interactive Hat
+const reveals = [
+  {icon:'📱', title:'Booked in One Tap', msg:'Mobile-first design means gig requests never get lost between the stage and the box office.'},
+  {icon:'🎬', title:'A Stage-Ready Hero', msg:'Your best trick, front and center — video-ready visuals that autoplay nothing but wonder.'},
+  {icon:'⭐', title:'Instant Trust', msg:'Testimonials and credentials build belief before the first card is even cut.'}
+];
+
+const hatBtn = document.getElementById('hatBtn');
+const rabbit = document.getElementById('rabbit');
+const itemCards = document.getElementById('itemCards');
+const itemFlowers = document.getElementById('itemFlowers');
+const itemKey = document.getElementById('itemKey');
+
+const revealBox = document.getElementById('revealBox');
+const revealPlaceholder = document.getElementById('revealPlaceholder');
+const tapHint = document.getElementById('tapHint');
+const wonderRing = document.getElementById('wonderRing');
+const wonderNum = document.getElementById('wonderNum');
+const puffs = [document.getElementById('puff1'), document.getElementById('puff2'), document.getElementById('puff3')];
+const CIRC = 439.8;
+let pullCount = 0;
+
+hatBtn.addEventListener('click', ()=>{
+  if(pullCount >= reveals.length) return;
+
+  hatBtn.classList.remove('tapped');
+  void hatBtn.offsetWidth; // restart animation
+  hatBtn.classList.add('tapped');
+
+  puffs.forEach(p=>{
+    p.classList.remove('go');
+    void p.offsetWidth;
+    p.classList.add('go');
+  });
+
+  chime([660,880,1320]);
+
+  // Handle emerging items sequence
+  if (pullCount === 0) {
+    rabbit.classList.add('pop-out');
+    itemCards.classList.add('pop-left');
+  } else if (pullCount === 1) {
+    itemFlowers.classList.add('pop-right');
+  } else if (pullCount === 2) {
+    itemKey.classList.add('pop-top');
+  }
+
+  const data = reveals[pullCount];
+  revealBox.classList.remove('show');
+
+  setTimeout(()=>{
+    if(revealPlaceholder) revealPlaceholder.remove();
+    revealBox.innerHTML = '<div class="ric">'+data.icon+'</div><div class="rtxt"><h4>'+data.title+'</h4><p>'+data.msg+'</p></div>';
+    revealBox.classList.add('show');
+    pullCount++;
+    updateRing();
+    tapHint.textContent = pullCount >= reveals.length ? '✨ Full house — all revealed!' : '👉 Tap the hat (' + pullCount + '/3)';
+  }, 260);
+});
+
+function updateRing(){
+  const pct = pullCount/reveals.length;
+  const offset = CIRC - (CIRC*pct);
+  wonderRing.style.strokeDashoffset = offset;
+  wonderNum.textContent = Math.round(pct*100)+'%';
+}
+
+document.getElementById('resetTrick').addEventListener('click', ()=>{
+  pullCount = 0;
+  updateRing();
+  
+  // Hide all emerging elements
+  rabbit.classList.remove('pop-out');
+  itemCards.classList.remove('pop-left');
+  itemFlowers.classList.remove('pop-right');
+  itemKey.classList.remove('pop-top');
+
+  revealBox.classList.remove('show');
+  tapHint.textContent = '👉 Tap the hat';
+  setTimeout(()=>{
+    revealBox.innerHTML = '<p class="reveal-placeholder" id="revealPlaceholder">Your first reveal appears here...</p>';
+  }, 300);
+});
+
+// audience tabs
+const tabBtns = document.querySelectorAll('.tab-btn');
+tabBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

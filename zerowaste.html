@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx for Zero-Waste Makers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFD400;
+    --bg-light:#FFF6D6;
+    --ink:#241C00;
+    --accent:#B38600;
+    --accent-2:#FFF200;
+    --paper:#FFFDF5;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *,*::before,*::after{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Archivo Black',sans-serif;
+    font-weight:400;
+    line-height:1.05;
+    margin:0 0 .5em;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 24px;border-bottom:3px solid var(--ink);
+  }
+  .topbar .mark{font-family:'Archivo Black',sans-serif;font-size:18px;}
+  .toplink{
+    font-weight:700;text-decoration:none;border-bottom:2px solid var(--ink);
+    padding-bottom:2px;
+  }
+  .toplink:hover{border-color:var(--accent);}
+
+  .hero{padding:72px 0 56px;}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+  .eyebrow{font-weight:600;color:var(--accent);margin-bottom:14px;}
+  .hero h1{font-size:clamp(34px,5.6vw,58px);max-width:11ch;}
+  .hero p{font-size:18px;max-width:42ch;margin:18px 0 26px;}
+  .cta{
+    display:inline-block;background:var(--ink);color:var(--bg);
+    font-weight:700;padding:14px 26px;text-decoration:none;
+    border:3px solid var(--ink);
+  }
+  .cta:hover{background:transparent;color:var(--ink);}
+
+  section{padding:56px 0;border-top:3px solid var(--ink);}
+  .why h2{font-size:clamp(26px,4vw,36px);max-width:16ch;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:32px;border:3px solid var(--ink);}
+  .card{padding:28px 24px;border-right:3px solid var(--ink);}
+  .card:last-child{border-right:none;}
+  .card svg{width:44px;height:44px;margin-bottom:16px;}
+  .card h3{font-size:18px;}
+  .card p{font-size:15px;margin:0;}
+
+  .jar-section .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start;}
+  .jar-copy h2{font-size:clamp(26px,4vw,36px);}
+  .jar-copy p{max-width:38ch;}
+  .kit{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
+  .kit button{
+    background:var(--bg-light);border:2px solid var(--ink);
+    padding:10px 14px;font:600 14px 'Inter',sans-serif;color:var(--ink);
+    cursor:pointer;display:flex;align-items:center;gap:8px;
+  }
+  .kit button svg{width:20px;height:20px;}
+  .kit button:hover,.kit button.used{background:var(--accent-2);}
+  .kit button.used{opacity:.5;cursor:default;}
+  .jar-stage{
+    background:var(--bg-light);border:3px solid var(--ink);
+    padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px;
+  }
+  #jarSvg{width:220px;height:260px;}
+  .tally{font-family:'Archivo Black',sans-serif;font-size:16px;text-align:center;min-height:44px;}
+  .reset{
+    background:none;border:2px solid var(--ink);padding:8px 16px;
+    font:600 13px 'Inter',sans-serif;cursor:pointer;
+  }
+
+  footer{padding:48px 0 60px;text-align:center;border-top:3px solid var(--ink);}
+  footer p{margin:0 0 18px;font-size:15px;}
+  footer .made{margin-top:28px;font-size:13px;color:var(--accent);}
+
+  @media (max-width:760px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .cards{grid-template-columns:1fr;}
+    .card{border-right:none;border-bottom:3px solid var(--ink);}
+    .card:last-child{border-bottom:none;}
+    .jar-section .wrap{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .leaf-sway{animation:sway 4s ease-in-out infinite;transform-origin:50% 90%;}
+    @keyframes sway{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="mark">easylandx</div>
+  <a class="toplink" href="https://easylandx.github.io" target="_blank" rel="noopener">See easylandx →</a>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">For eco-friendly &amp; zero-waste makers</div>
+      <h1>A landing page as honest as your refill jar.</h1>
+      <p>You spent months getting the recipe right — the soap bar, the bamboo brush, the compostable wrap. Your landing page should take an afternoon, not another month of your life.</p>
+      <a class="cta" href="https://easylandx.github.io" target="_blank" rel="noopener">Build my page</a>
+    </div>
+    <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="120" cy="120" r="118" fill="#FFF6D6" stroke="#241C00" stroke-width="3"/>
+      <g class="leaf-sway">
+        <path d="M120 190 C120 140 90 120 70 90 C110 85 140 105 140 150 C140 170 130 185 120 190Z" fill="#241C00"/>
+        <path d="M120 190 C120 150 122 120 118 90" stroke="#FFD400" stroke-width="3" fill="none"/>
+      </g>
+      <path d="M80 190 Q120 210 160 190" stroke="#241C00" stroke-width="3" fill="none"/>
+      <circle cx="60" cy="70" r="6" fill="#241C00"/>
+      <circle cx="180" cy="60" r="4" fill="#241C00"/>
+      <circle cx="190" cy="150" r="5" fill="#241C00"/>
+    </svg>
+  </div>
+</header>
+
+<section class="why">
+  <div class="wrap">
+    <h2>Made for people who already think in less packaging, fewer parts.</h2>
+    <div class="cards">
+      <div class="card">
+        <svg viewBox="0 0 48 48" fill="none"><path d="M24 6C14 6 8 16 8 24c0 9 7 16 16 16s16-7 16-16C40 16 34 6 24 6Z" stroke="#241C00" stroke-width="3"/><path d="M24 14v20M16 24h16" stroke="#241C00" stroke-width="3"/></svg>
+        <h3>Loads light, ships light</h3>
+        <p>A lean page loads faster and pulls less power per visit — the same instinct that put your product in a paper pouch instead of plastic.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="10" y="14" width="28" height="24" rx="2" stroke="#241C00" stroke-width="3"/><path d="M10 14l14 12 14-12" stroke="#241C00" stroke-width="3"/></svg>
+        <h3>Built for makers, not agencies</h3>
+        <p>Set it up yourself between batches. Every section is there because it earns its place, the way every ingredient on your label does.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 48 48" fill="none"><path d="M24 42c9-6 14-13 14-20a14 14 0 10-28 0c0 7 5 14 14 20Z" stroke="#241C00" stroke-width="3"/><circle cx="24" cy="21" r="5" stroke="#241C00" stroke-width="3"/></svg>
+        <h3>One clear place to send people</h3>
+        <p>Farmers market, refill station, or a link in your bio — one page holds your story so you're not explaining it from scratch each time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="jar-section">
+  <div class="wrap">
+    <div class="jar-copy">
+      <h2>Try it: pack a zero-waste kit</h2>
+      <p>Tap each item to place it in the jar. It's a small stand-in for what your page does — takes the pieces you already have and gives them one clean container.</p>
+      <div class="kit" id="kitButtons"></div>
+      <button class="reset" id="resetJar" type="button">Empty the jar</button>
+    </div>
+    <div class="jar-stage">
+      <svg id="jarSvg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="60" y="20" width="80" height="18" rx="4" fill="none" stroke="#241C00" stroke-width="3"/>
+        <path d="M45 44 L45 210 Q45 224 60 224 L140 224 Q155 224 155 210 L155 44 Z" fill="#FFFDF5" stroke="#241C00" stroke-width="3"/>
+        <g id="jarItems"></g>
+      </svg>
+      <div class="tally" id="tally">Your jar is empty. Tap an item to start.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Your product already stands for less waste. Your website can say so without a single template shortcut.</p>
+    <a class="cta" href="https://easylandx.github.io" target="_blank" rel="noopener">Start with easylandx</a>
+    <div class="made">Made by easylandx</div>
+  </div>
+</footer>
+
+<script>
+  const items = [
+    { id:'soap', label:'Soap bar', icon:'<path d="M3 10h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7Z" stroke="#241C00" stroke-width="1.6" fill="none"/><path d="M3 10l1-4h12l1 4" stroke="#241C00" stroke-width="1.6" fill="none"/>', jar:'<rect x="0" y="0" width="26" height="16" rx="3" fill="#241C00"/>' },
+    { id:'brush', label:'Bamboo brush', icon:'<path d="M5 3l12 12M5 3l3 1 1 3" stroke="#241C00" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="16" cy="16" r="2.4" fill="#241C00"/>', jar:'<rect x="0" y="0" width="6" height="30" rx="2" fill="#241C00" transform="rotate(20)"/>' },
+    { id:'wrap', label:'Beeswax wrap', icon:'<rect x="3" y="3" width="14" height="14" rx="2" stroke="#241C00" stroke-width="1.6" fill="none"/><path d="M3 10h14M10 3v14" stroke="#241C00" stroke-width="1.2"/>', jar:'<rect x="0" y="0" width="22" height="22" rx="4" fill="#FFD400" stroke="#241C00" stroke-width="2"/>' },
+    { id:'bag', label:'Reusable bag', icon:'<path d="M4 8h12l-1 9a2 2 0 01-2 2H7a2 2 0 01-2-2L4 8Z" stroke="#241C00" stroke-width="1.6" fill="none"/><path d="M7 8V5a3 3 0 016 0v3" stroke="#241C00" stroke-width="1.6" fill="none"/>', jar:'<rect x="0" y="0" width="24" height="20" rx="3" fill="#B38600"/>' }
+  ];
+
+  const kitEl = document.getElementById('kitButtons');
+  const jarItemsEl = document.getElementById('jarItems');
+  const tallyEl = document.getElementById('tally');
+  const messages = [
+    'Your jar is empty. Tap an item to start.',
+    'One piece in. Simple, on purpose.',
+    'Two in. Still nothing you don\\'t need.',
+    'Three in. Everything earns its spot.',
+    'Full kit, one container — that\\'s the whole idea behind easylandx too.'
+  ];
+  let used = 0;
+
+  items.forEach((item, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.innerHTML = `<svg viewBox="0 0 20 20">${item.icon}</svg><span>${item.label}</span>`;
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('used')) return;
+      btn.classList.add('used');
+      btn.disabled = true;
+      used++;
+      const x = 30 + (i % 2) * 90 + (Math.random()*10-5);
+      const y = 190 - used * 34 + (Math.random()*6-3);
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${x},${y})`);
+      g.innerHTML = item.jar;
+      jarItemsEl.appendChild(g);
+      tallyEl.textContent = messages[Math.min(used, messages.length - 1)];
+    });
+    kitEl.appendChild(btn);
+  });
+
+  document.getElementById('resetJar').addEventListener('click', () => {
+    jarItemsEl.innerHTML = '';
+    used = 0;
+    tallyEl.textContent = messages[0];
+    kitEl.querySelectorAll('button').forEach(b => { b.classList.remove('used'); b.disabled = false; });
+  });
+</script>
+
+</body>
+</html>
