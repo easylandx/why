@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EasyLandX para Músicos Independientes y Bandas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#2B0A4E;
+    --bg2:#1A0533;
+    --orange:#FF6B00;
+    --cyan:#00F5FF;
+    --yellow:#FFEA00;
+    --white:#FFF6FB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk',sans-serif;
+    background:radial-gradient(circle at 20% 10%, #4a1178 0%, var(--bg) 45%, var(--bg2) 100%);
+    color:var(--white);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;}
+  a{color:inherit;}
+  .glow-text{text-shadow:0 0 12px currentColor,0 0 30px currentColor;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+
+  /* Barra CTA superior */
+  .topbar{
+    display:flex;justify-content:center;align-items:center;
+    padding:14px 16px;background:var(--bg2);
+    border-bottom:2px solid var(--orange);
+  }
+  .elx-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--orange);color:#1A0533;font-weight:700;
+    padding:10px 22px;border-radius:40px;text-decoration:none;
+    box-shadow:0 0 18px var(--orange),0 0 40px rgba(255,107,0,.4);
+    transition:transform .2s ease;
+  }
+  .elx-btn:hover{transform:scale(1.06);}
+  .elx-btn.cyan{background:var(--cyan);box-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,245,255,.4);}
+
+  /* Hero */
+  .hero{position:relative;padding:90px 24px 60px;text-align:center;overflow:hidden;}
+  .hero h1{font-size:clamp(2.6rem,7vw,5rem);color:var(--yellow);}
+  .hero p.sub{max-width:600px;margin:18px auto 34px;font-size:1.15rem;opacity:.9;}
+  .float-note{position:absolute;font-size:2.4rem;color:var(--cyan);opacity:.55;animation:drift 7s ease-in-out infinite;}
+  @keyframes drift{0%,100%{transform:translateY(0) rotate(-8deg);}50%{transform:translateY(-24px) rotate(8deg);}}
+
+  .stage-svg{width:100%;max-width:560px;margin:20px auto;display:block;}
+
+  /* Widget */
+  .widget{
+    background:rgba(0,0,0,.35);border:2px solid var(--cyan);border-radius:22px;
+    padding:32px 24px;max-width:720px;margin:60px auto;
+    box-shadow:0 0 40px rgba(0,245,255,.25);
+  }
+  .widget h2{color:var(--cyan);font-size:2.2rem;text-align:center;margin-bottom:6px;}
+  .widget p.desc{text-align:center;opacity:.85;margin-bottom:26px;}
+  .mixer{display:flex;justify-content:space-around;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+  .channel{display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .channel label{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;opacity:.85;}
+  .channel input[type=range]{
+    writing-mode:vertical-lr;direction:rtl;
+    width:10px;height:140px;accent-color:var(--orange);
+  }
+  .eq-bar{width:14px;height:28px;background:var(--bg2);border-radius:4px;overflow:hidden;display:flex;align-items:flex-end;}
+  .eq-fill{width:100%;background:linear-gradient(180deg,var(--yellow),var(--orange));transition:height .15s ease;}
+
+  .hype-wrap{text-align:center;}
+  .hype-track{
+    width:100%;height:26px;background:var(--bg2);border-radius:14px;overflow:hidden;
+    border:1px solid var(--cyan);
+  }
+  .hype-fill{
+    height:100%;width:10%;border-radius:14px;
+    background:linear-gradient(90deg,var(--cyan),var(--orange),var(--yellow));
+    box-shadow:0 0 18px var(--orange);transition:width .3s ease;
+  }
+  .hype-label{margin-top:10px;font-family:'Bebas Neue';font-size:1.4rem;color:var(--yellow);}
+
+  /* Pestañas */
+  .tabs-section{max-width:800px;margin:70px auto;text-align:center;}
+  .tabs-section h2{font-size:2.4rem;color:var(--orange);margin-bottom:24px;}
+  .tab-buttons{display:flex;justify-content:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
+  .tab-btn{
+    background:transparent;border:2px solid var(--cyan);color:var(--cyan);
+    padding:10px 24px;border-radius:30px;font-weight:700;cursor:pointer;
+    font-family:'Space Grotesk';transition:.2s ease;
+  }
+  .tab-btn.active{background:var(--cyan);color:var(--bg2);box-shadow:0 0 20px var(--cyan);}
+  .tab-panel{display:none;text-align:left;background:rgba(0,0,0,.3);border-radius:16px;padding:24px;}
+  .tab-panel.active{display:block;}
+  .tab-panel ul{list-style:none;display:grid;gap:10px;}
+  .tab-panel li::before{content:"🎸 ";}
+
+  /* Rejilla de razones */
+  .why{max-width:1000px;margin:70px auto;padding:0 24px;}
+  .why h2{text-align:center;font-size:2.6rem;color:var(--yellow);margin-bottom:40px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+  .card{
+    background:rgba(255,255,255,.05);border:1px solid var(--orange);
+    border-radius:16px;padding:22px;transition:transform .2s ease;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 0 26px rgba(255,107,0,.4);}
+  .card .ic{font-size:2rem;}
+  .card h3{color:var(--cyan);margin:10px 0 8px;font-size:1.3rem;}
+  .card p{opacity:.85;font-size:.95rem;line-height:1.4;}
+
+  /* CTA Final */
+  .final-cta{text-align:center;padding:80px 24px;}
+  .final-cta h2{font-size:2.6rem;color:var(--yellow);margin-bottom:16px;}
+  .final-cta p{opacity:.9;margin-bottom:28px;}
+
+  footer{text-align:center;padding:24px;opacity:.6;font-size:.85rem;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="elx-btn" href="https://easylandx.github.io" target="_blank" rel="noopener">🚀 Creado por EasyLandX — ver más páginas</a>
+</div>
+
+<section class="hero">
+  <span class="float-note" style="top:20px;left:8%;">♪</span>
+  <span class="float-note" style="top:70px;right:10%;animation-delay:1.2s;">🎵</span>
+  <span class="float-note" style="bottom:10px;left:20%;animation-delay:2.4s;">♫</span>
+
+  <h1 class="glow-text">EasyLandX PARA<br>MÚSICOS INDEPENDIENTES Y BANDAS</h1>
+  <p class="sub">Una página de destino brillante y de alta energía que convierte a los fans, oyentes y asistentes a conciertos en tu próximo público de entradas agotadas — lista en días, no en meses.</p>
+
+  <svg class="stage-svg" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="250" cy="200" rx="220" ry="16" fill="#00000055"/>
+    <!-- reflector -->
+    <polygon points="120,0 250,180 0,180" fill="#FFEA0022"/>
+    <polygon points="380,0 250,180 500,180" fill="#00F5FF22"/>
+    <!-- torre de amplificadores -->
+    <rect x="40" y="110" width="70" height="70" rx="6" fill="#1A0533" stroke="#FF6B00" stroke-width="3"/>
+    <circle cx="55" cy="130" r="8" fill="#FF6B00"/><circle cx="95" cy="130" r="8" fill="#FF6B00"/>
+    <circle cx="55" cy="155" r="8" fill="#FF6B00"/><circle cx="95" cy="155" r="8" fill="#FF6B00"/>
+    <!-- guitarra -->
+    <g transform="translate(230,60) rotate(15)">
+      <rect x="-4" y="-70" width="8" height="80" fill="#FFEA00"/>
+      <ellipse cx="0" cy="30" rx="34" ry="46" fill="#FF6B00" stroke="#FFEA00" stroke-width="3"/>
+      <ellipse cx="0" cy="30" rx="14" ry="18" fill="#1A0533"/>
+    </g>
+    <!-- micrófono -->
+    <g transform="translate(400,60)">
+      <line x1="0" y1="0" x2="0" y2="90" stroke="#00F5FF" stroke-width="4"/>
+      <ellipse cx="0" cy="-18" rx="16" ry="22" fill="#00F5FF"/>
+    </g>
+  </svg>
+
+  <a class="elx-btn cyan" href="https://easylandx.github.io" target="_blank" rel="noopener">🎤 Lanza tu página EasyLandX</a>
+</section>
+
+<div class="widget reveal">
+  <h2 class="glow-text" style="color:var(--cyan)">🎚️ Mezclador de Escenario en Vivo</h2>
+  <p class="desc">Sube los canales —al igual que afinas el mensaje de tu página de destino— y mira cómo aumenta la emoción del público.</p>
+  <div class="mixer">
+    <div class="channel">
+      <div class="eq-bar"><div class="eq-fill" id="eqVocals" style="height:40%"></div></div>
+      <input type="range" min="0" max="100" value="40" id="sVocals">
+      <label>Voz</label>
+    </div>
+    <div class="channel">
+      <div class="eq-bar"><div class="eq-fill" id="eqGuitar" style="height:40%"></div></div>
+      <input type="range" min="0" max="100" value="40" id="sGuitar">
+      <label>Guitarra</label>
+    </div>
+    <div class="channel">
+      <div class="eq-bar"><div class="eq-fill" id="eqDrums" style="height:40%"></div></div>
+      <input type="range" min="0" max="100" value="40" id="sDrums">
+      <label>Batería</label>
+    </div>
+    <div class="channel">
+      <div class="eq-bar"><div class="eq-fill" id="eqBass" style="height:40%"></div></div>
+      <input type="range" min="0" max="100" value="40" id="sBass">
+      <label>Bajo</label>
+    </div>
+  </div>
+  <div class="hype-wrap">
+    <div class="hype-track"><div class="hype-fill" id="hypeFill"></div></div>
+    <div class="hype-label" id="hypeLabel">EMOCIÓN DEL PÚBLICO: CALENTANDO MOTORES</div>
+  </div>
+</div>
+
+<section class="tabs-section reveal">
+  <h2>Diseñado para tu Configuración</h2>
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-tab="solo">Artistas Solistas</button>
+    <button class="tab-btn" data-tab="band">Bandas Completas</button>
+  </div>
+  <div class="tab-panel active" id="solo">
+    <ul>
+      <li>Una página, todos tus enlaces de streaming (Spotify, Apple Music, YouTube) a un toque brillante</li>
+      <li>Incrusta tu último sencillo o video de sesión en vivo al frente y al centro</li>
+      <li>Captación sencilla de lista de correo para que los fans se enteren de tu próximo lanzamiento antes que nadie</li>
+      <li>Lista de fechas de gira que se actualiza tan rápido como tu calendario</li>
+    </ul>
+  </div>
+  <div class="tab-panel" id="band">
+    <ul>
+      <li>Sección de alineación completa con fotos, roles y redes sociales de cada integrante</li>
+      <li>Área de dossier de prensa / EPK para recintos, promotores y organizadores de festivales</li>
+      <li>Escaparate de merchandising con enlace directo a tu tienda</li>
+      <li>Galería para fotografías de conciertos en vivo y clips de video</li>
+    </ul>
+  </div>
+</section>
+
+<section class="why reveal">
+  <h2 class="glow-text">Por qué EasyLandX se Adapta a los Músicos</h2>
+  <div class="cards">
+    <div class="card"><div class="ic">⚡</div><h3>En Vivo Rápidamente</h3><p>Tu página se publica antes de la prueba de sonido — sin herramientas complejas ni semanas de espera con un diseñador.</p></div>
+    <div class="card"><div class="ic">📱</div><h3>Lista para tus Fans</h3><p>Se ve impecable en el teléfono que tus fans usan realmente para encontrarte entre canción y canción.</p></div>
+    <div class="card"><div class="ic">🎧</div><h3>Enfocada en Streaming</h3><p>Cada enlace a plataformas —Spotify, Bandcamp, YouTube— a un toque de distancia.</p></div>
+    <div class="card"><div class="ic">🗓️</div><h3>Fechas de Gira</h3><p>Actualiza tu calendario de conciertos en minutos, justo antes de salir a la carretera.</p></div>
+    <div class="card"><div class="ic">🎨</div><h3>Tu Sonido, Tu Estilo</h3><p>Neón, sombrío, crudo o pulido — la paleta se adapta a tu género, no a una plantilla genérica.</p></div>
+    <div class="card"><div class="ic">📈</div><h3>Diseñada para Convertir</h3><p>Cada sección está pensada para transformar una visita en un stream, un seguidor o una entrada vendida.</p></div>
+  </div>
+</section>
+
+<section class="final-cta reveal">
+  <h2 class="glow-text">¿Listo para Tomar el Escenario Digital?</h2>
+  <p>Únete a los artistas y bandas que ya usan EasyLandX para convertir a sus oyentes en fans leales.</p>
+  <a class="elx-btn" href="https://easylandx.github.io" target="_blank" rel="noopener">🎸 Obtén tu Página EasyLandX</a>
+</section>
+
+<footer>EasyLandX — Páginas de Destino para Músicos Independientes y Bandas · easylandx.github.io</footer>
+
+<script>
+  const sliders = ['Vocals','Guitar','Drums','Bass'];
+  function updateHype(){
+    let total = 0;
+    sliders.forEach(n=>{
+      const val = document.getElementById('s'+n).value;
+      document.getElementById('eq'+n).style.height = val+'%';
+      total += Number(val);
+    });
+    const avg = total / sliders.length;
+    document.getElementById('hypeFill').style.width = avg+'%';
+    const label = document.getElementById('hypeLabel');
+    if(avg < 30) label.textContent = 'EMOCIÓN DEL PÚBLICO: CALENTANDO MOTORES';
+    else if(avg < 60) label.textContent = 'EMOCIÓN DEL PÚBLICO: SINTIENDO EL RITMO';
+    else if(avg < 85) label.textContent = 'EMOCIÓN DEL PÚBLICO: ¡EN LLAMAS! 🔥';
+    else label.textContent = 'EMOCIÓN DEL PÚBLICO: ¡OTRA, OTRA! 🎸🔥';
+  }
+  sliders.forEach(n=>document.getElementById('s'+n).addEventListener('input', updateHype));
+  updateHype();
+
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
