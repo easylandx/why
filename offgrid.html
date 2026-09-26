@@ -42,7 +42,19 @@
   h1,h2,h3{font-family:'Archivo Black',sans-serif; font-weight:400; line-height:1.05; margin:0; letter-spacing:-0.01em;}
   a{color:inherit}
   img,svg{max-width:100%}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .wrap{
+    width:calc(100% - 80px);
+    max-width:1120px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:0;
+    padding-right:0;
+  }
+  @media(max-width:719px){
+    .wrap{
+      width:calc(100% - 40px);
+    }
+  }
   .badge{
     display:block; text-align:center; background:var(--ink); color:var(--paper);
     font-size:.8rem; padding:9px 12px; text-decoration:none;
@@ -53,7 +65,7 @@
     border-bottom:2px solid var(--ink);
     padding-top:env(safe-area-inset-top,0px);
   }
-  .navrow{display:flex; align-items:center; justify-content:space-between; padding:16px 24px;}
+  .navrow{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
   .logo{font-family:'Archivo Black',sans-serif; font-size:1.15rem;}
   .logo span{color:var(--sun)}
   .navlinks{display:flex; gap:22px; font-size:.95rem;}
