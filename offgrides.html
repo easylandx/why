@@ -42,18 +42,23 @@
   h1,h2,h3{font-family:'Archivo Black',sans-serif; font-weight:400; line-height:1.05; margin:0; letter-spacing:-0.01em;}
   a{color:inherit}
   img,svg{max-width:100%}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
   .badge{
     display:block; text-align:center; background:var(--ink); color:var(--paper);
-    font-size:.8rem; padding:9px 12px; text-decoration:none;
+    font-size:.8rem; padding:9px 20px; text-decoration:none;
   }
   .badge:hover{background:var(--sun); color:var(--ink)}
+  @media(max-width:480px){
+    .wrap{padding-left:28px; padding-right:28px;}
+    .navrow{padding-left:28px; padding-right:28px;}
+  }
+
   nav{
     position:sticky; top:0; z-index:20; background:var(--paper);
     border-bottom:2px solid var(--ink);
     padding-top:env(safe-area-inset-top,0px);
   }
-  .navrow{display:flex; align-items:center; justify-content:space-between; padding:16px 24px;}
+  .navrow{display:flex; align-items:center; justify-content:space-between; padding:16px 32px;}
   .logo{font-family:'Archivo Black',sans-serif; font-size:1.15rem;}
   .logo span{color:var(--sun)}
   .navlinks{display:flex; gap:22px; font-size:.95rem;}
@@ -133,6 +138,12 @@
   footer{border-top:2px solid var(--ink); padding:36px 0 0;}
   .footrow{display:flex; flex-wrap:wrap; gap:18px; justify-content:space-between; align-items:center; padding-bottom:22px;}
   .footrow small{color:var(--stone);}
+
+  @media(max-width:639px){
+    .wrap{padding-left:32px; padding-right:32px;}
+    .navrow{padding-left:32px; padding-right:32px;}
+  }
+
 </style>
 </head>
 <body>
