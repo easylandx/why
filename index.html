@@ -274,12 +274,13 @@
   .wa-float svg{width:30px; height:30px;}
   @media (prefers-reduced-motion: reduce){ .wa-float{transition:none;} }
 </style>
-<!-- Hero title loaded from Google Sheets (cell B8) -->
-<style>.sheet-pending #hero-title{visibility:hidden}</style>
+
+<!-- Hide hero title until script loads the random line -->
+<style>.sheet-pending #hero-title{visibility:hidden;}</style>
 <script>
 (function () {
   var SHEET_ID = "13m0E8tRJhGecPb9jjmxmqpKDgDSz3x5DqRsvK1fgbGQ";
-  var CELL     = "B8";
+  var RANGE    = "B11:G200";
   var root = document.documentElement;
   var html = null, done = false;
 
@@ -292,33 +293,44 @@
   function reveal() {
     if (done) return;
     var el = document.getElementById("hero-title");
-    if (!el) return;              // DOM not ready yet; will retry
+    if (!el) return;
     if (html) el.innerHTML = html;
     root.classList.remove("sheet-pending");
     done = true;
   }
 
-  // Safety net: if the sheet is slow or unreachable, show the default title
   function giveUp() { html = null; if (document.readyState !== "loading") reveal(); else document.addEventListener("DOMContentLoaded", reveal); }
-  setTimeout(giveUp, 3000);
+  setTimeout(giveUp, 4000);
 
-  window.__loadHeroTitle = function (res) {
+  window.__loadRandomHeroTitle = function (res) {
     try {
-      var cell = res.table.rows[0].c[0];
-      var text = cell && (cell.v != null ? String(cell.v) : "");
-      if (text && text.trim()) {
-        // Wrap words in *asterisks* in the cell to get the red <em> style
-        html = esc(text.trim()).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+      var rows = res.table.rows;
+      var englishTitles = [];
+      
+      for (var i = 0; i < rows.length; i += 2) {
+        var cellB = rows[i] && rows[i].c && rows[i].c[0];
+        var text = cellB && (cellB.v != null ? String(cellB.v) : "").trim();
+        if (text !== "") {
+          englishTitles.push(text);
+        }
       }
-    } catch (e) {}
+
+      if (englishTitles.length > 0) {
+        var randomIndex = Math.floor(Math.random() * englishTitles.length);
+        var selectedText = englishTitles[randomIndex];
+        html = esc(selectedText).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+      }
+    } catch (e) { 
+      console.error("Error loading random title:", e);
+    }
     if (document.readyState !== "loading") reveal();
     else document.addEventListener("DOMContentLoaded", reveal);
   };
 
   var s = document.createElement("script");
   s.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
-          "/gviz/tq?tqx=out:json;responseHandler:__loadHeroTitle" +
-          "&headers=0&range=" + CELL;
+          "/gviz/tq?tqx=out:json;responseHandler:__loadRandomHeroTitle" +
+          "&headers=0&range=" + RANGE;
   s.onerror = giveUp;
   document.head.appendChild(s);
 })();
@@ -348,7 +360,7 @@
       <div class="herogrid">
         <div>
           <div class="kicker">Landing pages built the way a case is built</div>
-          <h1 id="hero-title">Every page is <em>an argument</em> for yes.</h1>
+          <h1 id="hero-title"></h1>
           <p class="hero-sub">EasyLandX writes and designs conversion-focused landing pages for small businesses — tailored to one visitor, one clear case, and one confident click.</p>
           <div class="btnrow">
             <a class="btn btn-red" href="https://easylandx.github.io/why/89.html">🔥 See special offer</a>
