@@ -274,6 +274,55 @@
   .wa-float svg{width:30px; height:30px;}
   @media (prefers-reduced-motion: reduce){ .wa-float{transition:none;} }
 </style>
+<!-- Hero title loaded from Google Sheets (cell B8) -->
+<style>.sheet-pending #hero-title{visibility:hidden}</style>
+<script>
+(function () {
+  var SHEET_ID = "13m0E8tRJhGecPb9jjmxmqpKDgDSz3x5DqRsvK1fgbGQ";
+  var CELL     = "B8";
+  var root = document.documentElement;
+  var html = null, done = false;
+
+  root.classList.add("sheet-pending");
+
+  function esc(t) {
+    return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function reveal() {
+    if (done) return;
+    var el = document.getElementById("hero-title");
+    if (!el) return;              // DOM not ready yet; will retry
+    if (html) el.innerHTML = html;
+    root.classList.remove("sheet-pending");
+    done = true;
+  }
+
+  // Safety net: if the sheet is slow or unreachable, show the default title
+  function giveUp() { html = null; if (document.readyState !== "loading") reveal(); else document.addEventListener("DOMContentLoaded", reveal); }
+  setTimeout(giveUp, 3000);
+
+  window.__loadHeroTitle = function (res) {
+    try {
+      var cell = res.table.rows[0].c[0];
+      var text = cell && (cell.v != null ? String(cell.v) : "");
+      if (text && text.trim()) {
+        // Wrap words in *asterisks* in the cell to get the red <em> style
+        html = esc(text.trim()).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+      }
+    } catch (e) {}
+    if (document.readyState !== "loading") reveal();
+    else document.addEventListener("DOMContentLoaded", reveal);
+  };
+
+  var s = document.createElement("script");
+  s.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
+          "/gviz/tq?tqx=out:json;responseHandler:__loadHeroTitle" +
+          "&headers=0&range=" + CELL;
+  s.onerror = giveUp;
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 
@@ -436,35 +485,6 @@
     <path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.24.62 4.34 1.7 6.14L4 29l8.03-1.66a12.9 12.9 0 0 0 4 0.62h.01C22.65 27.97 28 22.6 28 15.98 28 9.36 22.65 3 16.02 3zm0 22.3h-.01a10.6 10.6 0 0 1-3.63-.64l-.26-.1-4.77 1 1.02-4.65-.17-.27a10.24 10.24 0 0 1-1.6-5.62c0-5.66 4.6-10.26 10.28-10.26 5.67 0 10.27 4.6 10.27 10.26 0 5.66-4.6 10.28-10.13 10.28zm5.63-7.7c-.31-.15-1.82-.9-2.1-1s-.49-.15-.7.15-.8 1-.98 1.2-.36.23-.67.08a8.44 8.44 0 0 1-2.48-1.53 9.3 9.3 0 0 1-1.72-2.14c-.18-.31 0-.47.14-.62.14-.14.31-.36.46-.54.15-.18.2-.31.3-.51a.57.57 0 0 0-.02-.54c-.08-.15-.7-1.68-.96-2.3-.25-.6-.5-.52-.7-.53h-.6a1.15 1.15 0 0 0-.83.39 3.5 3.5 0 0 0-1.09 2.6c0 1.53 1.11 3.01 1.27 3.22.15.2 2.18 3.33 5.29 4.67.74.32 1.31.51 1.76.65.74.24 1.41.2 1.94.12.59-.09 1.82-.75 2.08-1.47.26-.72.26-1.34.18-1.47-.08-.13-.28-.2-.59-.35z"/>
   </svg>
 </a>
-
-<!-- Hero title loaded from Google Sheets (cell B8) -->
-<script>
-(function () {
-  var SHEET_ID = "13m0E8tRJhGecPb9jjmxmqpKDgDSz3x5DqRsvK1fgbGQ";
-  var CELL     = "B8";
-
-  function esc(t) {
-    return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  window.__loadHeroTitle = function (res) {
-    try {
-      var cell = res.table.rows[0].c[0];
-      var text = cell && (cell.v != null ? String(cell.v) : "");
-      if (!text || !text.trim()) return;
-      // Wrap words in *asterisks* in the cell to get the italic <em> style
-      var html = esc(text.trim()).replace(/\*([^*]+)\*/g, "<em>$1</em>");
-      document.getElementById("hero-title").innerHTML = html;
-    } catch (e) { /* keep the default title already in the HTML */ }
-  };
-
-  var s = document.createElement("script");
-  s.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
-          "/gviz/tq?tqx=out:json;responseHandler:__loadHeroTitle" +
-          "&headers=0&range=" + CELL;
-  document.head.appendChild(s);
-})();
-</script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C32H6BV2R3"></script>
