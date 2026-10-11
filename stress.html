@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLandX Landing Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one bold green field in tonal bands. An asymmetric hero with a window illustration leads into five hands-on studies. Blue is reserved for action, energy and the pulse line. */
+:root{
+  --bg:#07703F; --bg2:#06653A; --bg3:#055A33;
+  --panel:#0A8148; --panel2:#0D8F51; --line:#2FAE72;
+  --ink:#E4FFF0; --ink-dim:#B8F0D3; --deep:#033D22;
+  --blue:#74C0FF; --blue-soft:#A9D8FF;
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(2.5rem,6.2vw,4.9rem);font-weight:800}
+h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:700}
+h3{font-size:1.35rem;font-weight:700}
+p{margin:0}
+.wrap{width:min(1160px,100%);margin-inline:auto;padding-inline:20px}
+.band{padding-block:clamp(56px,9vw,104px)}
+.b1{background:var(--bg)} .b2{background:var(--bg2)} .b3{background:var(--bg3)}
+.label{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.lede{color:var(--ink-dim);font-size:1.12rem;max-width:62ch}
+.head{display:grid;gap:14px;margin-bottom:40px}
+.head p{color:var(--ink-dim);max-width:62ch}
+:focus-visible{outline:3px solid var(--blue-soft);outline-offset:3px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:var(--blue);color:var(--deep);font:600 1rem var(--body);text-decoration:none;border:2px solid var(--blue);cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{background:var(--blue-soft);border-color:var(--blue-soft);transform:translateY(-2px)}
+.btn:focus-visible{outline-color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink-dim)}
+.btn.ghost:hover{background:var(--panel)}
+.btn.big{padding:17px 34px;font-size:1.2rem}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1.5px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--ink);text-decoration:none}
+.top nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+.top nav a{color:var(--ink-dim);text-decoration:none;font-weight:500}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:820px){.top nav{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(40px,7vw,88px) clamp(48px,8vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.hero-copy{display:grid;gap:24px;min-width:0}
+.hero-copy .lede{max-width:56ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink-dim)}
+.hero-art{min-width:0}
+.hero-art svg{width:100%;height:auto;display:block}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+
+/* shared panels and fields */
+.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:26px;padding:clamp(20px,3vw,32px);min-width:0}
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim)}
+input[type=text],select,textarea{width:100%;font:500 1rem var(--body);color:var(--ink);background:var(--bg3);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
+textarea{resize:vertical;min-height:96px}
+input::placeholder,textarea::placeholder{color:#7FD4A6}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font:500 .98rem var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.chip:hover{background:var(--panel2)}
+.chip[aria-pressed=true],.chip[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:var(--deep)}
+
+/* A: mirror builder */
+.mirror{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+.mirror form{display:grid;gap:16px}
+.mirror-art{display:flex;justify-content:center;margin-bottom:6px}
+.mirror-art svg{width:min(150px,40%);height:auto}
+.preview{background:var(--ink);color:var(--deep);border-radius:20px;overflow:hidden;min-width:0}
+.pv-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--ink-dim)}
+.pv-bar i{width:11px;height:11px;border-radius:50%;background:var(--deep);opacity:.45}
+.pv-bar i:first-child{background:var(--blue);opacity:1}
+.pv-bar span{margin-left:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.pv-body{display:grid;gap:14px;padding:clamp(22px,4vw,40px)}
+.pv-brand{font-family:var(--display);font-weight:800;font-size:1.1rem;overflow-wrap:anywhere}
+.pv-eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:#0A6B3E;overflow-wrap:anywhere}
+.pv-h{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.05;overflow-wrap:anywhere}
+.pv-p{max-width:46ch;overflow-wrap:anywhere}
+.pv-btn{justify-self:start;background:var(--blue);color:var(--deep);font-weight:600;padding:12px 22px;border-radius:999px;border:2px solid var(--deep)}
+.pv-mirror{font-family:var(--mono);font-size:.78rem;color:#0A6B3E;overflow-wrap:anywhere}
+@media (max-width:900px){.mirror{grid-template-columns:1fr}}
+
+/* B: reframe studio */
+.studio{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.studio .stack{display:grid;gap:18px;min-width:0}
+.readout{display:grid;gap:14px;background:var(--bg3);border-radius:20px;padding:22px;min-width:0}
+.readout dl{display:grid;gap:4px;margin:0}
+.readout dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.readout dd{margin:0 0 10px}
+.readout dd.big{font-family:var(--display);font-weight:700;font-size:1.5rem;line-height:1.2}
+.wavebox{background:var(--bg3);border-radius:20px;padding:18px;display:grid;gap:14px;min-width:0}
+.wavebox svg{width:100%;height:auto;display:block}
+.meter{height:12px;border-radius:999px;background:var(--bg);overflow:hidden}
+.meter i{display:block;height:100%;width:35%;background:var(--blue);border-radius:999px;transition:width .5s}
+.wave-row{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+@media (max-width:900px){.studio{grid-template-columns:1fr}}
+
+/* C: mindset dial */
+.dial{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center}
+.dial svg{width:100%;height:auto;display:block;max-height:380px}
+.dial-copy{display:grid;gap:18px;min-width:0}
+.dial-state{display:grid;gap:6px;min-height:104px}
+.dial-state h3{color:var(--blue)}
+.dial-ends{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:var(--ink-dim)}
+.fact{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--bg3);border-radius:20px;padding:18px 22px}
+.fact b{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,6vw,3.8rem);color:var(--blue);line-height:1}
+.fact span{color:var(--ink-dim)}
+@media (max-width:900px){.dial{grid-template-columns:1fr}}
+
+/* paradox */
+.paradox{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.paradox svg{width:100%;height:auto;display:block}
+.notes{display:grid;gap:14px;list-style:none;margin:0;padding:0}
+.notes li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--blue);margin-top:7px}
+@media (max-width:900px){.paradox{grid-template-columns:1fr}}
+
+/* D: lessons */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.lesson{display:grid;grid-template-columns:.85fr 1.15fr;gap:28px;align-items:center}
+.lesson svg{width:100%;height:auto;display:block}
+.lesson-copy{display:grid;gap:16px;min-width:0}
+.lesson-copy .src{color:var(--ink-dim)}
+.moves{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.moves li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--bg3);border-radius:16px;padding:12px 16px}
+.moves svg{width:22px;height:22px;margin-top:2px}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);background:var(--blue);padding:5px 12px;border-radius:999px}
+@media (max-width:900px){.lesson{grid-template-columns:1fr}}
+
+/* E: ritual */
+.ritual{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start}
+.steps{display:grid;gap:16px;min-width:0}
+.step{display:grid;grid-template-columns:auto 1fr;gap:18px;background:var(--panel);border:1.5px solid var(--line);border-radius:22px;padding:22px;transition:border-color .2s,background .2s}
+.step.done{border-color:var(--blue);background:var(--panel2)}
+.num{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.3rem;border:2px solid var(--line);color:var(--ink)}
+.step.done .num{background:var(--blue);border-color:var(--blue);color:var(--deep)}
+.step-body{display:grid;gap:12px;min-width:0}
+.step-body .src{color:var(--ink-dim)}
+.step-body .act{font-weight:600}
+.aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:grid;gap:18px;justify-items:center;text-align:center;background:var(--bg3);border:1.5px solid var(--line);border-radius:26px;padding:26px}
+.ring{position:relative;width:176px;height:176px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:2.4rem}
+.ring .val small{display:block;font:500 .78rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim)}
+.ring circle{transition:stroke-dashoffset .6s}
+.story{background:var(--ink);color:var(--deep);border-radius:18px;padding:18px 20px;display:grid;gap:6px;text-align:left}
+.story .label{color:#0A6B3E}
+.story q{font-family:var(--display);font-weight:600;font-size:1.15rem;line-height:1.3;quotes:none;overflow-wrap:anywhere}
+.story small{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#0A6B3E}
+@media (max-width:980px){.ritual{grid-template-columns:1fr}.aside{position:static}}
+
+/* final CTA */
+.final{display:grid;gap:26px;justify-items:start}
+.final h2{max-width:20ch}
+.final svg{width:min(260px,70%);height:auto}
+.final-wrap{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+@media (max-width:820px){.final-wrap{grid-template-columns:1fr}}
+footer{background:var(--bg);border-top:1.5px solid var(--line);padding-block:26px;color:var(--ink-dim);font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:var(--blue-soft)}
+
+/* motion */
+.spark{stroke-dasharray:36 600;animation:spark 3.2s linear infinite}
+@keyframes spark{from{stroke-dashoffset:636}to{stroke-dashoffset:0}}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.bob{animation:bob 5s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .spark,.sway,.bob{animation:none}
+  .btn,.chip,.meter i,.ring circle{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="EasyLandX home">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="10" fill="#74C0FF"/><path d="M8 22 H13 L16 12 L20 25 L23 17 H26" fill="none" stroke="#033D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      EasyLandX
+    </a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#mirror">Care</a></li>
+        <li><a href="#studio">Reframe</a></li>
+        <li><a href="#mindset">Mindset</a></li>
+        <li><a href="#lessons">Lessons</a></li>
+        <li><a href="#ritual">Ritual</a></li>
+      </ul>
+    </nav>
+    <a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero b1">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="label">EasyLandX · Landing pages</span>
+      <h1>Turn big launch energy into a page people love.</h1>
+      <p class="lede">A landing page is where something you care about meets people who care too. The ideas in Kelly McGonigal's <em>The Upside of Stress</em> show how that excitement becomes clarity, connection and growth on every EasyLandX page.</p>
+      <div class="cta-row">
+        <a class="btn big" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit EasyLandX <span aria-hidden="true">↗</span></a>
+        <a class="btn ghost big" href="#studio">Try the reframe studio</a>
+      </div>
+      <div class="pills" aria-label="Themes on this page">
+        <span class="pill">Care</span><span class="pill">Mindset</span><span class="pill">Connection</span><span class="pill">Growth</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 560 480" role="img" aria-label="A landing page window with a growing sprout and a bright blue pulse line">
+        <circle cx="290" cy="240" r="205" fill="#0A8148"/>
+        <circle cx="290" cy="240" r="150" fill="#0D8F51"/>
+        <g class="bob">
+          <g transform="translate(100 96)">
+            <rect width="360" height="272" rx="24" fill="#E4FFF0"/>
+            <path d="M0 24 a24 24 0 0 1 24 -24 h312 a24 24 0 0 1 24 24 v22 h-360z" fill="#B8F0D3"/>
+            <circle cx="28" cy="23" r="7" fill="#74C0FF"/><circle cx="50" cy="23" r="7" fill="#07703F"/><circle cx="72" cy="23" r="7" fill="#0A8148"/>
+            <rect x="30" y="74" width="196" height="18" rx="9" fill="#07703F"/>
+            <rect x="30" y="102" width="146" height="18" rx="9" fill="#07703F"/>
+            <rect x="30" y="140" width="206" height="9" rx="4.5" fill="#7DCDA2"/>
+            <rect x="30" y="158" width="170" height="9" rx="4.5" fill="#7DCDA2"/>
+            <rect x="30" y="188" width="128" height="42" rx="21" fill="#74C0FF"/>
+            <text x="94" y="214" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="600" font-size="15" fill="#033D22">Join us</text>
+            <rect x="254" y="66" width="82" height="150" rx="18" fill="#07703F"/>
+            <circle cx="295" cy="106" r="15" fill="#74C0FF"/>
+            <path d="M254 216 V176 Q272 150 292 172 Q312 150 336 178 V216z" fill="#0D8F51"/>
+          </g>
+        </g>
+        <g class="sway">
+          <path d="M458 104 C458 72 446 52 458 26" fill="none" stroke="#E4FFF0" stroke-width="6" stroke-linecap="round"/>
+          <ellipse cx="438" cy="66" rx="20" ry="9" transform="rotate(-30 438 66)" fill="#B8F0D3"/>
+          <ellipse cx="478" cy="52" rx="20" ry="9" transform="rotate(30 478 52)" fill="#E4FFF0"/>
+          <circle cx="458" cy="28" r="11" fill="#74C0FF"/>
+        </g>
+        <path d="M30 420 H150 L176 376 L208 458 L240 392 L262 420 H530" fill="none" stroke="#74C0FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="spark" d="M30 420 H150 L176 376 L208 458 L240 392 L262 420 H530" fill="none" stroke="#E4FFF0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="64" cy="150" r="10" fill="#74C0FF"/>
+        <circle cx="500" cy="300" r="7" fill="#E4FFF0"/>
+        <circle cx="52" cy="270" r="6" fill="#E4FFF0"/>
+        <path d="M512 196 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5z" fill="#74C0FF"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- A: CARE MIRROR -->
+<section class="band b2" id="mirror">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Message one · The mirror</span>
+      <h2>Every great page starts with something you care about.</h2>
+      <p>McGonigal describes stress as the feeling that arises when something you care about is at stake. Your launch energy is a mirror of what matters most to you. A strong EasyLandX page places that care at the center. Fill in the fields and watch your own page take shape.</p>
+    </div>
+    <div class="mirror">
+      <div class="panel">
+        <div class="mirror-art">
+          <svg viewBox="0 0 220 262" role="img" aria-label="A hand mirror reflecting a heart">
+            <circle cx="110" cy="100" r="80" fill="#0D8F51" stroke="#74C0FF" stroke-width="8"/>
+            <circle cx="110" cy="100" r="64" fill="#055A33"/>
+            <path d="M110 134 C58 100 72 64 98 68 C106 70 110 78 110 78 C110 78 114 70 122 68 C148 64 162 100 110 134Z" fill="#E4FFF0"/>
+            <path d="M166 50 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4z" fill="#74C0FF"/>
+            <rect x="102" y="182" width="16" height="62" rx="8" fill="#74C0FF"/>
+            <circle cx="110" cy="250" r="8" fill="#E4FFF0"/>
+          </svg>
+        </div>
+        <form id="care-form" autocomplete="off">
+          <div class="field"><label for="in-project">Your project name</label><input id="in-project" type="text" value="Clay &amp; Co" maxlength="40"></div>
+          <div class="field"><label for="in-care">What do you care about?</label><input id="in-care" type="text" value="handmade ceramics" maxlength="48"></div>
+          <div class="field"><label for="in-aud">Who is it for?</label><input id="in-aud" type="text" value="home cooks" maxlength="40"></div>
+          <div class="field"><label for="in-act">Your invitation</label>
+            <select id="in-act">
+              <option>Shop the collection</option>
+              <option>Book a visit</option>
+              <option>Join the community</option>
+              <option>Get updates</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="preview" aria-live="polite">
+        <div class="pv-bar"><i></i><i></i><i></i><span>Live preview</span></div>
+        <div class="pv-body">
+          <div class="pv-brand" id="pv-brand"></div>
+          <div class="pv-eyebrow" id="pv-eyebrow"></div>
+          <div class="pv-h" id="pv-h"></div>
+          <p class="pv-p" id="pv-p"></p>
+          <span class="pv-btn" id="pv-btn"></span>
+          <div class="pv-mirror" id="pv-mirror"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B: REFRAME STUDIO -->
+<section class="band b1" id="studio">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Strategy one · Reappraisal</span>
+      <h2>Your body is gearing up to help you.</h2>
+      <p>Launch days bring real physical energy. McGonigal suggests welcoming those signals as preparation instead of pushing them away. Pick a signal to see it reframed, then channel the energy into your page.</p>
+    </div>
+    <div class="studio">
+      <div class="stack">
+        <div class="chips" role="group" aria-label="Choose a body signal" id="signals"></div>
+        <div class="readout" aria-live="polite">
+          <dl>
+            <dt>What your body is doing</dt><dd id="r-sig"></dd>
+            <dt>Your reframe</dt><dd class="big" id="r-re"></dd>
+            <dt>Your page move</dt><dd id="r-move"></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="wavebox">
+        <svg viewBox="0 0 600 160" role="img" aria-label="A pulse line that moves from lively to smooth and steady">
+          <line x1="0" y1="80" x2="600" y2="80" stroke="#2FAE72" stroke-width="2" stroke-dasharray="4 8"/>
+          <path id="wave-glow" d="" fill="none" stroke="#74C0FF" stroke-opacity=".28" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="wave" d="" fill="none" stroke="#74C0FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="wave-row"><span id="wave-label">Energy shape: spirited</span><span id="wave-pct">Focus 35%</span></div>
+        <div class="meter" role="presentation"><i id="wave-meter"></i></div>
+        <button class="btn" id="wave-btn" type="button" aria-pressed="false">Say it: my body is giving me the energy I need</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C: MINDSET DIAL -->
+<section class="band b3" id="mindset">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Message two · The mindset</span>
+      <h2>Your mindset shapes what your energy can do.</h2>
+      <p>In the study at the heart of the book, people with high stress who saw it as a helpful force showed the best long-term health of any group, including people with low stress. Slide the dial and watch the plant respond to your view.</p>
+    </div>
+    <div class="dial">
+      <svg viewBox="0 0 300 300" role="img" aria-label="A plant that grows taller as the mindset dial moves toward energy as fuel" id="plant">
+        <circle cx="150" cy="150" r="140" fill="#055A33"/>
+        <circle id="sun" cx="236" cy="70" r="30" fill="#74C0FF"/>
+        <ellipse cx="150" cy="268" rx="96" ry="14" fill="#0A8148"/>
+        <line id="stem" x1="150" y1="268" x2="150" y2="160" stroke="#E4FFF0" stroke-width="7" stroke-linecap="round"/>
+        <g id="leaves"></g>
+        <circle id="bloom" cx="150" cy="160" r="14" fill="#74C0FF"/>
+        <circle id="bloom-core" cx="150" cy="160" r="5" fill="#033D22"/>
+      </svg>
+      <div class="dial-copy">
+        <div class="dial-state" aria-live="polite"><h3 id="dial-h"></h3><p id="dial-p" class="lede"></p></div>
+        <div>
+          <label class="label" for="dial">Your view of energy</label>
+          <input id="dial" type="range" min="0" max="100" value="60" step="1">
+          <div class="dial-ends"><span>A signal to settle</span><span>Fuel for growth</span></div>
+        </div>
+        <div class="fact"><b>43%</b><span>The long-term outcome gap the study found, shaped by how people viewed their own energy.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARADOX -->
+<section class="band b1" id="paradox">
+  <div class="wrap">
+    <div class="paradox">
+      <div class="head" style="margin-bottom:0">
+        <span class="label">Message three · The paradox</span>
+        <h2>A meaningful life is full of energy.</h2>
+        <p>Data shows the people and countries reporting the most happiness and meaning also report high levels of stress. Depth, growth and connection arrive together with energy. Your landing page can welcome that energy and give it a purpose.</p>
+        <ul class="notes">
+          <li><span class="dot"></span><span>Pages built around meaning feel alive to visitors.</span></li>
+          <li><span class="dot"></span><span>Big goals bring big momentum, and your page gives it a direction.</span></li>
+          <li><span class="dot"></span><span>Growth and connection grow together on every page.</span></li>
+        </ul>
+      </div>
+      <svg viewBox="0 0 480 280" role="img" aria-label="Illustration of meaning and energy rising together">
+        <rect x="0" y="0" width="480" height="280" rx="26" fill="#0A8148"/>
+        <g stroke="#2FAE72" stroke-width="1.5"><line x1="52" y1="224" x2="448" y2="224"/><line x1="52" y1="224" x2="52" y2="36"/><line x1="52" y1="160" x2="448" y2="160" stroke-dasharray="4 8"/><line x1="52" y1="96" x2="448" y2="96" stroke-dasharray="4 8"/></g>
+        <path d="M60 206 C160 196 250 130 440 52" fill="none" stroke="#E4FFF0" stroke-width="6" stroke-linecap="round"/>
+        <path d="M60 216 C170 210 260 160 440 86" fill="none" stroke="#74C0FF" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="440" cy="52" r="9" fill="#E4FFF0"/><circle cx="440" cy="86" r="9" fill="#74C0FF"/>
+        <text x="330" y="40" font-family="DM Mono,monospace" font-size="13" fill="#E4FFF0" letter-spacing="1.5">MEANING</text>
+        <text x="338" y="116" font-family="DM Mono,monospace" font-size="13" fill="#74C0FF" letter-spacing="1.5">ENERGY</text>
+        <text x="250" y="256" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#B8F0D3" letter-spacing="1.5">HOW MUCH YOU CARE  →</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- D: LESSONS -->
+<section class="band b2" id="lessons">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Core lessons · Three powers</span>
+      <h2>Three built-in powers, three page moves.</h2>
+      <p>McGonigal describes how the body brings focus, connection and growth to meaningful moments. Choose a lesson to see how it shapes an EasyLandX page.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lessons">
+      <button class="chip" role="tab" id="tab-0" aria-controls="lesson-panel" aria-selected="true" type="button">Challenge response</button>
+      <button class="chip" role="tab" id="tab-1" aria-controls="lesson-panel" aria-selected="false" type="button">Tend and befriend</button>
+      <button class="chip" role="tab" id="tab-2" aria-controls="lesson-panel" aria-selected="false" type="button">Growth</button>
+    </div>
+    <div class="lesson panel" id="lesson-panel" role="tabpanel" aria-labelledby="tab-0">
+      <div id="lesson-art"></div>
+      <div class="lesson-copy">
+        <h3 id="l-title"></h3>
+        <div class="tag-row" id="l-tags"></div>
+        <p class="src" id="l-src"></p>
+        <span class="label">On your EasyLandX page</span>
+        <ul class="moves" id="l-moves"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- E: RITUAL -->
+<section class="band b3" id="ritual">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Actionable strategies · Four steps</span>
+      <h2>Your launch ritual in four steps.</h2>
+      <p>Complete each step to light up your launch-ready ring. The fourth step creates a story block you can place on your page.</p>
+    </div>
+    <div class="ritual">
+      <div class="steps">
+
+        <article class="step" id="s1">
+          <div class="num">1</div>
+          <div class="step-body">
+            <h3>Acknowledge and embrace</h3>
+            <p class="src">Recognize a racing heart or warm palms as your body gearing up to perform.</p>
+            <p class="act">Page action: write your hero headline while the energy is fresh.</p>
+            <div><button class="chip" id="s1-btn" type="button" aria-pressed="false">My body is giving me the energy I need to rise to this challenge.</button></div>
+          </div>
+        </article>
+
+        <article class="step" id="s2">
+          <div class="num">2</div>
+          <div class="step-body">
+            <h3>Connect and share</h3>
+            <p class="src">Reach out when the energy rises. Sharing and helping release oxytocin, which supports recovery.</p>
+            <p class="act">Page action: add a community invitation, then share your page with a friend.</p>
+            <div class="chips" id="s2-chips" role="group" aria-label="Who will you share with?"></div>
+          </div>
+        </article>
+
+        <article class="step" id="s3">
+          <div class="num">3</div>
+          <div class="step-body">
+            <h3>Choose your challenges</h3>
+            <p class="src">Select meaningful goals on purpose. Choosing them builds resilience over time.</p>
+            <p class="act">Page action: pick the challenge that matters most this week.</p>
+            <div class="chips" id="s3-chips" role="group" aria-label="Choose a challenge"></div>
+          </div>
+        </article>
+
+        <article class="step" id="s4">
+          <div class="num">4</div>
+          <div class="step-body">
+            <h3>Create your story</h3>
+            <p class="src">Look back at past chapters and notice how you grew. That story shows current steps as ones you are equipped to clear.</p>
+            <p class="act">Page action: turn it into a story block for your page.</p>
+            <div class="field"><label for="s4-text">A past chapter taught me...</label><textarea id="s4-text" maxlength="220" placeholder="Opening my first shop taught me to ask for help, and now I welcome every customer with confidence."></textarea></div>
+          </div>
+        </article>
+
+      </div>
+
+      <aside class="aside" aria-live="polite">
+        <div class="ring">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#055A33" stroke-width="12"/>
+            <circle id="ring-fg" cx="60" cy="60" r="50" fill="none" stroke="#74C0FF" stroke-width="12" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
+          </svg>
+          <div class="val"><div><span id="ring-n">0</span> / 4<small>Launch-ready</small></div></div>
+        </div>
+        <p id="ring-msg" class="lede" style="font-size:1rem">Complete a step to begin.</p>
+        <div class="story">
+          <span class="label">Your story block</span>
+          <q id="story-q"></q>
+          <small id="story-tag">Example</small>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="band b1">
+  <div class="wrap">
+    <div class="final-wrap">
+      <div class="final">
+        <span class="label">EasyLandX</span>
+        <h2>Build a landing page around what you care about.</h2>
+        <p class="lede">EasyLandX creates affordable, conversion-focused landing pages for small businesses, shaped around the people you love to serve. Bring your energy and let your page carry it forward.</p>
+        <a class="btn big" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit EasyLandX <span aria-hidden="true">↗</span></a>
+      </div>
+      <svg viewBox="0 0 260 260" role="img" aria-label="A sunrise over green hills with a blue pulse line" style="width:min(300px,100%);height:auto">
+        <circle cx="130" cy="130" r="120" fill="#0A8148"/>
+        <circle cx="130" cy="112" r="48" fill="#74C0FF"/>
+        <path d="M10 170 Q70 120 130 170 T250 160 V240 H10z" fill="#055A33"/>
+        <path d="M10 196 Q80 150 150 196 T250 190 V240 H10z" fill="#07703F"/>
+        <path d="M40 214 H92 L106 190 L122 232 L138 204 L150 214 H220" fill="none" stroke="#E4FFF0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>EasyLandX · Landing pages that welcome what you care about.</span>
+    <span>Ideas inspired by <em>The Upside of Stress</em> by Kelly McGonigal. <a href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx.github.io</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS='http://www.w3.org/2000/svg';
+
+  /* ---------- A: care mirror ---------- */
+  var f={project:$('#in-project'),care:$('#in-care'),aud:$('#in-aud'),act:$('#in-act')};
+  function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):s}
+  function renderPage(){
+    var p=f.project.value.trim()||'Your project';
+    var c=f.care.value.trim()||'what you love';
+    var a=f.aud.value.trim()||'people like you';
+    $('#pv-brand').textContent=p;
+    $('#pv-eyebrow').textContent='For '+a;
+    $('#pv-h').textContent=cap(c)+', made welcome.';
+    $('#pv-p').textContent=p+' shares '+c+' with '+a+'. Every detail on this page reflects what matters most.';
+    $('#pv-btn').textContent=f.act.value;
+    $('#pv-mirror').textContent='This page mirrors: '+c;
+  }
+  ['project','care','aud'].forEach(function(k){f[k].addEventListener('input',renderPage)});
+  f.act.addEventListener('change',renderPage);
+  $('#care-form').addEventListener('submit',function(e){e.preventDefault()});
+  renderPage();
+
+  /* ---------- B: reframe studio ---------- */
+  var feelings=[
+    {k:'Racing heart',sig:'Your heart sends more blood to your brain and muscles.',re:'My heart is powering up my focus.',move:'Lead with one bold headline and one clear button so your energy points in a single direction.'},
+    {k:'Butterflies',sig:'Your body is lining up its resources for something that matters.',re:'These butterflies show how much this matters to me.',move:'Open the page with the thing you care about, in your own words.'},
+    {k:'Sweaty palms',sig:'Your body is warming up for action.',re:'My body is warming up to perform.',move:'Add a friendly preview of the first step so visitors feel your momentum.'},
+    {k:'Busy mind',sig:'Your brain is gathering ideas at high speed.',re:'My mind is collecting great ideas.',move:'Arrange them in three clear sections: hero, benefits and invitation.'},
+    {k:'Big to-do list',sig:'Plenty of caring is moving into your calendar.',re:'Every item shows something I value.',move:'Choose the one challenge that matters most this week and build that section first.'}
+  ];
+  var sigWrap=$('#signals');
+  function pickFeeling(i){
+    var it=feelings[i];
+    $('#r-sig').textContent=it.sig;
+    $('#r-re').textContent=it.re;
+    $('#r-move').textContent=it.move;
+    sigWrap.querySelectorAll('.chip').forEach(function(b,j){b.setAttribute('aria-pressed',j===i?'true':'false')});
+  }
+  feelings.forEach(function(it,i){
+    var b=document.createElement('button');
+    b.className='chip';b.type='button';b.textContent=it.k;
+    b.addEventListener('click',function(){pickFeeling(i)});
+    sigWrap.appendChild(b);
+  });
+  pickFeeling(0);
+
+  var wave=$('#wave'),glow=$('#wave-glow'),calm=0,target=0,t=0;
+  function drawWave(){
+    var pts=[];
+    for(var x=0;x<=600;x+=5){
+      var j=Math.sin(x*.07+t*4)*.55+Math.sin(x*.19+t*7)*.35+Math.sin(x*.41+t*11)*.25;
+      var s=Math.sin(x*.022+t*1.6);
+      var y=80+50*((1-calm)*j+calm*s*.9);
+      pts.push((x?'L':'M')+x+' '+y.toFixed(1));
+    }
+    var d=pts.join(' ');
+    wave.setAttribute('d',d);glow.setAttribute('d',d);
+    wave.style.strokeWidth=(3.5+calm*3).toFixed(1);
+    var pct=Math.round(35+65*calm);
+    $('#wave-meter').style.width=pct+'%';
+    $('#wave-pct').textContent='Focus '+pct+'%';
+    $('#wave-label').textContent='Energy shape: '+(calm>.5?'channelled':'spirited');
+  }
+  function loop(){
+    calm+=(target-calm)*.05;
+    t+=.016;
+    drawWave();
+    requestAnimationFrame(loop);
+  }
+  if(reduce){drawWave()}else{requestAnimationFrame(loop)}
+  var wbtn=$('#wave-btn');
+  wbtn.addEventListener('click',function(){
+    var on=wbtn.getAttribute('aria-pressed')!=='true';
+    wbtn.setAttribute('aria-pressed',on?'true':'false');
+    target=on?1:0;
+    wbtn.textContent=on?'Channelled. Tap to feel the spirited wave again':'Say it: my body is giving me the energy I need';
+    if(reduce){calm=target;drawWave()}
+  });
+
+  /* ---------- C: mindset dial ---------- */
+  var leaves=$('#leaves'),leafEls=[];
+  for(var i=0;i<4;i++){
+    var l=document.createElementNS(NS,'ellipse'),r=document.createElementNS(NS,'ellipse');
+    [l,r].forEach(function(e){e.setAttribute('rx','20');e.setAttribute('ry','9');e.setAttribute('fill',i%2?'#B8F0D3':'#E4FFF0');leaves.appendChild(e)});
+    leafEls.push([l,r]);
+  }
+  var states=[
+    {max:25,h:'A resting seedling',p:'The plant is small and full of potential. Every new view of your energy gives it room to grow.'},
+    {max:60,h:'Curious',p:'Curiosity starts the growth. Your body begins to treat its energy as useful.'},
+    {max:85,h:'Helpful',p:'Seeing your energy as helpful brings steady focus and confident action.'},
+    {max:101,h:'Energy as fuel',p:'This is the view linked to the best outcomes of everyone in the study. Your plant is in full bloom.'}
+  ];
+  var dial=$('#dial');
+  function setDial(){
+    var v=+dial.value,h=34+v*1.9,top=268-h;
+    var stem=$('#stem');
+    stem.setAttribute('y2',top);
+    $('#bloom').setAttribute('cy',top);$('#bloom-core').setAttribute('cy',top);
+    $('#bloom').setAttribute('r',(9+v*.1).toFixed(1));
+    leafEls.forEach(function(pair,i){
+      var y=268-h*(.25+.2*i),op=Math.max(0,Math.min(1,(v-i*20)/18));
+      pair[0].setAttribute('cx',132);pair[0].setAttribute('cy',y);pair[0].setAttribute('transform','rotate(-28 132 '+y+')');
+      pair[1].setAttribute('cx',168);pair[1].setAttribute('cy',y);pair[1].setAttribute('transform','rotate(28 168 '+y+')');
+      pair[0].setAttribute('opacity',op);pair[1].setAttribute('opacity',op);
+    });
+    $('#sun').setAttribute('r',(18+v*.2).toFixed(1));
+    $('#sun').setAttribute('opacity',(.35+.65*v/100).toFixed(2));
+    for(var k=0;k<states.length;k++){
+      if(v<states[k].max){$('#dial-h').textContent=states[k].h;$('#dial-p').textContent=states[k].p;break}
+    }
+  }
+  dial.addEventListener('input',setDial);
+  setDial();
+
+  /* ---------- D: lessons ---------- */
+  var icon='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#74C0FF"/><path d="M7 12.5 L10.5 16 L17 8.5" fill="none" stroke="#033D22" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var art=[
+    '<svg viewBox="0 0 320 260" role="img" aria-label="A mountain with a flag and a bolt of energy"><circle cx="160" cy="130" r="122" fill="#0D8F51"/><path d="M26 226 L128 76 L186 152 L228 104 L296 226z" fill="#055A33"/><path d="M128 76 L108 106 L128 98 L146 108z" fill="#E4FFF0"/><line x1="128" y1="76" x2="128" y2="40" stroke="#E4FFF0" stroke-width="4" stroke-linecap="round"/><path d="M128 40 L158 50 L128 62z" fill="#74C0FF"/><path d="M246 38 L222 80 H240 L230 114 L262 66 H243z" fill="#74C0FF"/><path d="M50 214 C100 200 140 160 190 128" fill="none" stroke="#74C0FF" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round"/><circle cx="52" cy="200" r="9" fill="#E4FFF0"/></svg>',
+    '<svg viewBox="0 0 320 260" role="img" aria-label="Five people connected around a glowing heart"><circle cx="160" cy="130" r="116" fill="none" stroke="#2FAE72" stroke-width="2"/><circle cx="160" cy="130" r="78" fill="none" stroke="#2FAE72" stroke-width="2" stroke-dasharray="3 9"/><g stroke="#B8F0D3" stroke-width="3"><line x1="160" y1="130" x2="160" y2="38"/><line x1="160" y1="130" x2="248" y2="102"/><line x1="160" y1="130" x2="214" y2="204"/><line x1="160" y1="130" x2="106" y2="204"/><line x1="160" y1="130" x2="72" y2="102"/></g><g fill="#E4FFF0"><circle cx="160" cy="38" r="19"/><circle cx="248" cy="102" r="19"/><circle cx="214" cy="204" r="19"/><circle cx="106" cy="204" r="19"/><circle cx="72" cy="102" r="19"/></g><g fill="#07703F"><circle cx="160" cy="34" r="6"/><circle cx="248" cy="98" r="6"/><circle cx="214" cy="200" r="6"/><circle cx="106" cy="200" r="6"/><circle cx="72" cy="98" r="6"/></g><circle cx="160" cy="130" r="30" fill="#74C0FF"/><path d="M160 146 C138 130 144 114 154 116 C158 117 160 121 160 121 C160 121 162 117 166 116 C176 114 182 130 160 146Z" fill="#033D22"/></svg>',
+    '<svg viewBox="0 0 320 260" role="img" aria-label="Three growing plants on rising steps"><circle cx="160" cy="130" r="122" fill="#0D8F51"/><rect x="40" y="196" width="68" height="34" rx="8" fill="#055A33"/><rect x="126" y="160" width="68" height="70" rx="8" fill="#055A33"/><rect x="212" y="116" width="68" height="114" rx="8" fill="#055A33"/><path d="M74 196 V172" stroke="#E4FFF0" stroke-width="5" stroke-linecap="round"/><ellipse cx="64" cy="170" rx="13" ry="6" transform="rotate(-30 64 170)" fill="#B8F0D3"/><ellipse cx="86" cy="166" rx="13" ry="6" transform="rotate(30 86 166)" fill="#E4FFF0"/><path d="M160 160 V112" stroke="#E4FFF0" stroke-width="5" stroke-linecap="round"/><ellipse cx="146" cy="136" rx="15" ry="7" transform="rotate(-30 146 136)" fill="#B8F0D3"/><ellipse cx="174" cy="126" rx="15" ry="7" transform="rotate(30 174 126)" fill="#E4FFF0"/><ellipse cx="148" cy="112" rx="13" ry="6" transform="rotate(-30 148 112)" fill="#E4FFF0"/><path d="M246 116 V50" stroke="#E4FFF0" stroke-width="5" stroke-linecap="round"/><ellipse cx="230" cy="94" rx="17" ry="7" transform="rotate(-30 230 94)" fill="#B8F0D3"/><ellipse cx="262" cy="82" rx="17" ry="7" transform="rotate(30 262 82)" fill="#E4FFF0"/><ellipse cx="231" cy="66" rx="14" ry="6" transform="rotate(-30 231 66)" fill="#E4FFF0"/><circle cx="246" cy="44" r="14" fill="#74C0FF"/><circle cx="246" cy="44" r="5" fill="#033D22"/><path d="M52 60 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4z" fill="#74C0FF"/></svg>'
+  ];
+  var lessons=[
+    {t:'The challenge response',tags:['Adrenaline','DHEA','Dopamine'],src:'Alongside the familiar alarm response, the body has a built-in challenge response. A positive mindset triggers it, and it brings focus, energy and a stronger capacity to learn from big moments.',moves:['Give visitors one bold headline and one clear button so they feel your focus.','Show the next step at the top of the page.','Keep sections lively with short lines and vivid visuals.']},
+    {t:'Tend and befriend',tags:['Oxytocin','Community','Courage'],src:'Energy also releases oxytocin, which draws us toward other people. Helping others and leaning on your community supports the heart and turns energy into courage and connection.',moves:['Add a community invitation, such as a chat group or newsletter.','Feature kind words from the people you serve.','Make your contact details friendly and easy to find.']},
+    {t:'Growth after big chapters',tags:['Empathy','Strength','Confidence'],src:'People who move through demanding chapters often grow in empathy, strength and confidence. That growth prepares them for whatever comes next.',moves:['Share your story arc from where you began to where you are growing.','Show milestones so visitors can follow your progress.','Invite visitors into your next chapter.']}
+  ];
+  var tabs=[$('#tab-0'),$('#tab-1'),$('#tab-2')];
+  function showLesson(i){
+    var L=lessons[i];
+    $('#lesson-art').innerHTML=art[i];
+    $('#l-title').textContent=L.t;
+    $('#l-src').textContent=L.src;
+    var tg=$('#l-tags');tg.textContent='';
+    L.tags.forEach(function(x){var s=document.createElement('span');s.className='tag';s.textContent=x;tg.appendChild(s)});
+    var ul=$('#l-moves');ul.textContent='';
+    L.moves.forEach(function(m){var li=document.createElement('li');li.innerHTML=icon;var sp=document.createElement('span');sp.textContent=m;li.appendChild(sp);ul.appendChild(li)});
+    tabs.forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1});
+    $('#lesson-panel').setAttribute('aria-labelledby','tab-'+i);
+  }
+  tabs.forEach(function(b,i){
+    b.addEventListener('click',function(){showLesson(i)});
+    b.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight')n=(i+1)%3;
+      if(e.key==='ArrowLeft')n=(i+2)%3;
+      if(n!==null){e.preventDefault();showLesson(n);tabs[n].focus()}
+    });
+  });
+  showLesson(0);
+
+  /* ---------- E: ritual ---------- */
+  var done=[false,false,false,false];
+  var C=2*Math.PI*50;
+  var msgs=['Complete a step to begin.','Wonderful start. Your energy has a direction.','Halfway there. Your page is taking shape.','Almost ready. One more step to go.','Launch-ready. Your page is going to shine.'];
+  var story=$('#story-q');
+  var example='Opening my first shop taught me to ask for help, and now I welcome every customer with confidence.';
+  function updateRing(){
+    var n=done.filter(Boolean).length;
+    $('#ring-fg').style.strokeDashoffset=(C*(1-n/4)).toFixed(2);
+    $('#ring-n').textContent=n;
+    $('#ring-msg').textContent=msgs[n];
+    [0,1,2,3].forEach(function(i){$('#s'+(i+1)).classList.toggle('done',done[i])});
+  }
+  function chipGroup(id,items,multi,cb){
+    var wrap=$(id);
+    items.forEach(function(txt){
+      var b=document.createElement('button');
+      b.className='chip';b.type='button';b.textContent=txt;b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',function(){
+        if(!multi){wrap.querySelectorAll('.chip').forEach(function(o){o.setAttribute('aria-pressed','false')})}
+        b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');
+        cb(wrap.querySelectorAll('.chip[aria-pressed=true]').length);
+      });
+      wrap.appendChild(b);
+    });
+  }
+  $('#s1-btn').addEventListener('click',function(){
+    var b=$('#s1-btn'),on=b.getAttribute('aria-pressed')!=='true';
+    b.setAttribute('aria-pressed',on?'true':'false');
+    done[0]=on;updateRing();
+  });
+  chipGroup('#s2-chips',['A friend','A colleague','A customer','A neighbor'],true,function(n){done[1]=n>0;updateRing()});
+  chipGroup('#s3-chips',['Publish my page this week','Share it with ten people','Add a new offer','Invite my community'],false,function(n){done[2]=n>0;updateRing()});
+  var ta=$('#s4-text');
+  function renderStory(){
+    var v=ta.value.trim();
+    story.textContent=v.length?v:example;
+    $('#story-tag').textContent=v.length?'Your words':'Example';
+    done[3]=v.length>=12;updateRing();
+  }
+  ta.addEventListener('input',renderStory);
+  renderStory();
+})();
+</script>
+</body>
+</html>
