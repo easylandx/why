@@ -289,6 +289,32 @@
   .wa-float:hover{transform:scale(1.08); box-shadow:0 10px 26px rgba(0,0,0,0.35);}
   .wa-float svg{width:30px; height:30px;}
   @media (prefers-reduced-motion: reduce){ .wa-float{transition:none;} }
+
+  /* ---------- WhatsApp quick form ---------- */
+  .waform{
+    max-width:640px; margin:34px auto 0; text-align:left;
+    background:#fff; color:var(--ink);
+    border:3px solid var(--ink); border-radius:var(--radius);
+    box-shadow:8px 8px 0 var(--ink);
+    padding:26px 24px 24px;
+  }
+  .waform h3{font-size:1.35rem; margin:0 0 4px;}
+  .waform .waform-sub{margin:0 0 18px; color:var(--ink-soft); font-size:.95rem;}
+  .waform .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .waform label{display:block; font-weight:600; font-size:.86rem; margin:0 0 6px;}
+  .waform .field{margin-bottom:14px;}
+  .waform input,.waform select,.waform textarea{
+    width:100%; font:inherit; font-size:1rem; color:var(--ink);
+    background:#fff; border:2px solid var(--ink); border-radius:10px;
+    padding:11px 12px;
+  }
+  .waform textarea{min-height:88px; resize:vertical;}
+  .waform input:focus-visible,.waform select:focus-visible,.waform textarea:focus-visible{
+    outline:3px solid var(--green); outline-offset:1px;
+  }
+  .waform .btn{width:100%; justify-content:center; border:0; cursor:pointer; font:inherit; font-weight:700;}
+  .waform .waform-note{margin:10px 0 0; font-size:.8rem; color:var(--ink-soft); text-align:center;}
+  @media (max-width:560px){ .waform .row2{grid-template-columns:1fr;} .waform{box-shadow:5px 5px 0 var(--ink);} }
 </style>
 
 <!-- Hide hero title until script loads the random line -->
@@ -476,6 +502,38 @@
         <a class="btn btn-ghost-invert" href="https://easylandx.github.io/all">Real results →</a>
         <a class="btn btn-blue" href="https://buy.stripe.com/14A14m0vRdpdaf42bK0Jq07">💳 Pay with Stripe</a>
       </div>
+
+      <form class="waform" id="waform" action="#" autocomplete="on">
+        <h3>Tell us about your page</h3>
+        <p class="waform-sub">Answer a few quick questions and we continue the chat on WhatsApp.</p>
+        <div class="row2">
+          <div class="field">
+            <label for="wf-name">Your name</label>
+            <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="e.g. Laura">
+          </div>
+          <div class="field">
+            <label for="wf-biz">Your business</label>
+            <input id="wf-biz" name="biz" type="text" required placeholder="e.g. Laura's Nail Studio">
+          </div>
+        </div>
+        <div class="field">
+          <label for="wf-goal">What should visitors do?</label>
+          <select id="wf-goal" name="goal" required>
+            <option value="">Choose one…</option>
+            <option>Book an appointment</option>
+            <option>Buy a product</option>
+            <option>Message me on WhatsApp</option>
+            <option>Sign up / join my list</option>
+            <option>Not sure yet — let's talk</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="wf-msg">Anything else we should know? <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></label>
+          <textarea id="wf-msg" name="msg" placeholder="Instagram handle, ideas, colours, deadline…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">💬 Send via WhatsApp</button>
+        <p class="waform-note">Opens WhatsApp with your answers ready to send.</p>
+      </form>
     </div>
   </section>
 
@@ -553,6 +611,24 @@
   });
 
   show(idx, false);
+})();
+</script>
+
+<script>
+(function(){
+  var f=document.getElementById("waform"); if(!f) return;
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=function(id){return (document.getElementById(id).value||"").trim();};
+    var lines=["Hi EasyLandX! I'd like a landing page.",
+      "Name: "+v("wf-name"),
+      "Business: "+v("wf-biz"),
+      "Goal: "+v("wf-goal")];
+    if(v("wf-msg")) lines.push("Notes: "+v("wf-msg"));
+    var url="https://api.whatsapp.com/send/?phone=34609204298&text="+encodeURIComponent(lines.join("\n"));
+    window.open(url,"_blank","noopener");
+    if(window.gtag){ try{ gtag("event","generate_lead",{method:"whatsapp_form"}); }catch(_){} }
+  });
 })();
 </script>
 
