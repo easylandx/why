@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx | Landing Pages Built with Extreme Ownership</title>
+<style>
+:root{--bg:#C8102E;--ink:#FFFFFF;--soft:#FFD9E0;--g:#4DF08C;--gd:#4A0613;--panel:rgba(255,255,255,.11);--line:rgba(255,255,255,.28);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:#C8102E;color:var(--ink);font-family:"Helvetica Neue",Arial,system-ui,sans-serif;line-height:1.6}
+.w{max-width:1040px;margin:0 auto;padding:0 22px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:900;font-size:1.35rem;letter-spacing:-.5px}.logo b{color:var(--g)}
+.btn{display:inline-block;background:var(--g);color:var(--gd);font-weight:900;text-decoration:none;padding:14px 28px;border-radius:999px;border:3px solid var(--g);transition:transform .2s,background .2s,color .2s;cursor:pointer;font-size:1rem}
+.btn:hover{transform:translateY(-3px) scale(1.04);background:transparent;color:var(--g)}
+.btn.sm{padding:9px 20px;font-size:.92rem}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:36px 0 70px}
+h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.04;margin:0 0 18px;font-weight:900;letter-spacing:-1.5px}
+h1 em{font-style:normal;color:var(--g)}
+h2{font-size:clamp(1.7rem,4vw,2.6rem);margin:0 0 10px;font-weight:900;letter-spacing:-.8px}
+h2 em{font-style:normal;color:var(--g)}
+.lead{font-size:1.15rem;color:var(--soft);max-width:520px;margin:0 0 26px}
+section{padding:60px 0;border-top:2px solid var(--line)}
+.tag{display:inline-block;color:var(--g);font-weight:900;letter-spacing:2px;text-transform:uppercase;font-size:.8rem;margin-bottom:10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:28px}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:22px;padding:24px;transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);border-color:var(--g)}
+.card svg{width:64px;height:64px;margin-bottom:8px}
+.card h3{margin:4px 0 6px;font-size:1.2rem}
+.card p{margin:0;color:var(--soft)}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 18px}
+.tabs button{font:inherit;font-weight:800;color:var(--ink);background:transparent;border:2px solid var(--line);border-radius:999px;padding:10px 20px;cursor:pointer;transition:.2s}
+.tabs button:hover{border-color:var(--g)}
+.tabs button.on{background:var(--g);color:var(--gd);border-color:var(--g)}
+.pane{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;background:var(--panel);border:2px solid var(--line);border-radius:26px;padding:28px}
+.pane h3{font-size:1.6rem;margin:0 0 8px}
+.pane p{color:var(--soft);margin:0 0 10px}
+.pane .do{color:var(--g);font-weight:800}
+.pane svg{width:100%;height:auto;max-height:260px}
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+.box{background:var(--panel);border:2px solid var(--line);border-radius:26px;padding:24px}
+.opt{display:flex;align-items:center;gap:12px;padding:11px 14px;border:2px solid var(--line);border-radius:14px;margin-bottom:10px;cursor:pointer;font-weight:700;transition:.2s;user-select:none}
+.opt:hover{border-color:var(--g)}
+.opt input{accent-color:#4DF08C;width:20px;height:20px}
+.opt small{display:block;font-weight:500;color:var(--soft)}
+.opt.on{border-color:var(--g);background:rgba(77,240,140,.14)}
+.meter{height:18px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.meter i{display:block;height:100%;width:0;background:var(--g);border-radius:99px;transition:width .5s}
+.score{font-size:2.6rem;font-weight:900;color:var(--g);line-height:1}
+.msg{min-height:3.2em;color:var(--soft)}
+.mock{background:#FFF4F6;border-radius:16px;padding:14px;color:#4A0613;min-height:300px;display:flex;flex-direction:column;gap:9px}
+.mock div{border-radius:10px;padding:10px 12px;font-weight:800;font-size:.9rem;animation:pop .35s}
+.mock .m-h{background:#C8102E;color:#fff;font-size:1.05rem}
+.mock .m-o{background:#FFD0D8}
+.mock .m-p{background:#BFF7D6}
+.mock .m-b{background:#2BC96A;color:#fff;text-align:center}
+.mock .m-x{background:#EDE0E3;font-weight:600;font-size:.82rem}
+.mock .m-bar{height:8px;background:#C8102E;border-radius:6px;padding:0}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.mind{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:26px}
+.mind div{border-left:6px solid var(--g);padding:6px 0 6px 16px}
+.mind h4{margin:0 0 4px;font-size:1.1rem}.mind p{margin:0;color:var(--soft);font-size:.96rem}
+.cta{text-align:center;padding:70px 0 50px}
+.cta p{color:var(--soft);max-width:560px;margin:0 auto 26px;font-size:1.1rem}
+footer{text-align:center;padding:26px 0 40px;color:var(--soft);font-size:.9rem;border-top:2px solid var(--line)}
+.float{animation:fl 5s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-10px)}}
+@media(max-width:780px){.hero,.pane,.lab{grid-template-columns:1fr}}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#C8102E}}
+:root[data-theme="dark"]{--bg:#C8102E}
+</style>
+</head>
+<body>
+<div class="w">
+<nav><div class="logo">easyland<b>x</b></div><a class="btn sm" href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx ↗</a></nav>
+
+<header class="hero">
+<div>
+<span class="tag">Landing pages · 2026</span>
+<h1>Landing pages built with <em>Extreme Ownership</em>.</h1>
+<p class="lead">Every easylandx page is individually crafted, and every outcome is ours to shape. Clear leadership, a simple message and one inviting path lead your visitors to say yes.</p>
+<a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit easylandx →</a>
+</div>
+<svg class="float" viewBox="0 0 400 340" role="img" aria-label="Illustration of a landing page with a flag on top">
+<rect x="40" y="50" width="320" height="240" rx="22" fill="#FFF4F6"/>
+<rect x="40" y="50" width="320" height="38" rx="22" fill="#fff"/>
+<circle cx="66" cy="69" r="6" fill="#C8102E"/><circle cx="86" cy="69" r="6" fill="#4DF08C"/><circle cx="106" cy="69" r="6" fill="#C8102E" opacity=".5"/>
+<rect x="68" y="112" width="170" height="20" rx="8" fill="#C8102E"/>
+<rect x="68" y="142" width="130" height="12" rx="6" fill="#FFB3C0"/>
+<rect x="68" y="162" width="150" height="12" rx="6" fill="#FFB3C0"/>
+<rect x="68" y="196" width="110" height="38" rx="19" fill="#2BC96A"/>
+<circle cx="285" cy="170" r="52" fill="#FFD0D8"/><circle cx="285" cy="170" r="34" fill="#C8102E"/><circle cx="285" cy="170" r="16" fill="#4DF08C"/>
+<line x1="330" y1="50" x2="330" y2="8" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+<path d="M330 8 L376 22 L330 38 Z" fill="#4DF08C"/>
+<path d="M60 318 q140 -22 280 0" stroke="#4DF08C" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
+</header>
+
+<section>
+<span class="tag">The Philosophy</span>
+<h2>Leaders own <em>every</em> outcome.</h2>
+<p class="lead">Extreme Ownership shapes how we build. When a page succeeds, we celebrate it. When there is room to grow, we take the lead and improve it.</p>
+<div class="cards">
+<div class="card">
+<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#4DF08C"/><path d="M20 33l8 8 17-18" stroke="#4A0613" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h3>Extreme Ownership</h3><p>One accountable crafter stands behind your page from first sketch to launch day. Every result is ours, and every result is ours to improve.</p></div>
+<div class="card">
+<svg viewBox="0 0 64 64"><path d="M32 6l7 16 17 2-13 12 4 17-15-9-15 9 4-17L8 24l17-2z" fill="#4DF08C"/></svg>
+<h3>Great Teams, Great Leaders</h3><p>Strong leadership lifts everything: clear standards, clear communication and clear training. Your page benefits from all three.</p></div>
+<div class="card">
+<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="12" fill="#4DF08C"/><g stroke="#4DF08C" stroke-width="5" stroke-linecap="round"><path d="M32 4v8M32 52v8M4 32h8M52 32h8M12 12l6 6M46 46l6 6M12 52l6-6M46 18l6-6"/></g></svg>
+<h3>Humility Brings Clarity</h3><p>We set pride aside and let your customer's view guide each choice. Fresh eyes reveal the brightest ideas.</p></div>
+</div>
+</section>
+
+<section>
+<span class="tag">Interactive · Four Laws of Combat</span>
+<h2>Four laws, <em>one winning page</em>.</h2>
+<p class="lead">Tap each law to see how it shapes an easylandx landing page.</p>
+<div class="tabs" id="tabs"></div>
+<div class="pane" id="pane"></div>
+</section>
+
+<section>
+<span class="tag">Interactive · Prioritize and Execute</span>
+<h2>Build a <em>focused page</em> in seconds.</h2>
+<p class="lead">Switch on the elements below and watch your focus score rise. Core elements shine brightest, and bonus extras can join whenever they serve the goal.</p>
+<div class="lab">
+<div class="box">
+<label class="opt on"><input type="checkbox" data-k="h" data-w="25" checked> <span>Bold headline<small>Core · one clear promise</small></span></label>
+<label class="opt"><input type="checkbox" data-k="o" data-w="25"> <span>Irresistible offer<small>Core · the reason to act</small></span></label>
+<label class="opt"><input type="checkbox" data-k="p" data-w="20"> <span>Happy-customer proof<small>Core · builds trust</small></span></label>
+<label class="opt"><input type="checkbox" data-k="b" data-w="30"> <span>Action button<small>Core · the next step</small></span></label>
+<label class="opt"><input type="checkbox" data-k="x" data-w="-10"> <span>Bonus extras: more menus &amp; side notes<small>Optional · add when they serve the goal</small></span></label>
+</div>
+<div class="box">
+<div class="score"><span id="sc">25</span>%</div>
+<div class="meter"><i id="mt"></i></div>
+<div class="msg" id="msg"></div>
+<div class="mock" id="mock"></div>
+</div>
+</div>
+</section>
+
+<section>
+<span class="tag">Sustaining Success</span>
+<h2>Leadership habits that <em>keep winning</em>.</h2>
+<div class="mind">
+<div><h4>Believe in the Mission</h4><p>We learn the "why" behind your business first, so every word on the page carries real conviction.</p></div>
+<div><h4>Lead Down</h4><p>Every contributor sees how their part lifts the whole page, from copy to color to code.</p></div>
+<div><h4>Lead Up</h4><p>You get timely updates and ready-made solutions, so you can stay focused on running your business.</p></div>
+<div><h4>Decide with Confidence</h4><p>We launch on solid information and keep refining as fresh data arrives. Momentum creates results.</p></div>
+<div><h4>Discipline Equals Freedom</h4><p>Proven, repeatable processes free up energy for creativity. That is how each page stays one of a kind.</p></div>
+</div>
+</section>
+
+<div class="cta">
+<svg viewBox="0 0 120 120" width="110" height="110" class="float" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#fff"/><circle cx="60" cy="60" r="38" fill="#C8102E"/><circle cx="60" cy="60" r="20" fill="#4DF08C"/><path d="M60 60L100 20" stroke="#4A0613" stroke-width="5" stroke-linecap="round"/></svg>
+<h2>Ready to <em>take the lead</em>?</h2>
+<p>Affordable, custom, conversion-focused landing pages, crafted one at a time for small businesses like yours.</p>
+<a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Go to easylandx →</a>
+</div>
+<footer>© 2026 easylandx · Inspired by <i>Extreme Ownership</i> by Jocko Willink &amp; Leif Babin</footer>
+</div>
+
+<script>
+const laws=[
+{n:"Cover and Move",t:"Every section supports every other section.",d:"Headline, imagery, proof and button move together toward one shared goal: your visitor taking action. Design, copy and code work as one crew.",a:"On your page: every element points to the same inviting button.",
+s:'<svg viewBox="0 0 300 220"><rect x="20" y="130" width="70" height="60" rx="12" fill="#fff"/><rect x="115" y="90" width="70" height="60" rx="12" fill="#4DF08C"/><rect x="210" y="40" width="70" height="60" rx="12" fill="#fff"/><path d="M90 150 Q102 110 115 112M185 110 Q198 70 210 70" stroke="#fff" stroke-width="5" fill="none" stroke-dasharray="8 7" stroke-linecap="round"/><circle cx="245" cy="70" r="9" fill="#C8102E"/></svg>'},
+{n:"Simple",t:"One clear message. One clear path.",d:"Simple pages are easy to read, easy to remember and easy to act on, even on a phone in a busy moment. Clarity is a gift to your visitor.",a:"On your page: one promise, one path, one button.",
+s:'<svg viewBox="0 0 300 220"><circle cx="150" cy="110" r="70" fill="#fff"/><circle cx="150" cy="110" r="46" fill="#C8102E"/><circle cx="150" cy="110" r="22" fill="#4DF08C"/><path d="M20 110h50" stroke="#4DF08C" stroke-width="8" stroke-linecap="round"/><path d="M52 92l20 18-20 18" stroke="#4DF08C" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
+{n:"Prioritize and Execute",t:"Pick the top goal, shine there, then step forward.",d:"We choose the highest-value goal first, build the page around it, launch, and then climb to the next step. Each win sets up the next one.",a:"On your page: the main goal gets the brightest spot.",
+s:'<svg viewBox="0 0 300 220"><rect x="30" y="150" width="60" height="50" fill="#fff"/><rect x="90" y="110" width="60" height="90" fill="#fff" opacity=".85"/><rect x="150" y="70" width="60" height="130" fill="#fff" opacity=".7"/><rect x="210" y="30" width="60" height="170" fill="#4DF08C"/><line x1="240" y1="30" x2="240" y2="4" stroke="#fff" stroke-width="5"/><path d="M240 4l26 8-26 8z" fill="#fff"/></svg>'},
+{n:"Decentralized Command",t:"A shared purpose guides every choice.",d:"When everyone understands the why, each section makes smart choices on its own. Your page flows beautifully across phones, tablets and desktops.",a:"On your page: one purpose, many confident, adaptable parts.",
+s:'<svg viewBox="0 0 300 220"><g stroke="#fff" stroke-width="4"><line x1="150" y1="110" x2="50" y2="40"/><line x1="150" y1="110" x2="250" y2="40"/><line x1="150" y1="110" x2="50" y2="180"/><line x1="150" y1="110" x2="250" y2="180"/></g><circle cx="150" cy="110" r="34" fill="#4DF08C"/><g fill="#fff"><circle cx="50" cy="40" r="20"/><circle cx="250" cy="40" r="20"/><circle cx="50" cy="180" r="20"/><circle cx="250" cy="180" r="20"/></g></svg>'}];
+const tabs=document.getElementById('tabs'),pane=document.getElementById('pane');
+laws.forEach((l,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+l.n;b.onclick=()=>show(i);tabs.appendChild(b)});
+function show(i){[...tabs.children].forEach((b,j)=>b.classList.toggle('on',i===j));const l=laws[i];
+pane.innerHTML='<div><h3>'+l.n+'</h3><p><b>'+l.t+'</b></p><p>'+l.d+'</p><p class="do">'+l.a+'</p></div>'+l.s}
+show(0);
+
+const cb=[...document.querySelectorAll('.opt input')],mock=document.getElementById('mock');
+const parts={h:['m-h','Your bold, inspiring headline'],o:['m-o','Your irresistible offer'],p:['m-p','★★★★★ Happy customers say yes'],b:['m-b','Start today →'],x:['m-x','Extra menus · side notes · more links']};
+function upd(){let s=0,html='<div class="m-bar"></div>';
+cb.forEach(c=>{c.closest('.opt').classList.toggle('on',c.checked);if(c.checked){s+=+c.dataset.w;const p=parts[c.dataset.k];html+='<div class="'+p[0]+'">'+p[1]+'</div>'}});
+s=Math.max(0,Math.min(100,s));mock.innerHTML=html;
+document.getElementById('sc').textContent=s;document.getElementById('mt').style.width=s+'%';
+document.getElementById('msg').textContent=s>=100?'Brilliantly focused! Simple, clear and ready to win.':s>=70?'Wonderful momentum. One more core element makes it shine.':s>=40?'Great start. Keep adding core elements to build clarity.':'Every great page begins with a bold headline. Add more core elements.'}
+cb.forEach(c=>c.onchange=upd);upd();
+</script>
+</body>
+</html>

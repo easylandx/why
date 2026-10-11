@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>easylandx | Landing Pages Built for the Long Voyage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--mb:#191970;--mb2:#3a3aa0;--tint:#eeeefa;--tint2:#f6f6fd;--line:#d9d9f2;--bg:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--mb);font:400 17px/1.65 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.1}
+h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:.6em 0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+section{padding:72px 0;border-top:1px solid var(--line)}
+.eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.75rem;font-weight:700;color:var(--mb2)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:Fraunces,serif;font-weight:800;font-size:1.4rem;color:var(--mb);text-decoration:none}
+.logo span{color:var(--mb2)}
+.navlinks{display:flex;gap:22px;align-items:center}
+.navlinks a.l{color:var(--mb);text-decoration:none;font-weight:500;font-size:.95rem}
+@media(max-width:720px){.navlinks a.l{display:none}}
+.btn{display:inline-block;background:var(--mb);color:#fff;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--mb);transition:.2s;cursor:pointer;font-size:1rem}
+.btn:hover{background:#fff;color:var(--mb);transform:translateY(-2px)}
+.btn.alt{background:#fff;color:var(--mb)}
+.btn.alt:hover{background:var(--mb);color:#fff}
+.hero{padding:56px 0 40px;border:0}
+.hero .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center}
+@media(max-width:860px){.hero .grid{grid-template-columns:1fr}}
+.hero p.lead{font-size:1.2rem;max-width:34em}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.stat{border-left:4px solid var(--mb);padding-left:12px}
+.stat b{font-family:Fraunces,serif;font-size:1.9rem;display:block}
+.stat span{font-size:.85rem}
+.art{width:100%;height:auto;display:block;border-radius:22px;border:2px solid var(--mb);background:var(--tint2)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+@media(max-width:860px){.cards{grid-template-columns:1fr}}
+.card{background:var(--tint2);border:2px solid var(--mb);border-radius:20px;padding:24px;transition:.25s}
+.card:hover{transform:translateY(-5px);box-shadow:8px 8px 0 var(--mb)}
+.card svg{width:54px;height:54px;margin-bottom:8px}
+.tag{display:inline-block;background:var(--mb);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 16px}
+.tab{background:#fff;color:var(--mb);border:2px solid var(--mb);padding:10px 18px;border-radius:999px;font:700 .92rem Inter,sans-serif;cursor:pointer;transition:.2s}
+.tab[aria-selected=true]{background:var(--mb);color:#fff}
+.panel{display:none;grid-template-columns:1fr 1fr;gap:26px;background:var(--tint2);border:2px solid var(--mb);border-radius:22px;padding:28px;align-items:center}
+.panel.on{display:grid;animation:fade .4s}
+@media(max-width:760px){.panel.on{grid-template-columns:1fr}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mini{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px}
+.mini b{display:block;color:var(--mb2);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+.map{background:var(--tint2);border:2px solid var(--mb);border-radius:24px;padding:18px;margin-top:30px}
+.map svg{width:100%;height:auto;display:block}
+.wp{cursor:pointer}
+.wp circle.d{fill:#fff;stroke:var(--mb);stroke-width:4;transition:.25s}
+.wp.done circle.d{fill:var(--mb)}
+.wp text{font:700 15px Inter,sans-serif;fill:var(--mb);text-anchor:middle}
+.wp.done text.n{fill:#fff}
+.wp:hover circle.d{transform-box:fill-box;transform-origin:center;transform:scale(1.15)}
+.info{margin-top:16px;background:#fff;border:2px solid var(--mb);border-radius:18px;padding:20px 24px;min-height:150px}
+.meter{height:14px;background:var(--tint);border-radius:99px;overflow:hidden;border:1.5px solid var(--mb);margin-top:14px}
+.meter i{display:block;height:100%;width:0;background:var(--mb);transition:width .6s}
+.ladder{counter-reset:s;display:grid;gap:14px;margin-top:30px}
+.step{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;border:2px solid var(--mb);border-radius:18px;padding:18px 20px;background:#fff}
+.step:before{counter-increment:s;content:counter(s);width:46px;height:46px;border-radius:50%;background:var(--mb);color:#fff;display:grid;place-items:center;font:800 1.3rem Fraunces,serif}
+.cta{text-align:center;background:var(--tint);border-radius:28px;padding:56px 22px;border:2px solid var(--mb)}
+footer{padding:30px 0;border-top:1px solid var(--line);text-align:center;font-size:.9rem}
+.reveal{opacity:0;transform:translateY(18px);transition:.7s}
+.reveal.in{opacity:1;transform:none}
+.ship{animation:bob 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-1.5deg)}}
+.star{animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.35}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">easyland<span>x</span></a>
+<div class="navlinks"><a class="l" href="#messages">Messages</a><a class="l" href="#lessons">Lessons</a><a class="l" href="#route">Your Route</a><a class="l" href="#strategies">Strategies</a>
+<a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">easylandx</a></div></div></nav>
+
+<header class="hero" id="top"><div class="wrap grid">
+<div>
+<div class="eyebrow">Landing pages • 2026 • Inspired by Endurance</div>
+<h1>Landing pages crafted to carry your business all the way home.</h1>
+<p class="lead">In 1914, Sir Ernest Shackleton and his 27-man crew set sail on the <em>Endurance</em>. Through bold leadership, adaptability and optimism, every crew member returned home safely. easylandx brings that same spirit to every landing page we craft for small businesses.</p>
+<div class="row"><a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit easylandx</a><a class="btn alt" href="#route">Chart your route</a></div>
+<div class="stats"><div class="stat"><b>28</b><span>explorers, all returned home</span></div><div class="stat"><b>850</b><span>miles of determined voyage</span></div><div class="stat"><b>1:1</b><span>every page individually crafted</span></div></div>
+</div>
+<svg class="art" viewBox="0 0 520 440" role="img" aria-label="Illustration of the Endurance sailing beneath a bright sun among glowing icebergs">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4e4f8"/><stop offset="1" stop-color="#fff"/></linearGradient></defs>
+<rect width="520" height="440" fill="url(#sk)"/>
+<g fill="#191970"><circle class="star" cx="60" cy="50" r="3"/><circle class="star" cx="140" cy="90" r="2" style="animation-delay:.6s"/><circle class="star" cx="440" cy="60" r="3" style="animation-delay:1.2s"/><circle class="star" cx="380" cy="120" r="2" style="animation-delay:1.8s"/><circle class="star" cx="250" cy="40" r="2" style="animation-delay:.3s"/></g>
+<circle cx="390" cy="190" r="58" fill="#fff" stroke="#191970" stroke-width="3"/>
+<g stroke="#191970" stroke-width="3" stroke-linecap="round"><path d="M390 110v-18M390 270v18M310 190h-18M470 190h18M333 133l-12-12M447 247l12 12M447 133l12-12M333 247l-12 12"/></g>
+<polygon points="0,300 70,190 120,250 170,160 250,300" fill="#fff" stroke="#191970" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="170,160 150,215 185,200 215,245 200,200" fill="#dcdcf5"/>
+<polygon points="330,300 400,230 450,270 520,210 520,300" fill="#fff" stroke="#191970" stroke-width="3" stroke-linejoin="round"/>
+<g class="ship"><path d="M150 290h220l-28 38H178z" fill="#191970"/><rect x="258" y="170" width="5" height="120" fill="#191970"/><rect x="205" y="200" width="5" height="90" fill="#191970"/><rect x="310" y="195" width="5" height="95" fill="#191970"/>
+<path d="M263 178l62 42-62 26z" fill="#fff" stroke="#191970" stroke-width="3" stroke-linejoin="round"/><path d="M258 190l-50 36 50 20z" fill="#fff" stroke="#191970" stroke-width="3" stroke-linejoin="round"/><path d="M310 205l-40 30 40 14z" fill="#eeeefa" stroke="#191970" stroke-width="3" stroke-linejoin="round"/><path d="M263 170l30 8-30 8z" fill="#3a3aa0"/></g>
+<path d="M0 330q40-22 80 0t80 0 80 0 80 0 80 0 80 0 80 0v110H0z" fill="#e4e4f8" stroke="#191970" stroke-width="3"/>
+<path d="M0 380q40-20 80 0t80 0 80 0 80 0 80 0 80 0 80 0v60H0z" fill="#191970"/>
+<path d="M0 380q40-20 80 0t80 0 80 0 80 0 80 0 80 0 80 0" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 10"/>
+</svg>
+</div></header>
+
+<section id="messages"><div class="wrap">
+<div class="eyebrow">The book's main messages</div>
+<h2 class="reveal">Three big ideas that shape every page we build</h2>
+<p class="reveal">Alfred Lansing's <em>Endurance: Shackleton's Incredible Voyage</em> shows what a determined team can achieve. These messages guide how easylandx designs landing pages for you.</p>
+<div class="cards">
+<div class="card reveal"><svg viewBox="0 0 54 54" fill="none" stroke="#191970" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="27" r="22"/><path d="M27 12v6M27 36v6M12 27h6M36 27h6"/><path d="M33 21l-4 12-6-6z" fill="#191970"/></svg>
+<span class="tag">Message 1</span><h3>The Indomitability of the Human Spirit</h3><p>Resilience, adaptability and willpower reach far beyond what seems possible. <b>On your page:</b> your small business carries a big story, and we craft it to shine with confidence in 2026.</p></div>
+<div class="card reveal"><svg viewBox="0 0 54 54" fill="none" stroke="#191970" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="27" r="9" fill="#191970"/><path d="M27 6v8M27 40v8M6 27h8M40 27h8M12 12l6 6M36 36l6 6M42 12l-6 6M18 36l-6 6"/></svg>
+<span class="tag">Message 2</span><h3>Attitude Shapes Reality</h3><p>The healthiest crew members kept their humor, welcomed change and found joy along the way. <b>On your page:</b> warm words, welcoming design and an upbeat tone invite visitors to say yes.</p></div>
+<div class="card reveal"><svg viewBox="0 0 54 54" fill="none" stroke="#191970" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 38q8-10 16 0t16 0 14 0"/><path d="M4 28q8-10 16 0t16 0 14 0"/><path d="M27 6l8 12H19z" fill="#191970"/></svg>
+<span class="tag">Message 3</span><h3>The Supremacy of Nature</h3><p>Success grows from respecting the environment. <b>On your page:</b> we work with your audience, your market and your brand, so each page flows naturally with its surroundings.</p></div>
+</div></div></section>
+
+<section id="lessons"><div class="wrap">
+<div class="eyebrow">Key lessons • interactive</div>
+<h2 class="reveal">Four lessons, four landing page advantages</h2>
+<p>Select a lesson to see how it becomes a feature of your easylandx page.</p>
+<div class="tabs" role="tablist" id="tabs"></div>
+<div id="panels"></div>
+</div></section>
+
+<section id="route"><div class="wrap">
+<div class="eyebrow">Interactive voyage map</div>
+<h2 class="reveal">Chart your route to a high-converting page</h2>
+<p>Tap each waypoint along the journey. The ship sails forward as your landing page plan takes shape.</p>
+<div class="map">
+<svg viewBox="0 0 900 260" id="mapsvg" role="img" aria-label="Voyage map with four waypoints">
+<path id="route-path" d="M60 190 C 190 40, 300 40, 300 130 S 480 230, 600 120 S 760 40, 840 110" fill="none" stroke="#191970" stroke-width="5" stroke-dasharray="4 14" stroke-linecap="round"/>
+<g id="wps"></g>
+<g id="mship" style="transition:transform .9s ease"><path d="M-22 6h44l-8 12h-28z" fill="#191970"/><rect x="-1.5" y="-24" width="3" height="30" fill="#191970"/><path d="M2 -22l16 14-16 8z" fill="#fff" stroke="#191970" stroke-width="2.5" stroke-linejoin="round"/></g>
+</svg>
+<div class="meter"><i id="bar"></i></div>
+<div class="info" id="info"><h3>Welcome aboard!</h3><p>Select the first waypoint to begin shaping your landing page, one confident step at a time.</p></div>
+</div>
+</div></section>
+
+<section id="strategies"><div class="wrap">
+<div class="eyebrow">Crisis leadership strategies, applied</div>
+<h2 class="reveal">Four leadership frameworks inside every easylandx page</h2>
+<div class="ladder">
+<div class="step reveal"><div><h3>Cultivate and project unshakable optimism</h3><p>Shackleton's confident outlook lifted the whole crew, much like a thermostat sets the temperature of a room. We set your page's tone the same way: a bright headline, a clear promise and a friendly voice that makes visitors feel at home from the first second.</p></div></div>
+<div class="step reveal"><div><h3>Intentionally guide group dynamics</h3><p>Shackleton studied character and gave every person a meaningful role. We study your visitors, understand what each of them values, and give every section a purpose: welcome, explain, reassure, invite.</p></div></div>
+<div class="step reveal"><div><h3>Break big voyages into incremental goals</h3><p>An 850-mile journey becomes manageable one hour, one floe and one meal at a time. Your page shows visitors one friendly step at a time: read, trust, tap, connect. Each micro-step feels easy and leads to the next.</p></div></div>
+<div class="step reveal"><div><h3>Lead from the front and share the load</h3><p>Shackleton shared every task and ration with his team. We work shoulder to shoulder with you, crafting each page individually, never from a template, so your goals become our goals.</p></div></div>
+</div></div></section>
+
+<section><div class="wrap"><div class="cta reveal">
+<svg width="84" height="84" viewBox="0 0 54 54" fill="none" stroke="#191970" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="9" r="5"/><path d="M27 14v32M17 24h20M9 36q4 12 18 12t18-12"/></svg>
+<h2>Ready to set sail in 2026?</h2>
+<p style="max-width:34em;margin:14px auto">Affordable, custom, conversion-focused landing pages and websites, crafted individually for small businesses. Your story deserves a page that celebrates it.</p>
+<a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Explore easylandx</a>
+</div></div></section>
+
+<footer><div class="wrap">© 2026 easylandx • Landing pages crafted with endurance, optimism and care.</div></footer>
+
+<script>
+const lessons=[
+{t:"Radical Adaptability",s:"Plans evolve as environments evolve. When the ship's journey changed, Shackleton pivoted instantly: explorers became expedition leaders, tents became homes, open boats became vessels of hope.",a:"Your page flexes with you: easy updates, fresh offers and seasonal refreshes, so it always matches where your business is today.",i:'<path d="M10 60q20-40 40-20t40-30" /><path d="M78 20l12 0 0 12"/>'},
+{t:"Travel Light",s:"Crew members who prioritized speed and agility thrived. Traveling light, both physically and mentally, keeps every option open.",a:"Clean, fast, focused pages: one clear message, one bright call to action, quick loading on every phone.",i:'<circle cx="50" cy="45" r="22"/><path d="M50 23v-12M38 11h24"/>'},
+{t:"Decisive Action",s:"Decisive movement gave the crew momentum, turning every person into an active agent of their own success.",a:"Confident calls to action placed at the perfect moments invite visitors to take the next step with ease.",i:'<path d="M15 50h60M60 32l18 18-18 18"/>'},
+{t:"Routine and Morale",s:"Shackleton celebrated holidays, organized friendly games on the ice and encouraged storytelling, keeping the crew's inner song alive.",a:"Your brand story, happy customer voices and a joyful personality turn visitors into a loyal community.",i:'<path d="M50 78C20 56 20 30 38 28c8 0 12 6 12 10 0-4 4-10 12-10 18 2 18 28-12 50z"/>'}];
+const T=document.getElementById('tabs'),P=document.getElementById('panels');
+lessons.forEach((l,k)=>{
+ T.insertAdjacentHTML('beforeend',`<button class="tab" role="tab" aria-selected="${k==0}" data-k="${k}">${l.t}</button>`);
+ P.insertAdjacentHTML('beforeend',`<div class="panel ${k==0?'on':''}" data-k="${k}"><div><h3>${l.t}</h3><div class="cols" style="grid-template-columns:1fr;margin-top:12px"><div class="mini"><b>On the ice</b>${l.s}</div><div class="mini"><b>On your page</b>${l.a}</div></div></div>
+ <svg viewBox="0 0 100 100" class="art" style="padding:14px;background:#fff" fill="none" stroke="#191970" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="44" fill="#eeeefa"/>${l.i}</svg></div>`);});
+T.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;
+ document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x==b));
+ document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.k==b.dataset.k));};
+
+const wps=[
+{n:"Optimism",h:"Welcome with a bright, confident headline",p:"Your opening words set the temperature. We craft a hopeful promise, a friendly tone and an inviting design that makes visitors feel excited to explore."},
+{n:"Roles",h:"Give every section a meaningful role",p:"Each block of your page has a purpose: introduce, explain, reassure, invite. Every visitor type finds the information they value most."},
+{n:"Steps",h:"Guide visitors one easy step at a time",p:"Big decisions become simple moves: read, trust, tap, connect. Clear micro-goals create momentum all the way to your call to action."},
+{n:"Together",h:"Craft it side by side with you",p:"Your page is individually crafted around your brand, your customers and your goals. We share the journey, and celebrate the launch together in 2026."}];
+const path=document.getElementById('route-path'),L=path.getTotalLength(),G=document.getElementById('wps'),ship=document.getElementById('mship');
+const pos=[0.04,0.34,0.66,0.97],done=new Set();
+function at(f){return path.getPointAtLength(L*f)}
+function sail(f){const p=at(f);ship.style.transform=`translate(${p.x}px,${p.y-26}px)`}
+sail(0.0);
+wps.forEach((w,k)=>{const p=at(pos[k]);
+ G.insertAdjacentHTML('beforeend',`<g class="wp" data-k="${k}" tabindex="0" role="button" aria-label="${w.n}"><circle class="d" cx="${p.x}" cy="${p.y}" r="22"/><text class="n" x="${p.x}" y="${p.y+5}">${k+1}</text><text x="${p.x}" y="${p.y+48}">${w.n}</text></g>`);});
+function pick(k){done.add(k);document.querySelectorAll('.wp').forEach(g=>g.classList.toggle('done',done.has(+g.dataset.k)));
+ sail(pos[k]);document.getElementById('bar').style.width=(done.size/4*100)+'%';
+ const w=wps[k];document.getElementById('info').innerHTML=`<span class="tag">Waypoint ${k+1} of 4</span><h3>${w.h}</h3><p>${w.p}</p>`+(done.size==4?'<p><b>Wonderful! Your route is complete and your landing page plan is ready to launch.</b></p><a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Begin with easylandx</a>':`<p style="color:#3a3aa0"><b>${done.size} of 4 waypoints reached</b></p>`);}
+G.onclick=e=>{const g=e.target.closest('.wp');if(g)pick(+g.dataset.k)};
+G.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){const g=e.target.closest('.wp');if(g){e.preventDefault();pick(+g.dataset.k)}}};
+
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
