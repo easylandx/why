@@ -265,6 +265,17 @@
     box-shadow:3px 3px 0 var(--ink); pointer-events:none; transition:opacity .6s ease;
   }
   .hint.gone{opacity:0;}
+  @media (max-width:700px), (pointer:coarse){
+    .stage{perspective:700px;}
+    .panel{padding:22px; box-shadow:none;}
+    .ring{display:none;}
+    .heroimg{box-shadow:4px 4px 0 var(--ink);}
+    .heroimg:hover{transform:none; box-shadow:4px 4px 0 var(--ink);}
+    .stripe-track{animation:none; padding-left:0;}
+    .wa-float{width:54px;height:54px;right:14px;}
+    .ctl{left:12px;gap:6px;}
+    .ctl button{width:40px;height:40px;}
+  }
   @media (max-width:420px){ .hint{font-size:.78rem; padding:7px 12px;} }
 </style>
 
@@ -595,6 +606,11 @@
   var hint  = document.getElementById("hint");
   var panels = [].slice.call(document.querySelectorAll(".panel"));
   var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var mobileMode = !!(window.matchMedia && window.matchMedia("(max-width: 700px), (pointer: coarse)").matches);
+  var framePending = false;
+  function requestFrame() {
+    if (!framePending && !document.hidden) { framePending = true; requestAnimationFrame(frame); }
+  }
 
   /* ---- line the inside of the sphere with the page sections (facing the centre) ---- */
   panels.forEach(function (p) {
@@ -607,13 +623,16 @@
   /* ---- wireframe on the far side of the panels ---- */
   var r = R + 10;
   function ring(css) { var d = document.createElement("div"); d.className = "ring"; d.style.cssText = css; globe.appendChild(d); }
-  for (var i = 0; i < 6; i++) {
-    ring("width:" + 2 * r + "px;height:" + 2 * r + "px;margin:" + (-r) + "px 0 0 " + (-r) + "px;transform:rotateY(" + (i * 30) + "deg)");
+  // Decorative wireframe rings are omitted on phones/tablets to reduce Safari GPU memory.
+  if (!mobileMode) {
+    for (var i = 0; i < 6; i++) {
+      ring("width:" + 2 * r + "px;height:" + 2 * r + "px;margin:" + (-r) + "px 0 0 " + (-r) + "px;transform:rotateY(" + (i * 30) + "deg)");
+    }
+    [-60, -30, 0, 30, 60].forEach(function (l) {
+      var rr = r * Math.cos(l * Math.PI / 180), y = r * Math.sin(l * Math.PI / 180);
+      ring("width:" + 2 * rr + "px;height:" + 2 * rr + "px;margin:" + (-rr) + "px 0 0 " + (-rr) + "px;transform:translateY(" + (-y) + "px) rotateX(90deg)");
+    });
   }
-  [-60, -30, 0, 30, 60].forEach(function (l) {
-    var rr = r * Math.cos(l * Math.PI / 180), y = r * Math.sin(l * Math.PI / 180);
-    ring("width:" + 2 * rr + "px;height:" + 2 * rr + "px;margin:" + (-rr) + "px 0 0 " + (-rr) + "px;transform:translateY(" + (-y) + "px) rotateX(90deg)");
-  });
 
   /* ---- state: yaw, pitch, and P = zoom (CSS perspective = focal length) ---- */
   var ry = 0, rx = 0, P = 700;
@@ -657,6 +676,8 @@
   function touched() {
     idleAt = performance.now() + 9000;
     if (hint) hint.classList.add("gone");
+    requestFrame();
+    if (!mobileMode && !reduced) setTimeout(requestFrame, 9100);
   }
 
   /* ---- pointer: one finger / mouse = look around, two fingers = pinch zoom ---- */
@@ -673,6 +694,7 @@
     anim = null; touched();
     if (n === 1) { moved = 0; vx = vy = 0; dragging = true; stage.classList.add("dragging"); lastMove = performance.now(); }
     if (n === 2) { pinch = { d: dist(), p: P }; moved = 99; vx = vy = 0; }
+    requestFrame();
   });
   window.addEventListener("pointermove", function (e) {
     var p = pts[e.pointerId]; if (!p) return;
@@ -680,6 +702,7 @@
     p.x = e.clientX; p.y = e.clientY;
     if (Object.keys(pts).length >= 2 && pinch) {
       var d = dist(); if (d > 0 && pinch.d > 0) setP(pinch.p * d / pinch.d);   // spread = zoom in
+      requestFrame();
       return;
     }
     moved += Math.abs(dx) + Math.abs(dy);
@@ -687,6 +710,7 @@
     ry -= dx * k; rx = clamp(rx + dy * k, -90, 90);
     var now = performance.now(), dt = Math.max(1, now - lastMove); lastMove = now;
     vx = vx * 0.6 + (-dx * k / dt) * 0.4; vy = vy * 0.6 + (dy * k / dt) * 0.4;
+    requestFrame();
   });
   function release(e) {
     if (!pts[e.pointerId]) return;
@@ -697,6 +721,7 @@
       dragging = false; stage.classList.remove("dragging");
       if (moved > 6) { suppress = true; setTimeout(function () { suppress = false; }, 60); }
       if (performance.now() - lastMove > 90) vx = vy = 0;
+      requestFrame();
     }
   }
   window.addEventListener("pointerup", release);
@@ -713,7 +738,7 @@
   /* Safari trackpad pinch */
   var gs = 1;
   stage.addEventListener("gesturestart", function (e) { e.preventDefault(); gs = P; });
-  stage.addEventListener("gesturechange", function (e) { e.preventDefault(); if (e.scale) setP(gs * e.scale); });
+  stage.addEventListener("gesturechange", function (e) { e.preventDefault(); if (e.scale) setP(gs * e.scale); requestFrame(); });
 
   /* ---- clicks: ignore after a drag; focus tiny panels first; in-page nav ---- */
   document.addEventListener("click", function (e) {
@@ -756,10 +781,15 @@
     else return;
     anim = null; touched();
   });
-  window.addEventListener("resize", measure);
+  window.addEventListener("resize", function () { measure(); apply(); requestFrame(); });
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) { measure(); apply(); requestFrame(); }
+  });
 
   /* ---- render loop ---- */
   function frame(t) {
+    framePending = false;
+    if (document.hidden) return;
     var dt = Math.min(50, t - (lastFrame || t)); lastFrame = t;
     if (anim) {
       var k = clamp((t - anim.t0) / anim.dur, 0, 1), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
@@ -769,17 +799,22 @@
       if (Math.abs(vx) > 0.0005 || Math.abs(vy) > 0.0005) {          // inertia
         ry += vx * dt; rx = clamp(rx + vy * dt, -90, 90);
         var fr = Math.pow(0.92, dt / 16.7); vx *= fr; vy *= fr;
-      } else if (!reduced && t > idleAt && P < ovP * 1.5) {           // slow idle look-around
+      } else if (!mobileMode && !reduced && t > idleAt && P < ovP * 1.5) { // desktop-only idle look-around
         ry += 0.004 * dt;
       }
     }
     apply();
-    requestAnimationFrame(frame);
+    // Do not run a permanent animation loop on mobile. Wake only when something moves.
+    var moving = !!anim || dragging || Object.keys(pts).length > 0 ||
+      Math.abs(vx) > 0.0005 || Math.abs(vy) > 0.0005 ||
+      (!mobileMode && !reduced && t > idleAt && P < ovP * 1.5);
+    if (moving) requestFrame();
   }
 
   measure(); P = ovP; apply();
   idleAt = performance.now() + 2500;
-  requestAnimationFrame(frame);
+  requestFrame();
+  if (!mobileMode && !reduced) setTimeout(requestFrame, 2600);
   setTimeout(function () { if (hint) hint.classList.add("gone"); }, 9000);
   window.__globe = { focus: function (id) { focusPanel(document.getElementById(id)); }, state: function () { return { ry: ry, rx: rx, P: P }; } };
 })();
