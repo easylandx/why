@@ -1,0 +1,56 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>EasyLandX 2026</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;position:fixed;width:100%;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+#stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;
+background:radial-gradient(circle at 40px 60px,#fff 0,#fff .9px,transparent 1.4px),radial-gradient(circle at 120px 20px,#fff 0,#fff .7px,transparent 1.2px),radial-gradient(circle at 70px 150px,#fff 0,#fff 1.1px,transparent 1.6px),radial-gradient(circle at 200px 90px,#fff 0,#fff .8px,transparent 1.3px),radial-gradient(circle at 30px 240px,#fff 0,#fff 1px,transparent 1.5px),radial-gradient(circle at 250px 300px,#fff 0,#fff .7px,transparent 1.2px),linear-gradient(#0a1238,#0e1f5c 55%,#070d2b);
+background-size:131px 131px,173px 173px,211px 211px,257px 257px,307px 307px,353px 353px,100% 100%}
+#stage:active{cursor:grabbing}
+#world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;-webkit-transform-style:preserve-3d}
+.p{position:absolute;left:-210px;top:-210px;width:420px;height:420px;display:flex;align-items:center;justify-content:center;text-align:center;
+backface-visibility:hidden;-webkit-backface-visibility:hidden;pointer-events:none}
+.p a{pointer-events:auto;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent;font:700 46px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.35)}
+.p b{font-weight:inherit}
+.p b.g{color:#ffe600;text-shadow:0 0 14px rgba(255,230,0,.5)}
+</style></head><body><div id="stage"><div id="world"></div></div>
+<script>
+var TXT=["La claridad convierte la *hesitación* en *acción*.", "Haz que la *elección correcta* sea imposible de pasar por alto.", "Cuando el *valor es claro*, la *decisión se vuelve más fácil*.", "Gánate el *sí*.", "Deja que las personas elijan libremente.", "El *argumento más fuerte* es el que las personas entienden al instante.", "Sustituye la *incertidumbre* por *evidencia*.", "Un *mensaje claro* hace avanzar a las personas.", "Haz que el *siguiente paso* se sienta natural.", "Las personas actúan cuando la *razón es clara*.", "La *confianza* se construye una respuesta clara a la vez.", "*La confusión retrasa las decisiones.*", "*La claridad las desbloquea.*", "*Explica mejor.*", "*Explica mejor.*", "La mejor *persuasión* se siente como *reconocimiento*, no como presión.", "Dale a las personas una *razón para creer* —y una *razón para actuar*.", "Haz que el *beneficio sea obvio* antes de pedir *compromiso*.", "Cada segundo debería hacer el *valor más claro*.", "Tu *página de inicio* tiene un solo trabajo: hacer que el *siguiente paso sea obvio*.", "Si los visitantes tienen que *adivinar*, se *irán*.", "Una gran página responde a la *pregunta detrás del clic*.", "Haz que entender tu *valor* sea sencillo.", "Lidera con *lo que les importa a ellos*.", "Cada *desplazamiento* debería ganar el siguiente.", "Haz que la *promesa sea clara*.", "Haz que la *prueba sea visible*.", "Un *titular fuerte* gana *atención*; una *oferta clara* gana *acción*.", "Elimina la *fricción*.", "Revela el *valor*.", "El mejor *diseño* hace que lo importante sea *imposible de pasar por alto*.", "Un *sitio web* debería *guiar*, no confundir.", "Menos *ruido*.", "Más *significado*.", "Mejores *decisiones*.", "Muestra el *resultado*, no solo las *características*.", "Convierte una *primera mirada* en una *comprensión clara*.", "La *confianza* crece cuando las *promesas se encuentran con la prueba*.", "La *credibilidad* se construye en los detalles.", "Di menos.", "*Demuestra más*.", "Haz *afirmaciones que puedas probar*.", "Las personas recuerdan lo claramente que les ayudaste a *decidir*.", "La *transparencia* es una *ventaja competitiva*.", "Una *promesa creíble* vence a una exageración espectacular.", "La *confianza* proviene de la *claridad, la consistencia y la prueba*.", "Muestra tu trabajo.", "Deja que la *evidencia hable*.", "La *confianza* se gana antes de la *venta* y se pone a prueba después.", "La *atención* se presta.", "La *relevancia* la gana.", "Di algo que valga la pena *detenerse a escuchar*.", "Las palabras correctas hacen que las personas adecuadas se sientan *entendidas*.", "*Una idea clara* vence a *diez mensajes en competencia*.", "Prioriza para que lo importante destaque.", "Sé lo suficientemente *específico* para que te recuerden.", "Construye lo que las personas *necesitan*, no lo que esperas que quiera.", "Haz que cada frase *valga la pena*.", "*La claridad corta a través del ruido*.", "El mensaje que importa es el que las personas *recuerdan*.", "Construye lo que la gente *necesita*, no lo que esperas que quiera.", "*Prueba la idea* antes de *escalar el sueño*.", "*El progreso vence a la perfección* cuando el objetivo es aprender.", "Los *equipos pequeños* pueden hacer que *grandes cosas sucedan*.", "Empieza *ligero*.", "Aprende *rápido*.", "Mejora *constantemente*.", "Un *contratiempo* es *información*, si la usas.", "El mercado recompensa el *valor*, no solo el esfuerzo.", "Resuelve un *problema real* y explica la solución con claridad.", "El *impulso* proviene de *decisiones seguidas de acción*.", "Los grandes negocios mejoran la vida de maneras *medibles*.", "Empieza con el *cliente*.", "Construye a partir de la *evidencia*.", "Una buena idea se vuelve *valiosa* cuando funciona en el mundo real.", "El *enfoque* convierte recursos limitados en *progreso significativo*.", "Empieza con un *experimento inteligente*.", "Haz un *experimento inteligente*.", "La *consistencia* convierte una idea prometedora en un *negocio confiable*.", "La *IA* puede acelerar el trabajo; las *personas* deben definir lo que importa.", "Deja que las *máquinas se encarguen de la repetición*.", "Deja que las *personas aporten juicio*.", "La *tecnología* es poderosa cuando sirve a un *propósito humano*.", "La *IA amplía las posibilidades*; las *elecciones humanas* les dan dirección.", "La *automatización ahorra tiempo*.", "La *perspectiva le da valor a ese tiempo*.", "El futuro pertenece a quienes aprenden a trabajar con *nuevas herramientas*.", "Usa la *IA para avanzar más rápido*, no para *pensar menos*.", "La *creatividad humana* le da a la *tecnología* su propósito.", "Los mejores resultados combinan la *velocidad de la máquina* con la *comprensión humana*.", "Deja que la *tecnología* haga más de lo rutinario, para que las personas puedan hacer más de lo *significativo*.", "La *perspectiva importa* cuando cambia lo que haces a continuación.", "Un *siguiente paso claro* convierte la *intención en progreso*.", "Empieza *pequeño*.", "Hazlo *real*.", "Mejora sobre la marcha.", "El *primer movimiento* crea la información que el plan no puede.", "Dirige la atención hacia algo *útil*.", "Dale un lugar *útil* a donde ir.", "Haz que el *progreso sea visible*."];
+var stage=document.getElementById('stage'),world=document.getElementById('world');
+var N=TXT.length,D=1000,fov=75,P=600,dirs=[],els=[];
+for(var i=0;i<N;i++){
+  var y=1-2*(i+.5)/N,el=Math.asin(y),th=i*2.399963;
+  var d=document.createElement('div');d.className='p';
+  var s=document.createElement('a'),g=false;s.href='https://easylandx.github.io/';s.target='_blank';s.rel='noopener';
+  TXT[i].split('*').forEach(function(part){if(part){var q=document.createElement('b');q.textContent=part;if(g)q.className='g';s.appendChild(q)}g=!g});
+  d.appendChild(s);
+  d.style.transform='rotateY('+th+'rad) rotateX('+(-el)+'rad) translateZ(-'+D+'px)';
+  world.appendChild(d);els.push(d);
+  dirs.push([-Math.cos(el)*Math.sin(th),-Math.sin(el),-Math.cos(el)*Math.cos(th)]);
+}
+function setP(){P=(innerHeight/2)/Math.tan(fov*Math.PI/360);stage.style.perspective=P+'px';stage.style.webkitPerspective=P+'px'}
+addEventListener('resize',setP);setP();
+var yaw=0,pitch=0,vx=0,vy=0,drag=false,lx=0,ly=0;
+function k(){return fov*Math.PI/180/innerHeight}
+var ptr={},pd0=0,pf0=75;document.addEventListener('gesturestart',function(e){e.preventDefault()});stage.addEventListener('pointerdown',function(e){drag=true;lx=e.clientX;ly=e.clientY;vx=vy=0;ptr[e.pointerId]=[e.clientX,e.clientY];var ids=Object.keys(ptr);if(ids.length===2){var a=ptr[ids[0]],b=ptr[ids[1]];pd0=Math.hypot(a[0]-b[0],a[1]-b[1]);pf0=fov}try{stage.setPointerCapture(e.pointerId)}catch(_){}});
+stage.addEventListener('pointermove',function(e){if(!drag)return;if(ptr[e.pointerId])ptr[e.pointerId]=[e.clientX,e.clientY];var ids=Object.keys(ptr);if(ids.length>=2){var a=ptr[ids[0]],b=ptr[ids[1]],dd=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pd0>0&&dd>0){fov=Math.min(100,Math.max(30,pf0*pd0/dd));setP()}vx=vy=0;return}
+  var dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;
+  vx=-dx*k();vy=dy*k();yaw+=vx;pitch+=vy});
+function up(e){delete ptr[e.pointerId];pd0=0;var ids=Object.keys(ptr);if(ids.length===1){lx=ptr[ids[0]][0];ly=ptr[ids[0]][1]}else if(!ids.length)drag=false}
+stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
+stage.addEventListener('touchmove',function(e){e.preventDefault()},{passive:false});
+stage.addEventListener('wheel',function(e){e.preventDefault();fov=Math.min(100,Math.max(30,fov+e.deltaY*.05));setP()},{passive:false});
+var tap=null;
+stage.addEventListener('pointerdown',function(e){tap={x:e.clientX,y:e.clientY,t:Date.now(),a:e.target.closest?e.target.closest('a'):null}});
+stage.addEventListener('pointerup',function(e){if(tap&&tap.a&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<8&&Date.now()-tap.t<700)window.open(tap.a.href,'_blank','noopener');tap=null});
+function loop(){
+  requestAnimationFrame(loop);
+  if(!drag){yaw+=vx;pitch+=vy;vx*=.95;vy*=.95;if(Math.abs(vx)<.0004&&Math.abs(vy)<.0004)yaw+=.0006}
+  var L=Math.PI/2-.02;pitch=Math.max(-L,Math.min(L,pitch));
+  world.style.transform='translateZ('+P+'px) rotateX('+pitch+'rad) rotateY('+yaw+'rad)';
+  var f=[Math.cos(pitch)*Math.sin(yaw),-Math.sin(pitch),-Math.cos(pitch)*Math.cos(yaw)];
+  for(var i=0;i<N;i++){var a=dirs[i],dot=a[0]*f[0]+a[1]*f[1]+a[2]*f[2];els[i].style.visibility=dot>.1?'visible':'hidden'}
+  var s=(-yaw*P)+'px '+(pitch*P)+'px';stage.style.backgroundPosition=[s,s,s,s,s,s,'0 0'].join(',');
+}
+loop();
+</script></body></html>
