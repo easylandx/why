@@ -317,64 +317,63 @@
   @media (max-width:560px){ .waform .row2{grid-template-columns:1fr;} .waform{box-shadow:5px 5px 0 var(--ink);} }
 </style>
 
-<!-- Hide hero title until script loads the random line -->
-<style>.sheet-pending #hero-title{visibility:hidden;}</style>
+<!-- Keep a visible fallback title while the spreadsheet loads. -->
 <script>
 (function () {
-  var SHEET_ID = "13m0E8tRJhGecPb9jjmxmqpKDgDSz3x5DqRsvK1fgbGQ";
-  var RANGE    = "B11:G200";
+  var SHEET_ID = "1uTUhqh2Damo5wjPcltpqyuPFAjQ-86YRwUS7E6KIyfo";
+  var RANGE = "A11:A200";
   var root = document.documentElement;
-  var html = null, done = false;
-
-  root.classList.add("sheet-pending");
+  var fallbackTitle = "Make your case clear. Make the next step easy.";
+  var finished = false;
 
   function esc(t) {
-    return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  function reveal() {
-    if (done) return;
+  function showTitle(text) {
     var el = document.getElementById("hero-title");
-    if (!el) return;
-    if (html) el.innerHTML = html;
-    root.classList.remove("sheet-pending");
-    done = true;
+    if (!el || finished) return;
+    if (text && String(text).trim()) {
+      el.innerHTML = esc(String(text).trim()).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    }
+    finished = true;
   }
 
-  function giveUp() { html = null; if (document.readyState !== "loading") reveal(); else document.addEventListener("DOMContentLoaded", reveal); }
-  setTimeout(giveUp, 4000);
+  // Ensure the page never ends up with an empty hero heading if the sheet is unavailable.
+  function showFallback() { showTitle(fallbackTitle); }
+  var timeout = setTimeout(showFallback, 7000);
 
   window.__loadRandomHeroTitle = function (res) {
     try {
-      var rows = res.table.rows;
-      var englishTitles = [];
-      
-      for (var i = 0; i < rows.length; i += 2) {
-        var cellB = rows[i] && rows[i].c && rows[i].c[0];
-        var text = cellB && (cellB.v != null ? String(cellB.v) : "").trim();
-        if (text !== "") {
-          englishTitles.push(text);
+      var rows = res && res.table && res.table.rows ? res.table.rows : [];
+      var candidates = [];
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i] && rows[i].c ? rows[i].c : [];
+        // The sentence titles are stored in column A, so read only that column.
+        var value = cells[0] && cells[0].v != null ? String(cells[0].v).trim() : "";
+        if (value && /[A-Za-zÀ-ÿ]/.test(value) && value.length > 8) {
+          candidates.push(value);
         }
       }
-
-      if (englishTitles.length > 0) {
-        var randomIndex = Math.floor(Math.random() * englishTitles.length);
-        var selectedText = englishTitles[randomIndex];
-        html = esc(selectedText).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+      // Remove duplicates and empty values before selecting a random title.
+      candidates = candidates.filter(function (value, index, arr) { return arr.indexOf(value) === index; });
+      if (candidates.length) {
+        clearTimeout(timeout);
+        showTitle(candidates[Math.floor(Math.random() * candidates.length)]);
+      } else {
+        showFallback();
       }
-    } catch (e) { 
-      console.error("Error loading random title:", e);
+    } catch (e) {
+      console.error("Could not load a random sentence title from the spreadsheet:", e);
+      showFallback();
     }
-    if (document.readyState !== "loading") reveal();
-    else document.addEventListener("DOMContentLoaded", reveal);
   };
 
-  var s = document.createElement("script");
-  s.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
-          "/gviz/tq?tqx=out:json;responseHandler:__loadRandomHeroTitle" +
-          "&headers=0&range=" + RANGE;
-  s.onerror = giveUp;
-  document.head.appendChild(s);
+  var script = document.createElement("script");
+  script.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
+    "/gviz/tq?tqx=out:json;responseHandler:__loadRandomHeroTitle&headers=0&range=" + encodeURIComponent(RANGE);
+  script.onerror = showFallback;
+  document.head.appendChild(script);
 })();
 </script>
 </head>
