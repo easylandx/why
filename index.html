@@ -126,6 +126,21 @@
   .btn-capsule{border-radius:9999px;}
   .btn-border-ink{border:2px solid var(--ink);}
   .btnrow{display:flex; flex-wrap:wrap; gap:12px;}
+  /* ---------- Courtesy Sample CTA (button + small choice popover) ---------- */
+  .sample{position:relative; display:inline-flex;}
+  .btn-sample{background:#0066CC; color:#fff; border-color:var(--ink); box-shadow:4px 4px 0 var(--ink); font-family:inherit; line-height:inherit; transition:transform .15s ease, box-shadow .15s ease;}
+  .btn-sample:hover{background:#004C99; color:#fff; transform:translate(-1px,-1px); box-shadow:6px 6px 0 var(--ink);}
+  .btn-sample:active{transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink);}
+  .btn-sample[aria-expanded="true"]{transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink);}
+  .sample-menu{position:absolute; top:calc(100% + 12px); left:0; z-index:30; display:flex; flex-direction:column; gap:8px; width:max-content; min-width:100%; max-width:calc(100vw - 32px); padding:10px; background:var(--paper); border:2px solid var(--ink); border-radius:var(--radius); box-shadow:6px 6px 0 var(--ink);}
+  .sample-menu[hidden]{display:none;}
+  .sample-menu .btn{justify-content:center; padding:12px 18px; white-space:nowrap;}
+  .btn-mail{background:#0066CC; color:#fff;}
+  .btn-mail:hover{background:#004C99; color:#fff;}
+  @media (max-width:560px){
+    .sample{width:100%;} .btn-sample{width:100%; justify-content:center;}
+    .sample-menu{left:0; right:0; width:auto; min-width:0;}
+  }
 
   /* ---------- hero ---------- */
   .hero{padding:76px 0 56px; position:relative; overflow:hidden; background:var(--yellow);}
@@ -503,6 +518,14 @@
           <h1 id="hero-title"></h1>
           <p class="hero-sub">EasyLandX writes and designs conversion-focused landing pages for small businesses — tailored to one visitor, one clear case, and one confident click.</p>
           <div class="btnrow">
+            <!-- Courtesy Sample: button opens a tiny choice (WhatsApp or email). Links are filled in by the script at the bottom of the page. -->
+            <div class="sample" id="sample">
+              <button type="button" class="btn btn-sample" id="sample-btn" aria-expanded="false" aria-controls="sample-menu" aria-haspopup="true">🎁 Get a Courtesy Sample</button>
+              <div class="sample-menu" id="sample-menu" hidden>
+                <a class="btn btn-primary" id="sample-wa" href="#" target="_blank" rel="noopener">💬 Send a quick WhatsApp message</a>
+                <a class="btn btn-mail" id="sample-mail" href="#">✉️ Send an email</a>
+              </div>
+            </div>
             <a class="btn btn-red" href="https://easylandx.github.io/why/89.html">🔥 See special offer</a>
             <a class="btn btn-primary" href="https://api.whatsapp.com/send/?phone=34609204298">💬 WhatsApp us</a>
             <a class="btn btn-ghost" href="https://easylandx.github.io/all">Real results →</a>
@@ -602,38 +625,6 @@
         <a class="btn btn-ghost-invert" href="https://easylandx.github.io/all">Real results →</a>
         <a class="btn btn-blue" href="https://buy.stripe.com/14A14m0vRdpdaf42bK0Jq07">💳 Pay with Stripe</a>
       </div>
-
-      <form class="waform" id="waform" action="#" autocomplete="on">
-        <h3>Tell us about your page</h3>
-        <p class="waform-sub">Answer a few quick questions and we continue the chat on WhatsApp.</p>
-        <div class="row2">
-          <div class="field">
-            <label for="wf-name">Your name</label>
-            <input id="wf-name" name="name" type="text" required autocomplete="name" placeholder="e.g. Laura">
-          </div>
-          <div class="field">
-            <label for="wf-biz">Your business</label>
-            <input id="wf-biz" name="biz" type="text" required placeholder="e.g. Laura's Nail Studio">
-          </div>
-        </div>
-        <div class="field">
-          <label for="wf-goal">What should visitors do?</label>
-          <select id="wf-goal" name="goal" required>
-            <option value="">Choose one…</option>
-            <option>Book an appointment</option>
-            <option>Buy a product</option>
-            <option>Message me on WhatsApp</option>
-            <option>Sign up / join my list</option>
-            <option>Not sure yet — let's talk</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="wf-msg">Anything else we should know? <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></label>
-          <textarea id="wf-msg" name="msg" placeholder="Instagram handle, ideas, colours, deadline…"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">💬 Send via WhatsApp</button>
-        <p class="waform-note">Opens WhatsApp with your answers ready to send.</p>
-      </form>
     </div>
   </section>
 
@@ -715,19 +706,29 @@
 </script>
 
 <script>
+/* ===== Courtesy Sample CTA ===== */
 (function(){
-  var f=document.getElementById("waform"); if(!f) return;
-  f.addEventListener("submit",function(e){
-    e.preventDefault();
-    var v=function(id){return (document.getElementById(id).value||"").trim();};
-    var lines=["Hi EasyLandX! I'd like a landing page.",
-      "Name: "+v("wf-name"),
-      "Business: "+v("wf-biz"),
-      "Goal: "+v("wf-goal")];
-    if(v("wf-msg")) lines.push("Notes: "+v("wf-msg"));
-    var url="https://api.whatsapp.com/send/?phone=34609204298&text="+encodeURIComponent(lines.join("\n"));
-    window.open(url,"_blank","noopener");
-    if(window.gtag){ try{ gtag("event","generate_lead",{method:"whatsapp_form"}); }catch(_){} }
+  /* >>> EDIT HERE: your real contact details <<< */
+  var WHATSAPP_NUMBER = "34609204298";        // country code + number, digits only (no + or spaces)
+  var EMAIL_ADDRESS   = "paniaguai@gmail.com"; // where sample requests should arrive
+  /* >>> EDIT HERE: pre-filled messages <<< */
+  var WA_TEXT       = "Hi! I'd like to receive a courtesy sample for my business.";
+  var MAIL_SUBJECT  = "Courtesy Sample Request";
+  var MAIL_BODY     = "Hi, I'd like to receive a courtesy sample for my business.";
+
+  var box=document.getElementById("sample"), btn=document.getElementById("sample-btn"), menu=document.getElementById("sample-menu");
+  if(!box||!btn||!menu) return;
+  document.getElementById("sample-wa").href="https://api.whatsapp.com/send/?phone="+WHATSAPP_NUMBER+"&text="+encodeURIComponent(WA_TEXT);
+  document.getElementById("sample-mail").href="mailto:"+EMAIL_ADDRESS+"?subject="+encodeURIComponent(MAIL_SUBJECT)+"&body="+encodeURIComponent(MAIL_BODY);
+
+  function setOpen(open){ menu.hidden=!open; btn.setAttribute("aria-expanded",open?"true":"false"); }
+  btn.addEventListener("click",function(){ setOpen(menu.hidden); });
+  document.addEventListener("click",function(e){ if(!box.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!menu.hidden){ setOpen(false); btn.focus(); } });
+  menu.addEventListener("click",function(e){
+    var a=e.target.closest("a"); if(!a) return;
+    if(window.gtag){ try{ gtag("event","generate_lead",{method:a.id==="sample-wa"?"sample_whatsapp":"sample_email"}); }catch(_){} }
+    setOpen(false);
   });
 })();
 </script>
