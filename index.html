@@ -126,7 +126,16 @@
   @keyframes bnBob{0%,100%{transform:scale(1);} 50%{transform:scale(1.1);}}
   @keyframes bnRing{0%{transform:scale(1); opacity:.9;} 70%,100%{transform:scale(1.8); opacity:0;}}
   @keyframes bnNudge{0%,50%,100%{transform:translateX(0);} 70%{transform:translateX(3px);} 85%{transform:translateX(-1px);}}
-  @media (max-width:760px){ .bn-next{top:6px; right:6px; width:30px; height:30px;} .bn-next svg{width:16px; height:16px;} }
+  @media (max-width:760px){
+    .bn{padding:0; margin:0; aspect-ratio:auto; min-height:0; max-height:none; height:auto; border-bottom-width:2px; background:transparent;}
+    .bn-slide{inset:auto; top:0; left:0; right:0;}
+    .bn-slide.on{position:relative;}
+    .bn-bg{display:none;}
+    .bn-fg{position:static; display:block; width:100%; height:auto; object-fit:contain;}
+    .bn-next{top:50%; right:6px; margin-top:-14px; width:28px; height:28px; box-shadow:1px 1px 0 var(--ink);}
+    .bn-next svg{width:15px; height:15px;}
+    .bn-next:active{transform:translate(1px,1px); box-shadow:none;}
+  }
   @media (prefers-reduced-motion: reduce){ .bn-slide,.bn-slide.on{transition:none;} .bn-next,.bn-next::before,.bn-next svg{animation:none;} .bn-next::before{display:none;} }
 
   /* ---------- buttons ---------- */
