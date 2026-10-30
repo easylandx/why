@@ -533,6 +533,28 @@
 .xtv-num{font-variant-numeric:tabular-nums;font-weight:600;color:#ddd;min-width:84px;text-align:center;letter-spacing:.04em}
 .xtv-power{width:9px;height:9px;min-width:0;background:#2ecc71;border-radius:1px;box-shadow:0 0 6px #2ecc71,inset 0 0 2px rgba(255,255,255,.5);flex:0 0 9px}
 .xtv-pw{min-width:80px;display:flex;justify-content:flex-end}
+/* mobile border/overflow fix */
+.xtv-wrap{box-sizing:border-box;width:100%;max-width:100%}
+.xtv{box-sizing:border-box;max-width:100%}
+.xtv-screen{isolation:isolate;transform:translateZ(0);-webkit-mask-image:-webkit-radial-gradient(white,black)}
+@media (max-width:480px){
+  .xtv-wrap{padding-left:6px;padding-right:6px}
+  .xtv{padding:12px 12px 8px;border-radius:16px;box-shadow:0 0 0 3px #111,0 12px 28px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.08)}
+  .xtv-bezel{padding:6px;border-radius:8px}
+  .xtv-screen{aspect-ratio:4/3}
+  .xtv-ch{padding:.75rem .75rem 1.6rem}
+  .xtv-hint{bottom:.4rem}
+  .xtv-foot{padding:0 2px;gap:6px;justify-content:space-between}
+  .xtv-brand,.xtv-pw,.xtv-num{min-width:0}
+  .xtv-brand,.xtv-pw,.xtv-controls,.xtv-num{flex:0 0 auto}
+  .xtv-brand{font-size:.6rem;letter-spacing:.03em;white-space:nowrap}
+  .xtv-controls{gap:6px}
+  .xtv-num{min-width:56px;font-size:.7rem}
+}
+@media (max-width:340px){
+  .xtv-brand{display:none}
+  .xtv-foot{justify-content:center;gap:12px}
+}
 </style>
 </head>
 <body>
@@ -862,9 +884,12 @@
   }
   function buildChannels(){
     channelEls.forEach(el=>el.remove());channelEls=[];
+    const okNums=[];
+    for(let n=1;n<=channels.length;n++){const t=String(n);if(!t.includes("4")&&!t.includes("13"))okNums.push(n);}
+    current=okNums.length?okNums[Math.floor(Math.random()*okNums.length)]-1:0;
     channels.forEach((ch,i)=>{
       const div=document.createElement("div");
-      div.className="xtv-ch"+(i===0?" active":"");
+      div.className="xtv-ch"+(i===current?" active":"");
       div.style.background=ch.bg;
       div.innerHTML=`<div class="xtv-emoji">${esc(ch.emoji)}</div><div class="xtv-title">${esc(ch.title)}</div><div class="xtv-desc">${esc(ch.desc)}</div><div class="xtv-hint">Clic para abrir →</div>`;
       div.addEventListener("click",()=>window.open(ch.url,"_blank"));
