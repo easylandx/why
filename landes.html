@@ -422,7 +422,7 @@
   }
   .big-btn:hover{ transform:translate(-4px,-4px); box-shadow:14px 14px 0 var(--ink); }
 
-  /* ---------- FAQ ---------- */
+  /* ---------- FAQ: native disclosure, no height animation glitches ---------- */
   .faq{ background:var(--cream); }
   .faq-item{
     border-bottom:2.5px solid var(--ink);
@@ -434,22 +434,24 @@
     gap:18px; font-weight:800; font-size:17px;
     cursor:pointer; list-style:none;
   }
+  .faq-q::-webkit-details-marker{ display:none; }
+  .faq-q::marker{ content:""; }
   .faq-q:focus-visible{
     outline:3px solid var(--cobalt); outline-offset:5px; border-radius:3px;
   }
   .faq-q .plus{
     flex:0 0 auto; font-family:'Big Shoulders Display'; font-size:26px;
-    color:var(--coral); transition:transform .25s ease;
+    color:var(--coral); transition:transform .2s ease;
   }
-  .faq-item.open .plus{ transform:rotate(45deg); }
+  .faq-item[open] .plus{ transform:rotate(45deg); }
   .faq-a{
-    max-height:0; overflow:hidden; padding-top:0;
+    display:none; padding-top:12px;
     font-family:'Space Mono', monospace; font-size:14px; line-height:1.6;
-    color:#444; transition:max-height .3s ease, padding-top .3s ease;
+    color:#444; overflow:visible; max-height:none;
   }
-  .faq-item.open .faq-a{ max-height:300px; padding-top:12px; }
+  .faq-item[open] .faq-a{ display:block; }
   @media (prefers-reduced-motion:reduce){
-    .faq-a, .faq-q .plus{ transition:none; }
+    .faq-q .plus{ transition:none; }
   }
 
   /* ---------- FINAL CTA ---------- */
@@ -831,34 +833,34 @@
       <h2>Antes de que preguntes</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Necesito saber algo de webs?<span class="plus" aria-hidden="true">+</span></div>
+      <details class="faq-item">
+        <summary class="faq-q">¿Necesito saber algo de webs?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">No.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Necesito hosting?<span class="plus" aria-hidden="true">+</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Necesito hosting?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">Te acompañamos en eso.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Necesito un dominio?<span class="plus" aria-hidden="true">+</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Necesito un dominio?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">También te ayudamos con eso.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Necesito fotos profesionales?<span class="plus" aria-hidden="true">+</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Necesito fotos profesionales?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">No.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Necesito un logo?<span class="plus" aria-hidden="true">+</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Necesito un logo?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">No.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Necesito tenerlo todo pensado?<span class="plus" aria-hidden="true">+</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Necesito tenerlo todo pensado?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">Para nada.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">¿Podéis dejar de recordarme lo de la web?<span class="plus" aria-hidden="true">+</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Podéis dejar de recordarme lo de la web?<span class="plus" aria-hidden="true">+</span></summary>
         <div class="faq-a">Esperamos que sí.</div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
@@ -894,38 +896,6 @@
     });
   }, {threshold:0.15});
   revealEls.forEach(el=>io.observe(el));
-
-  // FAQ accordion: one answer open at a time, with keyboard support.
-  document.querySelectorAll('.faq-item').forEach(item => {
-    const question = item.querySelector('.faq-q');
-    const answer = item.querySelector('.faq-a');
-
-    const toggleFAQ = () => {
-      const shouldOpen = !item.classList.contains('open');
-
-      document.querySelectorAll('.faq-item.open').forEach(openItem => {
-        openItem.classList.remove('open');
-        const openQuestion = openItem.querySelector('.faq-q');
-        const openAnswer = openItem.querySelector('.faq-a');
-        openQuestion.setAttribute('aria-expanded', 'false');
-        openAnswer.style.maxHeight = '0px';
-      });
-
-      if (shouldOpen) {
-        item.classList.add('open');
-        question.setAttribute('aria-expanded', 'true');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-      }
-    };
-
-    question.addEventListener('click', toggleFAQ);
-    question.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        toggleFAQ();
-      }
-    });
-  });
 
   // Prescription quiz toggles
   const answers = {1:null,2:null,3:null,4:null};
@@ -972,12 +942,6 @@
     void stamp.offsetWidth; // restart animation
     stamp.classList.add('show');
     if(answered > 0) playThud();
-  });
-
-  window.addEventListener('resize', () => {
-    document.querySelectorAll('.faq-item.open .faq-a').forEach(answer => {
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    });
   });
 
 </script>
