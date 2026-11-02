@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EasyLandX — Tu negocio merece una web</title>
+<title>El negocio que necesita una web.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -421,7 +421,7 @@
     <p class="reveal" data-i18n="fin_p"></p>
     <div class="cta-row reveal">
       <a href="https://easylandx.github.io/" class="btn btn-yellow" data-i18n="fin_btn"></a>
-      <a href="https://wa.me/" class="btn btn-green" data-i18n="fin_wa"></a>
+      <a href="https://wa.me/34609204298" id="waBtn" target="_blank" rel="noopener" class="btn btn-green" data-i18n="fin_wa"></a>
     </div>
   </div>
 </section>
@@ -429,14 +429,14 @@
 <footer>
   <div class="wrap">
     <p data-i18n="foot1"></p>
-    <p style="margin-top:12px;"><a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a> © 2026</p>
+    <p style="margin-top:12px;"><a href="https://easylandx.github.io" target="_blank" rel="noopener">EasyLandX</a></p>
   </div>
 </footer>
 
 <script>
 const T = {
   es:{
-    page_title:"EasyLandX — Tu negocio merece una web",
+    page_title:"El negocio que necesita una web.",
     nav_cta:"Quiero mi web →",
     h1_a:"Tienes un negocio.", h1_b:"Dale una web a su altura.",
     t1:"Un servicio que ofreces", t2:"Clientes que confían en ti", t3:"Tu número de WhatsApp", t4:"Tu cuenta de Instagram", t5:"Tu logo", t6:"Fotos de tu trabajo",
@@ -479,7 +479,7 @@ const T = {
     foot1:"Si ya tienes web, creamos una landing que la complemente."
   },
   en:{
-    page_title:"EasyLandX — Your business deserves a website",
+    page_title:"The business that needs a website.",
     nav_cta:"Get my website →",
     h1_a:"You have a business.", h1_b:"Give it a website to match.",
     t1:"A service you offer", t2:"Clients who trust you", t3:"Your WhatsApp number", t4:"Your Instagram account", t5:"Your logo", t6:"Photos of your work",
@@ -523,6 +523,21 @@ const T = {
   }
 };
 
+// WhatsApp: mensaje precargado; en escritorio abre WhatsApp Web directamente
+const WA_PHONE = '34609204298';
+const WA_MSG = {
+  es:'Hola, me gustaría solicitar una maqueta de cortesía para mi página web. ¡Gracias!',
+  en:'Hi, I would like to request a courtesy mockup for my website. Thank you!'
+};
+const isMobile = /Android|iPhone|iPad|iPod|Mobi/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+function setWaLink(){
+  const btn = document.getElementById('waBtn'); if(!btn) return;
+  const text = encodeURIComponent(WA_MSG[lang]);
+  btn.href = isMobile
+    ? 'https://wa.me/'+WA_PHONE+'?text='+text
+    : 'https://web.whatsapp.com/send?phone='+WA_PHONE+'&text='+text;
+}
+
 let lang = 'es';
 try{ const s = localStorage.getItem('elx-lang'); if(s==='es'||s==='en') lang = s; else if((navigator.language||'').toLowerCase().indexOf('es')!==0) lang='en'; }catch(e){}
 
@@ -536,6 +551,7 @@ function applyLang(l){
   });
   const st = document.getElementById('stamp');
   if(st.dataset.state) st.textContent = T[l][st.dataset.state];
+  setWaLink();
   try{ localStorage.setItem('elx-lang', l); }catch(e){}
 }
 document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
