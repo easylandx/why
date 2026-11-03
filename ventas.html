@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easylandx para Profesionales Inmobiliarios Independientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800;opsz,wght@9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff00a8;--pinkdeep:#b90078;--gold:#ffd400;--orange:#ff6a1a;
+  --cream:#fff7ed;--ink:#310021;--glass:rgba(255,255,255,.105);
+  --line:rgba(255,255,255,.23);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Space Grotesk',sans-serif;color:var(--cream);overflow-x:hidden;
+ background:radial-gradient(circle at 12% 12%,rgba(255,212,0,.2),transparent 36%),
+ radial-gradient(circle at 90% 24%,rgba(255,106,26,.23),transparent 40%),
+ linear-gradient(155deg,#a90070 0%,var(--pink) 55%,#df008f 100%)}
+a{color:inherit}
+.wrap{max-width:1120px;margin:auto;padding:0 24px}
+h1,h2,h3{font-family:Fraunces,serif;line-height:1.08;margin:0}
+.glow{background:linear-gradient(90deg,var(--gold),#ff9b45,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{position:sticky;top:0;z-index:20;background:rgba(153,0,99,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:13px;padding-bottom:13px}
+.logo{font:700 1.35rem Fraunces}.logo span{color:var(--gold)}
+.navcta,.primary,.ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:700;border-radius:999px;padding:13px 21px;transition:.2s}
+.navcta,.primary{background:linear-gradient(90deg,var(--gold),var(--orange));color:var(--ink);box-shadow:0 0 22px #ffb00055}
+.ghost{border:1px solid #ffffff80;color:var(--cream)}
+.navcta{padding:9px 17px;font-size:.9rem}
+.primary:hover,.ghost:hover,.navcta:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.hero{padding:70px 0 32px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
+.eyebrow{display:inline-block;padding:7px 13px;border:1px solid var(--line);background:#ffffff18;border-radius:99px;font-size:.76rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(2.5rem,5vw,4.4rem);letter-spacing:-1.5px}
+.sub{font-size:1.08rem;line-height:1.65;max-width:570px;opacity:.93;margin:22px 0 27px}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap}
+.visual{background:var(--glass);border:1px solid var(--line);border-radius:28px;padding:16px;box-shadow:0 24px 70px #40002f55}
+.visual svg{width:100%;height:auto;display:block;border-radius:18px}
+.visual-note{display:flex;justify-content:space-between;gap:10px;padding:13px 6px 2px;font-size:.85rem;opacity:.9}
+section{padding:72px 0}
+.sectionhead{text-align:center;max-width:720px;margin:0 auto 42px}
+.sectionhead h2{font-size:clamp(2rem,3.8vw,3rem)}
+.sectionhead p{line-height:1.65;opacity:.9;margin:15px auto 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:25px;transition:.25s}
+.card:hover{transform:translateY(-5px);box-shadow:0 16px 35px #43002d55}
+.card .emoji{font-size:2rem;margin-bottom:15px}
+.card h3{font:700 1.08rem 'Space Grotesk';margin-bottom:9px}
+.card p{font-size:.93rem;line-height:1.6;opacity:.88;margin:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.panel{background:var(--glass);border:1px solid var(--line);border-radius:26px;padding:30px}
+.panel h3{font-size:1.65rem;margin-bottom:12px}
+.panel p{line-height:1.65;opacity:.9}
+.pills{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}
+.pills button,.tabs button{border:1px solid #ffffff70;background:transparent;color:var(--cream);padding:10px 15px;border-radius:99px;font:600 .88rem 'Space Grotesk';cursor:pointer}
+.pills button.active,.tabs button.active{background:linear-gradient(90deg,var(--gold),var(--orange));color:var(--ink);border-color:transparent}
+.area-art{min-height:300px;display:grid;place-items:center;position:relative;overflow:hidden}
+.area-art svg{width:100%;max-width:440px}
+.result{background:#fff2d91c;border:1px solid #ffffff32;border-radius:16px;padding:16px;line-height:1.55;min-height:82px}
+.tabs{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.tabcontent{display:none;animation:rise .35s ease}
+.tabcontent.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{padding:20px 17px;border-radius:18px;background:#ffffff12;border:1px solid var(--line)}
+.step b{display:block;color:var(--gold);font-size:1.3rem;margin-bottom:10px}
+.step span{font-size:.9rem;line-height:1.5}
+.quote{max-width:780px;margin:auto;text-align:center;padding:42px 32px;border-radius:26px;background:var(--glass);border:1px solid var(--line)}
+.quote blockquote{font:italic 1.55rem/1.45 Fraunces;margin:0}
+.quote small{display:block;margin-top:18px;opacity:.8}
+footer{padding:65px 0 45px;text-align:center}
+.cta{padding:48px 28px;border:1px solid var(--line);border-radius:30px;background:linear-gradient(135deg,#ffd40020,#ff6a1a22)}
+.cta h2{font-size:clamp(2rem,4vw,3rem);max-width:780px;margin:0 auto 15px}
+.cta p{max-width:610px;line-height:1.65;opacity:.9;margin:0 auto 25px}
+.fine{font-size:.8rem;opacity:.65;margin-top:34px}
+@media(max-width:850px){.hero-grid,.split{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.hero{padding-top:48px}}
+@media(max-width:560px){.wrap{padding:0 17px}.grid,.steps{grid-template-columns:1fr}section{padding:54px 0}.hero{padding-top:40px}.visual{padding:10px}.navcta{font-size:.8rem;padding:9px 12px}.logo{font-size:1.15rem}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><div class="logo">easyland<span>x</span></div><a class="navcta" href="#contact">Crear Mi Página ↗</a></div></nav>
+
+<header class="hero">
+ <div class="wrap hero-grid">
+  <div>
+   <span class="eyebrow">easylandx · Profesionales Inmobiliarios Independientes</span>
+   <h1>Tu nombre. Tu mercado. Tu <span class="glow">Próximo paso.</span></h1>
+   <p class="sub">Una landing page única para profesionales inmobiliarios independientes que quieren destacar, generar confianza y recibir contactos directos. Reúne tu experiencia, tus inmuebles y tu manera personal de trabajar en un espacio que refleje quién eres.</p>
+   <div class="btnrow"><a class="primary" href="#contact">✦ Crear Mi Página Inmobiliaria</a><a class="ghost" href="#why">Descubre las Ventajas ↓</a></div>
+  </div>
+  <div class="visual">
+   <svg viewBox="0 0 520 390" role="img" aria-label="Ilustración de una vivienda moderna con cartel de vendido">
+    <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#ffd66b"/><stop offset="1" stop-color="#ff8a54"/></linearGradient><linearGradient id="house" x2="1" y2="1"><stop stop-color="#fff4d8"/><stop offset="1" stop-color="#f6c9a2"/></linearGradient></defs>
+    <rect width="520" height="390" rx="18" fill="url(#sky)"/>
+    <circle cx="415" cy="75" r="38" fill="#fff0a2"/>
+    <path d="M0 260 Q110 185 220 260 T520 240 V390 H0Z" fill="#7e9e5c"/>
+    <path d="M80 278 L255 115 L430 278Z" fill="#713b50"/>
+    <path d="M112 270 L255 145 L397 270 V350 H112Z" fill="url(#house)"/>
+    <path d="M235 350 V260 Q255 225 275 260 V350Z" fill="#995c50"/>
+    <rect x="145" y="245" width="58" height="58" rx="3" fill="#4e8d9a" stroke="#fff4d8" stroke-width="8"/>
+    <path d="M174 245V303 M145 274H203" stroke="#fff4d8" stroke-width="5"/>
+    <rect x="310" y="245" width="58" height="58" rx="3" fill="#4e8d9a" stroke="#fff4d8" stroke-width="8"/>
+    <path d="M339 245V303 M310 274H368" stroke="#fff4d8" stroke-width="5"/>
+    <path d="M60 350V180" stroke="#573044" stroke-width="8"/>
+    <path d="M65 190H178L165 245H65Z" fill="#ffcf00"/>
+    <text x="119" y="225" text-anchor="middle" font-family="Space Grotesk" font-size="23" font-weight="700" fill="#3c1730">VENDIDO</text>
+    <path d="M30 350 Q55 315 80 350 M420 350 Q450 310 480 350" fill="none" stroke="#3f704a" stroke-width="9" stroke-linecap="round"/>
+    <g fill="#fff1d6"><circle cx="50" cy="95" r="4"/><circle cx="80" cy="65" r="3"/><circle cx="330" cy="120" r="4"/><circle cx="470" cy="160" r="3"/></g>
+   </svg>
+   <div class="visual-note"><span>✦ Tu marca personal, no otro anuncio genérico</span><span>01 / 04</span></div>
+  </div>
+ </div>
+</header>
+
+<section id="why"><div class="wrap">
+ <div class="sectionhead"><span class="eyebrow">Por Qué Importa Tener Tu Propia Página</span><h2>Las personas eligen a una <span class="glow">persona</span>, Not Just a Property.</h2><p>Tu conocimiento de la zona, tu criterio y tu forma de trabajar forman parte del valor que aportas. Ofrece a tus futuros clientes un espacio donde puedan descubrirlo antes de contactar contigo.</p></div>
+ <div class="grid">
+  <article class="card"><div class="emoji">🧭</div><h3>Haz Visible Tu Experiencia</h3><p>Muestra las zonas que conoces, a quién acompañas y lo que aportas en cada operación.</p></article>
+  <article class="card"><div class="emoji">🏡</div><h3>Presenta Tus Inmuebles de Forma Atractiva</h3><p>Destaca tus propiedades con buenas fotografías, información esencial y una invitación clara a dar el siguiente paso.</p></article>
+  <article class="card"><div class="emoji">🤝</div><h3>Genera Confianza Antes del Primer Contacto</h3><p>Preséntate, explica cómo trabajas y responde a las preguntas habituales de compradores y vendedores.</p></article>
+  <article class="card"><div class="emoji">📲</div><h3>Facilita el Contacto</h3><p>Incluye WhatsApp, teléfono, correo electrónico o un formulario justo donde el visitante está preparado para contactar.</p></article>
+  <article class="card"><div class="emoji">📍</div><h3>Cuenta Tu Historia Local</h3><p>Destaca las calles, el estilo de vida, los colegios, el transporte y los detalles que hacen especial tu zona.</p></article>
+  <article class="card"><div class="emoji">✨</div><h3>Diferénciate de los Portales Inmobiliarios</h3><p>Los portales organizan inmuebles. Tu página comunica quién eres, qué servicio ofreces y la experiencia que hay detrás.</p></article>
+ </div>
+</div></section>
+
+<section><div class="wrap split">
+ <div class="panel">
+  <span class="eyebrow">Elige Tu Conversación</span><h3>Un Profesional. Dos Caminos Importantes.</h3>
+  <p>Tanto si alguien quiere vender como si está buscando su próximo hogar, tu página puede conducirle hacia la conversación adecuada contigo.</p>
+  <div class="tabs">
+   <button class="active" data-tab="seller">Quiero vender</button>
+   <button data-tab="buyer">Quiero comprar</button>
+  </div>
+  <div class="tabcontent active" id="seller"><div class="result"><strong>Para propietarios</strong><br>Explica cómo valoras una vivienda, tu plan de comercialización, cómo mantienes informados a tus clientes y qué ocurre desde la primera reunión hasta el cierre de la operación.</div></div>
+  <div class="tabcontent" id="buyer"><div class="result"><strong>Para compradores</strong><br>Muestra cómo identificas sus prioridades, encuentras viviendas adecuadas, organizas visitas y acompañas sus decisiones.</div></div>
+ </div>
+ <div class="panel area-art">
+  <svg viewBox="0 0 440 300" aria-label="Ilustración de un barrio">
+   <rect x="8" y="8" width="424" height="284" rx="20" fill="#fff2d91a"/>
+   <path d="M0 240H440" stroke="#ffe9a4" stroke-width="5"/>
+   <g><path d="M45 240V125L115 75L185 125V240Z" fill="#ffe6bd"/><path d="M35 128L115 65L195 128" fill="none" stroke="#783650" stroke-width="14"/><rect x="70" y="150" width="35" height="40" fill="#5c91a0"/><rect x="125" y="150" width="35" height="40" fill="#5c91a0"/><rect x="105" y="195" width="30" height="45" fill="#8c5360"/></g>
+   <g><path d="M235 240V145L310 100L385 145V240Z" fill="#f7c8a0"/><path d="M225 148L310 90L395 148" fill="none" stroke="#783650" stroke-width="14"/><rect x="260" y="165" width="38" height="38" fill="#5c91a0"/><rect x="322" y="165" width="38" height="38" fill="#5c91a0"/><rect x="295" y="200" width="30" height="40" fill="#8c5360"/></g>
+   <g fill="#ffd400"><circle cx="215" cy="55" r="18"/><path d="M215 25V15 M215 95V85 M185 55H175 M255 55H245" stroke="#ffd400" stroke-width="4"/></g>
+   <g fill="#5d985a"><circle cx="28" cy="205" r="23"/><rect x="24" y="205" width="8" height="36" fill="#6e4939"/><circle cx="410" cy="210" r="25"/><rect x="406" y="210" width="8" height="31" fill="#6e4939"/></g>
+  </svg>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <div class="sectionhead"><span class="eyebrow">Una Página con un Objetivo</span><h2>De la primera impresión a la <span class="glow">primera conversación.</span></h2><p>Una estructura clara ayuda a transformar la curiosidad en confianza, sin obligar al visitante a buscar cómo dar el siguiente paso.</p></div>
+ <div class="steps">
+  <div class="step"><b>01 / Conóceme</b><span>Una presentación memorable y una explicación clara de a quién ayudas.</span></div>
+  <div class="step"><b>02 / Descubre</b><span>Tu conocimiento de la zona, tus servicios, inmuebles destacados y forma de trabajar.</span></div>
+  <div class="step"><b>03 / Confía</b><span>Tu proceso, respuestas útiles, acreditaciones y opiniones reales de clientes.</span></div>
+  <div class="step"><b>04 / Contacta</b><span>Una invitación directa a llamar, escribir o concertar una conversación sin compromiso.</span></div>
+ </div>
+</div></section>
+
+<section><div class="wrap"><div class="quote">
+ <blockquote>“Tu mejor carta de presentación no siempre es un inmueble. A veces es la confianza que sienten las personas cuando deciden trabajar contigo.”</blockquote>
+ <small>LA VENTAJA DEL PROFESIONAL INDEPENDIENTE</small>
+</div></div></section>
+
+<footer id="contact"><div class="wrap"><div class="cta">
+ <span class="eyebrow">Tu Nombre Merece Su Propio Espacio en Internet</span>
+ <h2>Haz que el primer clic de tu próximo cliente <span class="glow">cuente.</span></h2>
+ <p>Creemos una landing page que destaque tus servicios inmobiliarios, tu conocimiento local y tu personalidad, y que facilite que las personas adecuadas contacten contigo.</p>
+ <div class="btnrow" style="justify-content:center"><a class="ghost" href="https://easylandx.github.io" target="_blank" rel="noopener">Descubre easylandx ↗</a></div>
+ </div><p class="fine">easylandx · 2026 · Profesionales inmobiliarios independientes · Una página diseñada en torno a tu forma de trabajar</p></div></footer>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(button=>{
+ button.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tabcontent').forEach(p=>p.classList.remove('active'));
+  button.classList.add('active');
+  document.getElementById(button.dataset.tab).classList.add('active');
+ });
+});
+</script>
+</body></html>
