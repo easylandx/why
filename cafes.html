@@ -46,6 +46,33 @@
   }
   nav a.cta:hover{ transform: scale(1.07); }
 
+  /* Keep the brand and CTA separated on narrow screens */
+  @media (max-width: 520px){
+    nav{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      align-items:center;
+      gap:10px;
+      padding:14px 4vw;
+    }
+    .logo{
+      min-width:0;
+      font-size:clamp(1.05rem, 4.5vw, 1.3rem);
+      white-space:nowrap;
+    }
+    nav a.cta{
+      white-space:nowrap;
+      padding:8px 12px;
+      font-size:clamp(.68rem, 2.8vw, .82rem);
+      line-height:1.2;
+    }
+  }
+  @media (max-width: 360px){
+    nav{gap:6px; padding-left:3vw; padding-right:3vw;}
+    .logo{font-size:1rem;}
+    nav a.cta{padding:7px 9px; font-size:.66rem;}
+  }
+
   /* HERO */
   .hero{
     min-height:88vh; display:flex; flex-direction:column; align-items:center;

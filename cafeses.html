@@ -160,6 +160,31 @@
   footer a{ color:var(--electric-cyan); }
 
   ::selection{ background: var(--electric-pink); color:#fff; }
+
+  /* Keep the brand and CTA from overlapping on narrow screens */
+  @media (max-width: 480px){
+    nav{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) auto;
+      align-items:center;
+      gap:8px;
+      padding:12px 4vw;
+    }
+    .logo{
+      min-width:0;
+      white-space:nowrap;
+      font-size:clamp(1rem, 5vw, 1.35rem);
+    }
+    nav a.cta{
+      max-width: min(48vw, 190px);
+      padding:8px 10px;
+      font-size:.72rem;
+      line-height:1.2;
+      text-align:center;
+      white-space:normal;
+      overflow-wrap:anywhere;
+    }
+  }
 </style>
 </head>
 <body>
