@@ -166,6 +166,37 @@
     *{transition:none !important;animation:none !important;}
   }
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* Navegación móvil: separar marca y botón para evitar solapamientos */
+  @media (max-width: 520px){
+    header.nav{padding:16px 0;}
+    .nav-inner{
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:center;
+      gap:12px;
+    }
+    .nav-inner .logo{
+      width:100%;
+      justify-content:center;
+      font-size:1.45rem;
+      line-height:1.1;
+    }
+    .nav-inner > .btn{
+      display:block;
+      width:100%;
+      max-width:360px;
+      margin:0 auto;
+      padding:11px 14px;
+      font-size:.72rem;
+      line-height:1.35;
+      text-align:center;
+      white-space:normal;
+      overflow-wrap:anywhere;
+    }
+  }
+
 </style>
 </head>
 <body>
