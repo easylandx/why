@@ -442,6 +442,45 @@
     .bin{ padding: 14px 8px 18px; min-height:120px; }
     .value-strip{ grid-template-columns: 1fr 1fr; row-gap: 28px; }
   }
+
+  /* Prevent the brand and CTA from colliding on small screens */
+  @media (max-width: 600px){
+    nav .wrap{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) auto;
+      align-items:center;
+      column-gap:12px;
+      padding-top:12px;
+      padding-bottom:12px;
+    }
+    .brand{
+      min-width:0;
+      font-size:clamp(0.72rem, 3.2vw, 1rem);
+      gap:6px;
+      white-space:nowrap;
+    }
+    .brand span.dot{ flex:0 0 8px; width:8px; height:8px; }
+    .nav-cta{
+      max-width:142px;
+      min-width:0;
+      padding:9px 12px;
+      font-size:clamp(0.62rem, 2.7vw, 0.76rem);
+      line-height:1.25;
+      text-align:center;
+      white-space:normal;
+      overflow-wrap:anywhere;
+    }
+  }
+  @media (max-width: 360px){
+    nav .wrap{
+      grid-template-columns:1fr;
+      justify-items:center;
+      row-gap:9px;
+    }
+    .brand{ font-size:0.95rem; }
+    .nav-cta{ max-width:100%; }
+  }
+
 </style>
 </head>
 <body>
