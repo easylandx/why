@@ -78,6 +78,71 @@ footer{padding:65px 0 45px;text-align:center}
 .fine{font-size:.8rem;opacity:.65;margin-top:34px}
 @media(max-width:850px){.hero-grid,.split{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.hero{padding-top:48px}}
 @media(max-width:560px){.wrap{padding:0 17px}.grid,.steps{grid-template-columns:1fr}section{padding:54px 0}.hero{padding-top:40px}.visual{padding:10px}.navcta{font-size:.8rem;padding:9px 12px}.logo{font-size:1.15rem}}
+
+/* Neon yellow / purple / black theme */
+:root{
+  --pink:#7b2cff;--pinkdeep:#4b0aa8;--gold:#f4ff00;--orange:#dfff00;
+  --cream:#170b2b;--ink:#10051f;--glass:rgba(255,255,255,.62);
+  --line:rgba(23,11,43,.22);
+}
+body{
+ color:var(--cream);
+ background:
+  radial-gradient(circle at 12% 12%,rgba(123,44,255,.16),transparent 36%),
+  radial-gradient(circle at 90% 24%,rgba(0,0,0,.08),transparent 40%),
+  linear-gradient(155deg,#f4ff00 0%,#eaff00 55%,#f7ff45 100%);
+}
+.glow{
+ background:linear-gradient(90deg,#7b2cff,#170b2b,#4b0aa8);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+nav{
+ background:rgba(23,11,43,.94);
+ border-bottom:1px solid rgba(244,255,0,.55);
+}
+.logo span{color:#f4ff00}
+.navcta,.primary{
+ background:linear-gradient(90deg,#f4ff00,#dfff00);
+ color:#170b2b;
+ box-shadow:0 0 22px rgba(123,44,255,.24);
+}
+.ghost{border:1px solid rgba(23,11,43,.55);color:#170b2b}
+.eyebrow{border-color:rgba(23,11,43,.3);background:rgba(255,255,255,.35);color:#170b2b}
+.visual,.card,.panel,.quote{
+ background:rgba(255,255,255,.58);
+ border-color:rgba(23,11,43,.22);
+ box-shadow:0 18px 45px rgba(45,0,80,.10);
+ color:#170b2b;
+}
+.visual-note,.card p,.panel p,.sectionhead p,.quote small{color:#302044}
+.card:hover{box-shadow:0 16px 35px rgba(45,0,80,.2)}
+.pills button,.tabs button{
+ border:1px solid rgba(23,11,43,.55);
+ color:#170b2b;
+ background:rgba(255,255,255,.45);
+}
+.pills button.active,.tabs button.active{
+ background:linear-gradient(90deg,#7b2cff,#4b0aa8);
+ color:#fff;
+ border-color:transparent;
+}
+.result,.step{
+ background:rgba(255,255,255,.55);
+ border:1px solid rgba(23,11,43,.2);
+ color:#170b2b;
+}
+.step b{color:#6b20d8}
+.quote blockquote{color:#170b2b}
+.cta{
+ background:linear-gradient(135deg,rgba(123,44,255,.16),rgba(0,0,0,.06));
+ border-color:rgba(23,11,43,.28);
+}
+footer .fine{color:#302044}
+@media(max-width:560px){
+ .wrap{padding-left:20px;padding-right:20px}
+ .navcta{white-space:normal;text-align:center}
+}
+
 </style>
 </head>
 <body>
