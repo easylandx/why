@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --aqua:#00F0E1;      /* Electric Aqua Glow: main background */
-  --aqua-soft:#8CFFF5;
+  --aqua:#89CFF0;      /* Baby Blue: main background */
+  --aqua-soft:#CDEBFA;
   --mag:#FF1FA9;       /* Glowing Magenta Pulse */
   --vio:#6A2CFF;       /* Voltage Violet */
   --sun:#FFF23D;       /* Sunbeam Yellow */
@@ -47,6 +47,28 @@ h2{font-size:clamp(2rem,4.6vw,3.6rem);max-width:18ch}
 .nav ul a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px}
 .nav .btn{padding:.6rem 1.1rem;font-size:.8rem}
 @media(max-width:860px){.nav ul{display:none}}
+
+@media(max-width:480px){
+  .nav .wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    column-gap:.65rem;
+    row-gap:.5rem;
+  }
+  .logo{
+    min-width:0;
+    white-space:nowrap;
+    font-size:clamp(1rem,5vw,1.25rem);
+  }
+  .nav .btn{
+    white-space:nowrap;
+    flex-shrink:0;
+    padding:.55rem .75rem;
+    font-size:.72rem;
+  }
+}
+
 
 /* hero */
 .hero{position:relative;padding:clamp(40px,6vw,80px) 0 130px;overflow:hidden}
@@ -249,24 +271,24 @@ footer a{color:var(--aqua);font-weight:700}
       <circle cx="300" cy="280" r="240" fill="#FF1FA9"/>
       <circle class="spin" cx="300" cy="280" r="256" fill="none" stroke="#FFF23D" stroke-width="7" stroke-dasharray="3 22" stroke-linecap="round"/>
       <circle cx="455" cy="126" r="48" fill="#FFF23D" stroke="#0A0630" stroke-width="5"/>
-      <circle cx="140" cy="170" r="22" fill="#00F0E1" stroke="#0A0630" stroke-width="5"/>
+      <circle cx="140" cy="170" r="22" fill="#89CFF0" stroke="#0A0630" stroke-width="5"/>
       <circle cx="120" cy="250" r="9" fill="#fff"/>
       <path d="M70 476 q32-34 64 0 t64 0 t64 0 t64 0 t64 0 t64 0 t64 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
       <!-- plant -->
-      <path d="M96 404 C70 352 78 318 104 294 C116 338 116 372 96 404Z" fill="#00F0E1" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
-      <path d="M100 404 C124 364 146 348 170 344 C160 376 132 396 100 404Z" fill="#8CFFF5" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M96 404 C70 352 78 318 104 294 C116 338 116 372 96 404Z" fill="#89CFF0" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M100 404 C124 364 146 348 170 344 C160 376 132 396 100 404Z" fill="#CDEBFA" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
       <!-- mat -->
       <ellipse cx="300" cy="446" rx="210" ry="14" fill="#0A0630" opacity=".28"/>
       <rect x="100" y="402" width="400" height="28" rx="14" fill="#FFF23D" stroke="#0A0630" stroke-width="5"/>
-      <rect x="100" y="402" width="64" height="28" rx="14" fill="#00F0E1" stroke="#0A0630" stroke-width="5"/>
+      <rect x="100" y="402" width="64" height="28" rx="14" fill="#89CFF0" stroke="#0A0630" stroke-width="5"/>
       <!-- magic circle behind legs -->
-      <g class="ringspin"><circle cx="476" cy="262" r="46" fill="none" stroke="#0A0630" stroke-width="17"/><circle cx="476" cy="262" r="46" fill="none" stroke="#00F0E1" stroke-width="8" stroke-dasharray="40 12"/></g>
+      <g class="ringspin"><circle cx="476" cy="262" r="46" fill="none" stroke="#0A0630" stroke-width="17"/><circle cx="476" cy="262" r="46" fill="none" stroke="#89CFF0" stroke-width="8" stroke-dasharray="40 12"/></g>
       <!-- figure -->
       <g stroke-linecap="round" stroke-linejoin="round" fill="none">
         <path d="M300 394 L456 284" stroke="#0A0630" stroke-width="28"/>
         <path d="M300 394 L258 298" stroke="#0A0630" stroke-width="32"/>
-        <path d="M262 306 L282 352" stroke="#00F0E1" stroke-width="30"/>
-        <path d="M262 306 L376 300" stroke="#00F0E1" stroke-width="16"/>
+        <path d="M262 306 L282 352" stroke="#89CFF0" stroke-width="30"/>
+        <path d="M262 306 L376 300" stroke="#89CFF0" stroke-width="16"/>
         <path d="M376 300 L390 300" stroke="#fff" stroke-width="16"/>
       </g>
       <ellipse cx="466" cy="278" rx="16" ry="9" transform="rotate(38 466 278)" fill="#fff" stroke="#0A0630" stroke-width="5"/>
@@ -276,15 +298,15 @@ footer a{color:var(--aqua);font-weight:700}
       <!-- sparkles -->
       <g transform="translate(150 96)"><use href="#spk" class="tw" fill="#fff"/></g>
       <g transform="translate(520 226)"><use href="#spk" class="tw b" fill="#FFF23D" stroke="#0A0630" stroke-width="3"/></g>
-      <g transform="translate(360 176)"><use href="#spk" class="tw c" fill="#00F0E1"/></g>
+      <g transform="translate(360 176)"><use href="#spk" class="tw c" fill="#89CFF0"/></g>
       <g transform="translate(70 372)"><use href="#spk" class="tw b" fill="#fff"/></g>
     </svg>
   </div>
 
   <!-- ribbon -->
   <div class="ribbon" aria-hidden="true"><div>
-    <span>Reformer flow<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Mat classes<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg>Barre fusion<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Prenatal Pilates<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg>Private sessions<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Intro offers<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg>Class packs<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Workshops<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg></span>
-    <span>Reformer flow<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Mat classes<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg>Barre fusion<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Prenatal Pilates<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg>Private sessions<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Intro offers<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg>Class packs<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Workshops<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#00F0E1"/></svg></span>
+    <span>Reformer flow<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Mat classes<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg>Barre fusion<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Prenatal Pilates<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg>Private sessions<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Intro offers<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg>Class packs<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Workshops<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg></span>
+    <span>Reformer flow<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Mat classes<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg>Barre fusion<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Prenatal Pilates<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg>Private sessions<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Intro offers<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg>Class packs<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#FF1FA9"/></svg>Workshops<svg viewBox="-24 -24 48 48"><use href="#spk" fill="#89CFF0"/></svg></span>
   </div></div>
 </section>
 
@@ -304,13 +326,13 @@ footer a{color:var(--aqua);font-weight:700}
       </article>
 
       <article class="tile t2">
-        <svg class="ico" viewBox="0 0 88 88" aria-hidden="true"><rect x="24" y="6" width="40" height="76" rx="10" fill="#fff" stroke="#0A0630" stroke-width="5"/><rect x="31" y="20" width="26" height="30" rx="5" fill="#FF1FA9"/><circle cx="44" cy="66" r="6" fill="#0A0630"/><circle cx="72" cy="30" r="7" fill="#00F0E1" stroke="#0A0630" stroke-width="4"/></svg>
+        <svg class="ico" viewBox="0 0 88 88" aria-hidden="true"><rect x="24" y="6" width="40" height="76" rx="10" fill="#fff" stroke="#0A0630" stroke-width="5"/><rect x="31" y="20" width="26" height="30" rx="5" fill="#FF1FA9"/><circle cx="44" cy="66" r="6" fill="#0A0630"/><circle cx="72" cy="30" r="7" fill="#89CFF0" stroke="#0A0630" stroke-width="4"/></svg>
         <h3>Thumb-friendly by design</h3>
         <p>Your community discovers studios on their phones, so every layout is shaped for easy tapping and swiping.</p>
       </article>
 
       <article class="tile t3">
-        <svg class="ico" viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="38" fill="#8CFFF5" stroke="#0A0630" stroke-width="5"/><path d="M44 64 C22 48 24 30 36 28 C41 27 44 31 44 34 C44 31 47 27 52 28 C64 30 66 48 44 64Z" fill="#FF1FA9" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/></svg>
+        <svg class="ico" viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="38" fill="#CDEBFA" stroke="#0A0630" stroke-width="5"/><path d="M44 64 C22 48 24 30 36 28 C41 27 44 31 44 34 C44 31 47 27 52 28 C64 30 66 48 44 64Z" fill="#FF1FA9" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/></svg>
         <h3>Very affordable</h3>
         <p>Studio-friendly pricing keeps your budget free for new equipment, fresh playlists and more classes.</p>
       </article>
@@ -322,7 +344,7 @@ footer a{color:var(--aqua);font-weight:700}
       </article>
 
       <article class="tile t5">
-        <svg class="ico" viewBox="0 0 88 88" aria-hidden="true"><rect x="8" y="52" width="16" height="28" rx="4" fill="#00F0E1"/><rect x="30" y="38" width="16" height="42" rx="4" fill="#FFF23D"/><rect x="52" y="22" width="16" height="58" rx="4" fill="#FF1FA9"/><path d="M10 34 L36 18 L60 6" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="6" r="5" fill="#fff"/></svg>
+        <svg class="ico" viewBox="0 0 88 88" aria-hidden="true"><rect x="8" y="52" width="16" height="28" rx="4" fill="#89CFF0"/><rect x="30" y="38" width="16" height="42" rx="4" fill="#FFF23D"/><rect x="52" y="22" width="16" height="58" rx="4" fill="#FF1FA9"/><path d="M10 34 L36 18 L60 6" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="6" r="5" fill="#fff"/></svg>
         <h3>Conversion-focused</h3>
         <p>Clear intro offers, class packs and a welcoming first-timer path help visitors say yes with confidence.</p>
       </article>
@@ -382,7 +404,7 @@ footer a{color:var(--aqua);font-weight:700}
           <div class="swatches" id="swatches">
             <button class="sw" data-c="mag" aria-label="Magenta" aria-pressed="true" style="background:#FF1FA9;color:#FF1FA9"></button>
             <button class="sw" data-c="vio" aria-label="Violet" aria-pressed="false" style="background:#6A2CFF;color:#6A2CFF"></button>
-            <button class="sw" data-c="aqua" aria-label="Aqua" aria-pressed="false" style="background:#00D9CB;color:#00D9CB"></button>
+            <button class="sw" data-c="aqua" aria-label="Aqua" aria-pressed="false" style="background:#89CFF0;color:#89CFF0"></button>
             <button class="sw" data-c="sun" aria-label="Sunbeam" aria-pressed="false" style="background:#FFD400;color:#FFD400"></button>
           </div>
         </div>
@@ -478,13 +500,13 @@ footer a{color:var(--aqua);font-weight:700}
         <rect x="40" y="92" width="240" height="138" rx="10" fill="#fff" stroke="#0A0630" stroke-width="5"/>
         <path d="M28 92h264l-14-44H42z" fill="#FF1FA9" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
         <path d="M84 48l-6 44M132 48l-2 44M180 48l2 44M228 48l4 44" stroke="#fff" stroke-width="12"/>
-        <rect x="58" y="118" width="116" height="84" rx="8" fill="#8CFFF5" stroke="#0A0630" stroke-width="5"/>
+        <rect x="58" y="118" width="116" height="84" rx="8" fill="#CDEBFA" stroke="#0A0630" stroke-width="5"/>
         <rect x="70" y="176" width="92" height="9" rx="4" fill="#0A0630"/><rect x="88" y="164" width="40" height="11" rx="5" fill="#FF1FA9" stroke="#0A0630" stroke-width="3"/>
         <circle cx="140" cy="140" r="11" fill="#FFF23D" stroke="#0A0630" stroke-width="3"/>
         <rect x="198" y="128" width="58" height="102" rx="8" fill="#6A2CFF" stroke="#0A0630" stroke-width="5"/>
         <circle cx="243" cy="182" r="5" fill="#FFF23D"/>
         <rect x="8" y="230" width="344" height="12" rx="6" fill="#0A0630"/>
-        <path d="M312 228C296 200 300 176 320 158 330 188 328 210 312 228Z" fill="#00F0E1" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M312 228C296 200 300 176 320 158 330 188 328 210 312 228Z" fill="#89CFF0" stroke="#0A0630" stroke-width="5" stroke-linejoin="round"/>
         <rect x="300" y="220" width="28" height="14" rx="3" fill="#FF1FA9" stroke="#0A0630" stroke-width="4"/>
       </svg>
       <div>
@@ -506,7 +528,7 @@ footer a{color:var(--aqua);font-weight:700}
         <circle cx="180" cy="86" r="24" fill="#fff" stroke="#0A0630" stroke-width="5"/>
         <circle cx="180" cy="58" r="12" fill="#0A0630"/>
         <path d="M206 140 L246 122" stroke="#0A0630" stroke-width="16" stroke-linecap="round"/>
-        <rect x="236" y="88" width="34" height="58" rx="7" fill="#00F0E1" stroke="#0A0630" stroke-width="5" transform="rotate(12 253 117)"/>
+        <rect x="236" y="88" width="34" height="58" rx="7" fill="#89CFF0" stroke="#0A0630" stroke-width="5" transform="rotate(12 253 117)"/>
         <rect x="42" y="60" width="86" height="72" rx="12" fill="#fff" stroke="#0A0630" stroke-width="5"/>
         <rect x="42" y="60" width="86" height="20" rx="10" fill="#6A2CFF" stroke="#0A0630" stroke-width="5"/>
         <circle cx="66" cy="102" r="7" fill="#FF1FA9"/><circle cx="86" cy="102" r="7" fill="#0A0630"/><circle cx="106" cy="102" r="7" fill="#0A0630"/>
@@ -538,7 +560,7 @@ footer a{color:var(--aqua);font-weight:700}
       <a class="btn" href="https://easylandx.github.io" target="_blank" rel="noopener">Visit EasyLandX</a>
     </div>
     <svg viewBox="0 0 360 340" role="img" aria-label="Illustration of a glowing magic circle, a reformer spring and sparkles">
-      <circle cx="180" cy="170" r="150" fill="#00F0E1" stroke="#0A0630" stroke-width="6"/>
+      <circle cx="180" cy="170" r="150" fill="#89CFF0" stroke="#0A0630" stroke-width="6"/>
       <circle cx="180" cy="170" r="92" fill="none" stroke="#0A0630" stroke-width="30"/>
       <circle cx="180" cy="170" r="92" fill="none" stroke="#FF1FA9" stroke-width="16" stroke-dasharray="52 14"/>
       <path d="M92 258 l16-22 20 36 20-36 20 36 20-36 20 36 20-36 16 22" fill="none" stroke="#0A0630" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -569,10 +591,10 @@ function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearT
 const INK='#0A0630';
 const ART={
   reformer:`<svg viewBox="0 0 220 96" aria-hidden="true"><rect x="10" y="68" width="200" height="11" rx="5" fill="${INK}"/><rect x="18" y="52" width="34" height="14" rx="7" fill="${INK}"/><rect x="62" y="48" width="86" height="16" rx="8" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><path d="M152 60l7-10 8 16 8-16 8 16 6-9" fill="none" stroke="${INK}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="192" y="22" width="8" height="46" rx="4" fill="${INK}"/><rect x="182" y="20" width="28" height="9" rx="4" fill="#FFF23D" stroke="${INK}" stroke-width="3"/></svg>`,
-  mat:`<svg viewBox="0 0 220 96" aria-hidden="true"><ellipse cx="110" cy="80" rx="96" ry="7" fill="${INK}" opacity=".2"/><rect x="20" y="56" width="180" height="16" rx="8" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><circle cx="24" cy="64" r="17" fill="#FFF23D" stroke="${INK}" stroke-width="3"/><circle cx="24" cy="64" r="7" fill="none" stroke="${INK}" stroke-width="3"/><circle cx="150" cy="30" r="20" fill="none" stroke="${INK}" stroke-width="10"/><circle cx="150" cy="30" r="20" fill="none" stroke="#00F0E1" stroke-width="4"/></svg>`,
-  barre:`<svg viewBox="0 0 220 96" aria-hidden="true"><rect x="24" y="24" width="8" height="58" rx="4" fill="${INK}"/><rect x="188" y="24" width="8" height="58" rx="4" fill="${INK}"/><rect x="16" y="20" width="188" height="12" rx="6" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><circle cx="82" cy="66" r="14" fill="#FFF23D" stroke="${INK}" stroke-width="3"/><circle cx="128" cy="70" r="10" fill="#00F0E1" stroke="${INK}" stroke-width="3"/><rect x="14" y="82" width="192" height="7" rx="3" fill="${INK}"/></svg>`,
+  mat:`<svg viewBox="0 0 220 96" aria-hidden="true"><ellipse cx="110" cy="80" rx="96" ry="7" fill="${INK}" opacity=".2"/><rect x="20" y="56" width="180" height="16" rx="8" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><circle cx="24" cy="64" r="17" fill="#FFF23D" stroke="${INK}" stroke-width="3"/><circle cx="24" cy="64" r="7" fill="none" stroke="${INK}" stroke-width="3"/><circle cx="150" cy="30" r="20" fill="none" stroke="${INK}" stroke-width="10"/><circle cx="150" cy="30" r="20" fill="none" stroke="#89CFF0" stroke-width="4"/></svg>`,
+  barre:`<svg viewBox="0 0 220 96" aria-hidden="true"><rect x="24" y="24" width="8" height="58" rx="4" fill="${INK}"/><rect x="188" y="24" width="8" height="58" rx="4" fill="${INK}"/><rect x="16" y="20" width="188" height="12" rx="6" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><circle cx="82" cy="66" r="14" fill="#FFF23D" stroke="${INK}" stroke-width="3"/><circle cx="128" cy="70" r="10" fill="#89CFF0" stroke="${INK}" stroke-width="3"/><rect x="14" y="82" width="192" height="7" rx="3" fill="${INK}"/></svg>`,
   prenatal:`<svg viewBox="0 0 220 96" aria-hidden="true"><circle cx="86" cy="50" r="38" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><path d="M62 38q16-16 38-6" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/><path d="M158 74C132 56 134 36 148 34 154 33 158 37 158 40 158 37 162 33 168 34 182 36 184 56 158 74Z" fill="#FFF23D" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/></svg>`,
-  private:`<svg viewBox="0 0 220 96" aria-hidden="true"><circle cx="78" cy="34" r="16" fill="#fff" stroke="${INK}" stroke-width="3"/><path d="M46 84c2-26 62-26 64 0z" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><circle cx="146" cy="40" r="13" fill="#FFF23D" stroke="${INK}" stroke-width="3"/><path d="M120 84c2-22 52-22 54 0z" fill="#00F0E1" stroke="${INK}" stroke-width="3"/></svg>`
+  private:`<svg viewBox="0 0 220 96" aria-hidden="true"><circle cx="78" cy="34" r="16" fill="#fff" stroke="${INK}" stroke-width="3"/><path d="M46 84c2-26 62-26 64 0z" fill="var(--pa)" stroke="${INK}" stroke-width="3"/><circle cx="146" cy="40" r="13" fill="#FFF23D" stroke="${INK}" stroke-width="3"/><path d="M120 84c2-22 52-22 54 0z" fill="#89CFF0" stroke="${INK}" stroke-width="3"/></svg>`
 };
 const TYPES={
   reformer:{head:'Glide, strengthen, glow',sub:'Small-group reformer classes with springs, smiles and expert cueing.',offer:'Intro week: 3 reformer classes',slots:[['Mon 07:30','Reformer Flow',4],['Wed 18:30','Jump Board Fusion',3],['Sat 10:00','Long Spine Series',5]]},
@@ -581,7 +603,7 @@ const TYPES={
   prenatal:{head:'Grow strong, feel supported',sub:'Gentle, guided Pilates for expectant and new mamas, in a welcoming circle.',offer:'Welcome class for new mamas',slots:[['Tue 10:00','Prenatal Flow',6],['Thu 10:00','Postnatal Strength',5],['Sat 09:00','Mama and Baby Stretch',4]]},
   private:{head:'Your session, your pace',sub:'One-to-one Pilates designed around your goals and your rhythm.',offer:'Discovery session with a certified instructor',slots:[['Mon 12:00','Private Session',2],['Wed 16:00','Private Session',1],['Fri 09:30','Duet Session',2]]}
 };
-const ACC={mag:['#FF1FA9','#fff'],vio:['#6A2CFF','#fff'],aqua:['#00D9CB',INK],sun:['#FFD400',INK]};
+const ACC={mag:['#FF1FA9','#fff'],vio:['#6A2CFF','#fff'],aqua:['#89CFF0',INK],sun:['#FFD400',INK]};
 let cur='reformer',booked=new Set();
 const phone=$('#phone'),sched=$('#sched');
 
