@@ -101,9 +101,13 @@
     padding-top: env(safe-area-inset-top, 0px);
   }
   .nav-row{
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
     padding:16px clamp(20px,6vw,64px);
-    max-width:1180px; margin:0 auto;
+    max-width:1180px;
+    margin:0 auto;
   }
   .logo{
     display:flex; align-items:center; gap:10px;
@@ -114,7 +118,44 @@
   .nav-links a{ text-decoration:none; }
   .nav-links a:hover{ color:var(--violet); }
   .nav .btn{ padding:11px 22px; font-size:.9rem; }
-  @media (max-width:720px){ .nav-links a.hide-mobile{ display:none; } }
+  @media (max-width:720px){
+    .nav-links a.hide-mobile{ display:none; }
+  }
+
+  /* Prevent the logo and call-to-action from colliding on small screens */
+  @media (max-width:480px){
+    .nav-row{
+      gap:8px;
+      padding:12px 14px;
+    }
+    .logo{
+      gap:7px;
+      font-size:1.05rem;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .logo-mark{
+      width:29px;
+      height:29px;
+      flex-shrink:0;
+    }
+    .nav-links{
+      min-width:0;
+      gap:0;
+      flex-shrink:1;
+    }
+    .nav .btn{
+      padding:10px 13px;
+      font-size:.76rem;
+      white-space:nowrap;
+    }
+  }
+
+  @media (max-width:340px){
+    .nav-row{ padding-left:10px; padding-right:10px; }
+    .logo{ font-size:.98rem; }
+    .nav .btn{ padding:9px 10px; font-size:.7rem; }
+  }
 
   /* ---------- HERO ---------- */
   .hero{
