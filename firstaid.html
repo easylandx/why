@@ -35,6 +35,30 @@ a{color:inherit;}
 .el-link.top{background:var(--accent); border-color:var(--accent); color:var(--paper);}
 .el-link.top:hover{background:var(--ink); border-color:var(--ink);}
 
+/* Keep the brand and EasyLandX link clear of each other on narrow phones */
+@media(max-width:480px){
+  .bar{
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    align-items:center;
+    gap:10px 12px;
+    padding:12px 16px;
+  }
+  .bar .brand{
+    flex:1 1 100%;
+    min-width:0;
+    font-size:0.95rem;
+    line-height:1.2;
+  }
+  .el-link.top{
+    flex:0 0 auto;
+    max-width:100%;
+    white-space:nowrap;
+    font-size:0.75rem;
+    padding:7px 12px;
+  }
+}
+
 section{padding:72px 0;}
 .hero{padding-top:56px; padding-bottom:56px; border-bottom:3px solid var(--ink);}
 .hero .grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
