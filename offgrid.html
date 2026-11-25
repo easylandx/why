@@ -52,8 +52,23 @@
   }
   @media(max-width:719px){
     .wrap{
-      width:calc(100% - 40px);
+      width:calc(100% - 48px);
+      max-width:none;
+      padding-left:0;
+      padding-right:0;
     }
+    /* Keep all mobile text and controls safely inside the viewport */
+    body{overflow-x:hidden;}
+    h1,h2,h3,p,.lede,.quote{overflow-wrap:anywhere;}
+    .hero svg{width:100%;height:auto;}
+    .calc{padding:28px 20px;}
+    .hero-actions{gap:12px;}
+    .hero-actions .btn{max-width:100%;}
+  }
+  @media(max-width:380px){
+    .wrap{width:calc(100% - 40px);}
+    .calc{padding:24px 16px;}
+    .hero-actions .btn{width:100%;justify-content:center;text-align:center;}
   }
   .badge{
     display:block; text-align:center; background:var(--ink); color:var(--paper);

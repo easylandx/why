@@ -444,6 +444,32 @@
     .testimonials{grid-template-columns:1fr;}
     section{padding:70px 0;}
   }
+
+  /* ---------- MOBILE EDGE SPACING FIX ----------
+  @media (max-width: 600px){
+    .wrap{padding-left:24px !important; padding-right:24px !important; width:100%;}
+    nav{padding-left:24px !important; padding-right:24px !important; gap:14px;}
+    .hero{padding-left:0 !important; padding-right:0 !important; width:100%;}
+    .hero > div{min-width:0; width:100%;}
+    .hero h1{font-size:clamp(1.75rem, 8vw, 2.25rem); overflow-wrap:anywhere;}
+    .hero h1 br{display:none;}
+    .hero-sub, .hero-note, .section-head, .f-text, .chakra-detail, .cta-footer > p{
+      max-width:100%; overflow-wrap:anywhere; margin-left:auto; margin-right:auto;
+    }
+    .hero-actions{gap:12px; width:100%;}
+    .hero-actions .btn{max-width:100%; white-space:normal; justify-content:center;}
+    .tool-panel{padding:28px 20px !important; min-width:0;}
+    .gallery, .testimonials{min-width:0;}
+    footer{padding-left:24px !important; padding-right:24px !important;}
+  }
+  @media (max-width: 380px){
+    .wrap{padding-left:18px !important; padding-right:18px !important;}
+    nav{padding-left:18px !important; padding-right:18px !important;}
+    .hero-actions .btn{padding:14px 20px;}
+    .tool-panel{padding-left:16px !important; padding-right:16px !important;}
+    footer{padding-left:18px !important; padding-right:18px !important;}
+  }
+
 </style>
 </head>
 <body>

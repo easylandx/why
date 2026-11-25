@@ -144,6 +144,27 @@
     .navrow{padding-left:32px; padding-right:32px;}
   }
 
+
+  /* Robust mobile gutters: prevent content from touching viewport edges */
+  @media (max-width: 719px) {
+    html, body { width: 100%; overflow-x: hidden; }
+    .wrap { width: 100%; max-width: 100%; padding-left: 24px !important; padding-right: 24px !important; }
+    .hero { min-width: 0; gap: 24px; }
+    .hero > div, .hero h1, .hero p, section .wrap, .pillar, .step, .quote, .cta { min-width: 0; }
+    h1, h2, h3, p, .kicker, .lede { overflow-wrap: anywhere; word-break: normal; }
+    .hero-actions { gap: 12px; }
+    .btn { max-width: 100%; white-space: normal; text-align: center; }
+    .calc { padding: 24px 18px; }
+    .result-row { gap: 10px; flex-wrap: wrap; }
+    .badge { padding-left: 16px; padding-right: 16px; }
+  }
+  @media (max-width: 380px) {
+    .wrap { padding-left: 20px !important; padding-right: 20px !important; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn { width: 100%; }
+    .calc { padding: 20px 16px; }
+  }
+
 </style>
 </head>
 <body>

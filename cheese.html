@@ -267,6 +267,25 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   }
+
+  /* Mobile edge-spacing fix: ensure all wrapped sections have a comfortable gutter. */
+  @media (max-width: 600px) {
+    .wrap {
+      padding-left: max(24px, env(safe-area-inset-left, 0px)) !important;
+      padding-right: max(24px, env(safe-area-inset-right, 0px)) !important;
+    }
+    .hero, .section-head, .card, .interactive-panel, .mock-body, .cta-final, .foot-row {
+      min-width: 0;
+    }
+    .hero p, section p { max-width: 100%; }
+  }
+  @media (max-width: 380px) {
+    .wrap {
+      padding-left: max(20px, env(safe-area-inset-left, 0px)) !important;
+      padding-right: max(20px, env(safe-area-inset-right, 0px)) !important;
+    }
+  }
+
 </style>
 </head>
 <body>
